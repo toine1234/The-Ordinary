@@ -19,9 +19,18 @@
     <div class="header">
         <div class="header-top">
             <div class="header-slide">
-                <button class="header-icon">
+                <button class="header-icon-previous">
                     <i class="fa-solid fa-chevron-left" style="color: black;"></i>
                     <span class="sr-only">Previous</span>
+                </button>
+
+                <div class="header-promo-slider">
+                    
+                </div>
+
+                <button class="header-icon-next">
+                <i class="fa-solid fa-chevron-right" style="color: black;"></i>
+                    <span class="sr-only">Next</span>
                 </button>
             </div>
         </div>
