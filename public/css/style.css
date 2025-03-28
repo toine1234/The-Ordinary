@@ -6,6 +6,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+header{
+    position: relative;
+    background-color: #fff;
+}
+
 body{
     background: url('../images/#1.png') no-repeat;
     background-attachment: fixed;

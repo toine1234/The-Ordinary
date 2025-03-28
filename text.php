@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-        <!-- fontawesome -->
-        <link rel="icon" href="https://fontawesome.com/">
+    
+    <!-- fontawesome -->
+    <link rel="icon" href="https://fontawesome.com/">
+
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +16,24 @@
     <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
-    hello
+    <!-- Header -->
+    <div class="header">
+        <div class="header_top">
+            <div class="header_slide" style="width: 100%; position: absolute; display: flex; justify-content: center; align-items: center;">
+                <button class="header_icon" style="position: relative; align-self: flex-end; background: transparent; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    ::before
+                    <span class="sr-only">Previous</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
 </body>
 </html>

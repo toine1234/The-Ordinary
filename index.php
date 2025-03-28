@@ -20,9 +20,15 @@
 </html>
 
 <?php
-    require('Model/Database.php');
-	$db = new Database;
-	$db->connect();
 
-	$db->closeDatabase();
+
+    include 'text.php';
+
+
+
+    // require('Model/Database.php');
+	// $db = new Database;
+	// $db->connect();
+
+	// $db->closeDatabase();
 ?>
