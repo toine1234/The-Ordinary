@@ -165,10 +165,36 @@
     padding: 10px;
 }
 
+/* content */
+.poster{
+    height: 80vh;
+    width: 100%;
+    position: relative;
+}
+.poster-image{
+    width: 100%;
+    height: 100%;
+}
+.title{
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    width: 300px;
+    transform: translate(30%,-50%);
+}
 
 
-
-
+.btn-explore-collections{
+    font-weight: 600px;
+    padding: 0 32px;
+    border-radius: 20px;
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    background-color: black;
+    margin-top: 50px;
+    line-height: 42px;
+}
 
 
 

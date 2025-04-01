@@ -20,77 +20,28 @@
 
 <body>
     <!-- Header -->
-    <div class="main-nav">
-        <div class="header">
-            <div class="header-top">
-                <div class="header-slide">
-                    <button class="header-icon-previous">
-                        <i class="fa-solid fa-chevron-left"></i>
-                        <span class="sr-only">Previous</span>
-                    </button>
-
-                    <div class="header-promo-slider">
-
-                    </div>
-
-                    <button class="header-icon-next">
-                        <i class="fa-solid fa-chevron-right"></i>
-                        <span class="sr-only">Next</span>
-                    </button>
-                </div>
-                <div class="icon-header">
-                    <button class="icon-header-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <button class="icon-header-btn">
-                        <i class="fa-solid fa-user"></i>
-                    </button>
-                    <button class="icon-header-btn">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </button>
-                </div>
+    <?php
+        include './viewer/header.php';
+    ?>
+    <!-- Content -->
+    <div class="content-wrapper">
+        <div class="poster">
+            <img class="poster-image" src="./public/images/ORD-HP-Hero-SS-Hydration-Collection.png" alt="The Ordinary Bestsellers">
+            <div class="title">
+                <h1 class="h1-title">Your Real Skin. Our Serum Foundation. Back for a Limited Time.</h1>
+                <p>
+                    Tailored for common skin concerns, so you can simply choose what’s best for you—and
+                    <b>save 10%*</b>
+                    while you’re at it.
+                </p>
+                
+                <a class="btn-explore-collections" href="https://theordinary.com/en-vn/category/skincare/skincare-collections"></a>
+                
             </div>
+            
         </div>
-        <div class="brand-nav">
-            <ul class="brand-list">
-                <li class="brand-item active-brand">
-                    <a>
-                        <img class="img-brand" src="./public/images/logoTO.png">
-                        <p>THE <br> ORDINARY</p>
-                    </a>
-                </li>
-                <li class="brand-item">
-                    <a>
 
-                        <p>NIOD</p>
-                    </a>
-                </li>
-                <li class="brand-item">
-                    <a>
-
-                        <p>LOOPHA</p>
-                    </a>
-                </li>
-                <li class="brand-item">
-                    <a>
-
-                        <p>DECIEM</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="navbar-expand">
-            <div class="menu-group">
-                <ul class="list-menu">
-                    <li class="menu-item">New</li>
-                    <li class="menu-item">Bestsellers</li>
-                    <li class="menu-item">Skincare</li>
-                </ul>
-            </div>
-        </div>
     </div>
 
-
 </body>
-
 </html>
