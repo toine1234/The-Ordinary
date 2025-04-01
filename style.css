@@ -185,15 +185,21 @@
 
 
 .btn-explore-collections{
+    display: inline-block;
     font-weight: 600px;
     padding: 40px 40px;
     border-radius: 20px;
     width: 150px;
     height: 150px;
     box-sizing: border-box;
-    background-color: black;
+    background-color: white;
+    color: black;
     margin-top: 50px;
     line-height: 42px;
+}
+.btn-explore-collections:hover{
+    background-color: black;
+    color: white;
 }
 
 
