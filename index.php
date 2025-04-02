@@ -23,6 +23,7 @@
     <?php
         include './viewer/header.php';
     ?>
+
     <!-- Content -->
     <div class="content-wrapper">
         <div class="poster">
@@ -34,13 +35,50 @@
                     <b>save 10%*</b>
                     while you’re at it.
                 </p>
-                
                 <a class="btn-explore-collections" href="https://theordinary.com/en-vn/category/skincare/skincare-collections">Explore Collections</a>
-                
             </div>
-            
         </div>
+    </div>
+    <div class="homepage">
+        <div class="layout-top"></div>
+        <div class="gap"></div>
+        <div class="is-divider">
+            <style></style>
+        </div>
+        <div class="gap"></div>
+        <div class="layout-bottom">
+            <div class="bestseller-home">
+                <ul class="menu-items">
+                    <li class="bestsellers">
+                        <a href="">
+                            <span style="font-weight: 700; font-size: 28px; color: black;">Bestsellers</span>
+                        </a>
+                    </li>
+                    <li class="view-all">
+                        <a href="">
+                            <span style="color: black;">View All</span>
+                        </a>
+                    </li>
+                </ul>
 
+                <div class="gap"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footerpage">
+        <div class="gap"></div>
+        <div class="is-divider"></div>
+        <div class="gap"></div>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="col1">12</div>
+                <div class="col2">12</div>
+                <div class="col3">12</div>
+            </div>
+        </div>
     </div>
 
 </body>
