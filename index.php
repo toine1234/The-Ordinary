@@ -15,7 +15,7 @@
         href="https://fonts.googleapis.com/css2?family=Alatsi&family=Gidole&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                     while you’re at it.
                 </p>
                 
-                <a class="btn-explore-collections" href="https://theordinary.com/en-vn/category/skincare/skincare-collections"></a>
+                <a class="btn-explore-collections" href="https://theordinary.com/en-vn/category/skincare/skincare-collections">Explore Collections</a>
                 
             </div>
             
