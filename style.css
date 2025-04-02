@@ -248,6 +248,15 @@
     display: flex;
     justify-content: space-around;
     border: 1px solid black;
-
 }
 
+.content-company{
+    margin-bottom: 36px;
+    padding: 0;
+}
+
+.menu-company > li > a{
+    text-decoration: none;
+    list-style: none;
+    text-align: left;
+}

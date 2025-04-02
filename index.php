@@ -74,8 +74,25 @@
         <div class="gap"></div>
         <div class="footer-container">
             <div class="footer-col">
-                <div class="col1">12</div>
+                <div class="col1">
+                    <div class="content-company">
+                        <h3>Company</h3>
+                        <ul class="menu-company">
+                            <li>
+                                <a href="">About Us</a>
+                            </li>
+                            <li>
+                                <a href="">The Ordinary DNA</a>
+                            </li>
+                            <li>
+                                <a href="">Join Us</a>
+                            </li>
+                            Manufacture information: DECIEM Eastside
+                        </ul>
+                    </div>
+                </div>
                 <div class="col2">12</div>
+                <div class="col3">12</div>
                 <div class="col3">12</div>
             </div>
         </div>
