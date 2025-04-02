@@ -74,26 +74,75 @@
         <div class="gap"></div>
         <div class="footer-container">
             <div class="footer-col">
-                <div class="col1">
-                    <div class="content-company">
-                        <h3>Company</h3>
-                        <ul class="menu-company">
-                            <li>
-                                <a href="">About Us</a>
-                            </li>
-                            <li>
-                                <a href="">The Ordinary DNA</a>
-                            </li>
-                            <li>
-                                <a href="">Join Us</a>
-                            </li>
-                            Manufacture information: DECIEM Eastside
-                        </ul>
-                    </div>
+                <div class="content-company">
+                    <h3>Company</h3>
+                    <ul class="menu-company">
+                        <li>
+                            <a href="">About Us</a>
+                        </li>
+                        <li>
+                            <a href="">The Ordinary DNA</a>
+                        </li>
+                        <li>
+                            <a href="">Join Us</a>
+                        </li>
+                        Manufacture information: DECIEM Eastside
+                    </ul>
+                    <h3 style="margin-top: 30px;">Our Commitments</h3>
+                    <ul class="menu-company">
+                        <li>
+                            <a href="">Accessibility</a>
+                        </li>
+                        <li>
+                            <a href="">Sustainability</a>
+                        </li>
+                        <li>
+                            <a href="">Change is the Journey</a>
+                        </li>
+                        <li>
+                            <a href="">Everything Is Chemicals</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col2">12</div>
-                <div class="col3">12</div>
-                <div class="col3">12</div>
+
+                <div class="content-customer-care">
+                <h3>Customer Care</h3>
+                    <ul class="menu-company">
+                        <li>
+                            <a href="">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="">Disposal Instructions</a>
+                        </li>
+                        <li>
+                            <a href="">Return Policy</a>
+                        </li>
+                        <li>
+                            <a href="">Promotion Terms & Conditions</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-contact">
+                    <ul class="menu-contact">
+                        <li>
+                            <a href="">Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="">Track Order</a>
+                        </li>
+                        <li>
+                            <a href="">Sign In</a>
+                        </li>
+                        <li>
+                            <a href="">Store Locator</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-info">
+                    <h3>Be in a know</h3>
+                    <p></p>
+                </div>
             </div>
         </div>
     </div>
