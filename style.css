@@ -292,6 +292,38 @@ h3{
 }
 
 .content-info-description{
+    margin-top: 10px;
     line-height: 25px;
     text-wrap: 10px;
+    margin-bottom: 10px;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.form-email{
+    font-size: 14px;
+    color: #ccc;
+    padding: 5px;
+    flex: 1;
+    border: none;
+}
+
+.content-info > p{
+    margin-top: 10px;
+    line-height: 25px;
+    font-size: 14px;
+    color: rgb(43, 38, 38);
+}
+
+.list-asset{
+    margin-top: 20px;
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
 }

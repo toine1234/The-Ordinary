@@ -88,6 +88,7 @@
                         </li>
                         Manufacture information: DECIEM Eastside
                     </ul>
+
                     <h3 style="margin-top: 30px;">Our Commitments</h3>
                     <ul class="menu-company">
                         <li>
@@ -103,6 +104,9 @@
                             <a href="">Everything Is Chemicals</a>
                         </li>
                     </ul>
+
+                    <h3>Location</h3>
+                    
                 </div>
 
                 <div class="content-customer-care">
@@ -142,7 +146,29 @@
                 <div class="content-info">
                     <h3>Be in a know</h3>
                     <p class="content-info-description">Subscribe to receive science-backed tips, access to special offers, and new innovations.</p>
+                    <form>
+                        <input type="email" class="form-email" placeholder="Enter your email">
+                        <i class="fa-solid fa-angle-right icon" style="color: gray;"></i>
+                    </form>
+                    <p>*By providing your email address you are agreeing to receive email communications from DECIEM Inc., its affiliates, brands (The Ordinary, NIOD, and LOoPHA) and/or marketing partners. This can be changed at any time. Please refer to our Privacy Policy and Terms of Use for more details or Contact Us.</p>
+                    <div class="footer-asset">
+                        <ul class="list-asset">
+                            <li>
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </li>
+                            <li>
+                                <i class="fa-brands fa-instagram"></i>
+                            </li>
+                            <li>
+                                <i class="fa-brands fa-youtube"></i>
+                            </li>
+                            <li>
+                                <i class="fa-brands fa-tiktok"></i>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
