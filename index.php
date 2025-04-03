@@ -33,8 +33,7 @@
 
 
 
-    <!-- Content 
-    Hinh anh dau trang-->
+    <!-- Content - Poster Header -->
     <div class="content-wrapper">
         <div class="poster">
             <img class="poster-image" src="./public/images/ORD-HP-Hero-SS-Hydration-Collection.png" alt="The Ordinary Bestsellers">
@@ -49,13 +48,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Main Home Page -->
     <div class="homepage">
+        <!-- Line -->
         <div class="layout-top"></div>
         <div class="gap"></div>
-        <div class="is-divider">
-            <style></style>
-        </div>
+        <div class="is-divider"></div>
         <div class="gap"></div>
+
+        <!--------- Home-Bestseller ---------------->
         <div class="layout-bottom">
             <div class="bestseller-home">
                 <ul class="menu-items">
@@ -73,6 +75,7 @@
 
                 <div class="gap"></div>
 
+                <!-- Bestseller -->
                 <div class="home-list-bestsellers">
                     <!-- item 1 -->
                     <div class="home-bestsellers">
@@ -140,6 +143,7 @@
                             <p class="price">9.90 USD</p>
                             <div class="size-options">
                                 <a href="">30ml</a>
+                                <a href="">60ml</a>
                             </div>
                         </div>
                         <button class="home-add-to-cart">Add To Cart</button>
@@ -169,10 +173,51 @@
                         <button class="home-add-to-cart">Add To Cart</button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!--------- Home-Concert ---------------->
+        <div class="home-concert">
+            <div class="gap"></div>
+            <div class="is-divider"></div>
+            <div class="gap"></div>
+            <h3>Common Concerns</h3>
+            <p>Not sure where to begin? Here are some common skin concerns.</p>
+            <div class="home-list-concert">
+                <!-- 1 -->
+                <div class="type-concert">
+                    <img src="./public/images/signs-of-aging-concern_1.png" alt="">
+                    <a href="">Aging &rarr;</a>
+                </div>
+                <!-- 2 -->
+                <div class="type-concert">
+                    <img src="./public/images/congestion-concerns.png" alt="">
+                    <a href="">Congestion &rarr;</a>
+                </div>
+                <!-- 3 -->
+                <div class="type-concert">
+                    <img src="./public/images/Dark Circles.png" alt="">
+                    <a href="">Texture &rarr;</a>
+                </div>
+                <!-- 4 -->
+                <div class="type-concert">
+                    <img src="./public/images/Texture.png" alt="">
+                    <a href="">Eye Care &rarr;</a>
+                </div>
+                <!-- 5 -->
+                <div class="type-concert">
+                    <img src="./public/images/Redness-Concern1.png" alt="">
+                    <a href="">Redness &rarr;</a>
+                </div>
+                <!-- 6 -->
+                <div class="type-concert">
+                    <img src="./public/images/Dryness-Concern.png" alt="">
+                    <a href="">Dryness &rarr;</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 
