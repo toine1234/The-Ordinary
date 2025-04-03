@@ -6,13 +6,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* body{
-    background: url('../images/#1.png') no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-} */
-
 /* Header */
 
 .main-nav{
@@ -241,13 +234,13 @@
 .footer-container{
     width: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .footer-col{
     width: 90%;
     display: flex;
     justify-content: space-around;
-    border: 1px solid black;
 }
 
 .content-company{
@@ -269,7 +262,7 @@ h3{
 .menu-company{
     list-style: none;
     text-align: left;
-    margin-top: 10px;
+    margin-top: 20px;
     line-height: 25px;
 }
 
@@ -281,7 +274,7 @@ h3{
 .menu-contact{
     list-style: none;
     text-align: left;
-    margin-top: 10px;
+    margin-top: 20px;
     line-height: 30px;
     font-weight: bold;
 }
@@ -292,9 +285,8 @@ h3{
 }
 
 .content-info-description{
-    margin-top: 10px;
+    margin-top: 20px;
     line-height: 25px;
-    text-wrap: 10px;
     margin-bottom: 10px;
 }
 
@@ -308,7 +300,7 @@ form{
 
 .form-email{
     font-size: 14px;
-    color: #ccc;
+    color: black;
     padding: 5px;
     flex: 1;
     border: none;
@@ -326,4 +318,97 @@ form{
     list-style: none;
     display: flex;
     justify-content: space-evenly;
+}
+
+.location{
+    line-height: 25px;
+    margin-top: 10px;
+}
+
+.location > p{
+    padding-left: 18px;
+}
+
+.footer-asset{
+    font-size: 190%;
+}
+
+.footer-copyright-menu{
+    margin-top: 30px;
+    width: 90%;
+
+}
+
+.footer-copyright-menu > ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    font-size: 13px;
+    color: grey;
+}
+
+.home-list-bestsellers{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    min-height: 300px;
+}
+
+.home-bestsellers img{
+    width: 100%;
+    background-color: #e5e5e5
+}
+.home-bestsellers{
+    position: relative;
+}
+
+.tag{
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    font-size: 12px;
+    background-color: white;
+    padding: 4px;
+}
+
+.home-bestsellers > i{
+    position: absolute;
+    right:7px;
+    top: 7px;
+}
+
+.home-bestsellers > a{
+    text-decoration: none;
+    color: black;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.divider-home-bestseller{
+    display: block;
+    height: 1px;
+    background-color: #ccc;
+    width: 100%;
+}
+
+.homebestsellers-price{
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    width: 300;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.price{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.size-options{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }

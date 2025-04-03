@@ -24,7 +24,17 @@
         include './viewer/header.php';
     ?>
 
-    <!-- Content -->
+
+
+
+
+
+
+
+
+
+    <!-- Content 
+    Hinh anh dau trang-->
     <div class="content-wrapper">
         <div class="poster">
             <img class="poster-image" src="./public/images/ORD-HP-Hero-SS-Hydration-Collection.png" alt="The Ordinary Bestsellers">
@@ -63,115 +73,50 @@
 
                 <div class="gap"></div>
 
+                <div class="home-list-bestsellers">
+                    <div class="home-bestsellers">
+                        <img src="./public/images/ord-glyc-acid-7pct-100ml-Aug-UPC.png" alt="">
+                        <div class="tag">Bestseller</div>
+                        <i class="fa-regular fa-heart"></i>
+                        <a href="">Glycolic Acid 7% Exfoliating Toner</a>
+                        <div class="comment-star">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <a href="" style="color: gray;">Evens Texture & Tone, Radiance</a>
+                        <div class="divider-home-bestseller"></div>
+                        <div class="homebestsellers-price">
+                            <p class="price">8.70 USD</p>
+                            <div class="size-options">
+                                <a href="#" class="active">100ml</a>
+                                <a href="#">240ml</a>
+                            </div>
+                            <button class="home-add-home-cart"></button>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
 
     <!-- Footer -->
-    <div class="footerpage">
-        <div class="gap"></div>
-        <div class="is-divider"></div>
-        <div class="gap"></div>
-        <div class="footer-container">
-            <div class="footer-col">
-                <div class="content-company">
-                    <h3>Company</h3>
-                    <ul class="menu-company">
-                        <li>
-                            <a href="">About Us</a>
-                        </li>
-                        <li>
-                            <a href="">The Ordinary DNA</a>
-                        </li>
-                        <li>
-                            <a href="">Join Us</a>
-                        </li>
-                        Manufacture information: DECIEM Eastside
-                    </ul>
-
-                    <h3 style="margin-top: 30px;">Our Commitments</h3>
-                    <ul class="menu-company">
-                        <li>
-                            <a href="">Accessibility</a>
-                        </li>
-                        <li>
-                            <a href="">Sustainability</a>
-                        </li>
-                        <li>
-                            <a href="">Change is the Journey</a>
-                        </li>
-                        <li>
-                            <a href="">Everything Is Chemicals</a>
-                        </li>
-                    </ul>
-
-                    <h3>Location</h3>
-                    
-                </div>
-
-                <div class="content-customer-care">
-                <h3>Customer Care</h3>
-                    <ul class="menu-company">
-                        <li>
-                            <a href="">FAQ</a>
-                        </li>
-                        <li>
-                            <a href="">Disposal Instructions</a>
-                        </li>
-                        <li>
-                            <a href="">Return Policy</a>
-                        </li>
-                        <li>
-                            <a href="">Promotion Terms & Conditions</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="content-contact">
-                    <ul class="menu-contact">
-                        <li>
-                            <a href="">Contact Us</a>
-                        </li>
-                        <li>
-                            <a href="">Track Order</a>
-                        </li>
-                        <li>
-                            <a href="">Sign In</a>
-                        </li>
-                        <li>
-                            <a href="">Store Locator</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="content-info">
-                    <h3>Be in a know</h3>
-                    <p class="content-info-description">Subscribe to receive science-backed tips, access to special offers, and new innovations.</p>
-                    <form>
-                        <input type="email" class="form-email" placeholder="Enter your email">
-                        <i class="fa-solid fa-angle-right icon" style="color: gray;"></i>
-                    </form>
-                    <p>*By providing your email address you are agreeing to receive email communications from DECIEM Inc., its affiliates, brands (The Ordinary, NIOD, and LOoPHA) and/or marketing partners. This can be changed at any time. Please refer to our Privacy Policy and Terms of Use for more details or Contact Us.</p>
-                    <div class="footer-asset">
-                        <ul class="list-asset">
-                            <li>
-                                <i class="fa-brands fa-facebook-f"></i>
-                            </li>
-                            <li>
-                                <i class="fa-brands fa-instagram"></i>
-                            </li>
-                            <li>
-                                <i class="fa-brands fa-youtube"></i>
-                            </li>
-                            <li>
-                                <i class="fa-brands fa-tiktok"></i>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    <?php
+        include './viewer/footer.php';
+    ?>
 
 </body>
 </html>
