@@ -74,6 +74,7 @@
                 <div class="gap"></div>
 
                 <div class="home-list-bestsellers">
+                    <!-- item 1 -->
                     <div class="home-bestsellers">
                         <img src="./public/images/ord-glyc-acid-7pct-100ml-Aug-UPC.png" alt="">
                         <div class="tag">Bestseller</div>
@@ -91,17 +92,84 @@
                         <div class="homebestsellers-price">
                             <p class="price">8.70 USD</p>
                             <div class="size-options">
-                                <a href="#" class="active">100ml</a>
-                                <a href="#">240ml</a>
+                                <a href="">100ml</a>
+                                <a href="">240ml</a>
                             </div>
-                            <button class="home-add-home-cart"></button>
                         </div>
+                        <button class="home-add-to-cart">Add To Cart</button>
                     </div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <!-- item 2 -->
+                    <div class="home-bestsellers">
+                        <img src="./public/images/ORD-gf-15-pct-packshot.png" alt="">
+                        <div class="tag">New</div>
+                        <i class="fa-regular fa-heart"></i>
+                        <a href="">GF 15% Solution</a>
+                        <div class="comment-star">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <a href="" style="color: gray;">Promotes Visible Regeneration</a>
+                        <div class="divider-home-bestseller"></div>
+                        <div class="homebestsellers-price">
+                            <p class="price">15.50 USD</p>
+                            <div class="size-options">
+                                <a href="">30ml</a>
+                            </div>
+                        </div>
+                        <button class="home-add-to-cart">Add To Cart</button>
+                    </div>
+                    <!-- item 3 -->
+                    <div class="home-bestsellers">
+                        <img src="./public/images/ord-hyaluronic-acid-2pct-B5-30ml-Clr-Acu.png" alt="">
+                        <div class="tag">Bestseller</div>
+                        <i class="fa-regular fa-heart"></i>
+                        <a href="">Hyaluronic Acid 2% + B5 (with Ceramides)</a>
+                        <div class="comment-star">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <a href="" style="color: gray;">Plumps, Smooths</a>
+                        <div class="divider-home-bestseller"></div>
+                        <div class="homebestsellers-price">
+                            <p class="price">9.90 USD</p>
+                            <div class="size-options">
+                                <a href="">30ml</a>
+                            </div>
+                        </div>
+                        <button class="home-add-to-cart">Add To Cart</button>
+                    </div>
+                    <!-- item 4 -->
+                    <div class="home-bestsellers">
+                        <img src="./public/images/ord-nmf-pc-30ml-packshot1-Resized.png" alt="">
+                        <div class="tag">Trending</div>
+                        <i class="fa-regular fa-heart"></i>
+                        <a href="">Natural Moisturizing Factors + PhytoCeramides</a>
+                        <div class="comment-star">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <a href="" style="color: gray;">Nourishes, Plumps</a>
+                        <div class="divider-home-bestseller"></div>
+                        <div class="homebestsellers-price">
+                            <p class="price">10.80 USD</p>
+                            <div class="size-options">
+                                <a href="">30ml</a>
+                                <a href="">1000ml</a>
+                            </div>
+                        </div>
+                        <button class="home-add-to-cart">Add To Cart</button>
+                    </div>
                 </div>
-
+                </div>
             </div>
         </div>
     </div>
