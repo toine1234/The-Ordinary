@@ -141,7 +141,7 @@
                 </div>
                 <div class="content-info">
                     <h3>Be in a know</h3>
-                    <p></p>
+                    <p class="content-info-description">Subscribe to receive science-backed tips, access to special offers, and new innovations.</p>
                 </div>
             </div>
         </div>
