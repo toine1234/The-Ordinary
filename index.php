@@ -47,7 +47,6 @@
     <!-- Main Home Page -->
     <div class="homepage">
         <!-- Line -->
-        <div class="layout-top"></div>
         <div class="gap"></div>
         <div class="is-divider"></div>
         <div class="gap"></div>
@@ -172,10 +171,10 @@
         </div>
 
         <!--------- Home-Concert ---------------->
+        <div class="gap"></div>
+        <div class="is-divider"></div>
+        <div class="gap"></div>
         <div class="home-concert">
-            <div class="gap"></div>
-            <div class="is-divider"></div>
-            <div class="gap"></div>
             <h3>Common Concerns</h3>
             <p>Not sure where to begin? Here are some common skin concerns.</p>
             <div class="home-list-concert">
@@ -214,14 +213,14 @@
 
         <!------------- Home Find Your Formulation -------------->
         <div class="home-formulation">
-            <div class="gap"></div>
-            <div class="is-divider"></div>
-            <div class="gap"></div>
+            <div class="gap-formulation"></div>
+            <div class="is-divider-fill"></div>
+            <div class="gap-formulation"></div>
             <div class="formulation-text">
                 <h3>Find Your Formulation</h3>
-                <p style="padding-top: 20px;">Filter our formulations based on the skin concerns, you’d like to address most.</p>
+                <p style="padding-top: 30px;">Filter our formulations based on the skin concerns, you’d like to address most.</p>
             </div>
-            <!-- <div class="formulation-form">
+            <div class="formulation-form">
                 <form>
                     <label for="product-type">I am looking for</label>
                     <select name="product-type">
@@ -245,22 +244,36 @@
                         <option value="barrier-support">Barrier Support</option>
                     </select>
                     <button type="submit">Get My Formulation</button>
-                </form> -->
+                </form>
             </div>
         </div>
 
+        <!------------- Home Soothe Sensitive Skin -------------->
+        <div class="home-soothe-sensitive">
+            <div class="gap-formulation"></div>
+            <div class="is-divider-fill"></div>
+            <div class="gap-formulation"></div>
+            <img src="./public/images/sensitive-skin-collection-50-50.png" alt="">
+            <div class="soothe-text">
+                <h3 style="margin-bottom: 30px; margin-top: 100px;">Soothe Sensitive Skin.</h3>
+                <p style="margin-bottom: 30px;">The Sensitive Skin Collection carries some of our favourite products designed to smooth and soften skin texture while supporting the skin barrier.</p>
+                <button type="submit">Shop The Collection</button>
+            </div>
+        </div>
 
-
+        <!------------- Home Skincare with Integrity. -------------->
+        <div class="gap"></div>
+        <div class="home-intergrity">
+            <div class="home-intergrity-text">
+                <h3 style="margin-bottom: 30px;">Skincare with Integrity.</h3>
+                <p style="margin-bottom: 30px;">Vegan, cruelty-free, not tested on animals, and recognized worldwide—our formulations reflect our ongoing commitment to high-quality skincare, rooted in integrity and accessibility.</p>
+                <button type="submit">ABOUT US</button>
+            </div>
+            <img src="./public/images/about-us-slot-e.png" alt="">
+        </div>
 
     </div>
 </div>
-
-
-
-
-
-
-
 
     <!-- Footer -->
     <?php

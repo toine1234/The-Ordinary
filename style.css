@@ -459,10 +459,133 @@ form{
 
 /* Home Find Your Formulation */
 
-.home-formulation{
+.is-divider-fill{
+    height: 0.5px;
+    display: block;
+    background-color: black;
+    align-items: center;
     width: 100%;
+}
+
+.gap-formulation {
+    padding-top: 70px;
+}
+
+.home-formulation{
+    width: 90%;
     position: relative;
 }
-.formulation-text{
 
+.formulation-text{
+    position: relative;
+    height: 200px;
+    width: 90%;
+}
+.formulation-form{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 20px;
+    width: 40%;
+    padding: 40px;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+.formulation-form form{
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    padding: 15px;
+}
+
+.formulation-form label{
+    font-size: 20px;
+    white-space: nowrap;
+}
+.formulation-form select{
+    padding: 10px 14px;
+    font-size: 18px;
+    border-radius: 6px;
+    background: transparent;
+    min-width: 180px;
+    outline: none;
+}
+
+.formulation-form button{
+    color: gray;
+    margin-top: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 30px;
+    cursor: pointer;
+    width: fit-content;
+    transform: background-color 0.3s ease;
+}
+
+/* Home Soothe Sensitive Skin */
+
+.home-soothe-sensitive{
+    width: 90%;
+    position: relative;
+    height: 800px;
+}
+.home-soothe-sensitive img{
+    width: 900px;
+    height: auto;
+    position: absolute;
+    top: 0;
+}
+
+.soothe-text{
+    position: absolute;
+    left: 70%;
+    top: 35%;
+    transform: translate(-50%,-50%);
+    font-size: 20px;
+}
+.soothe-text button{
+    color: black;
+    margin-top: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 30px;
+    cursor: pointer;
+    width: fit-content;
+    transform: background-color 0.3s ease;
+}
+
+/* Home Skincare with Integrity */
+.home-intergrity{
+    width: 90%;
+    position: relative;
+}
+
+.home-intergrity-text{
+    position: absolute;
+    width: 30%;
+    top: 35%;
+    left: 10%;
+    font-size: 20px;
+}
+
+.home-intergrity button{
+    color: black;
+    margin-top: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 30px;
+    cursor: pointer;
+    width: fit-content;
+    transform: background-color 0.3s ease;
 }
