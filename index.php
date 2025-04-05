@@ -28,11 +28,6 @@
 
 
 
-
-
-
-
-
     <!-- Content - Poster Header -->
     <div class="content-wrapper">
         <div class="poster">
