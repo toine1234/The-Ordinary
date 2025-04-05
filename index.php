@@ -216,6 +216,47 @@
                 </div>
             </div>
         </div>
+
+        <!------------- Home Find Your Formulation -------------->
+        <div class="home-formulation">
+            <div class="gap"></div>
+            <div class="is-divider"></div>
+            <div class="gap"></div>
+            <div class="formulation-text">
+                <h3>Find Your Formulation</h3>
+                <p style="padding-top: 20px;">Filter our formulations based on the skin concerns, you’d like to address most.</p>
+            </div>
+            <!-- <div class="formulation-form">
+                <form>
+                    <label for="product-type">I am looking for</label>
+                    <select name="product-type">
+                        <option value disabled selected class="placeholder">Product Type</option>
+                        <option value="facial-cleansers">Facial Cleansers</option>
+                        <option value="toners">Toners</option>
+                        <option value="eye-serums">Eye Serums</option>
+                        <option value="exfoliators">Exfoliators</option>
+                        <option value="serums">Serums</option>
+                        <option value="face-oils">Face Oils</option>
+                        <option value="moisturizers">Moisturizers</option>
+                        <option value="face-masques">Face Masques</option>
+                    </select>
+                    <label>to target</label>
+                    <select name="concert">
+                        <option value disabled selected class="placeholder"> concern </option>
+                        <option value="uneven-skin-tone">Uneven Skin Tone</option>
+                        <option value="textural-irregularities">Textural Irregularities</option>
+                        <option value="dryness">Dryness</option>
+                        <option value="dullness">Dullness</option>
+                        <option value="barrier-support">Barrier Support</option>
+                    </select>
+                    <button type="submit">Get My Formulation</button>
+                </form> -->
+            </div>
+        </div>
+
+
+
+
     </div>
 </div>
 
