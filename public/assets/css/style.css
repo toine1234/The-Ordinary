@@ -723,7 +723,7 @@ h3{
 
 .login-wrapper{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     gap: 60px;
     position: relative;
     align-items: stretch;
@@ -731,8 +731,8 @@ h3{
 }
 
 .login-left, .login-right{
-    width: 25%;
-    padding: 40px;
+    width: 37%;
+    padding: 80px;
 }
 
 .login-left form{

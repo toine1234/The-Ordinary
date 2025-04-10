@@ -35,9 +35,9 @@
         <div class="login-right">
             <h2 style="text-align: center; margin-bottom: 20px;">DISCOVER THE BENEFITS OF MEMBERSHIP</h2>
             <p style="text-align: center; margin-bottom: 20px;">One account. Three brands. Endless possibilities.</p>
-            <img src="https://theordinary.com/on/demandware.static/-/Library-Sites-DeciemSharedLibrary/default/dw1a6617c2/deciem/signin-banner-image.jpg"
-                alt="login image">
+            <img src="https://theordinary.com/on/demandware.static/-/Library-Sites-DeciemSharedLibrary/default/dw1a6617c2/deciem/signin-banner-image.jpg" alt="login image">
             <ul>
+                
                 <li>&#10003; Get personalized product recommendations via our comprehensive Regimen Builder.</li>
                 <li>&#10003; Track orders and manage all your subscriptions in one place.</li>
             </ul>
