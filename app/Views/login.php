@@ -9,7 +9,7 @@
     <div class="login-wrapper">
         <div class="login-left">
             <h2 style="text-align: left; line-height: 30px; padding-bottom: 20px; font-size: 20px">SIGN IN TO YOUR ACCOUNT</h2>
-            <p style="text-align: left;">First time visiting? You might need to <a href="#"
+            <p style="text-align: left;">First time visiting? You might need to <a href="/The-Ordinary/resetpassword"
                     style="color: black;">reset your password</a></p>
 
             <form>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="options">
                     <label><input type="checkbox" />Remember Me</label>
-                    <a href="#">Reset password</a>
+                    <a href="/The-Ordinary/resetpassword">Reset password</a>
                 </div>
 
                 <button type="submit" class="btn-signin">SIGN IN</button>
