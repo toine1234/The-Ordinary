@@ -1,12 +1,16 @@
 <?php
 namespace App\Models;
+require_once __DIR__ . '/../Models/Database.php';
+use App\Models\Database;
 
 class Product {
-    public static function all() {
-        return [
-            ['name' => 'Sữa rửa mặt A', 'price' => 120000],
-            ['name' => 'Kem dưỡng da B', 'price' => 250000],
-            ['name' => 'Serum C', 'price' => 350000],
-        ];
+    public static function getAllProducts() {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM san_pham";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+    
 }

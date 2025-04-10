@@ -6,7 +6,7 @@ use App\Models\Product;
 
 class ShopController {
     public function index() {
-        $products = Product::all();
+        $products = Product::getAllProducts();
         require 'app/Views/layouts/header.php';
         require 'app/Views/shop.php';
         require 'app/Views/layouts/footer.php';
