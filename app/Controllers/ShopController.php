@@ -12,7 +12,10 @@ class ShopController {
             $filters = [$filters];
         }
 
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+
         $products = Product::getFilteredProducts($filters);
+        $products = Product::getSortedProducts($sort);
         require 'app/Views/layouts/header.php';
         require 'app/Views/shop.php';
         require 'app/Views/layouts/footer.php';

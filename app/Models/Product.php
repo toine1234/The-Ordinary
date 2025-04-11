@@ -25,4 +25,33 @@ class Product {
         $stmt->execute($types);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public static function getSortedProducts($sortBy = null) {
+        $database = new Database();
+        $db = $database->getConnection();
+        $sql = "SELECT * FROM san_pham";
+        $query = "";
+
+        switch ($sortBy) {
+            case 'Rank by lowest price':
+                $query = " ORDER BY Gia ASC";
+                break;
+            case 'Rank by highest price':
+                $query = " ORDER BY Gia DESC";
+                break;
+            case 'name_asc':
+                $query = " ORDER BY name ASC";
+                break;
+            case 'name_desc':
+                $query = " ORDER BY name DESC";
+                break;
+            default:
+                $query = " ORDER BY IP_San_Pham ASC";
+        }
+
+        $stmt = $db->prepare($sql . $query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
 }

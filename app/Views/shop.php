@@ -22,7 +22,15 @@ $list_filter_format = [
     'Masque',
     'Suspension',
 ];
-?>
+
+$list_filter_sort = [
+    'Bestsellers',
+    'Best Matches',
+    'Rank by lowest price',
+    'Rank by highest price',
+    'Rating',
+]
+    ?>
 <div class="shop-container">
     <div class="router-shop">
         <ul class="list-router-shop">
@@ -146,6 +154,42 @@ $list_filter_format = [
         <!--------------- PRODUCTS ------------------>
 
         <div class="products-list">
+            <div class="filter-sort">
+                <button class="btn-filter-sort" type="button">
+                    <span class="filter-sort-title">Sort by</span>
+                    <span class="filter-sort-icon">&#8250;</span>
+                    <div class="sort-by-bar">
+                        <form class="sort-form">
+                            <?php foreach ($list_filter_sort as $item): ?>
+                                <label class="sort-item">
+                                    <input type="radio" name="sort" value="<?= htmlspecialchars($item) ?>"
+                                        <?= isset($_GET['sort']) && $_GET['sort'] === $item ? 'checked' : '' ?>>
+                                    <?= htmlspecialchars($item) ?>
+                                </label>
+                            <?php endforeach; ?>
+                        </form>
+                        <script>
+                            document.querySelectorAll('.sort-form input[type="radio"]')
+                                .forEach(
+                                    function (checkbox) {
+                                        checkbox.addEventListener('change', function () {
+                                            document.querySelector('.sort-form').submit();
+
+                                        });
+
+                                    });
+                        </script>
+                    </div>
+                </button>
+                <script>
+                    document.querySelector('.btn-filter-sort').addEventListener('click', function () {
+                        const items = document.querySelector('.sort-by-bar');
+                        const btn = document.querySelector('.btn-filter-sort');
+                        items.style.display = items.style.display === 'block' ? 'none' : 'block';
+                        btn.style.border = items.style.display === 'block' ? '1px solid #000' : 'none';
+                    });
+                </script>
+            </div>
             <div class="products-list-title">
                 <h2>Products</h2>
                 <p>All products</p>

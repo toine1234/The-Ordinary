@@ -1290,7 +1290,66 @@ h3{
     border-radius: 5px;
 }
 
+/* Filter sort */
 
+.filter-sort{
+    grid-column-start: 1;
+    grid-column-end: 5;
+    display: flex;
+    justify-content: right;
+    background-color: var(--white);
+    font-weight: bolder;
+}
+
+.btn-filter-sort{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    top:20px;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.filter-sort-icon{
+    transform: rotate(90deg);
+    display: block;
+    font-size: 20px;
+
+}
+
+.sort-by-bar{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background-color: var(--greylightnhe);
+    padding: 20px;
+    display: none;
+}
+
+.sort-form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sort-item{
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+    align-items: center;
+}
+
+.sort-item > input{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 /* products */
 .products-list{
@@ -1299,6 +1358,7 @@ h3{
     gap: 20px;
     width: 100%;
     padding: 50px;
+    position: relative;
 }
 
 .products-list-title{
@@ -1310,7 +1370,7 @@ h3{
 .products-list-title > h2{
     font-size: 30px;
     font-weight: 500;
-    margin-top: 50px;
+    
 }
 
 .product-container{
