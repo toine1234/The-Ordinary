@@ -6,9 +6,9 @@ use PDOException;
 class Database
 {
     private $host = 'localhost';
-    private $dbName = 'TheOrdinarySQL';
-    private $username = 'huydinh';
-    private $password = 'anhzi2004';
+    private $dbName = 'theordinarysql2';
+    private $username = 'root';
+    private $password = '';
     private $connection;
 
     public function __construct()
