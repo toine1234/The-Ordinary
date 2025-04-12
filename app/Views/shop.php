@@ -86,8 +86,7 @@ $list_filter_sort = [
                                         document.getElementById('filter-form--type').submit();
 
                                     });
-                                    const items = document.querySelector('.filter-group-items--type');
-                                    items.style.display = 'block'
+                                    
 
                                 });
                     </script>
@@ -119,7 +118,7 @@ $list_filter_sort = [
                     document.querySelector('.btn-more-filter--format').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--format');
                         items.style.display = items.style.display === 'block' ? 'none' : 'block';
-                        items.style.display === 'block' ? items.classList.add('slide-in') : items.classList.remove('slide-in');
+                        items.style.display === 'block' ? items.classList.toggle('slide-in') : items.classList.remove('slide-in');
                     });
                 </script>
                 <div class="filter-group-items--format">
@@ -140,8 +139,7 @@ $list_filter_sort = [
                                         document.getElementById('filter-form--format').submit();
 
                                     });
-                                    const items = document.querySelector('.filter-group-items--format');
-                                    items.style.display = 'block'
+                                    
 
                                 });
                     </script>
@@ -196,8 +194,10 @@ $list_filter_sort = [
             </div>
             <?php foreach ($products as $product): ?>
                 <div class="product-container">
-                    <img src="<?= htmlspecialchars(explode(';', $product["Hinh_Anh"])[0]) ?>"
-                        alt="<?= htmlspecialchars($product["Ten_SP"]) ?>" class="product-image">
+                    <a href="/The-Ordinary/product?id=<?= htmlspecialchars($product["IP_San_Pham"]) ?>">
+                        <img src="<?= htmlspecialchars(explode(';', $product["Hinh_Anh"])[0]) ?>"
+                            alt="<?= htmlspecialchars($product["Ten_SP"]) ?>" class="product-image">
+                    </a>
                     <h2 class="product-title"><?= htmlspecialchars($product["Ten_SP"]) ?></h2>
                     <p class="product-targets"><?= htmlspecialchars($product["Targets"]) ?></p>
                     <div class="product-quantity">

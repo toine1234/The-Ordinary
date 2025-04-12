@@ -3,6 +3,7 @@
 function defineRoutes($router) {
     $router->get('/', [App\Controllers\HomeController::class, 'index']);
     $router->get('/shop', [App\Controllers\ShopController::class, 'index']);
+    $router->get('/product', [App\Controllers\ProductController::class, 'detail']);
     $router->get('/login', [App\Controllers\AuthController::class, 'showLogin']);
     $router->post('/login', [App\Controllers\AuthController::class, 'login']);
     $router->get('/signup', [App\Controllers\SignupController::class, 'index']);

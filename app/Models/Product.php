@@ -12,6 +12,15 @@ class Product {
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public static function getProductsById($id) {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM san_pham WHERE IP_San_Pham = $id";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     
     public static function getFilteredProducts($types = []) {
         $database = new Database();
@@ -21,6 +30,7 @@ class Product {
             $placeholders = implode(',', array_fill(0, count($types), '?'));
             $query .= " WHERE Format IN ($placeholders) ";
         }
+        
         $stmt = $db->prepare($query);
         $stmt->execute($types);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -46,7 +56,7 @@ class Product {
                 $query = " ORDER BY name DESC";
                 break;
             default:
-                $query = " ORDER BY IP_San_Pham ASC";
+                break;
         }
 
         $stmt = $db->prepare($sql . $query);
