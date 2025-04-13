@@ -65,10 +65,10 @@ $list_filter_sort = [
                     document.querySelector('.btn-more-filter--type').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--type');
                         items.style.display = items.style.display === 'block' ? 'none' : 'block';
-                        items.style.display === 'block' ? items.classList.add('slide-in') : items.classList.remove('slide-in');
+                        
                     });
                 </script>
-                <div class="filter-group-items--type">
+                <div class="filter-group-items--type" style="display: block;">
                     <form method="GET" id="filter-form--type">
                         <?php foreach ($list_filter_type as $item):
                             $checked = in_array($item, $_GET['type'] ?? []) ? 'checked' : ''; ?>
@@ -118,10 +118,10 @@ $list_filter_sort = [
                     document.querySelector('.btn-more-filter--format').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--format');
                         items.style.display = items.style.display === 'block' ? 'none' : 'block';
-                        items.style.display === 'block' ? items.classList.toggle('slide-in') : items.classList.remove('slide-in');
+                        
                     });
                 </script>
-                <div class="filter-group-items--format">
+                <div class="filter-group-items--format" style="<?= isset($_GET['type']) ? 'display: block;' : 'display: none;' ?>">
                     <form method="GET" id="filter-form--format">
                         <?php foreach ($list_filter_format as $item):
                             $checked = in_array($item, $_GET['type'] ?? []) ? 'checked' : ''; ?>
@@ -205,8 +205,11 @@ $list_filter_sort = [
                         <p><?= htmlspecialchars($product["Dung_Tich"]) ?></p>
                     </div>
                     <button class="btn-add-to-cart" type="button">Add to Cart</button>
-
+                    <i class="fa-regular fa-heart action-like"></i>
                 </div>
+                <script>
+
+                </script>
             <?php endforeach ?>
         </div>
     </div>

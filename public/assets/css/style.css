@@ -110,6 +110,14 @@ html{
     background-color: transparent;
     box-shadow: none;
     border: none;
+    position: relative;
+}
+
+.amount-cart{
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    font-size: 15px;
 }
 
 .brand-nav{
@@ -1199,16 +1207,12 @@ h3{
     
 }
 
-.filter-group-items--format.slide-in,.filter-group-items--type.slide-in {
-    max-height: 500px;
-}
+
 
 .filter-group-items--type, .filter-group-items--format, .filter-group-items--active{
     margin-top: 20px;
     overflow: hidden;
-    transition: max-height 1s linear;
     display: none;
-    max-height: 0;
 }
 
 
@@ -1217,9 +1221,7 @@ h3{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    transition: max-height 1s linear;
     overflow: hidden;
-    
 }
 
 .filter-item{
@@ -1266,7 +1268,7 @@ h3{
 }
 
 .sort-by-bar{
-    width: 200px;
+    width: 210px;
     height: 200px;
     position: absolute;
     right: 0;
@@ -1274,6 +1276,7 @@ h3{
     background-color: var(--greylightnhe);
     padding: 20px;
     display: none;
+    z-index: 99;
 }
 
 .sort-form{
@@ -1320,6 +1323,7 @@ h3{
 
 .product-container{
     padding: 10px;
+    position: relative;
 }
 
 .product-image{
@@ -1337,6 +1341,11 @@ h3{
     font-weight: 500;
 }
 
+.product-targets{
+    height: 30px;
+    overflow: hidden;
+}
+
 .product-quantity{
     margin-top: 20px;
     border-top: 1px solid var(--graynhe);
@@ -1345,10 +1354,11 @@ h3{
     padding: 20px 0;
 }
 
-.product-targets{
-    height: 30px;
-    overflow: hidden;
+.product-price{
+    font-weight: 700;
 }
+
+
 
 .btn-add-to-cart{
     width: 100%;
@@ -1360,7 +1370,22 @@ h3{
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-} 
+    transition: 0.5s;
+}
+
+.btn-add-to-cart:hover{
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.action-like{
+    position: absolute;
+    top: 20px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}   
 
 
 /*=================== Product Detail ===================*/
@@ -1534,6 +1559,12 @@ h3{
     font-weight: 500;
     cursor: pointer;
     border: 1px solid var(--black);
+    transition: 0.5s;
+}
+
+.submit-add-to-cart:hover{
+    background-color: var(--black);
+    color: var(--white);
 }
 
 .product-detail-message{
@@ -1705,6 +1736,7 @@ h3{
     border: none;
     cursor: pointer;
     padding: 10px;
+    transition: transform 0.3s ease;
 }
 
 

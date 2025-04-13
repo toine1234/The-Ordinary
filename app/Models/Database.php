@@ -3,13 +3,15 @@ namespace App\Models;
 use PDO;
 use PDOException;
 
+
 class Database
 {
-    private $host = 'localhost';
-    private $dbName = 'theordinarysql2';
-    private $username = 'root';
-    private $password = '';
+    private $host;
+    private $dbName;
+    private $username;
+    private $password;
     private $connection;
+    private $config;
 
     public function __construct()
     {
@@ -19,6 +21,11 @@ class Database
     private function connect() 
     {
         try {
+            $this->config = require __DIR__ .'/../../config/config.php';
+            $this->host = $this->config['db']['host'];
+            $this->dbName = $this->config['db']['dbname'];
+            $this->username = $this->config['db']['user'];
+            $this->password = $this->config['db']['password'];
             $this->connection = new PDO(
                 "mysql:host={$this->host};dbname={$this->dbName}",
                 $this->username,

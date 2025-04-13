@@ -3,6 +3,7 @@ namespace App\Models;
 require_once __DIR__ . '/../Models/Database.php';
 use App\Models\Database;
 
+
 class Product {
     public static function getAllProducts() {
         $database = new Database();

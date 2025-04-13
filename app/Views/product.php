@@ -144,12 +144,13 @@
     <div class="product-detail-overview">
         <h2 class="product-detail-overview--title">Overview</h2>
         <button class="overview-content-toggle">
-            <i class="fa-solid fa-chevron-right"></i>
+            <i class="fa-solid fa-angle-up"></i>
         </button>
         <script>
             document.querySelector('.overview-content-toggle').addEventListener('click', function () {
                 const content = document.querySelector('.product-detail-overview--block');
                 content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
             });
         </script>
         <div class="product-detail-overview--block" style="display: block;">
@@ -189,12 +190,13 @@
     <div class="product-detail-usage">
         <h2 class="product-detail-usage--title">Usage Details</h2>
         <button class="overview-content-toggle--usage">
-            <i class="fa-solid fa-chevron-right"></i>
+            <i class="fa-solid fa-angle-up"></i>
         </button>
         <script>
             document.querySelector('.overview-content-toggle--usage').addEventListener('click', function () {
                 const content = document.querySelector('.product-detail-usage--content');
                 content.style.display = content.style.display === 'grid' ? 'none' : 'grid';
+                document.querySelector('.overview-content-toggle--usage').style.transform = content.style.display === 'grid' ? 'rotate(0)' : 'rotate(180deg)';
             });
         </script>
         <div class="product-detail-usage--content" style="display: grid;">

@@ -1,0 +1,17 @@
+{
+    "name": "vendor/index.js",
+    "require": {
+        "firebase/php-jwt": "^6.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vendor\\IndexJs\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "HuyDinhUI",
+            "email": "146050567+HuyDinhUI@users.noreply.github.com"
+        }
+    ]
+}

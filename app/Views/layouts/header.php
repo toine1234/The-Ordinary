@@ -45,6 +45,7 @@
                     </a>
                     <button class='icon-header-btn'>
                         <i class='fa-solid fa-cart-shopping'></i>
+                        <p class="amount-cart">0</p>
                     </button>
                 </div>
             </div>
@@ -81,9 +82,9 @@
         <div class='navbar-expand'>
             <div class='menu-group'>
                 <ul class='list-menu'>
+                    <li class='menu-item'><a href="/The-Ordinary/shop">All Products</a></li>
                     <li class='menu-item'><a href="/The-Ordinary/new">New</a></li>
                     <li class='menu-item'>Bestsellers</li>
-                    <li class='menu-item'>Skincare</li>
                 </ul>
             </div>
         </div>
