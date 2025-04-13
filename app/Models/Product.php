@@ -65,4 +65,14 @@ class Product {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
+
+    public static function SearchProduct($keyword) {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM san_pham WHERE Ten_SP LIKE ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute(['%' . $keyword . '%']);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
 }

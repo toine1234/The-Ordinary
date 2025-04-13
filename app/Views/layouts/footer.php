@@ -124,6 +124,36 @@
         </div>
     </div>
 </footer>
+<div class="Search-Container"></div>
+<div class="site-search">
+    <div class="search-header">
+        <h1>Search</h1>
+        <button class="close-search"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form class="form-search" action="/The-Ordinary/shop" method="GET">
+        <input type="text" name="search" class="search-input" placeholder="Search for products...">
+        <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+</div>
+<script>
+    const searchButton = document.querySelector('.icon-header-btn:nth-child(1)');
+    const searchContainer = document.querySelector('.site-search');
+    const closeSearchButton = document.querySelector('.close-search');
+    const containerSearch = document.querySelector('.Search-Container');
+
+    searchButton.addEventListener('click', () => {
+        searchContainer.style.display = 'block';
+        containerSearch.style.display = 'block';
+        searchContainer.querySelector('.search-input').focus();
+        searchContainer.querySelector('.search-input').value = ''; 
+    });
+
+    closeSearchButton.addEventListener('click', () => {
+        searchContainer.style.display = 'none';
+        containerSearch.style.display = 'none';
+
+    });
+</script>
 </body>
 
 </html>

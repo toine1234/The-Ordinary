@@ -24,6 +24,11 @@ class ShopController {
 
         }
 
+        if (isset($_GET['search'])) {
+            $search = $_GET['search'];
+            $products = Product::SearchProduct($search);
+        }
+
         
 
         // $filters = isset($_GET['type']) ? $_GET['type'] : [];
