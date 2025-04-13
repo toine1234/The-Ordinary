@@ -25,7 +25,7 @@ class Database
             $this->host = $this->config['db']['host'];
             $this->dbName = $this->config['db']['dbname'];
             $this->username = $this->config['db']['user'];
-            $this->password = $this->config['db']['password'];
+            $this->password = $this->config['db']['pass'];
             $this->connection = new PDO(
                 "mysql:host={$this->host};dbname={$this->dbName}",
                 $this->username,
