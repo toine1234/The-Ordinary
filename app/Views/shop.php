@@ -194,7 +194,7 @@ $list_filter_sort = [
             </div>
             <?php foreach ($products as $product): ?>
                 <div class="product-container">
-                    <a href="/The-Ordinary/product?id=<?= htmlspecialchars($product["IP_San_Pham"]) ?>">
+                    <a href="/The-Ordinary/product?id=<?= htmlspecialchars($product["ID_San_Pham"]) ?>">
                         <img src="<?= htmlspecialchars(explode(';', $product["Hinh_Anh"])[0]) ?>"
                             alt="<?= htmlspecialchars($product["Ten_SP"]) ?>" class="product-image">
                     </a>
