@@ -11,9 +11,9 @@
     <div class="signup-wrapper">
         <h2 class="signup-wrapper-h2">Create Account</h2>
         <p class="signup-wrapper-p">Already have an account? <a href="/The-Ordinary/login" style="color: black;">Sign in </a></p>
-        <form>
-            <input class="signup-input" type="text" name="name" placeholder="Full name" required>
-            <input class="signup-input" type="text" name="phone" placeholder="Phone" required>
+        <form method="post">
+            <input class="signup-input" type="text" name="name" placeholder="Full name" >
+            <input class="signup-input" type="text" name="phone" placeholder="Phone" >
             <input class="signup-input" type="email" name="email" placeholder="Email" required>
             <div class="input-group">
                 <input type="password" name="password" placeholder="Password" required>

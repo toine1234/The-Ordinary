@@ -4,7 +4,7 @@
             <li><a href="/The-Ordinary/shop" style="color: gray;">Shop</a></li>
             &rsaquo;
             <li><a
-                    href="/The-Ordinary/product?id=<?= htmlspecialchars($product[0]['IP_San_Pham']) ?>"><?php echo $product[0]['Ten_SP'] ?></a>
+                    href="/The-Ordinary/product?id=<?= htmlspecialchars($product[0]['ID_San_Pham']) ?>"><?php echo $product[0]['Ten_SP'] ?></a>
             </li>
         </ul>
     </div>

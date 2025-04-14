@@ -14,8 +14,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="public\assets\css\style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -82,8 +83,8 @@
             </ul>
         </div>
         <div class='navbar-expand'>
-            <div class='menu-group'>
-                <ul class='list-menu'>
+            <div class='group-menu'>
+                <ul class='menu-list'>
                     <li class='menu-item'><a href="/The-Ordinary/shop">All Products</a></li>
                     <li class='menu-item'><a href="/The-Ordinary/new">New</a></li>
                     <li class='menu-item'>Bestsellers</li>

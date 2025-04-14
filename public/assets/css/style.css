@@ -20,6 +20,20 @@ html{
     --dividergrey: rgba(0, 0, 0, 0.062);
 }
 
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+p{
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: var(--black);
+}
 
 /*================= SEARCH =================*/
 /*================= SEARCH =================*/
@@ -243,8 +257,9 @@ html{
 }
 
 .img-brand{
-    width: 50px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
 }
 
 .active-brand{
@@ -257,7 +272,7 @@ html{
     background-color: rgba(0, 0, 0, 0.062);
 }
 
-.menu-group{
+.group-menu{
     width: 100%;
     height: 100%;
     display: flex;
@@ -266,7 +281,7 @@ html{
     background-color: #f5f5f5;
 }
 
-.list-menu{
+.menu-list{
     display: flex;
     list-style: none;
     padding: 10px;
@@ -840,7 +855,7 @@ h3{
 
 .login-input, .password-wrapper input{
     width: 100%;
-    padding: 20px;
+    padding: 10px;
     border: none;
     border-bottom: 1px solid #000;
     font-size: 10px;
@@ -1391,7 +1406,6 @@ h3{
 .products-list{
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    grid-template-rows: repeat(4, 1fr);
     gap: 20px;
     width: 100%;
     padding: 50px;
@@ -1431,7 +1445,7 @@ h3{
 }
 
 .product-targets{
-    height: 30px;
+    height: px;
     overflow: hidden;
 }
 
