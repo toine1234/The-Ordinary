@@ -198,8 +198,7 @@ $list_filter_sort = [
                 </script>
             </div>
             <div class="products-list-title">
-                <h2>Products</h2>
-                <p>All products</p>
+                <h2><?php echo isset($_GET['search']) ? "Results for " . '"'.$_GET['search'].'"':"All products"?></h2>
             </div>
             <?php 
              if ($products == null) {
