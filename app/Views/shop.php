@@ -122,43 +122,6 @@ $list_filter_sort = [
                     <p class="name-filter">Format</p>
                     <button class="btn-more-filter--format">&#43;</button>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
                 <script>
                     document.querySelector('.btn-more-filter--format').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--format');
@@ -238,6 +201,11 @@ $list_filter_sort = [
                 <h2>Products</h2>
                 <p>All products</p>
             </div>
+            <?php 
+             if ($products == null) {
+                echo '<h2 class="no_product" style="text-align: center; margin-top: 20px;">No products found</h2>';
+             }
+            ?>
             <?php foreach ($products as $product): ?>
                 <div class="product-container">
                     <a href="/The-Ordinary/product?id=<?= htmlspecialchars($product["ID_San_Pham"]) ?>">

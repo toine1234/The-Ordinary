@@ -1412,6 +1412,11 @@ h3{
     position: relative;
 }
 
+.no_product{
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
 .products-list-title{
     grid-column-start: 1;
     grid-column-end: 5;
@@ -1445,7 +1450,7 @@ h3{
 }
 
 .product-targets{
-    height: px;
+    height: 45px;
     overflow: hidden;
 }
 
