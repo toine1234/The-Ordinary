@@ -9,4 +9,6 @@ function defineRoutes($router) {
     $router->get('/signup', [App\Controllers\SignupController::class, 'index']);
     $router->get('/new', [App\Controllers\NewController::class, 'index']);
     $router->get('/resetpassword', [App\Controllers\ResetPasswordController::class, 'index']);
+    $router->get('/account', [App\Controllers\AccountController::class, 'index']);
+
 }
