@@ -2,7 +2,7 @@
 return[
 'db' => [
         'host' => 'localhost',
-        'dbname' => 'theordinarysql2',
+        'dbname' => 'the_oridinary',
         'user' => 'root',
         'pass' => ''
     ],
