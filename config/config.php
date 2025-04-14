@@ -6,5 +6,5 @@ return[
         'user' => 'root',
         'pass' => ''
     ],
-    'jwt_secret' => 'my_secret_key'
+'jwt_secret' => 'hoaSYT98etSi3txRYAyvYO1dbNNoCy'
 ];

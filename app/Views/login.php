@@ -12,7 +12,7 @@
             <p style="text-align: left;">First time visiting? You might need to <a href="/The-Ordinary/resetpassword"
                     style="color: black;">reset your password</a></p>
 
-            <form action="">
+            <form method="post">
                 <input class="login-input" type="email" name="email" placeholder="Email" required>
                 <div class="password-wrapper">
                     <input type="password" name="password" placeholder="Password" required>

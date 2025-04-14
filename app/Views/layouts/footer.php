@@ -124,6 +124,12 @@
         </div>
     </div>
 </footer>
+
+<!----------------------- SEARCH --------------------------->
+<!----------------------- SEARCH --------------------------->
+<!----------------------- SEARCH --------------------------->
+
+
 <div class="Search-Container"></div>
 <div class="site-search">
     <div class="search-header">
@@ -140,20 +146,32 @@
     const searchContainer = document.querySelector('.site-search');
     const closeSearchButton = document.querySelector('.close-search');
     const containerSearch = document.querySelector('.Search-Container');
+    const body = document.querySelector('body');
 
     searchButton.addEventListener('click', () => {
         searchContainer.style.display = 'block';
         containerSearch.style.display = 'block';
         searchContainer.querySelector('.search-input').focus();
         searchContainer.querySelector('.search-input').value = ''; 
+        body.style.overflow = 'hidden';
+
     });
 
     closeSearchButton.addEventListener('click', () => {
         searchContainer.style.display = 'none';
         containerSearch.style.display = 'none';
+        body.style.overflow = 'auto';
 
     });
 </script>
+
+<!----------------------- CART --------------------------->
+<!----------------------- CART --------------------------->
+<!----------------------- CART --------------------------->
+
+<div class="cart-Container"></div>
+<div class="site-cart"></div>
+
 </body>
 
 </html>
