@@ -3,7 +3,7 @@
         'name' => 'vendor/index.js',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'cb2b3be951e617c89abeac3e9085155e6505a608',
+        'reference' => '24fbf208ba74e5df2e524d9514e5791df4489bc6',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'vendor/index.js' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'cb2b3be951e617c89abeac3e9085155e6505a608',
+            'reference' => '24fbf208ba74e5df2e524d9514e5791df4489bc6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
