@@ -15,7 +15,6 @@ class ProductController {
                 return;
             }
         }
-       
         
 
         require 'app/Views/layouts/header.php';

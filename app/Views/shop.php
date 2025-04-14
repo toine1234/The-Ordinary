@@ -122,6 +122,43 @@ $list_filter_sort = [
                     <p class="name-filter">Format</p>
                     <button class="btn-more-filter--format">&#43;</button>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
                 <script>
                     document.querySelector('.btn-more-filter--format').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--format');
