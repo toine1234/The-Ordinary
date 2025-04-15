@@ -1986,22 +1986,52 @@ h3{
 
 .user-breadcrumb{
     width: 90%;
-    margin: 30px 0;
+    padding: 30px 0;
     border-bottom: 1px solid var(--graynhe);
 }
 
-.user-dashboard{
-    width: 100%;
-    height: auto;
-    margin: 20px;
+.nav-user li{
+    list-style: none;
 }
 
-.nav-user{
+.nav-user li a{
     text-decoration: none;
-    list-style: none;
 }
 
 .user-active{
     text-decoration: underline;
     text-underline-offset: 5px;
+    margin-top: 20px;
+}
+
+.user-dashboard{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    gap: 6rem;
+    margin-top: 60px;
+}
+
+.user-dashboard-menu{
+    width: 15%;
+}
+
+.user-menu li{
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+.user-dashboard-profile{
+    width: 85%;
+}
+
+.user-dashboard-profile h1{
+    font-weight: 1000;
+    margin: 20px 0;
+}
+
+.profile-section{
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
 }
