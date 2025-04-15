@@ -14,7 +14,7 @@
             <li><a style="margin-left: 10px;" href="#">Sign In</a></li>
         </ul>
     </div>
-    <div class="is-divider-login"></div>
+    <div class="line-login"></div>
     <div class="login-wrapper">
         <div class="login-left">
             <h2 style="text-align: left; line-height: 30px; padding-bottom: 20px; font-size: 20px">SIGN IN TO YOUR

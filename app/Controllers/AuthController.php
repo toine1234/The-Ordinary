@@ -4,10 +4,12 @@ namespace App\Controllers;
 use App\Models\Users;
 use App\Core\JWT;
 
-class AuthController {
+class AuthController
+{
 
     private $config;
-    public function showLogin() {
+    public function showLogin()
+    {
 
         if (isset($_COOKIE['accessToken'])) {
             header('Location: /The-Ordinary/shop');
@@ -19,10 +21,11 @@ class AuthController {
         require 'app/Views/layouts/footer.php';
     }
 
-    
-    public function login() {
-        
-        $this->config = require __DIR__ .'/../../config/config.php';
+
+    public function login()
+    {
+
+        $this->config = require __DIR__ . '/../../config/config.php';
         JWT::setSecret('hoaSYT98etSi3txRYAyvYO1dbNNoCy');
         $email = $_POST['email'] ?? '';
         $password = trim($_POST['password'] ?? '');
@@ -39,6 +42,13 @@ class AuthController {
         if (!$user || !password_verify($password, $user[0]['Password'])) {
             http_response_code(401);
             echo json_encode(['message' => 'Invalid credentials']);
+            session_start();
+            $_SESSION['flash'] = [
+                'type' => 'danger', // success, danger, warning, info
+                'message' => 'Password or email is incorrect!'
+            ];
+
+            header('Location: /The-Ordinary/login');
             return;
         }
 
@@ -57,11 +67,11 @@ class AuthController {
         ]);
 
         setcookie(
-            'accessToken', 
-            $token, 
+            'accessToken',
+            $token,
             time() + (60 * 60),
             '/The-Ordinary',
-        ); 
+        );
 
         session_start();
         $_SESSION['flash'] = [

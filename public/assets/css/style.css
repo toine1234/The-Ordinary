@@ -61,6 +61,7 @@ a{
     background-color: white;
     padding: 20px;
     display: none;
+    animation: slideInRight 0.3s ease;
 }
 
 .search-header{
@@ -119,6 +120,37 @@ a{
     background-color: #00000029;
     z-index: 1000;
     display: none;
+
+}
+
+
+.site-cart{
+    position: fixed;
+    width: 500px;
+    height: 100%;
+    z-index: 1001;
+    top: 0px;
+    right: 0;
+    background-color: white;
+    padding: 20px;
+    display: none;
+    animation: slideInRight 0.3s ease;
+}
+
+.cart-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.close-cart{
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 
@@ -795,7 +827,7 @@ h3{
 
 /******************* Login ****************************/
 /* login-account-breadcrumb */
-.is-divider-login{
+.line-login{
     height: 2px;
     display: block;
     background-color: var(--dividergrey);
@@ -1375,7 +1407,7 @@ h3{
     height: 200px;
     position: absolute;
     right: 0;
-    top: 30px;
+    top: 50px;
     background-color: var(--greylightnhe);
     padding: 20px;
     display: none;

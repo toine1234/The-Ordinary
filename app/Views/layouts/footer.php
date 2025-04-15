@@ -1,4 +1,3 @@
-
 <footer>
     <div class='footerpage'>
         <div class='gap'></div>
@@ -150,15 +149,17 @@
 
     searchButton.addEventListener('click', () => {
         searchContainer.style.display = 'block';
+        searchContainer.style.transform = 'translateY(0)';
         containerSearch.style.display = 'block';
         searchContainer.querySelector('.search-input').focus();
-        searchContainer.querySelector('.search-input').value = ''; 
+        searchContainer.querySelector('.search-input').value = '';
         body.style.overflow = 'hidden';
 
     });
 
     closeSearchButton.addEventListener('click', () => {
         searchContainer.style.display = 'none';
+        searchContainer.style.transform = 'translateY(100%)';
         containerSearch.style.display = 'none';
         body.style.overflow = 'auto';
 
@@ -169,9 +170,37 @@
 <!----------------------- CART --------------------------->
 <!----------------------- CART --------------------------->
 
-<div class="cart-Container"></div>
-<div class="site-cart"></div>
+<div class="cart-Container">
 
+</div>
+<div class="site-cart">
+    <div class="cart-header">
+        <h1>Cart</h1>
+        <button class="close-cart"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <p>Cart is empty</p>
+</div>
+<script>
+    const cartButton = document.querySelector('.icon-header-btn:nth-child(3)');
+    const cartContainer = document.querySelector('.site-cart');
+    const closeCartButton = document.querySelector('.close-cart');
+    const containerCart = document.querySelector('.cart-Container');
+
+    cartButton.addEventListener('click', () => {
+        cartContainer.style.display = 'block';
+        cartContainer.style.transform = 'translateY(0)';
+        containerCart.style.display = 'block';
+        body.style.overflow = 'hidden';
+
+    });
+
+    closeCartButton.addEventListener('click', () => {
+        cartContainer.style.display = 'none';
+        containerCart.style.display = 'none';
+        body.style.overflow = 'auto';
+
+    });
+</script>
 </body>
 
 </html>

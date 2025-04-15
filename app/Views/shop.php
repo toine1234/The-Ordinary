@@ -76,7 +76,7 @@ $list_filter_sort = [
 
                     });
                 </script>
-                <div class="filter-group-items--type" style="display: block;">
+                <div class="filter-group-items--type" style="display: none;">
                     <form method="GET" id="filter-form--type">
                         <?php foreach ($list_filter_type as $item):
                             $checked = in_array($item, $_GET['type'] ?? []) ? 'checked' : ''; ?>
