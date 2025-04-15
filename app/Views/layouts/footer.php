@@ -178,7 +178,126 @@
         <h1>Cart</h1>
         <button class="close-cart"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <p>Cart is empty</p>
+    <div class="list-cart-products">
+        <div class="cart-product-item">
+            <div class="cart-product-image">
+                <img src="https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwade40aeb/Images/products/The%20Ordinary/ORD-Product-MARS-Packshot.png?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwf3e91c34/Images/products/The%20Ordinary/application/ORD-MARS-application-1.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw92ee4792/Images/products/The%20Ordinary/infographics/ORD-MARS-benefits-graphic.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwcd461778/Images/products/The%20Ordinary/Before-After/ord-mars-before-after-healthy.jpg?sw=860&sh=860&sm=fit"
+                    alt="Product Image">
+            </div>
+            <div class="cart-product-info">
+                <div class="cart-product-name">
+                    <p>THE ORDINARY</p>
+                    <h2>GF 15% Solution</h2>
+                </div>
+                <p class="cart-product-price">15.50 USD</p>
+                <p class="cart-product-size">Size: 30ml</p>
+                <div class="cart-product-quantity">
+                    <button class="btn-cart-quantity">-</button>
+                    <input type="text" disabled value="1" class="cart-quantity-input">
+                    <button class="btn-cart-quantity">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="cart-product-item">
+            <div class="cart-product-image">
+                <img src="https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwade40aeb/Images/products/The%20Ordinary/ORD-Product-MARS-Packshot.png?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwf3e91c34/Images/products/The%20Ordinary/application/ORD-MARS-application-1.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw92ee4792/Images/products/The%20Ordinary/infographics/ORD-MARS-benefits-graphic.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwcd461778/Images/products/The%20Ordinary/Before-After/ord-mars-before-after-healthy.jpg?sw=860&sh=860&sm=fit"
+                    alt="Product Image">
+            </div>
+            <div class="cart-product-info">
+                <div class="cart-product-name">
+                    <p>THE ORDINARY</p>
+                    <h2>GF 15% Solution</h2>
+                </div>
+                <p class="cart-product-price">15.50 USD</p>
+                <p class="cart-product-size">Size: 30ml</p>
+                <div class="cart-product-quantity">
+                    <button class="btn-cart-quantity">-</button>
+                    <input type="text" disabled value="1" class="cart-quantity-input">
+                    <button class="btn-cart-quantity">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="cart-product-item">
+            <div class="cart-product-image">
+                <img src="https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwade40aeb/Images/products/The%20Ordinary/ORD-Product-MARS-Packshot.png?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwf3e91c34/Images/products/The%20Ordinary/application/ORD-MARS-application-1.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw92ee4792/Images/products/The%20Ordinary/infographics/ORD-MARS-benefits-graphic.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwcd461778/Images/products/The%20Ordinary/Before-After/ord-mars-before-after-healthy.jpg?sw=860&sh=860&sm=fit"
+                    alt="Product Image">
+            </div>
+            <div class="cart-product-info">
+                <div class="cart-product-name">
+                    <p>THE ORDINARY</p>
+                    <h2>GF 15% Solution</h2>
+                </div>
+                <p class="cart-product-price">15.50 USD</p>
+                <p class="cart-product-size">Size: 30ml</p>
+                <div class="cart-product-quantity">
+                    <button class="btn-cart-quantity">-</button>
+                    <input type="text" disabled value="1" class="cart-quantity-input">
+                    <button class="btn-cart-quantity">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="cart-product-item">
+            <div class="cart-product-image">
+                <img src="https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwade40aeb/Images/products/The%20Ordinary/ORD-Product-MARS-Packshot.png?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwf3e91c34/Images/products/The%20Ordinary/application/ORD-MARS-application-1.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw92ee4792/Images/products/The%20Ordinary/infographics/ORD-MARS-benefits-graphic.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwcd461778/Images/products/The%20Ordinary/Before-After/ord-mars-before-after-healthy.jpg?sw=860&sh=860&sm=fit"
+                    alt="Product Image">
+            </div>
+            <div class="cart-product-info">
+                <div class="cart-product-name">
+                    <p>THE ORDINARY</p>
+                    <h2>GF 15% Solution</h2>
+                </div>
+                <p class="cart-product-price">15.50 USD</p>
+                <p class="cart-product-size">Size: 30ml</p>
+                <div class="cart-product-quantity">
+                    <button class="btn-cart-quantity">-</button>
+                    <input type="text" disabled value="1" class="cart-quantity-input">
+                    <button class="btn-cart-quantity">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="cart-product-item">
+            <div class="cart-product-image">
+                <img src="https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwade40aeb/Images/products/The%20Ordinary/ORD-Product-MARS-Packshot.png?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwf3e91c34/Images/products/The%20Ordinary/application/ORD-MARS-application-1.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw92ee4792/Images/products/The%20Ordinary/infographics/ORD-MARS-benefits-graphic.jpg?sw=860&sh=860&sm=fit ; https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dwcd461778/Images/products/The%20Ordinary/Before-After/ord-mars-before-after-healthy.jpg?sw=860&sh=860&sm=fit"
+                    alt="Product Image">
+            </div>
+            <div class="cart-product-info">
+                <div class="cart-product-name">
+                    <p>THE ORDINARY</p>
+                    <h2>GF 15% Solution</h2>
+                </div>
+                <p class="cart-product-price">15.50 USD</p>
+                <p class="cart-product-size">Size: 30ml</p>
+                <div class="cart-product-quantity">
+                    <button class="btn-cart-quantity">-</button>
+                    <input type="text" disabled value="1" class="cart-quantity-input">
+                    <button class="btn-cart-quantity">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cart-checkout-container">
+        <div class="cart-checkout-heading">
+            <p>1 item in cart</p>
+            <p>Estimated Total:</p>
+        </div>
+        <button class="cart-checkout-btn">
+            CHECKOUT
+        </button>
+    </div>
+    <script>
+        document.querySelectorAll('.btn-cart-quantity').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const input = this.parentNode.querySelector('input[type=text]');
+                let value = parseInt(input.value);
+                if (this.innerText === '+') {
+                    value = Math.min(value + 1, 10); // Max quantity is 10
+                } else {
+                    value = Math.max(value - 1, 1); // Min quantity is 1
+                }
+                input.value = value;
+            });
+        });
+    </script>
 </div>
 <script>
     const cartButton = document.querySelector('.icon-header-btn:nth-child(3)');
@@ -188,7 +307,7 @@
 
     cartButton.addEventListener('click', () => {
         cartContainer.style.display = 'block';
-        cartContainer.style.transform = 'translateY(0)';
+        cartContainer.style.transform = 'none';
         containerCart.style.display = 'block';
         body.style.overflow = 'hidden';
 
