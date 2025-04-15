@@ -31,6 +31,14 @@ $list_filter_sort = [
     'Rating',
 ]
     ?>
+<?php session_start(); ?>
+<?php if (isset($_SESSION['flash'])): ?>
+    <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
+        <?= $_SESSION['flash']['message'] ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['flash']); ?>
+<?php endif; ?>
 <div class="shop-container">
     <div class="router-shop">
         <ul class="list-router-shop">
@@ -65,10 +73,10 @@ $list_filter_sort = [
                     document.querySelector('.btn-more-filter--type').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--type');
                         items.style.display = items.style.display === 'block' ? 'none' : 'block';
-                        
+
                     });
                 </script>
-                <div class="filter-group-items--type" style="display: block;">
+                <div class="filter-group-items--type" style="display: none;">
                     <form method="GET" id="filter-form--type">
                         <?php foreach ($list_filter_type as $item):
                             $checked = in_array($item, $_GET['type'] ?? []) ? 'checked' : ''; ?>
@@ -86,7 +94,7 @@ $list_filter_sort = [
                                         document.getElementById('filter-form--type').submit();
 
                                     });
-                                    
+
 
                                 });
                     </script>
@@ -114,51 +122,15 @@ $list_filter_sort = [
                     <p class="name-filter">Format</p>
                     <button class="btn-more-filter--format">&#43;</button>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
                 <script>
                     document.querySelector('.btn-more-filter--format').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--format');
                         items.style.display = items.style.display === 'block' ? 'none' : 'block';
-                        
+
                     });
                 </script>
-                <div class="filter-group-items--format" style="<?= isset($_GET['type']) ? 'display: block;' : 'display: none;' ?>">
+                <div class="filter-group-items--format"
+                    style="<?= isset($_GET['type']) ? 'display: block;' : 'display: none;' ?>">
                     <form method="GET" id="filter-form--format">
                         <?php foreach ($list_filter_format as $item):
                             $checked = in_array($item, $_GET['type'] ?? []) ? 'checked' : ''; ?>
@@ -176,7 +148,7 @@ $list_filter_sort = [
                                         document.getElementById('filter-form--format').submit();
 
                                     });
-                                    
+
 
                                 });
                     </script>
@@ -226,9 +198,13 @@ $list_filter_sort = [
                 </script>
             </div>
             <div class="products-list-title">
-                <h2>Products</h2>
-                <p>All products</p>
+                <h2><?php echo isset($_GET['search']) ? "Results for " . '"'.$_GET['search'].'"':"All products"?></h2>
             </div>
+            <?php 
+             if ($products == null) {
+                echo '<h2 class="no_product" style="text-align: center; margin-top: 20px;">No products found</h2>';
+             }
+            ?>
             <?php foreach ($products as $product): ?>
                 <div class="product-container">
                     <a href="/The-Ordinary/product?id=<?= htmlspecialchars($product["ID_San_Pham"]) ?>">
