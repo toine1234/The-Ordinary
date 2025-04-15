@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\Users;
 use App\Core\JWT;
+use App\Models\Cart;
 
 class AuthController
 {
@@ -78,6 +79,9 @@ class AuthController
             'type' => 'success', // success, danger, warning, info
             'message' => 'Login in is success!'
         ];
+        $_SESSION['idUser'] = $user[0]['ID_Khach_Hang'];
+        $cartItems=Cart::get_cart($user[0]['ID_Khach_Hang']);
+        $_SESSION['cart'] = $cartItems;
 
         header('Location: /The-Ordinary/shop');
         exit;

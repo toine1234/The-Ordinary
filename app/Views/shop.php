@@ -31,7 +31,6 @@ $list_filter_sort = [
     'Rating',
 ]
     ?>
-<?php session_start(); ?>
 <?php if (isset($_SESSION['flash'])): ?>
     <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
         <?= $_SESSION['flash']['message'] ?>
@@ -206,7 +205,9 @@ $list_filter_sort = [
              }
             ?>
             <?php foreach ($products as $product): ?>
-                <div class="product-container">
+                <form action="/The-Ordinary/cart" method="post" class="product-container">
+                    <input type="hidden" name="productId" value="<?= htmlspecialchars($product["ID_San_Pham"]) ?>">
+                    <input type="hidden" name="quantity" value="1">
                     <a href="/The-Ordinary/product?id=<?= htmlspecialchars($product["ID_San_Pham"]) ?>">
                         <img src="<?= htmlspecialchars(explode(';', $product["Hinh_Anh"])[0]) ?>"
                             alt="<?= htmlspecialchars($product["Ten_SP"]) ?>" class="product-image">
@@ -217,12 +218,9 @@ $list_filter_sort = [
                         <p class="product-price"><?= number_format($product["Gia"], 2) ?> USD</p>
                         <p><?= htmlspecialchars($product["Dung_Tich"]) ?></p>
                     </div>
-                    <button class="btn-add-to-cart" type="button">Add to Cart</button>
+                    <button class="btn-add-to-cart" type="submit">Add to Cart</button>
                     <i class="fa-regular fa-heart action-like"></i>
-                </div>
-                <script>
-
-                </script>
+                </form>
             <?php endforeach ?>
         </div>
     </div>

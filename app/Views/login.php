@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+
 <?php if (isset($_SESSION['flash'])): ?>
     <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
         <?= $_SESSION['flash']['message'] ?>

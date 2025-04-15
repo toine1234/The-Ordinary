@@ -16,6 +16,8 @@ class SignupController
     {
         $email = $_POST['email'] ?? '';
         $password = trim($_POST['password'] ?? '');
+        $phone = $_POST['phone'] ?? '';
+        $fullname = $_POST['name'] ?? '';
 
         if (!$email || !$password) {
             echo "Vui lòng nhập đầy đủ thông tin.";
@@ -24,7 +26,9 @@ class SignupController
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        $user = Users::createUser($email, $hashedPassword);
+        $id = Users::generateUUID();
+        $account = Users::createAccount($id,$email, $hashedPassword);
+        $user = Users::createUser($id,$email, $fullname,$phone);
         session_start();
         $_SESSION['flash'] = [
             'type' => 'success', // success, danger, warning, info

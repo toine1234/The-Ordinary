@@ -32,9 +32,8 @@ class Users
     }
 
 
-    public static function createUser($email, $password)
+    public static function createAccount($id, $email, $password)
     {
-        $id = self::generateUUID();
         $database = new Database();
         $db = $database->getConnection();
         $query = "INSERT INTO tai_khoan (ID_Khach_Hang,Password,Email,Roles,Ngay_Tao) VALUES (:id, :password, :email, :roles, NOW())";
@@ -47,6 +46,22 @@ class Users
         ]);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        
+
+    }
+
+    public static function createUser($id, $email, $fullname, $phone)
+    {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "INSERT INTO khach_hang (ID_Khach_Hang,Email,HoTen,SDT) VALUES (:id, :email, :fullname, :phone)";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ':id' => $id,
+            ':email' => $email,
+            ':fullname' => $fullname,
+            ':phone' => $phone,
+        ]);
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

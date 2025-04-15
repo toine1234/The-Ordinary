@@ -25,7 +25,6 @@
 </head>
 
 <body>
-
     <div class='main-nav'>
         <div class='header'>
             <div class='header-top'>
@@ -53,7 +52,7 @@
                     </a>
                     <button class='icon-header-btn'>
                         <i class='fa-solid fa-cart-shopping'></i>
-                        <p class="amount-cart">0</p>
+                        <p class="amount-cart"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']):'0' ?></p>
                     </button>
                 </div>
             </div>
