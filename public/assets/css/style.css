@@ -1978,13 +1978,13 @@ h3{
 
 
 /******************* Page User ****************************/
-.user-container{
+.account-container{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.user-breadcrumb{
+.account-breadcrumb{
     width: 90%;
     padding: 30px 0;
     border-bottom: 1px solid var(--graynhe);
@@ -2004,34 +2004,90 @@ h3{
     margin-top: 20px;
 }
 
-.user-dashboard{
+.account-dashboard{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     width: 90%;
+    height: auto;
     gap: 6rem;
     margin-top: 60px;
+    font-size: 1.2rem;
 }
 
-.user-dashboard-menu{
+.account-dashboard-menu{
     width: 15%;
 }
 
-.user-menu li{
+.account-menu li{
     margin: 20px 0;
     font-weight: 500;
     font-size: 1.2rem;
 }
-.user-dashboard-profile{
+
+.account-dashboard-profile{
     width: 85%;
+    gap: 80px;
 }
 
-.user-dashboard-profile h1{
+.account-dashboard-profile h1{
     font-weight: 1000;
     margin: 20px 0;
 }
 
+.account-dashboard-card{
+    margin-top: 40px;
+}
+
 .profile-section{
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.profile-section h3{
+    width: 300px;
+    margin-right: 2rem;
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+.profile-info{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    flex: 1;
+}
+
+.profile-info-frame{
+    width: 100%;
+    height: auto;
+    display: flex;
     flex-direction: row;
-    gap: 4rem;
+    justify-content: space-between;
+}
+
+.profile-info-card{
+    line-height: 2rem;
+}
+
+.account-dashboard-address{
+    margin: 2rem 0 4rem 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.account-dashboard-address h3{
+    width: 300px;
+    margin-right: 2rem;
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+.account-dashboard-address-info{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+
 }
