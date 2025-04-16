@@ -7,12 +7,18 @@ class CartController
     public function index()
     {
         session_start();
-        $user = $_SESSION['user'];
-        $cartItems = Cart::get_cart($user['ID_Khach_Hang']);
+        $user = $_SESSION['idUser'];
+        $cartItems = Cart::get_cart($user);
+
+         
+        require_once __DIR__ . '/../Views/layouts/header.php';
+        require_once __DIR__ . '/../Views/cart.php';
+        require_once __DIR__ . '/../Views/layouts/footer.php';
     }
 
     public function addtocart()
     {
+        if (isset($_COOKIE['accessToken'])) {
         session_start();
         $user_id = $_SESSION['idUser'];
         $productId = $_POST['productId'];
@@ -31,6 +37,14 @@ class CartController
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
+        } else {
+            session_start();
+            $_SESSION['flash'] = [
+                'type' => 'danger', // success, danger, warning, info
+                'message' => 'Please login to add to cart!'
+            ];
+            header('Location: /The-Ordinary/login');
+        }
     }
 
     public function RemoveCart(){
@@ -45,7 +59,7 @@ class CartController
             ];
             $cartItems = Cart::get_cart( $user_id );
             $_SESSION['cart'] = $cartItems;
-            header('Location: /The-Ordinary/shop');
+            header('Location: /The-Ordinary/cart');
         }
         catch (\Exception $e) {
             echo $e->getMessage();

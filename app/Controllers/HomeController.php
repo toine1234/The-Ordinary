@@ -15,6 +15,11 @@ class HomeController
             $cartItems = Cart::get_cart($info->ID);
             $_SESSION['cart'] = $cartItems;
         }
+
+        else{
+            unset($_SESSION['idUser']);
+            unset($_SESSION['cart']);
+        }
         
         require_once __DIR__ . '/../Views/layouts/header.php';
         require_once __DIR__ . '/../Views/home.php';
