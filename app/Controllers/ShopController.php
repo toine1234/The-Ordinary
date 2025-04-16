@@ -6,6 +6,7 @@ use App\Models\Product;
 
 class ShopController {
     public function index() {
+        session_start();
         $products = Product::getAllProducts();
 
         if (isset($_GET['type'])) {

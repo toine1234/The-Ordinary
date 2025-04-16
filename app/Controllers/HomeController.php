@@ -6,8 +6,9 @@ class HomeController
 {
     public function index()
     {
+        session_start();
         if (isset($_COOKIE['accessToken'])){
-            session_start();
+            
             JWT::setSecret('hoaSYT98etSi3txRYAyvYO1dbNNoCy');
             $info = JWT::verify($_COOKIE['accessToken']);   
             $_SESSION['idUser'] = $info->ID;

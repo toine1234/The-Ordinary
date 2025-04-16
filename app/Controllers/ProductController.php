@@ -6,6 +6,7 @@ use App\Models\Product;
 
 class ProductController {
     public function detail() {
+        session_start();
         if (isset($_GET['id'])) {
             $product = Product::getProductsById($_GET['id']);
 

@@ -7,6 +7,7 @@ class SignupController
 {
     public function index()
     {
+        session_start();
         require 'app/Views/layouts/header.php';
         require 'app/Views/signup.php';
         require 'app/Views/layouts/footer.php';

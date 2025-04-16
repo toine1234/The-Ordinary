@@ -14,6 +14,7 @@ class Cart
                     san_pham.Ten_SP,
                     san_pham.Gia,
                     san_pham.Hinh_Anh,
+                    gio_hang.ID_Gio_Hang,
                     gio_hang.SL
                 FROM 
                     gio_hang
@@ -58,6 +59,17 @@ class Cart
                 ":quantity"=> $quantity,
             ]);
         }
+    }
+
+    public static function delete($cartId)
+    {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "DELETE FROM gio_hang WHERE ID_Gio_Hang = :cartId";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ":cartId"=> $cartId
+        ]);
     }
 }
 ?>

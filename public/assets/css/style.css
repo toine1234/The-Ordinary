@@ -41,7 +41,7 @@ a{
 
 
 .Search-Container{
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100vh;
     top:0;
@@ -52,7 +52,7 @@ a{
 }
 
 .site-search{
-    position: absolute;
+    position: fixed;
     width: 577px;
     height: 100%;
     z-index: 1001;
@@ -184,17 +184,19 @@ a{
 
 .cart-product-name{
     position: absolute;
+    width: 200px;
     top: 0;
     left: 0;
 }
 
 .cart-product-name > h2{
     font-size: 20px;
+
 }
 
 .cart-product-price{
     position: absolute;
-    bottom: 0;
+    bottom: 15px;
     right: 0;
     font-weight: bold;
 }
@@ -255,6 +257,49 @@ a{
     background-color: var(--black);
     padding: 10px 0;
     color: var(--white);
+}
+
+
+.empty-cart-message > a{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.remove-item-cart{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-decoration: underline;
+    background-color: transparent;
+    border: none;
+}
+
+.process-free-ship{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--graynhe);
+    position: relative;
+    margin-bottom: 5px;
+}
+.process-free-ship-bar{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+}
+
+.process-free-ship-bar-fill{
+    background-color: var(--black-light);
+    height: 100%;
+    padding: 5px 0;
+    padding-left: 5px;
+    color:var(--white);
+    font-weight: bold;
+    opacity: 80%;
 }
 
 

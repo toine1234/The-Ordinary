@@ -173,25 +173,65 @@
 <div class="cart-Container">
 
 </div>
+<?php $carts = isset($_SESSION['cart']) ? $_SESSION['cart'] : []; ?>
+<?php $total = 0; ?>
+<?php foreach ($carts as $item): ?>
+<?php $total += $item['Gia'] * $item['SL']; ?>
+<?php endforeach; ?>
 <div class="site-cart">
     <div class="cart-header">
         <h1>Cart</h1>
         <button class="close-cart"><i class="fa-solid fa-xmark"></i></button>
     </div>
+    <?php if (!empty($carts)): ?>
+    <div class="process-free-ship">
+        <p>Free shipping on orders over 239.00 USD</p>
+        <div class="process-free-ship-bar">
+            <div class="process-free-ship-bar-fill"></div>
+        </div>
+    </div>
+    <?php endif; ?>
+    <script>
+        const processBar = document.querySelector('.process-free-ship-bar-fill');
+        const totalAmount = <?= $total ?>;
+        console.log(totalAmount);
+        const freeShippingThreshold = 39.00;
+
+        if (totalAmount >= freeShippingThreshold) {
+            processBar.style.width = '100%';
+            processBar.style.backgroundColor = '#4CAF50'; // Green color for free shipping
+            processBar.innerText = 'Free shipping unlocked!';
+        } else {
+            const percentage = (totalAmount / freeShippingThreshold) * 100;
+            processBar.style.width = percentage + '%';
+            processBar.style.backgroundColor = '#FF9800'; // Orange color for progress
+            processBar.innerText = percentage.toFixed(0) + '%';
+        }
+    </script>
     <div class="list-cart-products">
-        <?php $carts = isset($_SESSION['cart']) ? $_SESSION['cart'] : []; ?>
-        <?php foreach ( $carts as $item): ?>
-        <div class="cart-product-item">
+        <?php if (empty($carts)): ?>
+        <div class="empty-cart-message">
+            <p>Looks like you haven't added anything to your cart yet.</p>
+            <a href="/The-Ordinary/shop" class="continue-shopping-btn">Continue Shopping &#8594;</a>
+        </div>
+        <?php endif; ?>
+        <?php foreach ($carts as $item): ?>
+        <form action="/The-Ordinary/cart/remove" method="post" class="cart-product-item">
+            <input type="hidden" name="cartId" value="<?= $item['ID_Gio_Hang'] ?>">
             <div class="cart-product-image">
-                <img src="<?= $item['Hinh_Anh'] ?>"
-                    alt="Product Image">
+                <img src="<?= $item['Hinh_Anh'] ?>" alt="Product Image">
             </div>
             <div class="cart-product-info">
                 <div class="cart-product-name">
                     <p>THE ORDINARY</p>
-                    <h2><?= $item['Ten_SP']?></h2>
+                    <h2>
+                        <?= $item['Ten_SP'] ?>
+                    </h2>
                 </div>
-                <p class="cart-product-price"><?= $item['Gia']." USD"?></p>
+                <p class="cart-product-price">
+                    <?= number_format($item['Gia'], 2) . " USD" ?>
+                </p>
+                <button class="remove-item-cart">Remove</button>
                 <p class="cart-product-size">Size: 30ml</p>
                 <div class="cart-product-quantity">
                     <button class="btn-cart-quantity">-</button>
@@ -199,14 +239,23 @@
                     <button class="btn-cart-quantity">+</button>
                 </div>
             </div>
-        </div>
+        </form>
         <?php endforeach; ?>
 
     </div>
     <div class="cart-checkout-container">
         <div class="cart-checkout-heading">
-            <p>1 item in cart</p>
-            <p>Estimated Total:</p>
+            <?php $itemcount = count($carts); ?>
+            <?php $total = 0; ?>
+            <?php foreach ($carts as $item): ?>
+            <?php $total += $item['Gia'] * $item['SL']; ?>
+            <?php endforeach; ?>
+            <p>
+                <?= $itemcount; ?> item in cart
+            </p>
+            <p>Estimated Total:
+                <?= number_format($total, 2) . " USD"; ?>
+            </p>
         </div>
         <button class="cart-checkout-btn">
             CHECKOUT

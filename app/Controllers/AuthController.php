@@ -11,6 +11,7 @@ class AuthController
     private $config;
     public function showLogin()
     {
+        session_start();
 
         if (isset($_COOKIE['accessToken'])) {
             header('Location: /The-Ordinary/shop');

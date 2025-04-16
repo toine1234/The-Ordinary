@@ -32,5 +32,27 @@ class CartController
             echo $e->getMessage();
         }
     }
+
+    public function RemoveCart(){
+        session_start();
+        $user_id = $_SESSION['idUser'];
+        $cartId = $_POST['cartId'];
+        try{
+            cart::delete( $cartId );
+            $_SESSION['flash'] = [
+                'type' => 'success', // success, danger, warning, info
+                'message' => 'Remove cart is success!'
+            ];
+            $cartItems = Cart::get_cart( $user_id );
+            $_SESSION['cart'] = $cartItems;
+            header('Location: /The-Ordinary/shop');
+        }
+        catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+        
+    }
+
+    
 }
 ?>
