@@ -185,7 +185,7 @@
     </div>
     <?php if (!empty($carts)): ?>
     <div class="process-free-ship">
-        <p>Free shipping on orders over 239.00 USD</p>
+        <p>Free shipping on orders over 49.00 USD</p>
         <div class="process-free-ship-bar">
             <div class="process-free-ship-bar-fill"></div>
         </div>
@@ -200,11 +200,11 @@
         if (totalAmount >= freeShippingThreshold) {
             processBar.style.width = '100%';
             processBar.style.backgroundColor = '#4CAF50'; // Green color for free shipping
-            processBar.innerText = 'Free shipping unlocked!';
+            
         } else {
             const percentage = (totalAmount / freeShippingThreshold) * 100;
             processBar.style.width = percentage + '%';
-            processBar.style.backgroundColor = '#FF9800'; // Orange color for progress
+            processBar.style.backgroundColor = '#000'; // Orange color for progress
             processBar.innerText = percentage.toFixed(0) + '%';
         }
     </script>
@@ -243,6 +243,7 @@
         <?php endforeach; ?>
 
     </div>
+    <?php if (!empty($carts)): ?>
     <div class="cart-checkout-container">
         <div class="cart-checkout-heading">
             <?php $itemcount = count($carts); ?>
@@ -257,10 +258,11 @@
                 <?= number_format($total, 2) . " USD"; ?>
             </p>
         </div>
-        <button class="cart-checkout-btn">
+        <a href="/The-Ordinary/cart" class="cart-checkout-btn">
             CHECKOUT
-        </button>
+        </a>
     </div>
+    <?php endif; ?>
     <script>
         document.querySelectorAll('.btn-cart-quantity').forEach(function (button) {
             button.addEventListener('click', function () {
