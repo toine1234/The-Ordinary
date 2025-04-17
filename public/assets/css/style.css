@@ -2209,6 +2209,7 @@ h3{
     display: flex;
     justify-content: space-between;
     width: 100%;
+    height: 15rem;
 }
 
 .profile-section h3{
@@ -2223,14 +2224,15 @@ h3{
     flex-direction: column;
     height: auto;
     flex: 1;
+    gap: 20px;
 }
 
-.profile-info-frame{
-    width: 100%;
+.profile-info-frame, .profile-password{
     height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex: 1;
 }
 
 .profile-info-card{
@@ -2241,6 +2243,8 @@ h3{
     margin: 2rem 0 4rem 0;
     display: flex;
     flex-direction: row;
+    flex: 1;
+    height: 10rem;
 }
 
 .account-dashboard-address h3{
@@ -2250,10 +2254,78 @@ h3{
     font-size: 1.3rem;
 }
 
-.account-dashboard-address-info{
-    width: 100%;
+.account-dashboard-address-frame{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.account-dashboard-subscription-centre{
+    margin: 2rem 0 4rem 0;
     display: flex;
     flex-direction: row;
-    flex: 1;
-
+    height: auto;
+    flex-wrap: wrap;
 }
+
+.account-dashboard-subscription-centre h3{
+    width: 300px;
+    margin-right: 2rem;
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+.account-dashboard-subscription-centre-info{
+    display: flex;
+    height: auto;
+    flex: 1;
+    flex-direction: column;
+}
+
+.customer-subscription-centre h5{
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.account-dashboard-subscription-centre-info-options{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.subscription-centre-info-options-checkbox{
+    margin-top: 20px;
+    gap: 10px;
+    display: grid;
+}
+
+.subscription-centre-info-options-checkbox label{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.subscription-centre-control{
+    margin-right: 10px;
+    border-radius: 60px;
+}
+
+.btn-subscription-centre{
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    color: gray;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+.btn-subscription-centre:hover{
+    background-color: var(--black);
+    color: var(--white);
+}
+
+/********************** PagePage Profile Edit ******************************/
+
