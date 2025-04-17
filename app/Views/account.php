@@ -51,6 +51,7 @@
                         <hr>
                         <div class="profile-password">
                             <p>..............</p>
+                            <a href="#">Edit</a>
                         </div>
                     </div>
                 </div>
@@ -70,8 +71,23 @@
 
             <hr>
 
-            <div class="account-dashboard-payment-methods">
-
+            <div class="account-dashboard-subscription-centre">
+                <h3>Subscription Centre</h3>
+                <div class="account-dashboard-subscription-centre-info">
+                    <form class="customer-subscription-centre">
+                        <h5>Select which brands you would like to receive email from:</h5>
+                        <p>You wil receive emails for News & Updates, Offers and Promotions or Tips and Tricks.</p>
+                        <div class="account-dashboard-subscription-centre-info-options">
+                            <div class="subscription-centre-info-options-checkbox">
+                                <label><input type="checkbox" class="subscription-centre-control">The Ordinary</label>
+                                <label><input type="checkbox" class="subscription-centre-control">Niod</label>
+                                <label><input type="checkbox" class="subscription-centre-control">Loopha</label>
+                                <label><input type="checkbox" class="subscription-centre-control">Deciem</label>
+                            </div>
+                            <button class="btn-subscription-centre">Update</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
         </div>
