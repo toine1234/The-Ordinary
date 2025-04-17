@@ -6,8 +6,9 @@ use App\Models\Account;
 class AccountController
 {
     public function index(){
-        if (isset($_GET['id'])) {
-            $account = Account::getAccountById($_GET['id']);
+        session_start();
+        if (isset($_SESSION['idUser'])) {
+            $account = Account::getAccountById($_SESSION['idUser']);
 
             if (!$account) {
             

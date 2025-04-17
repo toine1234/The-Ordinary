@@ -14,7 +14,7 @@ class AuthController
         session_start();
 
         if (isset($_COOKIE['accessToken'])) {
-            header('Location: /The-Ordinary/shop');
+            header('Location: /The-Ordinary/account');
             exit;
         }
 
@@ -84,8 +84,19 @@ class AuthController
         $cartItems=Cart::get_cart($user[0]['ID_Khach_Hang']);
         $_SESSION['cart'] = $cartItems;
 
-        header('Location: /The-Ordinary/shop');
+        header('Location: /The-Ordinary/account');
         exit;
 
+    }
+
+    public function logout()
+    {
+        session_start();
+        unset($_SESSION['idUser']);
+        unset($_SESSION['cart']);
+        setcookie('accessToken', '', time() - 3600, '/The-Ordinary');
+        session_destroy();
+        header('Location: /The-Ordinary/login');
+        exit;
     }
 }

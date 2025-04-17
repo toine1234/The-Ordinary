@@ -1,3 +1,4 @@
+
 <div class="account-container">
     <div class="account-breadcrumb">
         <ul class="nav-user">
@@ -28,7 +29,7 @@
                 </li>
                 <hr>
                 <li>
-                    <a href="#">Sign out</a>
+                    <a href="/The-Ordinary/logout">Sign out</a>
                 </li>
             </ul>
         </div>
@@ -42,9 +43,9 @@
                     <div class="profile-info">
                         <div class="profile-info-frame">
                             <div class="profile-info-card">
-                                <p><strong>Sarah Truc</strong></p>
-                                <p>truc55044@gmail.com</p>
-                                <p>0938290120</p>
+                                <p><strong><?= $account['HoTen']?></strong></p>
+                                <p><?= $account['Email']?></p>
+                                <p><?= $account['SDT']?></p>
                             </div>
                             <a href="#">Edit</a>
                         </div>
