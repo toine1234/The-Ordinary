@@ -1,4 +1,10 @@
-
+<?php if (isset($_SESSION['flash'])): ?>
+    <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
+        <?= $_SESSION['flash']['message'] ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['flash']); ?>
+<?php endif; ?>
 <div class="account-container">
     <div class="account-breadcrumb">
         <ul class="nav-user">

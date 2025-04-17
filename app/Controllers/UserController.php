@@ -1,15 +1,15 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Account;
+use App\Models\Users;
 
-class AccountController
+class UserController
 {
     public function index(){
         
         if (isset($_COOKIE['accessToken'])) {
             session_start();
-            $account = Account::getAccountById($_SESSION['idUser']);
+            $account = Users::getUserById($_SESSION['idUser']);
             $_SESSION['username'] = $account['HoTen'];
         }
 

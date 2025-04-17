@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Users;
+use App\Models\Account;
 
 class SignupController
 {
@@ -27,9 +27,9 @@ class SignupController
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        $id = Users::generateUUID();
-        $account = Users::createAccount($id,$email, $hashedPassword);
-        $user = Users::createUser($id,$email, $fullname,$phone);
+        $id = Account::generateUUID();
+        $account = Account::createAccount($id,$email, $hashedPassword);
+        $user = Account::createUser($id,$email, $fullname,$phone);
         session_start();
         $_SESSION['flash'] = [
             'type' => 'success', // success, danger, warning, info

@@ -11,9 +11,10 @@ function defineRoutes($router) {
     $router->post('/signup', [App\Controllers\SignupController::class, 'signup']);
     $router->get('/new', [App\Controllers\NewController::class, 'index']);
     $router->get('/resetpassword', [App\Controllers\ResetPasswordController::class, 'index']);
-    $router->get('/account', [App\Controllers\AccountController::class, 'index']);
+    $router->get('/account', [App\Controllers\UserController::class, 'index']);
     $router->get('/cart', [App\Controllers\CartController::class, 'index']);
     $router->post('/cart', [App\Controllers\CartController::class, 'addtocart']);
     $router->post('/cart/remove', [App\Controllers\CartController::class, 'RemoveCart']);
     $router->get('/profile-edit', [App\Controllers\ProfileEditController::class, 'index']);
+    $router->post('/profile-edit', [App\Controllers\ProfileEditController::class,'editprofile']);
 }

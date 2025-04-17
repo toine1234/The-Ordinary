@@ -25,7 +25,11 @@
 </head>
 
 <body>
-    
+    <?php if (!isset($_COOKIE['accessToken'])): ?>
+        <?php unset($_SESSION['idUser']); ?>
+        <?php unset($_SESSION['cart']); ?>
+        <?php unset($_SESSION['username']); ?>
+    <?php endif; ?>
     <div class='main-nav'>
         <div class='header'>
             <div class='header-top'>
@@ -51,14 +55,14 @@
                     <a href='/The-Ordinary/account' class='icon-header-btn'>
                         <i class='fa-solid fa-user'></i>
                         <?php if (isset($_SESSION['username'])): ?>
-                        <?php $fullname = explode(" ",$_SESSION['username']); ?>
-                        <?php $name = end($fullname); ?>
-                        <p><?= $name ? "Hello, ". $name : ""?></p>
+                            <?php $fullname = explode(" ", $_SESSION['username']); ?>
+                            <?php $name = end($fullname); ?>
+                            <p><?= $name ? "Hello, " . $name : "" ?></p>
                         <?php endif; ?>
                     </a>
                     <button class='icon-header-btn'>
                         <i class='fa-solid fa-cart-shopping'></i>
-                        <p class="amount-cart"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']):'0' ?></p>
+                        <p class="amount-cart"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : '0' ?></p>
                     </button>
                 </div>
             </div>

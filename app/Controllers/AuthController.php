@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Users;
+use App\Models\Account;
 use App\Core\JWT;
 use App\Models\Cart;
 
@@ -33,7 +33,7 @@ class AuthController
         $password = trim($_POST['password'] ?? '');
 
 
-        $userModel = new Users();
+        $userModel = new Account();
         $user = $userModel->findByEmail($email);
 
 
