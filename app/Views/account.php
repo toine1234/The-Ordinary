@@ -35,7 +35,7 @@
         </div>
 
         <div class="account-dashboard-profile">
-            <h1>Hello, </h1>
+            <h1>Hello, <?= $account['HoTen']?></h1>
             <hr>
             <div class="account-dashboard-card">
                 <div class="profile-section">
@@ -47,7 +47,7 @@
                                 <p><?= $account['Email']?></p>
                                 <p><?= $account['SDT']?></p>
                             </div>
-                            <a href="#">Edit</a>
+                            <a href="/The-Ordinary/profile-edit">Edit</a>
                         </div>
                         <hr>
                         <div class="profile-password">
