@@ -516,6 +516,9 @@ a{
     border: none;
     position: relative;
     cursor: pointer;
+    display: flex;
+    gap: 5px;
+    align-items: center;
 }
 
 .amount-cart{

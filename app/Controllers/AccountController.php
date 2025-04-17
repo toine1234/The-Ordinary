@@ -6,9 +6,11 @@ use App\Models\Account;
 class AccountController
 {
     public function index(){
-        session_start();
+        
         if (isset($_COOKIE['accessToken'])) {
+            session_start();
             $account = Account::getAccountById($_SESSION['idUser']);
+            $_SESSION['username'] = $account['HoTen'];
         }
 
         else {

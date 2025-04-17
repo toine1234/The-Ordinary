@@ -36,10 +36,6 @@ class AuthController
         $userModel = new Users();
         $user = $userModel->findByEmail($email);
 
-        // echo'<pre>';
-        // print_r($user);
-        // print_r('inputpassword:'.$password);
-        // echo '</pre>';
 
         if (!$user || !password_verify($password, $user[0]['Password'])) {
             http_response_code(401);
@@ -53,12 +49,6 @@ class AuthController
             header('Location: /The-Ordinary/login');
             return;
         }
-
-        // if (!$user || $password !== $user[0]['Password']) { 
-        //     http_response_code(401);
-        //     echo json_encode(['message' => 'Invalid credentials']);
-        //     return;
-        // }
 
 
         $token = JWT::create(['ID' => $user[0]['ID_Khach_Hang'], 'Email' => $user[0]['Email'], 'Role' => $user[0]['Roles']], 60);
@@ -94,6 +84,7 @@ class AuthController
         session_start();
         unset($_SESSION['idUser']);
         unset($_SESSION['cart']);
+        unset($_SESSION['username']);
         setcookie('accessToken', '', time() - 3600, '/The-Ordinary');
 
         $_SESSION['flash'] = [
