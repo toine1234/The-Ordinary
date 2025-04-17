@@ -2129,10 +2129,8 @@ h3{
     font-size: 1.3rem;
 }
 
-.account-dashboard-address-info{
-    width: 100%;
+.account-dashboard-address-frame{
     display: flex;
     flex-direction: row;
-    flex: 1;
-
+    justify-content: space-between;
 }

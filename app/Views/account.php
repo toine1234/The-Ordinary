@@ -60,8 +60,11 @@
 
             <div class="account-dashboard-address">
                 <h3>Address Book</h3>
-                <div class="account-dashboard-address-info">
-                    <p>Add new address</p>
+                <div class="account-dashboard-address-frame">
+                    <div class="account-dashboard-address-info">
+                        <p>Add new address</p>
+                    </div>
+                    <a href="#">Edit</a>
                 </div>
             </div>
 
