@@ -95,7 +95,11 @@ class AuthController
         unset($_SESSION['idUser']);
         unset($_SESSION['cart']);
         setcookie('accessToken', '', time() - 3600, '/The-Ordinary');
-        session_destroy();
+
+        $_SESSION['flash'] = [
+            'type' => 'success', // success, danger, warning, info
+            'message' => 'Logout successful!'
+        ];
         header('Location: /The-Ordinary/login');
         exit;
     }

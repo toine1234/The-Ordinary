@@ -48,7 +48,7 @@
                     <button class='icon-header-btn'>
                         <i class='fa-solid fa-magnifying-glass'></i>
                     </button>
-                    <a href='/The-Ordinary/login' class='icon-header-btn'>
+                    <a href='/The-Ordinary/account' class='icon-header-btn'>
                         <i class='fa-solid fa-user'></i>
                     </a>
                     <button class='icon-header-btn'>
