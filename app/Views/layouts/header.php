@@ -40,7 +40,18 @@
                     </button>
 
                     <div class='header-promo-slider'>
+                        <div class="slides">
+                            <div tabindex="1" class="slide">
+                                <a>SALE OFF 50%</a>
+                            </div>
+                            <div tabindex="1" class="slide ">
+                                <a>CARBON NEUTRAL SHIPPING ON ALL OREDERS</a>
+                            </div>
+                            <div tabindex="1" class="slide">
+                                <a>20% OFF SELECT SETS & COLLECTIONS</a>
+                            </div>
 
+                        </div>
                     </div>
 
                     <button class='header-icon-next'>
@@ -48,6 +59,28 @@
                         <span class='sr-only'>Next</span>
                     </button>
                 </div>
+                <script>
+                    let slideIndex = 1;
+                    setInterval(() => {
+                        moveSlide(1)
+                    }, 4000)
+                    function moveSlide(n) {
+                        showSlide(slideIndex += n);
+                    }
+
+                    function showSlide(n) {
+                        const slides = document.querySelectorAll('.slide');
+                        if (n > slides.length) {
+                            slideIndex = 1;
+                        }
+                        if (n < 1) {
+                            slideIndex = slides.length;
+                        }
+                        slides.forEach(slide => {
+                            slide.style.transform = "translateY(-" + ((slideIndex - 1) * 120) + "%)";
+                        });
+                    }
+                </script>
                 <div class='icon-header'>
                     <button class='icon-header-btn'>
                         <i class='fa-solid fa-magnifying-glass'></i>
