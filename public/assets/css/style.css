@@ -1195,7 +1195,7 @@ h3{
     color: black;
 }
 
-.btn-signin, .btn-createaccount, .btn-profile-edit{
+.btn-signin, .btn-createaccount, .btn-profile-edit, .btn-password-edit{
     border: 1px solid black;
     background-color: white;
     padding: 12px 24px;
@@ -1207,7 +1207,7 @@ h3{
     font-size: 12px;
 }
 
-.btn-signin:hover, .btn-createaccount:hover, .btn-profile-edit:hover{
+.btn-signin:hover, .btn-createaccount:hover, .btn-profile-edit:hover , .btn-password-edit:hover{
     background-color: black;
     color: white;
 }
@@ -2338,7 +2338,7 @@ h3{
     color: var(--white);
 }
 
-/********************** PagePage Profile Edit ******************************/
+/********************** PAGE Profile Edit ******************************/
 
 .page-profile-edit-container{
     display: flex;
@@ -2362,7 +2362,7 @@ h3{
 
 .profile-edit-wrapper{
     margin-top: 40px;
-    width: 25%;
+    width: 20%;
 }
 
 .profile-edit-wrapper h3{
@@ -2371,4 +2371,35 @@ h3{
     margin-bottom: 20px;
 }
 
+/********************** Page PASSWORD Edit ******************************/
 
+.page-password-edit-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.password-edit-breadcrumb{
+    width: 90%;
+    margin: 30px auto;
+}
+
+.nav-password-edit{
+    display: flex;
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+.password-edit-wrapper{
+    margin-top: 40px;
+    width: 20%;
+}
+
+.password-edit-wrapper h3{
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}

@@ -58,7 +58,7 @@
                         <hr>
                         <div class="profile-password">
                             <p>..............</p>
-                            <a href="#">Edit</a>
+                            <a href="/The-Ordinary/password-edit">Edit</a>
                         </div>
                     </div>
                 </div>
@@ -70,9 +70,8 @@
                 <h3>Address Book</h3>
                 <div class="account-dashboard-address-frame">
                     <div class="account-dashboard-address-info">
-                        <p>Add new address</p>
+                        <p><?= $account['DiaChi']?></p>
                     </div>
-                    <a href="#">Edit</a>
                 </div>
             </div>
 

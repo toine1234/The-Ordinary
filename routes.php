@@ -16,5 +16,5 @@ function defineRoutes($router) {
     $router->post('/cart', [App\Controllers\CartController::class, 'addtocart']);
     $router->post('/cart/remove', [App\Controllers\CartController::class, 'RemoveCart']);
     $router->get('/profile-edit', [App\Controllers\ProfileEditController::class, 'index']);
-    $router->post('/profile-edit', [App\Controllers\ProfileEditController::class,'editprofile']);
+    $router->get('/password-edit', [App\Controllers\PasswordEditController::class,'index']);
 }
