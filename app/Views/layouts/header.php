@@ -35,7 +35,7 @@
             <div class='header-top'>
                 <div class='header-slide'>
                     <button class='header-icon-previous'>
-                        <i class='fa-solid fa-chevron-left'></i>
+                        <p><</p>
                         <span class='sr-only'>Previous</span>
                     </button>
 
@@ -55,7 +55,7 @@
                     </div>
 
                     <button class='header-icon-next'>
-                        <i class='fa-solid fa-chevron-right'></i>
+                        <p>></p>
                         <span class='sr-only'>Next</span>
                     </button>
                 </div>

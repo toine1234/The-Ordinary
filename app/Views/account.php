@@ -22,7 +22,8 @@
                 </li>
                 <hr>
                 <li>
-                <img class='img-brand' src='https://theordinary.com/on/demandware.static/Sites-deciem-global-Site/-/default/dw8dc43046/images/brands-logo/theordinary_black.svg'>
+                    <img class='img-brand'
+                        src='https://theordinary.com/on/demandware.static/Sites-deciem-global-Site/-/default/dw8dc43046/images/brands-logo/theordinary_black.svg'>
                 </li>
                 <li>
                     <a href="#">Subscribe & Save</a>
@@ -41,7 +42,9 @@
         </div>
 
         <div class="account-dashboard-profile">
-            <h1>Hello, <?= $account['HoTen']?></h1>
+            <?php $fullnameArray = explode(" " ,$account['HoTen'] ) ?>
+            <?php $name = end($fullnameArray) ?>
+            <h1>Hello, <?= $name ?></h1>
             <hr>
             <div class="account-dashboard-card">
                 <div class="profile-section">
@@ -49,9 +52,10 @@
                     <div class="profile-info">
                         <div class="profile-info-frame">
                             <div class="profile-info-card">
-                                <p><strong><?= $account['HoTen']?></strong></p>
-                                <p><?= $account['Email']?></p>
-                                <p><?= $account['SDT']?></p>
+
+                                <p><strong><?= $account['HoTen'] ?></strong></p>
+                                <p><?= $account['Email'] ?></p>
+                                <p><?= $account['SDT'] ?></p>
                             </div>
                             <a href="/The-Ordinary/profile-edit">Edit</a>
                         </div>
@@ -70,7 +74,7 @@
                 <h3>Address Book</h3>
                 <div class="account-dashboard-address-frame">
                     <div class="account-dashboard-address-info">
-                        <p><?= $account['DiaChi']?></p>
+                        <p><?= $account['DiaChi'] ?></p>
                     </div>
                 </div>
             </div>

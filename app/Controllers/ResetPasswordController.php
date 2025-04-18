@@ -6,6 +6,7 @@ use App\Models\User;
 
 class ResetPasswordController {
     public function index() {
+        session_start();
         require 'app/Views/layouts/header.php';
         require 'app/Views/resetpassword.php';
         require 'app/Views/layouts/footer.php';

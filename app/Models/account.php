@@ -15,6 +15,15 @@ class Account
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function findByID($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = 'SELECT * FROM tai_khoan WHERE ID_Khach_Hang = :id';
+        $stmt = $db->prepare($query);
+        $stmt->execute([':id'=> $id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 
     public static function generateUUID(): string
     {
@@ -63,5 +72,20 @@ class Account
         ]);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function changePassword($id, $newPassword){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = 
+        'UPDATE tai_khoan
+        SET Password = :newPassword
+        WHERE ID_Khach_Hang = :id';
+        $stmt = $db->prepare($query);
+        $stmt->execute([ 
+            ':id' => $id, 
+            ':newPassword' => $newPassword
+        ]);
+
     }
 }
