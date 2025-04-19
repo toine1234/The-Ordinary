@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\Users;
+use App\Models\Account;
 
 class UserController
 {
@@ -9,8 +10,9 @@ class UserController
         
         if (isset($_COOKIE['accessToken'])) {
             session_start();
-            $account = Users::getUserById($_SESSION['idUser']);
-            $_SESSION['username'] = $account['HoTen'];
+            $user = Users::getUserById($_SESSION['idUser']);
+            $account = Account::findByID($_SESSION['idUser']);
+            $_SESSION['username'] = $user['HoTen'];
         }
 
         else {

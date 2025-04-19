@@ -42,26 +42,26 @@
         </div>
 
         <div class="account-dashboard-profile">
-            <?php $fullnameArray = explode(" ", $account['HoTen']) ?>
+            <?php $fullnameArray = explode(" ", $user['HoTen']) ?>
             <?php $name = end($fullnameArray) ?>
             <h1>Hello, <?= $name ?></h1>
             <hr>
-            <div class="account-dashboard-card">
+            <div class="user-dashboard-card">
                 <div class="profile-section">
                     <h3>PROFILE</h3>
                     <div class="profile-info">
                         <div class="profile-info-frame">
                             <div class="profile-info-card">
 
-                                <p><strong><?= $account['HoTen'] ?></strong></p>
-                                <p><?= $account['Email'] ?></p>
-                                <p><?= $account['SDT'] ?></p>
+                                <p><strong><?= $user['HoTen'] ?></strong></p>
+                                <p><?= $user['Email'] ?></p>
+                                <p><?= $user['SDT'] ?></p>
                             </div>
                             <a href="/The-Ordinary/profile-edit">Edit</a>
                         </div>
                         <hr>
                         <div class="profile-password">
-                            <input class="profile-password-innput" type="password" value="<?= $account['Password'] ?>" readonly disabled>
+                            <input class="profile-password-input" type="password" value="<?= $account[0]['Password'] ?>" readonly disabled>
                             <a href="/The-Ordinary/password-edit">Edit</a>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                 <h3>Address Book</h3>
                 <div class="account-dashboard-address-frame">
                     <div class="account-dashboard-address-info">
-                        <p><?= $account['DiaChi'] ?></p>
+                        <p><?= $user['DiaChi'] ?></p>
                     </div>
                 </div>
             </div>

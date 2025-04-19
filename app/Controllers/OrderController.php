@@ -10,7 +10,7 @@ class OrderController
 {
     public function index()
     {
-        // session_start();
+        session_start();
         // if (isset($_GET['id'])) {
         //     $product = Product::getProductsById($_GET['id']);
 
@@ -23,7 +23,7 @@ class OrderController
 
 
         require 'app/Views/layouts/header.php';
-        require 'app/Views/product.php';
+        require 'app/Views/order.php';
         require 'app/Views/layouts/footer.php';
     }
 }
