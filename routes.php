@@ -1,6 +1,7 @@
 <?php
 
-function defineRoutes($router) {
+function defineRoutes($router)
+{
     // Home Route //
     $router->get('/', [App\Controllers\HomeController::class, 'index']);
 
@@ -35,9 +36,12 @@ function defineRoutes($router) {
 
     // Edit Profile Routes //
     $router->get('/profile-edit', [App\Controllers\ProfileEditController::class, 'index']);
-    $router->post('/profile-edit',[App\Controllers\ProfileEditController::class,'editprofile']);
-    
+    $router->post('/profile-edit', [App\Controllers\ProfileEditController::class, 'editprofile']);
+
     // Edit Password Routes //
-    $router->get('/password-edit', [App\Controllers\PasswordEditController::class,'index']);
-    $router->post('/password-edit', [App\Controllers\PasswordEditController::class,'editpassword']);
+    $router->get('/password-edit', [App\Controllers\PasswordEditController::class, 'index']);
+    $router->post('/password-edit', [App\Controllers\PasswordEditController::class, 'editpassword']);
+
+    // Order Routes //
+    $router->get('/order', [App\Controllers\OrderController::class, 'index']);
 }
