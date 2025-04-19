@@ -1,12 +1,12 @@
 <?php $carts = $cartItems ?>
 <?php $total = 0; ?>
 <?php foreach ($carts as $item): ?>
-<?php $total += $item['Gia'] * $item['SL']; ?>
+    <?php $total += $item['Gia'] * $item['SL']; ?>
 <?php endforeach; ?>
 <div class="cart-wrapper">
     <div class="cart-content">
         <div class="cart-header">
-            <h1 style="font-size: 20px;font-weight:bold">MY CART <?= "(".count($carts).")" ?></h1> 
+            <h1 style="font-size: 20px;font-weight:bold">MY CART <?= "(" . count($carts) . ")" ?></h1>
         </div>
         <?php if (!empty($carts)): ?>
             <div class="process-free-ship">
@@ -21,7 +21,7 @@
             const totalAmount = <?= $total ?>;
             console.log(totalAmount);
             const freeShippingThreshold = 39.00;
-    
+
             if (totalAmount >= freeShippingThreshold) {
                 processBar.style.width = '100%';
                 processBar.style.backgroundColor = '#4CAF50'; // Green color for free shipping
@@ -91,21 +91,21 @@
             </div>
         </div>
         <?php if (!empty($carts)): ?>
-            <a href="/The-Ordinary/checkout" class="checkout-btn">CHECKOUT</a>
+            <a href="/The-Ordinary/order" class="checkout-btn">CHECKOUT</a>
         <?php endif; ?>
         <a href="/The-Ordinary/shop" class="continue-shopping-btn">Continue Shopping</a>
     </div>
     <script>
-    const cartButton = document.querySelector('.icon-header-btn:nth-child(3)');
-    const cartContainer = document.querySelector('.site-cart');
-    const closeCartButton = document.querySelector('.close-cart');
-    const containerCart = document.querySelector('.cart-Container');
+        const cartButton = document.querySelector('.icon-header-btn:nth-child(3)');
+        const cartContainer = document.querySelector('.site-cart');
+        const closeCartButton = document.querySelector('.close-cart');
+        const containerCart = document.querySelector('.cart-Container');
 
-    cartButton.addEventListener('click', () => {
-        cartContainer.style.display = 'none';
-        cartContainer.style.transform = 'none';
-        containerCart.style.display = 'none';
+        cartButton.addEventListener('click', () => {
+            cartContainer.style.display = 'none';
+            cartContainer.style.transform = 'none';
+            containerCart.style.display = 'none';
 
-    });
-</script>
+        });
+    </script>
 </div>
