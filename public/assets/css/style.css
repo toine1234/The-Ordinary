@@ -2268,6 +2268,13 @@ h3{
     flex: 1;
 }
 
+.profile-password-innput{
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    letter-spacing: 3px;
+    outline: none;
+}
 .profile-info-card{
     line-height: 2rem;
 }

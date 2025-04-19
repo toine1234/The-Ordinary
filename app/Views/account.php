@@ -42,7 +42,7 @@
         </div>
 
         <div class="account-dashboard-profile">
-            <?php $fullnameArray = explode(" " ,$account['HoTen'] ) ?>
+            <?php $fullnameArray = explode(" ", $account['HoTen']) ?>
             <?php $name = end($fullnameArray) ?>
             <h1>Hello, <?= $name ?></h1>
             <hr>
@@ -61,7 +61,7 @@
                         </div>
                         <hr>
                         <div class="profile-password">
-                            <p>..............</p>
+                            <input class="profile-password-innput" type="password" value="<?= $account['Password'] ?>" readonly disabled>
                             <a href="/The-Ordinary/password-edit">Edit</a>
                         </div>
                     </div>
