@@ -2456,14 +2456,15 @@ h3{
 
 .page-order-checkout{
     max-width: 500px;
-    gap: 20px;
+    gap: 30px;
     padding: 20px;
 }
 
 .order-checkout{
-    height: 60vh;
+    height: 85vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    margin-bottom: 30px;
 }
 
 .page-order-checkout h3{
@@ -2550,18 +2551,18 @@ h3{
     height: 60vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    margin-bottom: 30px;
 }
 
 .order-checkout-payment h4{
     font-size: 1.3rem;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .order-checkout-payment h5{
     font-weight: 700;
     font-size: 1.1rem;
-    margin-top: 40px;
 }
 
 
@@ -2571,6 +2572,189 @@ h3{
         flex-direction: column;
     }
 }
+
+.order-checkout-payment{
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.order-checkout-payment-methods{
+    margin-top: 20px;
+    border: 1px solid var(--graynhe);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.order-checkout-payment-radio-card{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.order-checkout-payment-option{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--graynhe);
+}
+
+.order-checkout-payment-option input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 10px;
+}
+
+.order-checkout-card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.order-checkout-card-form input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 1rem;
+    outline: none;
+}
+
+.card-form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.card-form-row input {
+    flex: 1;
+}
+
+.save-card {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--graynhe);
+}
+
+.save-card input[type="checkbox"] {
+    transform: scale(1.1);
+}
+
+.order-checkout-billing-address {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.order-checkout-billing-address label {
+    display: block;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.btn-order-checkout-review {
+    margin-top: 30px;
+    background: black;
+    color: white;
+    padding: 14px;
+    width: 100%;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-order-checkout-review:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+}
+/* Review */
+.order-checkout-review {
+    margin-top: 2rem;
+    background: #fff;
+    border-radius: 6px;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.order-checkout-review h4{
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.order-checkout-review h5{
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.order-checkout-review-section {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.review-product {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.review-product .product-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.product-details {
+    flex: 1;
+    margin-left: 1rem;
+}
+
+.product-price {
+    min-width: 80px;
+    text-align: right;
+}
+
+.order-checkout-review-totals {
+    border-top: 1px solid #000;
+    padding-top: 1rem;
+}
+
+.totals-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+}
+
+.totals-row.total {
+    font-size: 1.1rem;
+}
+
+.btn-order-place {
+    background: black;
+    color: white;
+    padding: 1rem;
+    width: 100%;
+    text-transform: uppercase;
+    border: none;
+    margin-top: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 
 
 
