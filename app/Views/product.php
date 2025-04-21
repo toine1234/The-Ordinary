@@ -1,4 +1,3 @@
-
 <div class="container-product-detail">
     <div class="router-product-detail">
         <ul class="list-router-product-detail">
@@ -56,13 +55,22 @@
             </div>
 
             <div class="product-detail-quantity">
-                <div class="quantity-amount">
-                    <button class="btn-quantity" type="button"
-                        onclick="this.parentNode.querySelector('input[type=number]')">-</button>
-                    <input type="text" disabled value="1" class="input-quantity">
-                    <button class="btn-quantity" type="button"
-                        onclick="this.parentNode.querySelector('input[type=number]')">+</button>
-                </div>
+                <form action="/The-Ordinary/cart" method="post" class="quantity-amount">
+                    <div class="quantity-amount-item">
+                        <button class="btn-quantity" type="button"
+                            onclick="this.parentNode.querySelector('input[type=number]')">-</button>
+                        <input type="text" name="quantity" disabled value="1" class="input-quantity">
+                        <input type="hidden" name="productId" value="<?= htmlspecialchars($item["ID_San_Pham"]) ?>">
+                        <button class="btn-quantity" type="button"
+                            onclick="this.parentNode.querySelector('input[type=number]')">+</button>
+                    </div>
+                    <div class="quantity-amount-item">
+                        <button class="submit-add-to-cart" type="submit">
+                            <i class='fa-solid fa-cart-shopping'></i>
+                            Add to cart
+                        </button>
+                    </div>
+                </form>
                 <script>
                     document.querySelectorAll('.btn-quantity').forEach(function (button) {
                         button.addEventListener('click', function () {
@@ -77,10 +85,7 @@
                         });
                     });
                 </script>
-                <button class="submit-add-to-cart" type="submit">
-                    <i class='fa-solid fa-cart-shopping'></i>
-                    Add to cart
-                </button>
+
             </div>
             <div class="product-detail-message">
                 <p class="product-detail-message--text">Free shipping on orders over $25</p>

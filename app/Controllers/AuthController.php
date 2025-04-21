@@ -74,6 +74,8 @@ class AuthController
         $cartItems=Cart::get_cart($user[0]['ID_Khach_Hang']);
         $_SESSION['cart'] = $cartItems;
 
+        
+
         header('Location: /The-Ordinary/account');
         exit;
 
