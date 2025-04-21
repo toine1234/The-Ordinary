@@ -42,6 +42,8 @@
                 </div>
             </div>
 
+
+
             <!-- Payment -->
             <div class="order-checkout-payment">
                 <h4>02. PAYMENT</h4>
@@ -128,11 +130,11 @@
             </div>
             <div class="order-summary-row-total">
                     <strong>Estimated Total</strong>
-                    <strong><?=$estiamtedTotal?> USD</strong>
+                    <strong>48.40 USD</strong>
             </div>
             <hr>
             <button class="btn-order-summary">PLACE ORDER</button>
-        
+
             <div class="order-items-section">
                 <p><strong>1 item(s)</strong></p>
                 <hr>
@@ -152,9 +154,54 @@
             <p class="order-disclaimer">
                 The safety of our customers is a key priority, which is why we are committed to the prevention of the sale and distribution of counterfeit products or products sold through unauthorized retail channels. Please note that products and services available via DECIEM are for personal use only. We do not permit the reselling of our products or services, as noted in our <a href="#">Terms and Conditions</a>. If you are not satisfied with your purchase, you may return it for a full refund within one year of purchase. Kindly note that DECIEM does not cover the costs of return shipping. Please explore our <a href="#">Return Policy</a> for more details.
             </p>
-        
-        
+
+
         </div>
     </div>
 
 </div>
+
+<script>
+    document.querySelector('.btn-order-checkout-shipping').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Lấy giá trị từ form
+        const inputs = document.querySelectorAll('.order-checkout-shipping-form input');
+        const fullName = inputs[0].value;
+        const address = inputs[1].value;
+        const phone = inputs[2].value;
+        const city = inputs[3].value;
+
+        // Thông tin cố định
+        const shippingMethod = 'Standard Shipping';
+        const estimatedDelivery = '4/30/25';
+        const shippingPrice = '38.00 USD';
+
+        // HTML Shipping mới
+        const OrderShippingHTML = `
+        <h4>01. SHIPPING <a href="#" style="float: right; font-size: 0.9rem; color: black;">Edit</a></h4>
+        <div style="display: flex; justify-content: space-between; gap: 30px;">
+            <div>
+                <h5 style="font-weight: bold;">SHIPPING TO</h5>
+                <p>${fullName}<br>
+                ${address}<br>
+                ${city}<br>
+                VN<br>
+                ${phone}<br>
+                truc55044@gmail.com</p>
+            </div>
+            <div>
+                <h5 style="font-weight: bold;">SHIPPING METHOD</h5>
+                <p>${shippingMethod}<br>
+                Estimated delivery:<br>
+                ${estimatedDelivery}<br>
+                ${shippingPrice}</p>
+            </div>
+        </div>
+    `;
+
+        // Gán lại nội dung
+        const checkoutDiv = document.querySelector('.order-checkout');
+        checkoutDiv.innerHTML = OrderShippingHTML;
+    });
+</script>
