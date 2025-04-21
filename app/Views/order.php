@@ -84,59 +84,20 @@
             <!-- Review -->
             <div class="order-checkout-review">
                 <h4>03. REVIEW</h4>
-
-                <div class="order-checkout-review-section">
-                    <h5>SHIPPING INFORMATION</h5>
-                    <p><strong>Name:</strong> John Doe</p>
-                    <p><strong>Address:</strong> 123 Main St, City, Country</p>
-                    <p><strong>Phone:</strong> +123456789</p>
-                    <p><strong>Shipping Method:</strong> Standard Shipping - 38.00 USD</p>
-                    <a href="#" class="edit-link">Edit</a>
-                </div>
-
-                <div class="order-checkout-review-section">
-                    <h5>PAYMENT INFORMATION</h5>
-                    <p><strong>Payment Method:</strong> Visa ending in 1234</p>
-                    <p><strong>Billing Address:</strong> Same as shipping address</p>
-                    <a href="#" class="edit-link">Edit</a>
-                </div>
-
-                <div class="order-checkout-review-section">
-                    <h5>ITEM(S) IN YOUR ORDER</h5>
-                    <div class="review-product">
-                        <img src="https://cdn.example.com/product-image.jpg" alt="Product" class="product-thumbnail">
-                        <div class="product-details">
-                            <p><strong>The Ordinary</strong></p>
-                            <p>Glycolic Acid 7% Exfoliating Toner</p>
-                            <p>Size: 100ml</p>
-                            <p>Quantity: 1</p>
-                        </div>
-                        <div class="product-price">
-                            <p>10.40 USD</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="order-checkout-review-totals">
-                    <div class="totals-row">
-                        <span>Merchandise Subtotal</span>
-                        <span>10.40 USD</span>
-                    </div>
-                    <div class="totals-row">
-                        <span>Shipping & Handling</span>
-                        <span>38.00 USD</span>
-                    </div>
-                    <div class="totals-row total">
-                        <strong>Estimated Total</strong>
-                        <strong>48.40 USD</strong>
-                    </div>
-                </div>
-
-                <button class="btn-order-place">PLACE ORDER</button>
+                <label class="order-checkbox-container">
+                    <input type="checkbox">
+                    <span class="order-checkmark">KEEP ME UPDATED</span>
+                </label>
+                <p>
+                    Stay up to date on the latest DECIEM news, events, promotions and new product developments. <br>
+                    *By checking the above box you are agreeing to receive email communications from DECIEM Inc., its affiliates, brands (The Ordinary, NIOD and LOoPHA) and/or marketing partners. This can be changed at any time. Please refer to our Privacy Policy and Terms of Use for more details or Contact Us.
+                </p>
+                <p>
+                    By placing the order, you agree to DECIEM's Privacy Policy and Terms of Use.
+                </p>
+                <button class="btn-order-checkout-button">PLACE ORDER</button>
             </div>
 
-
-            
         </div>
     </div>
 
@@ -145,7 +106,44 @@
     <!-- Phần ORDER SUMMARY -->
     <div class="page-order-summary-container">
         <div class="page-order-summary">
-
+            <h4>ORDER SUMMARY</h4>
+            <hr>
+            <div class="order-summary-items-row">
+                <div class="order-summary-row">
+                    <span>Merchandis subtotal</span>
+                    <span>10.40 USD</span>
+                </div>
+                <div class="order-summary-row">
+                    <span>Shipping & Handling</span>
+                    <span>38.00 USD</span>
+                </div>
+            </div>
+            <div class="order-summary-row-total">
+                    <strong>Estimated Total</strong>
+                    <strong>48.40 USD</strong>
+            </div>
+            <hr>
+            <button class="btn-order-summary">PLACE ORDER</button>
+        
+            <div class="order-items-section">
+                <p><strong>1 item(s)</strong></p>
+                <hr>
+                <div class="order-item">
+                    <img class="order-product-img" src="https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw8b57fa2b/Images/products/The%20Ordinary/ord-glyc-acid-7pct-100ml-Aug-UPC.png?sw=96&sh=96&sm=fit" alt="product">
+                    <div class="order-item-details">
+                        <p class="order-brand">THE ORDINARY</p>
+                        <p class="product-name"><strong>Glycolic Acid 7%<br>Exfoliating Toner</strong></p>
+                        <p>Size: 100ml</p>
+                        <p>Quantity: 1</p>
+                    </div>
+                    <div class="order-item-price">10.40 USD</div>
+                </div>
+            </div>
+            <p class="order-disclaimer">
+                The safety of our customers is a key priority, which is why we are committed to the prevention of the sale and distribution of counterfeit products or products sold through unauthorized retail channels. Please note that products and services available via DECIEM are for personal use only. We do not permit the reselling of our products or services, as noted in our <a href="#">Terms and Conditions</a>. If you are not satisfied with your purchase, you may return it for a full refund within one year of purchase. Kindly note that DECIEM does not cover the costs of return shipping. Please explore our <a href="#">Return Policy</a> for more details.
+            </p>
+        
+        
         </div>
     </div>
 
