@@ -3,25 +3,46 @@ namespace App\Controllers;
 
 use App\Models\Users;
 use App\Models\Account;
+use App\Core\JWT;
 
 class UserController
 {
-    public function index(){
-        
+    public function index()
+    {
         if (isset($_COOKIE['accessToken'])) {
-            session_start();
-            $user = Users::getUserById($_SESSION['idUser']);
-            $account = Account::findByID($_SESSION['idUser']);
-            $_SESSION['username'] = $user['HoTen'];
-        }
+            JWT::setSecret('hoaSYT98etSi3txRYAyvYO1dbNNoCy');
+            $middleware = JWT::verify($_COOKIE['accessToken']);
+            // echo "<pre>";
+            // echo print_r($middleware);
+            // echo "</pre>";
+            if (!$middleware) {
+                header('Location: /The-Ordinary/login');
+                session_start();
+                $_SESSION['flash'] = [
+                    'type' => 'danger', // success, danger, warning, info
+                    'message' => 'Token is not match'
+                ];
+                exit;
+            } else {
 
-        else {
+                if ($middleware->Role === 'admin'){
+                    header('Location: /The-Ordinary/admin/dashboard');
+                    exit;
+                }
+                session_start();
+                $user = Users::getUserById($middleware->ID);
+                $account = Account::findByID($middleware->ID);
+                $_SESSION['username'] = $user['HoTen'];
+            }
+
+
+        } else {
             header('Location: /The-Ordinary/login');
             session_start();
             $_SESSION['flash'] = [
-            'type' => 'danger', // success, danger, warning, info
-            'message' => 'Please login'
-        ];
+                'type' => 'danger', // success, danger, warning, info
+                'message' => 'Please login'
+            ];
             exit;
         }
 

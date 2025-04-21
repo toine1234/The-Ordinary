@@ -58,9 +58,9 @@
                         <button class="remove-item-cart">Remove</button>
                         <p class="cart-product-size">Size: 30ml</p>
                         <div class="cart-product-quantity">
-                            <button class="btn-cart-quantity">-</button>
+                            <button class="btn-cart-quantity" type="button">-</button>
                             <input type="text" disabled value="<?= $item['SL'] ?>" class="cart-quantity-input">
-                            <button class="btn-cart-quantity">+</button>
+                            <button class="btn-cart-quantity" type="button">+</button>
                         </div>
                     </div>
                 </form>
