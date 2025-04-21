@@ -1,3 +1,10 @@
+<?php $carts = $cartItems ?>
+<?php $total = 0; ?>
+<?php foreach ($carts as $item): ?>
+    <?php $total += $item['Gia'] * $item['SL']; ?>
+<?php endforeach; ?>
+<?php $shipping = $total > 39 ? 0:number_format(38,2). " USD"; ?>
+<?php $estiamtedTotal = number_format($total + $shipping,2); ?>
 <div class="page-order-container">
     <!----------- Phần CHECK-OUT ------------>
     <div class="page-order-checkout-container">
@@ -15,7 +22,7 @@
                     Please note once your order is placed, we are unable to change your shipping address.
                 </p>
                 <label class="order-checkout-shipping-label">
-                    <input type="radio" checked>
+                    <input type="radio" <?= $shipping === 0 ? "disabled":"checked"?>>
                     Standard Shipping
                     <span class="order-checkout-shipping-price">
                         38.00 USD
@@ -24,13 +31,14 @@
 
                 <div class="order-checkout-shipping">
                     <h5>SHIPPING ADDRESS</h5>
-                    <form class="order-checkout-shipping-form">
-                        <input type="text" placeholder="Full Name">
-                        <input type="text" placeholder="Address">
-                        <input type="tel" placeholder="Phone">
-                        <input type="text" placeholder="City">
+                    <form method="post" class="order-checkout-shipping-form">
+                        <input type="text" placeholder="Full Name" required>
+                        <input type="text" placeholder="Address" required>
+                        <input type="tel" placeholder="Phone" required>
+                        <input type="text" placeholder="City" required>
+                        <button type="submit" class="btn-order-checkout-shipping">CONTINUE TO PAYMENT</button>
                     </form>
-                    <button class="btn-order-checkout-shipping">CONTINUE TO PAYMENT</button>
+                    
                 </div>
             </div>
 
@@ -111,16 +119,16 @@
             <div class="order-summary-items-row">
                 <div class="order-summary-row">
                     <span>Merchandis subtotal</span>
-                    <span>10.40 USD</span>
+                    <span><?= number_format($total,2)?> USD</span>
                 </div>
                 <div class="order-summary-row">
                     <span>Shipping & Handling</span>
-                    <span>38.00 USD</span>
+                    <span><?= $shipping === 0 ? 'Free':number_format(38,2). " USD"?></span>
                 </div>
             </div>
             <div class="order-summary-row-total">
                     <strong>Estimated Total</strong>
-                    <strong>48.40 USD</strong>
+                    <strong><?=$estiamtedTotal?> USD</strong>
             </div>
             <hr>
             <button class="btn-order-summary">PLACE ORDER</button>
@@ -128,16 +136,18 @@
             <div class="order-items-section">
                 <p><strong>1 item(s)</strong></p>
                 <hr>
+                <?php foreach($carts as $item): ?>
                 <div class="order-item">
-                    <img class="order-product-img" src="https://theordinary.com/dw/image/v2/BFKJ_PRD/on/demandware.static/-/Sites-deciem-master/default/dw8b57fa2b/Images/products/The%20Ordinary/ord-glyc-acid-7pct-100ml-Aug-UPC.png?sw=96&sh=96&sm=fit" alt="product">
+                    <img class="order-product-img" src="<?= $item["Hinh_Anh"]?>" alt="product">
                     <div class="order-item-details">
                         <p class="order-brand">THE ORDINARY</p>
-                        <p class="product-name"><strong>Glycolic Acid 7%<br>Exfoliating Toner</strong></p>
-                        <p>Size: 100ml</p>
-                        <p>Quantity: 1</p>
+                        <p class="product-name"><strong><?= $item['Ten_SP']?></strong></p>
+                        <p>Size: 30ml</p>
+                        <p>Quantity: <?= $item['SL']?></p>
                     </div>
-                    <div class="order-item-price">10.40 USD</div>
+                    <div class="order-item-price"><?= number_format($item['Gia'],2). " USD"?></div>
                 </div>
+                <?php endforeach;?>
             </div>
             <p class="order-disclaimer">
                 The safety of our customers is a key priority, which is why we are committed to the prevention of the sale and distribution of counterfeit products or products sold through unauthorized retail channels. Please note that products and services available via DECIEM are for personal use only. We do not permit the reselling of our products or services, as noted in our <a href="#">Terms and Conditions</a>. If you are not satisfied with your purchase, you may return it for a full refund within one year of purchase. Kindly note that DECIEM does not cover the costs of return shipping. Please explore our <a href="#">Return Policy</a> for more details.

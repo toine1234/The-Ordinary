@@ -26,7 +26,7 @@ class UserController
             } else {
 
                 if ($middleware->Role === 'admin'){
-                    header('Location: /The-Ordinary/admin/dashboard');
+                    header('Location: /The-Ordinary/admin');
                     exit;
                 }
                 session_start();

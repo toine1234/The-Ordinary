@@ -185,7 +185,7 @@
     </div>
     <?php if (!empty($carts)): ?>
     <div class="process-free-ship">
-        <p>Free shipping on orders over 49.00 USD</p>
+        <p>Free shipping on orders over 39.00 USD</p>
         <div class="process-free-ship-bar">
             <div class="process-free-ship-bar-fill"></div>
         </div>

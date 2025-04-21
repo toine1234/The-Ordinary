@@ -67,7 +67,7 @@
             <?php endforeach; ?>
         </div>
     </div>
-    <?php $shipping = $total >= 49 ? "Free" : "49.00 USD"; ?>
+    <?php $shipping = $total >= 39 ? "Free" : number_format(38,2)." USD"; ?>
     <div class="order-summary">
         <div class="order-summary-header">
             <h1>ORDER SUMMARY</h1>

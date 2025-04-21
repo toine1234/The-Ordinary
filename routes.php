@@ -46,5 +46,5 @@ function defineRoutes($router)
     $router->get('/order', [App\Controllers\OrderController::class, 'index']);
 
     // Admin Routes //
-    $router->get('/admin/dashboard',[App\Controllers\AdminController::class,'index']);
+    $router->get('/admin',[App\Controllers\AdminController::class,'index']);
 }
