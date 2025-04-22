@@ -1,10 +1,10 @@
-<!-- <?php $carts = $cartItems ?>
+<?php $carts = $cartItems ?>
 <?php $total = 0; ?>
 <?php foreach ($carts as $item): ?>
     <?php $total += $item['Gia'] * $item['SL']; ?>
 <?php endforeach; ?>
 <?php $shipping = $total > 39 ? 0 : number_format(38, 2) . " USD"; ?>
-<?php $estiamtedTotal = number_format($total + $shipping, 2); ?> -->
+<?php $estiamtedTotal = number_format($total + $shipping, 2); ?>
 <div class="page-order-container">
     <!----------- Phần CHECK-OUT ------------>
     <div class="page-order-checkout-container">
@@ -32,9 +32,9 @@
                 <div class="order-checkout-shipping">
                     <h5>SHIPPING ADDRESS</h5>
                     <form method="post" class="order-checkout-shipping-form">
-                        <input type="text" placeholder="Full Name" required>
-                        <input type="text" placeholder="Address" required>
-                        <input type="tel" placeholder="Phone" required>
+                        <input type="text" value="<?= $user_info['HoTen']?>" placeholder="Full Name" required>
+                        <input type="text" value="<?= $user_info['DiaChi']?>" placeholder="Address" required>
+                        <input type="tel" value="<?= $user_info['SDT']?>" placeholder="Phone" required>
                         <input type="text" placeholder="City" required>
                         <button type="submit" class="btn-order-checkout-shipping">CONTINUE TO PAYMENT</button>
                     </form>
