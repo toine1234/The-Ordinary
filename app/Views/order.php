@@ -1,10 +1,10 @@
-<?php $carts = $cartItems ?>
+<!-- <?php $carts = $cartItems ?>
 <?php $total = 0; ?>
 <?php foreach ($carts as $item): ?>
     <?php $total += $item['Gia'] * $item['SL']; ?>
 <?php endforeach; ?>
-<?php $shipping = $total > 39 ? 0:number_format(38,2). " USD"; ?>
-<?php $estiamtedTotal = number_format($total + $shipping,2); ?>
+<?php $shipping = $total > 39 ? 0 : number_format(38, 2) . " USD"; ?>
+<?php $estiamtedTotal = number_format($total + $shipping, 2); ?> -->
 <div class="page-order-container">
     <!----------- Phần CHECK-OUT ------------>
     <div class="page-order-checkout-container">
@@ -22,7 +22,7 @@
                     Please note once your order is placed, we are unable to change your shipping address.
                 </p>
                 <label class="order-checkout-shipping-label">
-                    <input type="radio" <?= $shipping === 0 ? "disabled":"checked"?>>
+                    <input type="radio" <?= $shipping === 0 ? "disabled" : "checked" ?>>
                     Standard Shipping
                     <span class="order-checkout-shipping-price">
                         38.00 USD
@@ -38,7 +38,7 @@
                         <input type="text" placeholder="City" required>
                         <button type="submit" class="btn-order-checkout-shipping">CONTINUE TO PAYMENT</button>
                     </form>
-                    
+
                 </div>
             </div>
 
@@ -121,16 +121,16 @@
             <div class="order-summary-items-row">
                 <div class="order-summary-row">
                     <span>Merchandis subtotal</span>
-                    <span><?= number_format($total,2)?> USD</span>
+                    <span><?= number_format($total, 2) ?> USD</span>
                 </div>
                 <div class="order-summary-row">
                     <span>Shipping & Handling</span>
-                    <span><?= $shipping === 0 ? 'Free':number_format(38,2). " USD"?></span>
+                    <span><?= $shipping === 0 ? 'Free' : number_format(38, 2) . " USD" ?></span>
                 </div>
             </div>
             <div class="order-summary-row-total">
-                    <strong>Estimated Total</strong>
-                    <strong>48.40 USD</strong>
+                <strong>Estimated Total</strong>
+                <strong>48.40 USD</strong>
             </div>
             <hr>
             <button class="btn-order-summary">PLACE ORDER</button>
@@ -138,18 +138,18 @@
             <div class="order-items-section">
                 <p><strong>1 item(s)</strong></p>
                 <hr>
-                <?php foreach($carts as $item): ?>
-                <div class="order-item">
-                    <img class="order-product-img" src="<?= $item["Hinh_Anh"]?>" alt="product">
-                    <div class="order-item-details">
-                        <p class="order-brand">THE ORDINARY</p>
-                        <p class="product-name"><strong><?= $item['Ten_SP']?></strong></p>
-                        <p>Size: 30ml</p>
-                        <p>Quantity: <?= $item['SL']?></p>
+                <?php foreach ($carts as $item): ?>
+                    <div class="order-item">
+                        <img class="order-product-img" src="<?= $item["Hinh_Anh"] ?>" alt="product">
+                        <div class="order-item-details">
+                            <p class="order-brand">THE ORDINARY</p>
+                            <p class="product-name"><strong><?= $item['Ten_SP'] ?></strong></p>
+                            <p>Size: 30ml</p>
+                            <p>Quantity: <?= $item['SL'] ?></p>
+                        </div>
+                        <div class="order-item-price"><?= number_format($item['Gia'], 2) . " USD" ?></div>
                     </div>
-                    <div class="order-item-price"><?= number_format($item['Gia'],2). " USD"?></div>
-                </div>
-                <?php endforeach;?>
+                <?php endforeach; ?>
             </div>
             <p class="order-disclaimer">
                 The safety of our customers is a key priority, which is why we are committed to the prevention of the sale and distribution of counterfeit products or products sold through unauthorized retail channels. Please note that products and services available via DECIEM are for personal use only. We do not permit the reselling of our products or services, as noted in our <a href="#">Terms and Conditions</a>. If you are not satisfied with your purchase, you may return it for a full refund within one year of purchase. Kindly note that DECIEM does not cover the costs of return shipping. Please explore our <a href="#">Return Policy</a> for more details.
@@ -177,9 +177,12 @@
         const estimatedDelivery = '4/30/25';
         const shippingPrice = '38.00 USD';
 
+        const checkoutDiv = document.querySelector('.order-checkout');
+        const originalContett = checkoutDiv.innerHTML;
+
         // HTML Shipping mới
         const OrderShippingHTML = `
-        <h4>01. SHIPPING <a href="#" style="float: right; font-size: 0.9rem; color: black;">Edit</a></h4>
+        <h4>01. SHIPPING <a class="edit-shipping" href="#" style="float: right; font-size: 0.9rem; color: black;">Edit</a></h4>
         <div style="display: flex; justify-content: space-between; gap: 30px;">
             <div>
                 <h5 style="font-weight: bold;">SHIPPING TO</h5>
@@ -201,7 +204,14 @@
     `;
 
         // Gán lại nội dung
-        const checkoutDiv = document.querySelector('.order-checkout');
         checkoutDiv.innerHTML = OrderShippingHTML;
+
+        // Gán sự kiến cho nút Edit
+        document.querySelector('.edit-shipping').addEventListener('click', function(e) {
+            e.preventDefault();
+            checkoutDiv.innerHTML = originalContett;
+
+            document.querySelector('.btn-order-checkout-shipping').addEventListener('click', arguments.callee);
+        });
     });
 </script>
