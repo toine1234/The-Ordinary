@@ -111,19 +111,19 @@
                 </li>
                 <li class='brand-item'>
                     <a>
-
+                        <img src="https://niod.com/on/demandware.static/Sites-deciem-us-Site/-/default/dw778368d7/images/brands-logo/niod.svg" alt="NIOD_logo">
                         <p>NIOD</p>
                     </a>
                 </li>
                 <li class='brand-item'>
                     <a>
-
+                        <img src="https://niod.com/on/demandware.static/Sites-deciem-us-Site/-/default/dwaef764f9/images/brands-logo/loopha_black.svg" alt="LOOPHA_logo">
                         <p>LOOPHA</p>
                     </a>
                 </li>
                 <li class='brand-item'>
                     <a>
-
+                        <img src="https://niod.com/on/demandware.static/Sites-deciem-us-Site/-/default/dwe0b6a5be/images/brands-logo/deciem_black.svg" alt="DECIEM_logo">
                         <p>DECIEM</p>
                     </a>
                 </li>
