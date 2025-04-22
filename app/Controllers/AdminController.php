@@ -20,6 +20,10 @@ class AdminController
         }
 
         $products = Product::getAllProducts();
+
+        if (isset($_GET['view'])){
+            $product = Product::getProductsById($_GET['view']);
+        }
         
         
         require_once __DIR__ . '/../Views/admin.php';

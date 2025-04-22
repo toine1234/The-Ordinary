@@ -75,4 +75,10 @@ class Product {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
+
+    public static function Update($data) {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = 'UPDATE san_pham SET Ten_SP = :name';
+    }
 }

@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="public\assets\css\style.css" />
+    <link rel="stylesheet" href="public\assets\css\admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -28,6 +28,24 @@ $list_page = [
     "Orders",
     "Payment",
     "Setting",
+];
+
+$list_filter_format = [
+    'Serum',
+    'Cream',
+    'Gel',
+    'Liquid',
+    'Oil',
+    'Powder',
+    'Balm',
+    'Masque',
+    'Suspension',
+];
+
+$list_suited_to =[
+    'All Skin Types',
+    'Dry Skin',
+    'Oily Skin'
 ]
     ?>
 
@@ -50,11 +68,12 @@ $list_page = [
             <div class="sidebar-admin">
                 <form class="sidebar-admin-items" method="get">
                     <?php foreach ($list_page as $item): ?>
+                        
                         <label
                         style="<?= isset($_GET['page']) && $_GET['page'] === $item ? "background-color:var(--black);color:var(--white)":"" ?>"
                         class="sidebar-item">
                             <input hidden type="radio" name="page" value=<?= $item ?> 
-                            <?= isset($_GET['page']) && $_GET['page'] === $item ? 'checked' : '' ?>>
+                            <?=isset($_GET['page']) && $_GET['page'] === $item ? "checked":"" ?>>
                             <p><?= $item ?></p>
                         </label>
                     <?php endforeach; ?>
@@ -71,37 +90,159 @@ $list_page = [
             </div>
             <div class="content-admin">
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Products'): ?>
-                    <div class="table-data-products">
-                        <table class="custom-table">
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Format</th>
-                                <th>Created Date</th>
-                            </tr>
-                            <?php foreach($products as $product): ?>
-                                <tr onclick="display_view_products(<?= $product['ID_San_Pham'] ?>)">
-                                    <td><?= $product["ID_San_Pham"]?></td>
-                                    <td><?= $product["Ten_SP"]?></td>
-                                    <td><?= $product["SL"]?></td>
-                                    <td><?=number_format($product["Gia"],2)?> USD</td>
-                                    <td><?=$product["Format"]?></td>
-                                    <td><?=$product["Ngay_Tao"]?></td>
+                    <div class="content-admin-products">
+                        <div class="table-data-products">
+                            <table class="custom-table">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Format</th>
+                                    <th>Created Date</th>
                                 </tr>
-                            <?php endforeach; ?>
-                            <script>
-                                function display_view_products(id){
-                                    const form = document.createElement('form')
-                                    form.innerHTML=`<input hidden type="radio" name="view" value=${id}>`
-                                    form.target="_self"
-                                    form.method = "get"
-                                    form.action = "/The-Ordinary/admin?page=Products"
-                                    form.submit()
-                                }
-                            </script>
-                        </table>
+                                <?php foreach($products as $item): ?>
+                                    
+                                    <tr 
+                                    style="<?= isset($_GET['view']) && $_GET['view'] === $item['ID_San_Pham'] ? "background-color:var(--graynhe)":""?>" 
+                                    id="<?=$item['ID_San_Pham']?>" 
+                                    onclick="window.location.href='/The-Ordinary/admin?page=Products&view=<?=$item['ID_San_Pham']?>#<?=$item['ID_San_Pham']?>'">
+                                        <td><?= $item["ID_San_Pham"]?></td>
+                                        <td><?= $item["Ten_SP"]?></td>
+                                        <td><?= $item["SL"]?></td>
+                                        <td><?=number_format($item["Gia"],2)?> USD</td>
+                                        <td><?=$item["Format"]?></td>
+                                        <td><?=$item["Ngay_Tao"]?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </table>
+                        </div>
+                        
+                        <div class="info-detail">
+                            <h2 class="info-detail-title">Information</h2>
+                            <?php if (isset($_GET['view'])):?>
+                            <form class="form-product-detail">
+                                <div class="form-group">
+                                    <span>Id</span>
+                                    <input readonly name="id_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['ID_San_Pham'] :""?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Name</span>
+                                    <input name="name_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['Ten_SP'] :""?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Price</span>
+                                    <input name="price_product" type="text" value="<?= isset($_GET['view']) ? number_format($product[0]['Gia'],2) :""?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Format</span>
+                                    <select name="format_product">
+                                        <option disabled value="" >Select format</option>
+                                        <?php foreach ($list_filter_format as $format): ?>
+                                        <option value="<?=$format?>" <?= isset($_GET['view'])&&$format === $product[0]['Format'] ? 'selected':''?>><?=$format?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <span>Quantity</span>
+                                    <input type="text" value="<?= isset($_GET['view']) ? $product[0]['SL'] :""?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Size</span>
+                                    <input type="text" value="<?= isset($_GET['view']) ? $product[0]['Dung_Tich'] :""?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Targets</span>
+                                    <input type="text" value="<?= isset($_GET['view']) ? $product[0]['Targets'] :""?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Suited to</span>
+                                    <select name="suited_product">
+                                        <option disabled value="" >Select suited</option>
+                                        <?php foreach ($list_suited_to as $suited): ?>
+                                        <option value="<?=$suited?>" <?=isset($_GET['view'])&&trim($suited) === trim($product[0]['Suited_to']) ? 'selected':''?>><?=$suited?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <span>Key ingredients</span>
+                                    <input type="text" value="<?= isset($_GET['view']) ? $product[0]['Key_ingredients'] :""?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Description</span>
+                                    <textarea rows="5" cols="50"><?= isset($_GET['view']) ? $product[0]['Mo_Ta'] :""?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <span>Album</span>
+                                    <div class="list-img">
+                                    <?php foreach(explode(";",$product[0]['Hinh_Anh']) as $img):?>
+                                        <img class="list-img-item" src="<?= $img?>">
+                                    <?php endforeach; ?>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="submit" name="update">Update</button>
+                                    <button type="submit" name="delete">Delete</button>
+                                </div>
+                            </form>
+                            <?php endif; ?>
+                        </div>
+                        <div class="create-product">
+                            <h2 class="create-product-title">Create</h2>
+                            <form class="form-product-detail">
+                                <div class="form-group">
+                                    <span>Name</span>
+                                    <input name="name_product" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Price</span>
+                                    <input name="price_product" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Format</span>
+                                    <select name="format_product">
+                                        <option disabled value="" >Select format</option>
+                                        <?php foreach ($list_filter_format as $format): ?>
+                                        <option value="<?=$format?>"><?=$format?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <span>Quantity</span>
+                                    <input type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Size</span>
+                                    <input type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Targets</span>
+                                    <input type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Suited to</span>
+                                    <select name="suited_product">
+                                        <option disabled value="" >Select suited</option>
+                                        <?php foreach ($list_suited_to as $suited): ?>
+                                        <option><?=$suited?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <span>Key ingredients</span>
+                                    <input type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Description</span>
+                                    <textarea rows="5" cols="50"></textarea>
+                                </div>
+                               
+                                <div class="btn-group">
+                                    <button type="submit" name="update">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                        
                     </div>
                 <?php endif; ?>
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Users'): ?>
