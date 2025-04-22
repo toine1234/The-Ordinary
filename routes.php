@@ -47,4 +47,5 @@ function defineRoutes($router)
 
     // Admin Routes //
     $router->get('/admin',[App\Controllers\AdminController::class,'index']);
+    $router->post('/admin/products',[App\Controllers\AdminController::class,'CRUD_Products']);
 }

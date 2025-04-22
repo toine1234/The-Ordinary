@@ -64,6 +64,13 @@ $list_suited_to =[
 
             </div>
         </div>
+        <?php if (isset($_SESSION['flash'])): ?>
+            <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
+            <?= $_SESSION['flash']['message'] ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['flash']); ?>
+        <?php endif; ?>
         <div class="container-admin">
             <div class="sidebar-admin">
                 <form class="sidebar-admin-items" method="get">
@@ -121,8 +128,8 @@ $list_suited_to =[
                         <div class="info-detail">
                             <h2 class="info-detail-title">Information</h2>
                             <?php if (isset($_GET['view'])):?>
-                            <form class="form-product-detail">
-                                <div class="form-group">
+                            <form action="/The-Ordinary/admin/products" method="post" class="form-product-detail">
+                                <div hidden class="form-group">
                                     <span>Id</span>
                                     <input readonly name="id_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['ID_San_Pham'] :""?>">
                                 </div>
@@ -134,26 +141,22 @@ $list_suited_to =[
                                     <span>Price</span>
                                     <input name="price_product" type="text" value="<?= isset($_GET['view']) ? number_format($product[0]['Gia'],2) :""?>">
                                 </div>
-                                <div class="form-group">
-                                    <span>Format</span>
-                                    <select name="format_product">
-                                        <option disabled value="" >Select format</option>
-                                        <?php foreach ($list_filter_format as $format): ?>
-                                        <option value="<?=$format?>" <?= isset($_GET['view'])&&$format === $product[0]['Format'] ? 'selected':''?>><?=$format?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
+                               
                                 <div class="form-group">
                                     <span>Quantity</span>
-                                    <input type="text" value="<?= isset($_GET['view']) ? $product[0]['SL'] :""?>">
+                                    <input name="quantity_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['SL'] :""?>">
                                 </div>
                                 <div class="form-group">
                                     <span>Size</span>
-                                    <input type="text" value="<?= isset($_GET['view']) ? $product[0]['Dung_Tich'] :""?>">
+                                    <input name="size_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['Dung_Tich'] :""?>">
                                 </div>
                                 <div class="form-group">
                                     <span>Targets</span>
-                                    <input type="text" value="<?= isset($_GET['view']) ? $product[0]['Targets'] :""?>">
+                                    <input name="targets_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['Targets'] :""?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Key ingredients</span>
+                                    <input name="ingredients_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['Key_ingredients'] :""?>">
                                 </div>
                                 <div class="form-group">
                                     <span>Suited to</span>
@@ -165,14 +168,20 @@ $list_suited_to =[
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <span>Key ingredients</span>
-                                    <input type="text" value="<?= isset($_GET['view']) ? $product[0]['Key_ingredients'] :""?>">
+                                    <span>Format</span>
+                                    <select name="format_product">
+                                        <option disabled value="" >Select format</option>
+                                        <?php foreach ($list_filter_format as $format): ?>
+                                        <option value="<?=$format?>" <?= isset($_GET['view'])&&$format === $product[0]['Format'] ? 'selected':''?>><?=$format?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
-                                <div class="form-group">
+                               
+                                <div style="grid-column-start:1;grid-column-end:3;width:100%" class="form-group">
                                     <span>Description</span>
-                                    <textarea rows="5" cols="50"><?= isset($_GET['view']) ? $product[0]['Mo_Ta'] :""?></textarea>
+                                    <textarea name="description_product" rows="5" cols="50"><?= isset($_GET['view']) ? $product[0]['Mo_Ta'] :""?></textarea>
                                 </div>
-                                <div class="form-group">
+                                <div class="Album">
                                     <span>Album</span>
                                     <div class="list-img">
                                     <?php foreach(explode(";",$product[0]['Hinh_Anh']) as $img):?>
@@ -181,7 +190,7 @@ $list_suited_to =[
                                     </div>
                                 </div>
                                 <div class="btn-group">
-                                    <button type="submit" name="update">Update</button>
+                                    <button type="submit" name="update" value="update">Update</button>
                                     <button type="submit" name="delete">Delete</button>
                                 </div>
                             </form>
@@ -189,7 +198,7 @@ $list_suited_to =[
                         </div>
                         <div class="create-product">
                             <h2 class="create-product-title">Create</h2>
-                            <form class="form-product-detail">
+                            <form action="/The-Ordinary/admin/products" method="post" enctype="multipart/form-data" class="form-create-product">
                                 <div class="form-group">
                                     <span>Name</span>
                                     <input name="name_product" type="text">
@@ -199,48 +208,94 @@ $list_suited_to =[
                                     <input name="price_product" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <span>Format</span>
-                                    <select name="format_product">
-                                        <option disabled value="" >Select format</option>
-                                        <?php foreach ($list_filter_format as $format): ?>
-                                        <option value="<?=$format?>"><?=$format?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <span>Quantity</span>
-                                    <input type="text">
+                                    <input name="quantity_product" type="text">
                                 </div>
                                 <div class="form-group">
                                     <span>Size</span>
-                                    <input type="text">
+                                    <input name="size_product" type="text">
                                 </div>
                                 <div class="form-group">
                                     <span>Targets</span>
-                                    <input type="text">
+                                    <input name="targets_product" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Key ingredients</span>
+                                    <input name="ingredients_product" type="text">
                                 </div>
                                 <div class="form-group">
                                     <span>Suited to</span>
                                     <select name="suited_product">
-                                        <option disabled value="" >Select suited</option>
+                                        <option disabled selected value="" >Select suited</option>
                                         <?php foreach ($list_suited_to as $suited): ?>
                                         <option><?=$suited?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <span>Key ingredients</span>
-                                    <input type="text">
+                                    <span>Format</span>
+                                    <select name="format_product">
+                                        <option disabled selected value="" >Select format</option>
+                                        <?php foreach ($list_filter_format as $format): ?>
+                                        <option value="<?=$format?>"><?=$format?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
-                                <div class="form-group">
+                                
+                                <div style="grid-column-start:1;grid-column-end:3;width:100%" class="form-group">
                                     <span>Description</span>
-                                    <textarea rows="5" cols="50"></textarea>
+                                    <textarea name="description_product" rows="5" cols="50"></textarea>
                                 </div>
-                               
+                                <div class="Album">
+                                    <span>Album</span>
+                                    <div class="dropzone" id="dropzone">Drag drop image in here</div>
+                                        <input type="file" name="images[]" id="fileInput" multiple style="display:none">
+                                    <div class="preview" id="preview"></div>
+                                </div>
                                 <div class="btn-group">
-                                    <button type="submit" name="update">Create</button>
+                                    <button type="submit" name="create" value="create">Create</button>
                                 </div>
                             </form>
+                            <script>
+                                const dropzone = document.getElementById('dropzone');
+                                const fileInput = document.getElementById('fileInput');
+                                const preview = document.getElementById('preview');
+
+                                dropzone.addEventListener('click', () => fileInput.click());
+
+                                dropzone.addEventListener('dragover', (e) => {
+                                    e.preventDefault();
+                                    dropzone.classList.add('dragover');
+                                });
+
+                                dropzone.addEventListener('dragleave', () => {
+                                    dropzone.classList.remove('dragover');
+                                });
+
+                                dropzone.addEventListener('drop', (e) => {
+                                    e.preventDefault();
+                                    dropzone.classList.remove('dragover');
+                                    fileInput.files = e.dataTransfer.files;
+                                    showPreview(fileInput.files);
+                                });
+
+                                fileInput.addEventListener('change', () => {
+                                    showPreview(fileInput.files);
+                                });
+
+                                function showPreview(files) {
+                                    preview.innerHTML = "";
+                                    for (let i = 0; i < files.length; i++) {
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => {
+                                        const img = document.createElement("img");
+                                        img.src = e.target.result;
+                                        preview.appendChild(img);
+                                    };
+                                    reader.readAsDataURL(files[i]);
+                                    }
+                                }
+                            </script>
                         </div>
                         
                     </div>

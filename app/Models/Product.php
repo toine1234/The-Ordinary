@@ -2,6 +2,7 @@
 namespace App\Models;
 require_once __DIR__ . '/../Models/Database.php';
 use App\Models\Database;
+use Cloudinary\Api\Upload\UploadApi;
 
 
 class Product {
@@ -79,6 +80,70 @@ class Product {
     public static function Update($data) {
         $database = new Database();
         $db = $database->getConnection();
-        $query = 'UPDATE san_pham SET Ten_SP = :name';
+        $query = 
+        'UPDATE san_pham 
+        SET Ten_SP = :name, Mo_Ta = :description, Gia = :price, SL = :quantity, Dung_Tich = :size, Targets = :targets, Format = :format, Suited_to = :suited, Key_ingredients = :key_ingredients
+        WHERE ID_San_Pham = :id';
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ":id"=>$data['id'],
+            ":name"=>$data['name'],
+            ":description"=>$data['description'],
+            ":price"=>$data['price'],
+            ":quantity" => $data['quantity'],
+            ":size" => $data['size'],
+            ":targets" => $data['targets'],
+            ":format" => $data['format'],
+            ":suited"=> $data['suited'],
+            ":key_ingredients"=> $data['key_ingredients']
+
+        ]);
+    }
+
+    public static function Create($data){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = 'INSERT INTO san_pham (ID_San_Pham, ID_Danh_Muc, Ten_SP, Mo_Ta, Gia, SL, Dung_Tich, Targets, Format, Suited_to, Key_ingredients) VALUES (:id, :cate, :name, :description,:price,:quantity,:size,:targets,:format,:suited,:key_ingredients)';
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ":id" => 'SP001',
+            ":cate" => '1',
+            ":name"=>$data['name'],
+            ":description"=>$data['description'],
+            ":price"=>$data['price'],
+            ":quantity" => $data['quantity'],
+            ":size" => $data['size'],
+            ":targets" => $data['targets'],
+            ":format" => $data['format'],
+            ":suited"=> $data['suited'],
+            ":key_ingredients"=> $data['key_ingredients']
+
+        ]);
+        // $product_id = $db->lastInsertId();
+        unset($stmt);
+
+        // $query = "INSERT INTO ql_kho (ID_San_Pham) VALUES (:id)";
+        // $stmt = $db->prepare($query);
+        // $stmt->execute([':id' => 'SP001']);
+        // unset($stmt);
+
+        
+        foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+            $result = (new UploadApi())->upload($tmp_name, [
+                'folder' => 'product_images'
+            ]);
+
+            $publicUrl = $result['secure_url']; // ảnh URL từ Cloudinary
+
+            // Lưu vào DB:
+            $query = "INSERT INTO thu_vien_anh (ID_San_Pham, img_name) VALUES (:id, :name)";
+            $stmt = $db->prepare($query);
+            $stmt->execute([
+                ":id" => 'SP001',
+                ":name" => $publicUrl
+            ]);
+        
+    }
+        
     }
 }
