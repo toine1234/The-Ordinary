@@ -5,6 +5,7 @@ use App\Models\Account;
 use App\Models\Product;
 use App\Core\JWT;
 use App\Models\Store;
+use App\Models\Cart;
 
 class AdminController
 {
@@ -22,6 +23,13 @@ class AdminController
         }
 
         $products = Product::getAllProducts();
+
+        if (isset($_GET['search'])){
+            
+            $products = Product::SearchProduct($_GET['search']);
+        }
+
+
         $store = Store::getAllStore();
 
         if (isset($_GET['view'])){
@@ -71,6 +79,11 @@ class AdminController
 
         if (isset($_POST['create']) && $_POST['create']==='create'){
             $data = [
+                "price_store"=>$_POST['price_store'],
+                "quantity_store"=>$_POST['quantity_store'],
+                "producer_store"=>$_POST['producer_store'],
+                "exp"=>$_POST['exp_store'],
+                "mfg"=>$_POST['mfg_store'],
                 "name"=>$_POST['name_product'],
                 "description"=>$_POST['description_product'],
                 "price"=>$_POST['price_product'],
@@ -98,6 +111,31 @@ class AdminController
                 $_SESSION['flash'] = [
                     'type' => 'warning', // success, danger, warning, info
                     'message' => 'Create product is fail!'
+                ];
+            }
+        }
+
+        if (isset($_POST['delete']) && $_POST['delete']==='delete'){
+
+            $id = $_POST['id_product'];
+
+            try{
+                Cart::deleteByIdProduct($id);
+                Product::delete($id);
+                header('Location: /The-Ordinary/admin?page=Products');
+                session_start();
+                $_SESSION['flash'] = [
+                    'type' => 'success', // success, danger, warning, info
+                    'message' => 'Delete product is success!'
+                ];
+                exit;
+            }
+            catch(\Exception $e){
+                echo $e;
+                session_start();
+                $_SESSION['flash'] = [
+                    'type' => 'warning', // success, danger, warning, info
+                    'message' => 'Delete product is fail!'
                 ];
             }
         }

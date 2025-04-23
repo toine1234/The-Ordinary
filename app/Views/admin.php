@@ -75,7 +75,6 @@ $list_suited_to =[
             <div class="sidebar-admin">
                 <form class="sidebar-admin-items" method="get">
                     <?php foreach ($list_page as $item): ?>
-                        
                         <label
                         style="<?= isset($_GET['page']) && $_GET['page'] === $item ? "background-color:var(--black);color:var(--white)":"" ?>"
                         class="sidebar-item">
@@ -96,8 +95,18 @@ $list_suited_to =[
                 </script>
             </div>
             <div class="content-admin">
+
+                <!-------------- PRODUCT PAGE -------------->
+                <!-------------- PRODUCT PAGE -------------->
+                <!-------------- PRODUCT PAGE -------------->
+                    
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Products'): ?>
                     <div class="content-admin-products">
+
+                    <!-------------- STORE TABLE -------------->
+                    <!-------------- STORE TABLE -------------->
+                    <!-------------- STORE TABLE -------------->
+
                     <h2 class="table-title">STORE TABLE</h2>
                         <div class="table-data-store">
                             <table class="custom-table">
@@ -108,22 +117,38 @@ $list_suited_to =[
                                     <th>Brand Producer</th>
                                     <th>EXP</th>
                                     <th>MFG</th>
+                                    <th>Created Date</th>
                                 </tr>
                                 <?php foreach($store as $item):?>
-                                <tr id="<?= $item['ID_San_Pham']?>">
+                                <tr>
                                     <td><?= $item['ID_San_Pham']?></td>
                                     <td><?= $item['Gia_Nhap']?></td>
                                     <td><?= $item['SL']?></td>
                                     <td><?= $item['Don_Vi_Cung_Cap']?></td>
                                     <td><?= $item['NSX']?></td>
                                     <td><?= $item['HSD']?></td>
+                                    <td><?=$item["Ngay_Tao"]?></td>
                                 </tr>
                                 <?php endforeach;?>
                                 
                             </table>
                         </div>
                         
-                        <h2 class="table-title">PRODUCTS TABLE</h2>
+                        <!-------------- PRODUCT TABLE -------------->
+                        <!-------------- PRODUCT TABLE -------------->
+                        <!-------------- PRODUCT TABLE -------------->
+
+                        <h2 style="margin-top: 30px;" class="table-title">PRODUCTS TABLE</h2>
+                        <div class="feature-product-table">
+                            <form method="get" class="form-search">
+                                <input type="text" hidden name="page" value="Products">
+                                <div id="search" class="search">
+                                    <i class='fa-solid fa-magnifying-glass'></i>
+                                    <input name="search" type="text">
+                                </div>
+                                <button class="btn-search" type="submit">Search</button>
+                            </form>
+                        </div>
                         <div class="table-data-products">
                             <table class="custom-table">
                                 <tr>
@@ -132,10 +157,9 @@ $list_suited_to =[
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Format</th>
-                                    <th>Created Date</th>
+                                    
                                 </tr>
                                 <?php foreach($products as $item): ?>
-                                    
                                     <tr 
                                     style="<?= isset($_GET['view']) && $_GET['view'] === $item['ID_San_Pham'] ? "background-color:var(--graynhe)":""?>" 
                                     id="<?=$item['ID_San_Pham']?>" 
@@ -145,12 +169,14 @@ $list_suited_to =[
                                         <td><?= $item["SL"]?></td>
                                         <td><?=number_format($item["Gia"],2)?> USD</td>
                                         <td><?=$item["Format"]?></td>
-                                        <td><?=$item["Ngay_Tao"]?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
                         </div>
                         
+                        <!-------------- INFORMATION -------------->
+                        <!-------------- INFORMATION -------------->
+                        <!-------------- INFORMATION -------------->
                         
                         <div class="info-detail">
                             <h2 class="info-detail-title">Information</h2>
@@ -203,7 +229,6 @@ $list_suited_to =[
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                               
                                 <div style="grid-column-start:1;grid-column-end:3;width:100%" class="form-group">
                                     <span>Description</span>
                                     <textarea name="description_product" rows="5" cols="50"><?= isset($_GET['view']) ? $product[0]['Mo_Ta'] :""?></textarea>
@@ -218,11 +243,16 @@ $list_suited_to =[
                                 </div>
                                 <div class="btn-group">
                                     <button type="submit" name="update" value="update">Update</button>
-                                    <button type="submit" name="delete">Delete</button>
+                                    <button type="submit" name="delete" value="delete">Delete</button>
                                 </div>
                             </form>
                             <?php endif; ?>
                         </div>
+
+                        <!-------------- CREATE -------------->
+                        <!-------------- CREATE -------------->
+                        <!-------------- CREATE -------------->
+
                         <div class="create-product">
                             <h2 class="create-product-title">Create</h2>
                             <form action="/The-Ordinary/admin/products" method="post" enctype="multipart/form-data" class="form-create-product">
@@ -247,7 +277,7 @@ $list_suited_to =[
                                     <span>MFG</span>
                                     <input name="mfg_store" type="date">
                                 </div>
-                                <h3 style="grid-column-start:1;grid-column-end:3;width:100%">Create Product</h3>
+                                <h3 style="grid-column-start:1;grid-column-end:3;width:100%;margin-top:30px;">Create Product</h3>
                                 <div class="form-group">
                                     <span>Name</span>
                                     <input name="name_product" type="text">
@@ -297,7 +327,7 @@ $list_suited_to =[
                                 </div>
                                 <div class="Album">
                                     <span>Album</span>
-                                    <div class="dropzone" id="dropzone">Drag drop image in here</div>
+                                    <div class="dropzone" id="dropzone"><p>Drag drop image in here</p></div>
                                         <input type="file" name="images[]" id="fileInput" multiple style="display:none">
                                     <div class="preview" id="preview"></div>
                                 </div>
@@ -349,9 +379,19 @@ $list_suited_to =[
                         
                     </div>
                 <?php endif; ?>
+
+                <!-------------- USERS PAGE -------------->
+                <!-------------- USERS PAGE -------------->
+                <!-------------- USERS PAGE -------------->
+
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Users'): ?>
                     <div>Users</div>
                 <?php endif; ?>
+
+                <!-------------- ORDERS PAGE -------------->
+                <!-------------- ORDERS PAGE -------------->
+                <!-------------- ORDERS PAGE -------------->
+
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Orders'): ?>
                     <div>Orders</div>
                 <?php endif; ?>

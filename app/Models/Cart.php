@@ -71,5 +71,15 @@ class Cart
             ":cartId"=> $cartId
         ]);
     }
+
+    public static function deleteByIdProduct($idProduct){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "DELETE FROM gio_hang WHERE ID_San_Pham = :id_product";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ":id_product"=> $idProduct
+        ]);
+    }
 }
 ?>

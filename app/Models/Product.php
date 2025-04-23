@@ -116,12 +116,27 @@ class Product {
 
         $imageUrlsStr = implode(';', $imageUrls);
 
+
+
         $database = new Database();
         $db = $database->getConnection();
+
+        $query = "INSERT INTO ql_kho (Gia_Nhap, SL, Don_Vi_Cung_Cap, NSX, HSD, Ngay_Tao) VALUES (:price, :quantity, :producer, :exp, :mfg, NOW())";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            'price' => $data['price_store'],
+            ':quantity' => $data['quantity_store'],
+            ':producer' => $data['producer_store'],
+            ':exp' => $data['exp'],
+            'mfg' => $data['mfg']
+        ]);
+        $product_id = $db->lastInsertId();
+        unset($stmt);
+
         $query = 'INSERT INTO san_pham (ID_San_Pham, ID_Danh_Muc, Hinh_Anh ,Ten_SP, Mo_Ta, Gia, SL, Dung_Tich, Targets, Format, Suited_to, Key_ingredients) VALUES (:id, :cate,:img, :name, :description,:price,:quantity,:size,:targets,:format,:suited,:key_ingredients)';
         $stmt = $db->prepare($query);
         $stmt->execute([
-            ":id" => 'SP001',
+            ":id" => $product_id,
             ":cate" => '1',
             ":img" => $imageUrlsStr,
             ":name"=>$data['name'],
@@ -161,5 +176,15 @@ class Product {
         
     // }
         
+    }
+
+    public static function delete($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "DELETE FROM san_pham WHERE ID_San_Pham= :id";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ":id"=> $id
+        ]);
     }
 }
