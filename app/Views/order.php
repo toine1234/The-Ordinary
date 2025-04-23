@@ -3,8 +3,8 @@
 <?php foreach ($carts as $item): ?>
     <?php $total += $item['Gia'] * $item['SL']; ?>
 <?php endforeach; ?>
-<?php $shipping = $total > 39 ? 0 : number_format(38, 2) . " USD"; ?>
-<?php $estiamtedTotal = number_format($total + $shipping, 2); ?>
+<?php $shipping = $total > 39 ? 0:number_format(38,2). " USD"; ?>
+<?php $estiamtedTotal = number_format($total + $shipping,2); ?>
 <div class="page-order-container">
     <!----------- Phần CHECK-OUT ------------>
     <div class="page-order-checkout-container">
