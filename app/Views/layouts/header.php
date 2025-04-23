@@ -35,8 +35,9 @@
             <div class='header-top'>
                 <div class='header-slide'>
                     <button class='header-icon-previous'>
-                        <p><</p>
-                        <span class='sr-only'>Previous</span>
+                        <p>
+                            <</p>
+                                <span class='sr-only'>Previous</span>
                     </button>
 
                     <div class='header-promo-slider'>
@@ -64,6 +65,7 @@
                     setInterval(() => {
                         moveSlide(1)
                     }, 4000)
+
                     function moveSlide(n) {
                         showSlide(slideIndex += n);
                     }
@@ -82,6 +84,9 @@
                     }
                 </script>
                 <div class='icon-header'>
+                    <button class='icon-header-btn' id="icon-header-btn-hamburger">
+                        <i class='fa-solid fa-bars'></i>
+                    </button>
                     <button class='icon-header-btn'>
                         <i class='fa-solid fa-magnifying-glass'></i>
                     </button>
