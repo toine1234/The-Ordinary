@@ -11,6 +11,7 @@ class Cart
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT 
+                    san_pham.ID_San_Pham,
                     san_pham.Ten_SP,
                     san_pham.Gia,
                     san_pham.Hinh_Anh,

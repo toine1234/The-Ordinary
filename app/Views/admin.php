@@ -46,6 +46,24 @@ $list_suited_to =[
     'All Skin Types',
     'Dry Skin',
     'Oily Skin'
+];
+
+$list_category = [
+    'Serums',
+    'Gifts',
+    'Moisturizers',
+    'Exfoliators',
+    'Eye Serums',
+    'Facial Cleansers',
+    'Face Oils',
+    'Toners & Essences',
+    'Face Masques',
+    'Explore Skincare'
+];
+
+$list_filter_sort = [
+    'Rank by lowest price',
+    'Rank by highest price'
 ]
     ?>
 
@@ -148,6 +166,26 @@ $list_suited_to =[
                                 </div>
                                 <button class="btn-search" type="submit">Search</button>
                             </form>
+                            <form method="get" class="form-sort">
+                                <input type="text" hidden name="page" value="Products">
+                                <select style="height: 100%;" name="sort">
+                                    <option value="" disabled selected>Select Sort</option>
+                                    <?php foreach($list_filter_sort as $sort):?>
+                                        <option <?= isset($_GET['sort']) && $_GET['sort'] === $sort ? 'selected' :''?> value="<?= $sort?>"><?= $sort?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </form>
+                            <script>
+                            document.querySelectorAll('.form-sort select')
+                                .forEach(
+                                    function (checkbox) {
+                                        checkbox.addEventListener('change', function () {
+                                            document.querySelector('.form-sort').submit();
+
+                                        });
+
+                                    });
+                            </script>
                         </div>
                         <div class="table-data-products">
                             <table class="custom-table">
@@ -179,7 +217,7 @@ $list_suited_to =[
                         <!-------------- INFORMATION -------------->
                         
                         <div class="info-detail">
-                            <h2 class="info-detail-title">Information</h2>
+                            <h2 class="info-detail-title">INFORMATION</h2>
                             <?php if (isset($_GET['view'])):?>
                             <form action="/The-Ordinary/admin/products" method="post" class="form-product-detail">
                                 <div hidden class="form-group">
@@ -214,16 +252,16 @@ $list_suited_to =[
                                 <div class="form-group">
                                     <span>Suited to</span>
                                     <select name="suited_product">
-                                        <option disabled value="" >Select suited</option>
+                                        <option disabled value="" >Select Suited</option>
                                         <?php foreach ($list_suited_to as $suited): ?>
                                         <option value="<?=$suited?>" <?=isset($_GET['view'])&&trim($suited) === trim($product[0]['Suited_to']) ? 'selected':''?>><?=$suited?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <span>Format</span>
+                                    <span>Category</span>
                                     <select name="format_product">
-                                        <option disabled value="" >Select format</option>
+                                        <option disabled value="" >Select Category</option>
                                         <?php foreach ($list_filter_format as $format): ?>
                                         <option value="<?=$format?>" <?= isset($_GET['view'])&&$format === $product[0]['Format'] ? 'selected':''?>><?=$format?></option>
                                         <?php endforeach; ?>
@@ -254,7 +292,7 @@ $list_suited_to =[
                         <!-------------- CREATE -------------->
 
                         <div class="create-product">
-                            <h2 class="create-product-title">Create</h2>
+                            <h2 class="create-product-title">CREATE</h2>
                             <form action="/The-Ordinary/admin/products" method="post" enctype="multipart/form-data" class="form-create-product">
                                 <h3 style="grid-column-start:1;grid-column-end:3;width:100%">Create Store</h3>
                                 <div class="form-group">
@@ -305,16 +343,16 @@ $list_suited_to =[
                                 <div class="form-group">
                                     <span>Suited to</span>
                                     <select name="suited_product">
-                                        <option disabled selected value="" >Select suited</option>
+                                        <option disabled selected value="" >Select Suited</option>
                                         <?php foreach ($list_suited_to as $suited): ?>
                                         <option><?=$suited?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <span>Format</span>
+                                    <span>Category</span>
                                     <select name="format_product">
-                                        <option disabled selected value="" >Select format</option>
+                                        <option disabled selected value="" >Select Category</option>
                                         <?php foreach ($list_filter_format as $format): ?>
                                         <option value="<?=$format?>"><?=$format?></option>
                                         <?php endforeach; ?>
