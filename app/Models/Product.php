@@ -18,9 +18,9 @@ class Product {
     public static function getProductsById($id) {
         $database = new Database();
         $db = $database->getConnection();
-        $query = "SELECT * FROM san_pham WHERE ID_San_Pham = $id";
+        $query = "SELECT * FROM san_pham WHERE ID_San_Pham = :id";
         $stmt = $db->prepare($query);
-        $stmt->execute();
+        $stmt->execute([":id"=>trim($id)]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
     
