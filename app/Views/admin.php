@@ -98,6 +98,32 @@ $list_suited_to =[
             <div class="content-admin">
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Products'): ?>
                     <div class="content-admin-products">
+                    <h2 class="table-title">STORE TABLE</h2>
+                        <div class="table-data-store">
+                            <table class="custom-table">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Brand Producer</th>
+                                    <th>EXP</th>
+                                    <th>MFG</th>
+                                </tr>
+                                <?php foreach($store as $item):?>
+                                <tr id="<?= $item['ID_San_Pham']?>">
+                                    <td><?= $item['ID_San_Pham']?></td>
+                                    <td><?= $item['Gia_Nhap']?></td>
+                                    <td><?= $item['SL']?></td>
+                                    <td><?= $item['Don_Vi_Cung_Cap']?></td>
+                                    <td><?= $item['NSX']?></td>
+                                    <td><?= $item['HSD']?></td>
+                                </tr>
+                                <?php endforeach;?>
+                                
+                            </table>
+                        </div>
+                        
+                        <h2 class="table-title">PRODUCTS TABLE</h2>
                         <div class="table-data-products">
                             <table class="custom-table">
                                 <tr>
@@ -124,6 +150,7 @@ $list_suited_to =[
                                 <?php endforeach; ?>
                             </table>
                         </div>
+                        
                         
                         <div class="info-detail">
                             <h2 class="info-detail-title">Information</h2>
@@ -199,6 +226,28 @@ $list_suited_to =[
                         <div class="create-product">
                             <h2 class="create-product-title">Create</h2>
                             <form action="/The-Ordinary/admin/products" method="post" enctype="multipart/form-data" class="form-create-product">
+                                <h3 style="grid-column-start:1;grid-column-end:3;width:100%">Create Store</h3>
+                                <div class="form-group">
+                                    <span>Price Import</span>
+                                    <input name="price_store" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Quantity</span>
+                                    <input name="quantity_store" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>Brand Producer</span>
+                                    <input name="producer_store" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <span>EXP</span>
+                                    <input name="exp_store" type="date">
+                                </div>
+                                <div class="form-group">
+                                    <span>MFG</span>
+                                    <input name="mfg_store" type="date">
+                                </div>
+                                <h3 style="grid-column-start:1;grid-column-end:3;width:100%">Create Product</h3>
                                 <div class="form-group">
                                     <span>Name</span>
                                     <input name="name_product" type="text">

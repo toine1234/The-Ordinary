@@ -4,6 +4,7 @@ use App\Models\Users;
 use App\Models\Account;
 use App\Models\Product;
 use App\Core\JWT;
+use App\Models\Store;
 
 class AdminController
 {
@@ -21,6 +22,7 @@ class AdminController
         }
 
         $products = Product::getAllProducts();
+        $store = Store::getAllStore();
 
         if (isset($_GET['view'])){
             $product = Product::getProductsById($_GET['view']);

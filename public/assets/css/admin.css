@@ -136,7 +136,15 @@ a{
     overflow-y: scroll;
 }
 
-.table-data-products{
+.table-title{
+    padding: 10px 0;
+    border-bottom: 1px solid var(--graynhe);
+    border-top: 1px solid var(--graynhe);
+    text-align: center;
+    font-size: 30px;
+}
+
+.table-data-products, .table-data-store{
     height: 300px;
     overflow-y: scroll;
 }
@@ -186,7 +194,6 @@ a{
     width: 60%;
     display: grid;
     grid-template-columns: repeat(2,1fr);
-    grid-template-rows: repeat(2,1fr);
     gap: 10px;
     margin-top: 20px;
   }
@@ -213,6 +220,7 @@ a{
 .Album{
     position: absolute;
     right: 0px;
+    top: 400px;
     width: 400px;
 }
 

@@ -101,13 +101,29 @@ class Product {
     }
 
     public static function Create($data){
+
+        $imageUrls = [];
+
+        foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+            if ($_FILES['images']['error'][$key] === 0) {
+                $result = (new UploadApi())->upload($tmp_name, [
+                    'folder' => 'product_gallery'
+                ]);
+
+                $imageUrls[] = $result['secure_url'];
+            }
+        }
+
+        $imageUrlsStr = implode(';', $imageUrls);
+
         $database = new Database();
         $db = $database->getConnection();
-        $query = 'INSERT INTO san_pham (ID_San_Pham, ID_Danh_Muc, Ten_SP, Mo_Ta, Gia, SL, Dung_Tich, Targets, Format, Suited_to, Key_ingredients) VALUES (:id, :cate, :name, :description,:price,:quantity,:size,:targets,:format,:suited,:key_ingredients)';
+        $query = 'INSERT INTO san_pham (ID_San_Pham, ID_Danh_Muc, Hinh_Anh ,Ten_SP, Mo_Ta, Gia, SL, Dung_Tich, Targets, Format, Suited_to, Key_ingredients) VALUES (:id, :cate,:img, :name, :description,:price,:quantity,:size,:targets,:format,:suited,:key_ingredients)';
         $stmt = $db->prepare($query);
         $stmt->execute([
             ":id" => 'SP001',
             ":cate" => '1',
+            ":img" => $imageUrlsStr,
             ":name"=>$data['name'],
             ":description"=>$data['description'],
             ":price"=>$data['price'],
@@ -120,7 +136,7 @@ class Product {
 
         ]);
         // $product_id = $db->lastInsertId();
-        unset($stmt);
+        // unset($stmt);
 
         // $query = "INSERT INTO ql_kho (ID_San_Pham) VALUES (:id)";
         // $stmt = $db->prepare($query);
@@ -128,22 +144,22 @@ class Product {
         // unset($stmt);
 
         
-        foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-            $result = (new UploadApi())->upload($tmp_name, [
-                'folder' => 'product_images'
-            ]);
+    //     foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+    //         $result = (new UploadApi())->upload($tmp_name, [
+    //             'folder' => 'product_images'
+    //         ]);
 
-            $publicUrl = $result['secure_url']; // ảnh URL từ Cloudinary
+    //         $publicUrl = $result['secure_url']; // ảnh URL từ Cloudinary
 
-            // Lưu vào DB:
-            $query = "INSERT INTO thu_vien_anh (ID_San_Pham, img_name) VALUES (:id, :name)";
-            $stmt = $db->prepare($query);
-            $stmt->execute([
-                ":id" => 'SP001',
-                ":name" => $publicUrl
-            ]);
+    //         // Lưu vào DB:
+    //         $query = "INSERT INTO thu_vien_anh (ID_San_Pham, img_name) VALUES (:id, :name)";
+    //         $stmt = $db->prepare($query);
+    //         $stmt->execute([
+    //             ":id" => 'SP001',
+    //             ":name" => $publicUrl
+    //         ]);
         
-    }
+    // }
         
     }
 }
