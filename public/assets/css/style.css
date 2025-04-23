@@ -659,62 +659,63 @@ a{
     color: var(--black);
 }
 
-@media screen and (max-width: 768px) {
-    .header-top{
+@media (max-width: 768px) {
+    .header-top {
         flex-direction: column;
+        align-items: stretch;
         height: auto;
-        padding: 5px 10px;
-        text-align: center;
+        padding: 0;
     }
-    .header-slide{
-        position: relative;
-        padding: 5px 10px;
-    }
-    .header-promo-slider{
+
+    .header-slide {
         width: 100%;
-        text-align: center;
-    }
-    .icon-header{
-        position: relative;
+        display: flex;
+        flex-direction: center;
+        align-items: center;
+        padding: 8px 10px;
         justify-content: center;
-        right: 0;
-        padding: 5px;
-        gap: 20px;
-    }
-    .brand-nav{
-        overflow-x: none;
-    }
-    .brand-list{
-        flex-wrap: nowrap;
-        overflow-x: auto;
-    }
-    .brand-item{
-        flex-shrink: 0;
-        width: auto;
-        padding: 5px;
-    }
-    .navbar-expand{
-        height: auto;
-    }
-    .group-menu{
-        flex-direction: column;
-    }
-    .menu-list{
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-    }
-    .menu-item{
-        width: 100%;
-        text-align: left;
-        padding: 10px 20px;
+        background-color: black;
+        position: relative;
     }
 
+    .header-promo-slider {
+        width: 70%;
+        height: 20px;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .header-icon-previous, .header-icon-next {
+        font-size: 12px;
+        padding: 0 5px;
+    }
+
+    .icon-header {
+        width: 100%;
+        padding: 8px 15px;
+        display: flex;
+        justify-content: space-between;
+        position: static;
+        background-color: white;
+        color: black;
+    }
+
+    .icon-header-btn {
+        font-size: 16px;
+        color: black;
+    }
+
+    .amount-cart {
+        font-size: 12px;
+        top: -6px;
+        right: -10px;
+    }
+
+    .brand-nav,
+    .navbar-expand {
+        display: none;
+    }
 }
-
-
-
-
 
 
 /********************* Footer ************************/
