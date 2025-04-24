@@ -85,10 +85,10 @@
                     }
                 </script>
                 <div class='icon-header'>
-                    <button class='icon-header-btn-menu'>
+                    <button class='icon-header-btn' id="icon-header-btn-hamburger">
                         <i class='fa-solid fa-bars'></i>
                     </button>
-                    <button class='icon-header-btn' id="icon-header-search">
+                    <button class='icon-header-btn'>
                         <i class='fa-solid fa-magnifying-glass'></i>
                     </button>
                     <a href='/The-Ordinary/account' class='icon-header-btn'>
