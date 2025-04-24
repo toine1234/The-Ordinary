@@ -189,7 +189,7 @@ a{
     width: 100%;
     border-collapse: collapse;
   }
-  
+
   .custom-table th  {
     border: 1px solid #ddd;
     padding: 10px;
@@ -350,6 +350,13 @@ a{
     gap: 10px;
     margin-top: 20px;
     
+}
+
+.logout{
+    display: flex;
+    padding: 20px;
+    border: 1px solid var(--black);
+    cursor: pointer;
 }
 
 

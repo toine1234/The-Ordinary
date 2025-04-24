@@ -102,6 +102,7 @@ $list_filter_sort = [
                         </label>
                     <?php endforeach; ?>
                 </form>
+                <a class="logout" href="/The-Ordinary/logout">Logout</a>
                 <script>
                     document.querySelectorAll('.sidebar-admin-items input[type="radio"]')
                         .forEach(
@@ -433,6 +434,8 @@ $list_filter_sort = [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Orders'): ?>
                     <div>Orders</div>
                 <?php endif; ?>
+
+                
             </div>
         </div>
     </div>
