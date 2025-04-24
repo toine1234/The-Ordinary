@@ -84,9 +84,9 @@
                     }
                 </script>
                 <div class='icon-header'>
-                    <button class='icon-header-btn' id="icon-header-btn-hamburger">
+                    <!-- <button class='icon-header-btn' id="icon-header-btn-hamburger">
                         <i class='fa-solid fa-bars'></i>
-                    </button>
+                    </button> -->
                     <button class='icon-header-btn'>
                         <i class='fa-solid fa-magnifying-glass'></i>
                     </button>

@@ -15,30 +15,32 @@
             <h3>CHECKOUT</h3>
             <div class="order-checkout">
                 <h4>01. SHIPPING</h4>
-                <p>
-                    All orders require up to 3 business days of processing time to be picked, packed and prepared for shipping. Kindly note that fulfillment times may vary during peak periods such as after/during product launches, holidays and special promotions.
-                </p>
-                <p>
-                    Please note once your order is placed, we are unable to change your shipping address.
-                </p>
-                <label class="order-checkout-shipping-label">
-                    <input type="radio" <?= $shipping === 0 ? "disabled" : "checked" ?>>
-                    Standard Shipping
-                    <span class="order-checkout-shipping-price">
-                        38.00 USD
-                    </span>
-                </label>
-
-                <div class="order-checkout-shipping">
-                    <h5>SHIPPING ADDRESS</h5>
-                    <form method="post" class="order-checkout-shipping-form">
-                        <input type="text" name="HoTen" value="<?= $user_info['HoTen']?>" placeholder="Full Name" required>
-                        <input type="text" name="shipping_address" value="<?= $user_info['DiaChi']?>" placeholder="Address" required>
-                        <input type="tel" name="SDT" value="<?= $user_info['SDT']?>" placeholder="Phone" required>
-                        <input type="text" placeholder="City" required>
-                        <button type="button" class="btn-order-checkout-shipping">CONTINUE TO PAYMENT</button>
-                    </form>
-
+                <div class="render-shipping-order">
+                    <p>
+                        All orders require up to 3 business days of processing time to be picked, packed and prepared for shipping. Kindly note that fulfillment times may vary during peak periods such as after/during product launches, holidays and special promotions.
+                    </p>
+                    <p>
+                        Please note once your order is placed, we are unable to change your shipping address.
+                    </p>
+                    <label class="order-checkout-shipping-label">
+                        <input type="radio" <?= $shipping === 0 ? "disabled" : "checked" ?>>
+                        Standard Shipping
+                        <span class="order-checkout-shipping-price">
+                            38.00 USD
+                        </span>
+                    </label>
+    
+                    <div class="order-checkout-shipping">
+                        <h5>SHIPPING ADDRESS</h5>
+                        <form method="post" class="order-checkout-shipping-form">
+                            <input type="text" name="HoTen" value="<?= $user_info['HoTen']?>" placeholder="Full Name" required>
+                            <input type="text" name="shipping_address" value="<?= $user_info['DiaChi']?>" placeholder="Address" required>
+                            <input type="tel" name="SDT" value="<?= $user_info['SDT']?>" placeholder="Phone" required>
+                            <input type="text" placeholder="City" required>
+                            <button type="button" class="btn-order-checkout-shipping">CONTINUE TO PAYMENT</button>
+                        </form>
+    
+                    </div>
                 </div>
             </div>
 
@@ -47,7 +49,7 @@
             <!-- Payment -->
             <div class="order-checkout-payment">
                 <h4>02. PAYMENT</h4>
-                <h5>PAYMENT METHOD</h5>
+                <!-- <h5>PAYMENT METHOD</h5> -->
                 <!-- <div class="order-checkout-payment-methods">
                     <label class="order-checkout-payment-radio-card">
                         <input type="radio" checked>
@@ -86,40 +88,28 @@
                         <input type="radio" name="billing-address"> Use a different billing address
                     </label>
                 </div>
-
                 <button class="btn-order-checkout-review">CONTINUE TO REVIEW ORDER</button> -->
-                <div id="paypal-button-container"></div>
-
+                <div style="display: none;" class="render-payment-order"><div id="paypal-button-container"></div></div>
             </div>
-
-
             <!-- Review -->
             <div class="order-checkout-review">
                 <h4>03. REVIEW</h4>
-                <label class="order-checkbox-container">
-                    <input type="checkbox">
-                    <span class="order-checkmark">KEEP ME UPDATED</span>
-                </label>
-                <p>
-                    Stay up to date on the latest DECIEM news, events, promotions and new product developments. <br>
-                    *By checking the above box you are agreeing to receive email communications from DECIEM Inc., its affiliates, brands (The Ordinary, NIOD and LOoPHA) and/or marketing partners. This can be changed at any time. Please refer to our Privacy Policy and Terms of Use for more details or Contact Us.
-                </p>
-                <p>
-                    By placing the order, you agree to DECIEM's Privacy Policy and Terms of Use.
-                </p>
-
-                <form class="form-submit" method="post">
-                    <input type="text" name="HoTen" hidden >
-                    <input type="text" name="shipping_address" hidden>
-                    <input type="tel" name="SDT" hidden >
-                    <input type="text" placeholder="City" hidden>
-                    <input type="text" name="payment_method" hidden>
-                    <input type="text" name="total" value="<?=$estiamtedTotal?>" hidden>
-                    <input type="text" name="cost_ship" value="<?= $shipping?>" hidden>
-                    <button class="btn-order-checkout-button">PLACE ORDER</button>
-                </form>
+                <div class="render-review-order">
+                    <label class="order-checkbox-container">
+                        <input type="checkbox">
+                        <span class="order-checkmark">KEEP ME UPDATED</span>
+                    </label>
+                    <p>
+                        Stay up to date on the latest DECIEM news, events, promotions and new product developments. <br>
+                        *By checking the above box you are agreeing to receive email communications from DECIEM Inc., its affiliates, brands (The Ordinary, NIOD and LOoPHA) and/or marketing partners. This can be changed at any time. Please refer to our Privacy Policy and Terms of Use for more details or Contact Us.
+                    </p>
+                    <p>
+                        By placing the order, you agree to DECIEM's Privacy Policy and Terms of Use.
+                    </p>
+    
+                    
+                </div>
             </div>
-
         </div>
     </div>
 
@@ -136,7 +126,7 @@ paypal.Buttons({
         });
     },
     onApprove: function(data, actions) {
-        return fetch('/paypal-verify.php', {
+        return fetch('/The-Ordinary/paypal-verify', {
             method: 'post',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
@@ -145,7 +135,7 @@ paypal.Buttons({
         }).then(res => res.json())
           .then(data => {
               if (data.status === 'success') {
-                  document.getElementById('checkout-form').submit();
+                  document.querySelector('.form-submit').submit();
               }
           });
     }
@@ -173,7 +163,20 @@ paypal.Buttons({
                 <strong><?=$estiamtedTotal?></strong>
             </div>
             <hr>
-            <button class="btn-order-summary">PLACE ORDER</button>
+
+            <form class="form-submit" method="post">
+                <input type="text" name="HoTen" hidden >
+                <input type="text" name="shipping_address" hidden>
+                <input type="tel" name="SDT" hidden >
+                <input type="text" placeholder="City" hidden>
+                <input type="text" name="payment_method" hidden>
+                <input type="text" name="total" value="<?=$estiamtedTotal?>" hidden>
+                <input type="text" name="cost_ship" value="<?= $shipping?>" hidden>
+            </form>
+            <div class="voucher">
+                <input type="text" placeholder="Enter your voucher code">
+                <button class="apply-voucher-btn">Apply</button>
+            </div>
 
             <div class="order-items-section">
                 <p><strong>1 item(s)</strong></p>
@@ -218,5 +221,8 @@ paypal.Buttons({
         inputSubmits[2].value = phone
         inputSubmits[3].value = city
         inputSubmits[4].value = 'Paypal'
+
+        document.querySelector('.render-shipping-order').style.display = 'none'
+        document.querySelector('.render-payment-order').style.display = 'block'
     });
 </script>
