@@ -565,8 +565,8 @@ a{
     align-items: center;
 }
 
-.icon-header-btn-menu{
-    display: none;
+.icon-header-btn:nth-child(1){
+    display: none!important;
 }
 
 .amount-cart{
