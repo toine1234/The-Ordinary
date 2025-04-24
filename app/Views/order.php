@@ -32,11 +32,11 @@
                 <div class="order-checkout-shipping">
                     <h5>SHIPPING ADDRESS</h5>
                     <form method="post" class="order-checkout-shipping-form">
-                        <input type="text" value="<?= $user_info['HoTen']?>" placeholder="Full Name" required>
-                        <input type="text" value="<?= $user_info['DiaChi']?>" placeholder="Address" required>
-                        <input type="tel" value="<?= $user_info['SDT']?>" placeholder="Phone" required>
+                        <input type="text" name="HoTen" value="<?= $user_info['HoTen']?>" placeholder="Full Name" required>
+                        <input type="text" name="shipping_address" value="<?= $user_info['DiaChi']?>" placeholder="Address" required>
+                        <input type="tel" name="SDT" value="<?= $user_info['SDT']?>" placeholder="Phone" required>
                         <input type="text" placeholder="City" required>
-                        <button type="submit" class="btn-order-checkout-shipping">CONTINUE TO PAYMENT</button>
+                        <button type="button" class="btn-order-checkout-shipping">CONTINUE TO PAYMENT</button>
                     </form>
 
                 </div>
@@ -48,7 +48,7 @@
             <div class="order-checkout-payment">
                 <h4>02. PAYMENT</h4>
                 <h5>PAYMENT METHOD</h5>
-                <div class="order-checkout-payment-methods">
+                <!-- <div class="order-checkout-payment-methods">
                     <label class="order-checkout-payment-radio-card">
                         <input type="radio" checked>
                         <i class="fa-solid fa-credit-card" style="font-size: 1.3rem;"></i>
@@ -87,7 +87,9 @@
                     </label>
                 </div>
 
-                <button class="btn-order-checkout-review">CONTINUE TO REVIEW ORDER</button>
+                <button class="btn-order-checkout-review">CONTINUE TO REVIEW ORDER</button> -->
+                <div id="paypal-button-container"></div>
+
             </div>
 
 
@@ -105,12 +107,50 @@
                 <p>
                     By placing the order, you agree to DECIEM's Privacy Policy and Terms of Use.
                 </p>
-                <button class="btn-order-checkout-button">PLACE ORDER</button>
+
+                <form class="form-submit" method="post">
+                    <input type="text" name="HoTen" hidden >
+                    <input type="text" name="shipping_address" hidden>
+                    <input type="tel" name="SDT" hidden >
+                    <input type="text" placeholder="City" hidden>
+                    <input type="text" name="payment_method" hidden>
+                    <input type="text" name="total" value="<?=$estiamtedTotal?>" hidden>
+                    <input type="text" name="cost_ship" value="<?= $shipping?>" hidden>
+                    <button class="btn-order-checkout-button">PLACE ORDER</button>
+                </form>
             </div>
 
         </div>
     </div>
 
+    <script src="https://www.paypal.com/sdk/js?client-id=Aah1aCIFNDru_qqlCmL3Fl42XUfKPyBxkV6xiBy8KLDCIUNqaKfP5A1gr3EBfmZHlVC_29KKj-XXcx0U&currency=USD"></script>
+<script>
+paypal.Buttons({
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: '<?= $estiamtedTotal; ?>' // Tổng tiền
+                }
+            }]
+        });
+    },
+    onApprove: function(data, actions) {
+        return fetch('/paypal-verify.php', {
+            method: 'post',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+                orderID: data.orderID
+            })
+        }).then(res => res.json())
+          .then(data => {
+              if (data.status === 'success') {
+                  document.getElementById('checkout-form').submit();
+              }
+          });
+    }
+}).render('#paypal-button-container');
+</script>
 
 
     <!-- Phần ORDER SUMMARY -->
@@ -130,7 +170,7 @@
             </div>
             <div class="order-summary-row-total">
                 <strong>Estimated Total</strong>
-                <strong>48.40 USD</strong>
+                <strong><?=$estiamtedTotal?></strong>
             </div>
             <hr>
             <button class="btn-order-summary">PLACE ORDER</button>
@@ -172,46 +212,11 @@
         const phone = inputs[2].value;
         const city = inputs[3].value;
 
-        // Thông tin cố định
-        const shippingMethod = 'Standard Shipping';
-        const estimatedDelivery = '4/30/25';
-        const shippingPrice = '38.00 USD';
-
-        const checkoutDiv = document.querySelector('.order-checkout');
-        const originalContett = checkoutDiv.innerHTML;
-
-        // HTML Shipping mới
-        const OrderShippingHTML = `
-        <h4>01. SHIPPING <a class="edit-shipping" href="#" style="float: right; font-size: 0.9rem; color: black;">Edit</a></h4>
-        <div style="display: flex; justify-content: space-between; gap: 30px;">
-            <div>
-                <h5 style="font-weight: bold;">SHIPPING TO</h5>
-                <p>${fullName}<br>
-                ${address}<br>
-                ${city}<br>
-                VN<br>
-                ${phone}<br>
-                truc55044@gmail.com</p>
-            </div>
-            <div>
-                <h5 style="font-weight: bold;">SHIPPING METHOD</h5>
-                <p>${shippingMethod}<br>
-                Estimated delivery:<br>
-                ${estimatedDelivery}<br>
-                ${shippingPrice}</p>
-            </div>
-        </div>
-    `;
-
-        // Gán lại nội dung
-        checkoutDiv.innerHTML = OrderShippingHTML;
-
-        // Gán sự kiến cho nút Edit
-        document.querySelector('.edit-shipping').addEventListener('click', function(e) {
-            e.preventDefault();
-            checkoutDiv.innerHTML = originalContett;
-
-            document.querySelector('.btn-order-checkout-shipping').addEventListener('click', arguments.callee);
-        });
+        const inputSubmits = document.querySelectorAll('.form-submit input');
+        inputSubmits[0].value = fullName
+        inputSubmits[1].value = address
+        inputSubmits[2].value = phone
+        inputSubmits[3].value = city
+        inputSubmits[4].value = 'Paypal'
     });
 </script>

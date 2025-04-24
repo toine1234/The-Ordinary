@@ -29,6 +29,10 @@ class AdminController
             $products = Product::SearchProduct($_GET['search']);
         }
 
+        if (isset($_GET['sort'])){
+            $products = Product::getSortedProducts($_GET['sort']);
+        }
+
 
         $store = Store::getAllStore();
 
