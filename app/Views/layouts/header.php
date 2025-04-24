@@ -36,7 +36,8 @@
                 <div class='header-slide'>
                     <button class='header-icon-previous'>
                         <p>
-                            << /p>
+                            <
+                                </p>
                                 <span class='sr-only'>Previous</span>
                     </button>
 
@@ -87,7 +88,7 @@
                     <button class='icon-header-btn' id="icon-header-btn-hamburger">
                         <i class='fa-solid fa-bars'></i>
                     </button>
-                    <button class='icon-header-btn'>
+                    <button class='icon-header-btn' id="icon-header-search">
                         <i class='fa-solid fa-magnifying-glass'></i>
                     </button>
                     <a href='/The-Ordinary/account' class='icon-header-btn'>
