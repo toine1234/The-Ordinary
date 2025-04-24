@@ -36,7 +36,7 @@
                 <div class='header-slide'>
                     <button class='header-icon-previous'>
                         <p>
-                            <</p>
+                            << /p>
                                 <span class='sr-only'>Previous</span>
                     </button>
 
