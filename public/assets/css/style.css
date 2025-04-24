@@ -552,7 +552,7 @@ a{
     align-items: center;
 }
 
-.icon-header-btn{
+.icon-header-btn, .icon-header-btn-menu{
     color:white;
     font-size: 15px;
     background-color: transparent;
@@ -563,6 +563,10 @@ a{
     display: flex;
     gap: 5px;
     align-items: center;
+}
+
+.icon-header-btn:nth-child(1){
+    display: none!important;
 }
 
 .amount-cart{
@@ -703,6 +707,10 @@ a{
     .icon-header-btn {
         font-size: 16px;
         color: black;
+    }
+
+    .icon-header-btn-menu {
+        display: block;
     }
 
     .amount-cart {

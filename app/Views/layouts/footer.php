@@ -141,7 +141,7 @@
     </form>
 </div>
 <script>
-    const searchButton = document.querySelector('.icon-header-btn:nth-child(1)');
+    const searchButton = document.querySelector('.icon-header-btn:nth-child(2)');
     const searchContainer = document.querySelector('.site-search');
     const closeSearchButton = document.querySelector('.close-search');
     const containerSearch = document.querySelector('.Search-Container');
@@ -279,7 +279,7 @@
     </script>
 </div>
 <script>
-    const cartButton = document.querySelector('.icon-header-btn:nth-child(3)');
+    const cartButton = document.querySelector('.icon-header-btn:nth-child(4)');
     const cartContainer = document.querySelector('.site-cart');
     const closeCartButton = document.querySelector('.close-cart');
     const containerCart = document.querySelector('.cart-Container');
