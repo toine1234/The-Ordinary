@@ -26,9 +26,9 @@
 
 <body>
     <?php if (!isset($_COOKIE['accessToken'])): ?>
-        <?php unset($_SESSION['idUser']); ?>
-        <?php unset($_SESSION['cart']); ?>
-        <?php unset($_SESSION['username']); ?>
+        <?php if(isset($_SESSION['idUser'])) unset($_SESSION['idUser']); ?>
+        <?php if(isset($_SESSION['cart'])) unset($_SESSION['cart']); ?>
+        <?php if(isset($_SESSION['username'])) unset($_SESSION['username']); ?>
     <?php endif; ?>
     <div class='main-nav'>
         <div class='header'>

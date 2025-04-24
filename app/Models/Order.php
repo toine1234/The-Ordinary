@@ -31,8 +31,15 @@ class Order{
         
         $db->commit();
 
-
-
         return $orderId;
+    }
+
+    public static function getOrderById($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM don_hang WHERE ID_Don_Hang = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
