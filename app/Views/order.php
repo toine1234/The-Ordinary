@@ -160,7 +160,7 @@ paypal.Buttons({
             </div>
             <div class="order-summary-row-total">
                 <strong>Estimated Total</strong>
-                <strong><?=$estiamtedTotal?></strong>
+                <strong><?=$estiamtedTotal?> USD</strong>
             </div>
             <hr>
 

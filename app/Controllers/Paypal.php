@@ -36,7 +36,7 @@ class Paypal{
         $data = json_decode($response, true);
         file_put_contents('paypal_response.log', $response);
 
-        if ($data['status'] === 'COMPLETED') {
+        if ($data['status'] === 'APPROVED') {
             echo json_encode(['status' => 'success']);
         } else {
             echo json_encode(['status' => 'fail']);

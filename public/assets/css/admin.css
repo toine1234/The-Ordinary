@@ -138,6 +138,14 @@ a{
     overflow-y: scroll;
 }
 
+.content-admin-products{
+    position: relative;
+}
+
+.header-table{
+    position: relative;
+}
+
 .table-title{
     padding: 10px 0;
     border-bottom: 1px solid var(--graynhe);
@@ -189,7 +197,7 @@ a{
     width: 100%;
     border-collapse: collapse;
   }
-  
+
   .custom-table th  {
     border: 1px solid #ddd;
     padding: 10px;
@@ -351,5 +359,19 @@ a{
     margin-top: 20px;
     
 }
+
+.overview-content-toggle, .overview-content-toggle--2{
+    position: absolute;
+    top:-5px;
+    right: 0;
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+
 
 

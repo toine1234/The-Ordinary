@@ -2,16 +2,17 @@
 namespace App\Models;
 require_once __DIR__ . '/../Models/Database.php';
 use App\Models\Database;
+use App\Models\Cart;
 
 class Order{
     public static function create($userId, $shippingAddress, $paymentMethod, $items, $cost_ship, $total){
         $database = new Database();
         $db = $database->getConnection();
         $db->beginTransaction();
-        $query = "INSERT INTO don_hang (ID_Khach_Hang, dia_chi_giao, payment_method, tong_tien, phi_ship)
-                    VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO don_hang (ID_Khach_Hang, dia_chi_giao, payment_method, payment_status, tong_tien, phi_ship)
+                    VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $db->prepare($query);
-        $stmt->execute([$userId,$shippingAddress,$paymentMethod,$total,$cost_ship]);
+        $stmt->execute([$userId,$shippingAddress,$paymentMethod,'paid',$total,$cost_ship]);
         $orderId = $db->lastInsertId();
         
         foreach ($items as $item ){
@@ -24,11 +25,21 @@ class Order{
                         VALUES (?, ?, ? ,?)";
             $stmt = $db->prepare($query);
             $stmt->execute([$orderId, $productId, $qty, $price]);
+            Cart::deleteByIdProduct($productId);
         }
 
         
         $db->commit();
 
         return $orderId;
+    }
+
+    public static function getOrderById($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM don_hang WHERE ID_Don_Hang = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

@@ -32,8 +32,23 @@ class OrderController
         $items = $_SESSION['cart'] ?? [];
 
         $orderId = Order::create($userId, $shippingAddress, $paymentMethod, $items, $cost_ship,$total);
+        unset($_SESSION['cart']);
 
-        echo "Order is success";
+        header('Location: /The-Ordinary/orderStatus?id='.$orderId);
 
+    }
+
+    public function ViewResultOrder(){
+        if (!isset($_COOKIE['accessToken'])){
+            header('Location: /The-Ordinary/login');
+            return;
+        }
+        session_start();
+        $idOrder = $_GET['id'];
+        $order = Order::getOrderById($idOrder);
+
+        require 'app/Views/layouts/header.php';
+        require 'app/Views/ResultOrder.php';
+        require 'app/Views/layouts/footer.php';
     }
 }

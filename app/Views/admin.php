@@ -24,7 +24,6 @@
 <?php
 $list_page = [
     "Products",
-    "Users",
     "Orders",
     "Payment",
     "Setting",
@@ -84,8 +83,8 @@ $list_filter_sort = [
         </div>
         <?php if (isset($_SESSION['flash'])): ?>
             <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
-            <?= $_SESSION['flash']['message'] ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <?= $_SESSION['flash']['message'] ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php unset($_SESSION['flash']); ?>
         <?php endif; ?>
@@ -102,6 +101,9 @@ $list_filter_sort = [
                         </label>
                     <?php endforeach; ?>
                 </form>
+                <div class="sidebar-admin-items">
+                    <a class="sidebar-item" href="/The-Ordinary/logout">Logout</a>
+                </div class="sibe-bar-admin-items">
                 <script>
                     document.querySelectorAll('.sidebar-admin-items input[type="radio"]')
                         .forEach(
@@ -125,8 +127,20 @@ $list_filter_sort = [
                     <!-------------- STORE TABLE -------------->
                     <!-------------- STORE TABLE -------------->
 
-                    <h2 class="table-title">STORE TABLE</h2>
-                        <div class="table-data-store">
+                        <div class="header-table">
+                            <h2 class="table-title">STORE TABLE</h2>
+                            <button class="overview-content-toggle">
+                                <i class="fa-solid fa-angle-up"></i>
+                            </button>
+                        </div>
+                        <script>
+                            document.querySelector('.overview-content-toggle').addEventListener('click', function () {
+                                const content = document.querySelector('.table-data-store');
+                                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                                document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
+                            });
+                        </script>
+                        <div style="display: block;" id="store" class="table-data-store">
                             <table class="custom-table">
                                 <tr>
                                     <th>Id</th>
@@ -156,8 +170,22 @@ $list_filter_sort = [
                         <!-------------- PRODUCT TABLE -------------->
                         <!-------------- PRODUCT TABLE -------------->
 
-                        <h2 style="margin-top: 30px;" class="table-title">PRODUCTS TABLE</h2>
-                        <div class="feature-product-table">
+                        <div class="header-table">
+                            <h2 class="table-title">PRODUCT TABLE</h2>
+                            <button class="overview-content-toggle--2">
+                                <i class="fa-solid fa-angle-up"></i>
+                            </button>
+                        </div>
+                        <script>
+                            document.querySelector('.overview-content-toggle--2').addEventListener('click', function () {
+                                const content = document.querySelector('.table-data-products');
+                                const feature = document.querySelector('.feature-product-table')
+                                feature.style.display = feature.style.display === 'flex' ? 'none' : 'flex';
+                                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                                document.querySelector('.overview-content-toggle--2').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
+                            });
+                        </script>
+                        <div style="display: flex;" id="product" class="feature-product-table">
                             <form method="get" class="form-search">
                                 <input type="text" hidden name="page" value="Products">
                                 <div id="search" class="search">
@@ -187,7 +215,7 @@ $list_filter_sort = [
                                     });
                             </script>
                         </div>
-                        <div class="table-data-products">
+                        <div style="display: block;" class="table-data-products">
                             <table class="custom-table">
                                 <tr>
                                     <th>Id</th>
@@ -414,7 +442,6 @@ $list_filter_sort = [
                                 }
                             </script>
                         </div>
-                        
                     </div>
                 <?php endif; ?>
 
@@ -433,6 +460,8 @@ $list_filter_sort = [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Orders'): ?>
                     <div>Orders</div>
                 <?php endif; ?>
+
+                
             </div>
         </div>
     </div>

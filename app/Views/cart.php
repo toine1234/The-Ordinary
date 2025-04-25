@@ -93,7 +93,7 @@
         <?php if (!empty($carts)): ?>
             <a href="/The-Ordinary/order" class="checkout-btn">CHECKOUT</a>
         <?php endif; ?>
-        <a href="/The-Ordinary/shop" class="continue-shopping-btn">Continue Shopping</a>
+        
     </div>
     <script>
         const cartButton = document.querySelector('.icon-header-btn:nth-child(3)');
