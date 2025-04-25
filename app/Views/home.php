@@ -3,6 +3,7 @@
     <div class="poster">
         <img class="poster-image" src="https://cdn.media.amplience.net/i/deciem/ORD-HP-Hero-SS-Regimen-Builder?fmt=auto&$poi$&sm=aspect&w=3840&aspect=37:20"
             alt="The Ordinary Bestsellers">
+        <img class="poster-img-brand" src="https://theordinary.com/on/demandware.static/Sites-deciem-us-Site/-/default/dw5e634eac/images/brands-logo/theOrdinary-logo.svg" alt="poster brand">
         <div class="title">
             <h1 class="h1-title">Your Regimen in 2 Minutes.</h1>
             <p>

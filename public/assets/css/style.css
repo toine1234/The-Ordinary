@@ -58,6 +58,48 @@ a{
     color: var(--black);
 }
 
+/*================= NAVBAR =================*/
+/*================= NAVBAR =================*/
+/*================= NAVBAR =================*/
+
+.navbar-container{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top:0;
+    left: 0;
+    background-color: #00000029;
+    z-index: 1000;
+    display: none;
+}
+
+.navbar-site{
+    position: fixed;
+    width: 577px;
+    height: 100%;
+    z-index: 1001;
+    top: 0px;
+    right: 0;
+    background-color: white;
+    padding: 20px;
+    display: none;
+    animation: slideInRight 0.3s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*================= SEARCH =================*/
 /*================= SEARCH =================*/
 /*================= SEARCH =================*/
@@ -553,7 +595,7 @@ a{
     align-items: center;
 }
 
-.icon-header-btn, .icon-header-btn-menu{
+.icon-header-btn{
     color:white;
     font-size: 15px;
     background-color: transparent;
@@ -567,7 +609,7 @@ a{
 }
 
 .icon-header-btn:nth-child(1){
-    display: none!important;
+    display: none;
 }
 
 .amount-cart{
@@ -710,7 +752,7 @@ a{
         color: black;
     }
 
-    .icon-header-btn-menu {
+    .icon-header-btn:nth-child(1){
         display: block;
     }
 
@@ -847,7 +889,7 @@ h3{
 
 /********************* Page HOME ***********************/
 .poster{
-    height: 600px;
+    height: 1300px;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -861,19 +903,30 @@ h3{
     height: auto;
     object-fit: cover;
 }
+.poster-img-brand{
+    position: absolute;
+    margin: 100px 0 0 100px;
+    width: 200px;
+    height: auto;
+    z-index: 2;
+}
 .title{
     position: absolute;
-    top: 50%;
-    left: 30px;
-    width: 300px;
+    top: 40%;
+    left: 40px;
+    width: 500px;
     transform: translate(30%,-50%);
     gap: 10px;
 }
 
 .h1-title{
     padding-bottom: 30px;
-    font-size: 40px;
+    font-size: 3rem;
     font-weight: 700;
+}
+
+.title p{
+    font-size: 1.3rem;
 }
 
 .btn-title{
@@ -889,7 +942,7 @@ h3{
     margin-top: 30px;
     text-decoration: none !important;
     text-align: center;
-    border: 1px solid black;
+    border: 0.7px solid black;
     transition: 0.5s;
 }
 .btn-title:hover{
@@ -899,21 +952,32 @@ h3{
 
 @media (max-width: 768px) {
     .poster{
-        height: 600px;
+        position: relative;
+        height: 300px;
+    }
+    .poster-img-brand{
+        margin: 0;
+        width: 130px;
+        height: auto;
+        padding: 20px;
+        top: 0;
     }
     .title{
         position: absolute;
         width: 200px;
-        top: 22%;
-        left: 0;
+        top: 50%;
+        left: 10%;
     }
     .h1-title{
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-weight: 700;
+    }
+    .title p{
+        font-size: 0.8rem;
     }
     .btn-title{
         padding: 10px;
-        font-size: 1rem;
+        font-size: 0.8rem;
         width: 150px;
     }
 }
