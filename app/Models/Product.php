@@ -153,9 +153,6 @@ class Product {
         ]);
 
         Store::updateQuantity($product_id,$data['quantity_store'] - $data['quantity']);
-
-
-        
         
     }
 
@@ -166,6 +163,31 @@ class Product {
         $stmt = $db->prepare($query);
         $stmt->execute([
             ":id"=> $id
+        ]);
+    }
+
+    public static function getQuantityById($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT SL FROM san_pham WHERE ID_San_Pham = :id";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ':id'=>$id
+        ]);
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public static function UpdateQuantityById($id, $qty){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "UPDATE san_pham 
+        SET SL = :qty
+        WHERE ID_San_Pham = :id";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ':id'=>$id, 
+            ':qty'=>$qty
         ]);
     }
 }

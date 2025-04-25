@@ -1,4 +1,9 @@
 <div class="container-product-detail">
+    <?php if ($product[0]['SL'] ==0):?>
+        <div class="display-sold-out">
+            <p>SOLD OUT</p>
+        </div>
+    <?php endif;?>
     <div class="router-product-detail">
         <ul class="list-router-product-detail">
             <li><a href="/The-Ordinary/shop" style="color: gray;">Shop</a></li>

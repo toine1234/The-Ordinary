@@ -20,12 +20,14 @@ class Order{
             $productId = $item['ID_San_Pham'];
             $qty = $item['SL'];
             $price = $item['Gia'];
-
             $query = "INSERT INTO chi_tiet_don_hang (ID_Don_Hang, ID_San_Pham, so_luong, price_each)
                         VALUES (?, ?, ? ,?)";
             $stmt = $db->prepare($query);
             $stmt->execute([$orderId, $productId, $qty, $price]);
             Cart::deleteByIdProduct($productId);
+            $qtynew = Product::getQuantityById($productId)['SL'] - $qty;
+            Product::UpdateQuantityById($productId, $qtynew );
+
         }
 
         

@@ -13,7 +13,16 @@ class Users
         $query = "SELECT * FROM khach_hang WHERE ID_Khach_Hang = :id";
         $stmt = $db->prepare($query);
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getAllUsers(){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM khach_hang";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public static function updateUser($id, $fullname,$phone,$email)
@@ -31,6 +40,16 @@ class Users
             'email'=> $email,
             ':id' => $id
         ]);
+
+    }
+
+    public static function SearchUser($keyword) {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM khach_hang WHERE ID_Khach_Hang LIKE ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute(['%' . $keyword . '%']);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 

@@ -1895,7 +1895,7 @@ h3{
 .filter-group-items--type, .filter-group-items--format, .filter-group-items--active{
     margin-top: 20px;
     overflow: hidden;
-    display: none;
+    display: block;
 }
 
 
@@ -2073,14 +2073,47 @@ h3{
     width: 30px;
     height: 30px;
     cursor: pointer;
-}   
+}
 
+.sold-out{
+    position: absolute;
+    top:30%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 25px;
+    width: 200px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--white);
+    background-color: var(--black);
+
+
+}
 
 /*=================== Product Detail ===================*/
 /*=================== Product Detail ===================*/
 /*=================== Product Detail ===================*/
 
 /* Product Detail Container */
+
+.display-sold-out{
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.181);
+    font-size: 50px;
+    font-weight: bolder;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+
+
+}
 
 .container-product-detail{
     width: 100%;
@@ -2089,6 +2122,7 @@ h3{
     flex-direction: column;
     align-items: center;
     padding: 0 40px;
+    
     
 }
 

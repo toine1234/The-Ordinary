@@ -26,6 +26,8 @@ class UserController
             } else {
 
                 if ($middleware->Role === 'admin'){
+                    session_start();
+                    $user = Users::getUserById($middleware->ID);
                     header('Location: /The-Ordinary/admin?page=Products');
                     exit;
                 }
