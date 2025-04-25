@@ -26,6 +26,7 @@ $list_page = [
     "Products",
     "Orders",
     "Payment",
+    "Sales",
     "Setting",
 ];
 
@@ -128,7 +129,7 @@ $list_filter_sort = [
                     <!-------------- STORE TABLE -------------->
 
                         <div class="header-table">
-                            <h2 class="table-title">STORE TABLE</h2>
+                            <h2 class="table-title">STOCK TABLE</h2>
                             <button class="overview-content-toggle">
                                 <i class="fa-solid fa-angle-up"></i>
                             </button>
@@ -322,7 +323,7 @@ $list_filter_sort = [
                         <div class="create-product">
                             <h2 class="create-product-title">CREATE</h2>
                             <form action="/The-Ordinary/admin/products" method="post" enctype="multipart/form-data" class="form-create-product">
-                                <h3 style="grid-column-start:1;grid-column-end:3;width:100%">Create Store</h3>
+                                <h3 style="grid-column-start:1;grid-column-end:3;width:100%">Create Stock</h3>
                                 <div class="form-group">
                                     <span>Price Import</span>
                                     <input name="price_store" type="text">
@@ -458,7 +459,87 @@ $list_filter_sort = [
                 <!-------------- ORDERS PAGE -------------->
 
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Orders'): ?>
-                    <div>Orders</div>
+                    <div class="content-admin-order">
+                        <div class="header-table">
+                                <h2 class="table-title">ORDER TABLE</h2>
+                                <button class="overview-content-toggle">
+                                    <i class="fa-solid fa-angle-up"></i>
+                                </button>
+                            </div>
+                            <script>
+                                document.querySelector('.overview-content-toggle').addEventListener('click', function () {
+                                    const content = document.querySelector('.table-data-order');
+                                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                                    document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
+                                });
+                            </script>
+                        <div style="display: block;" id="order" class="table-data-order">
+                            <table class="custom-table">
+                                    <tr>
+                                        <th>ID ORDER</th>
+                                        <th>ID USER</th>
+                                        <th>TOTAL</th>
+                                        <th>SHIPPING</th>
+                                        <th>ADDRESS</th>
+                                        <th>PAYMENT METHOD</th>
+                                        <th>PAYMENT STATUS</th>
+                                        <th>STATUS</th>
+                                        <th>CREATE DATE</th>
+                                    </tr>
+                                    <?php foreach($orders as $order):?>
+                                    <tr style="<?= isset($_GET['view']) && $_GET['view'] === $order['ID_Don_Hang'] ? "background-color:var(--graynhe)":""?>" 
+                                    id="<?=$order['ID_Don_Hang']?>" 
+                                    onclick="window.location.href='/The-Ordinary/admin?page=Orders&view=<?=$order['ID_Don_Hang']?>#<?=$order['ID_Don_Hang']?>'">
+                                    
+                                        <td><?= $order['ID_Don_Hang']?></td>
+                                        <td><?= $order['ID_Khach_Hang']?></td>
+                                        <td><?= $order['tong_tien']?> USD</td>
+                                        <td><?= $order['phi_ship']?> USD</td>
+                                        <td><?= $order['dia_chi_giao']?></td>
+                                        <td><?= $order['payment_method']?></td>
+                                        <td><?= $order['payment_status']?></td>
+                                        <td><?=$order["Trang_Thai"]?></td>
+                                        <td><?=$order["Ngay_Dat"]?></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                    
+                            </table>
+                        </div>
+                        <?php if (isset($_GET['view'])): ?>
+                            <div class="receipt-order">
+                                <div class="receipt-container">
+                                    <div class="receipt-header">
+                                        <h2>RECIEPT</h2>
+                                        <p><?= $detailOrders[0]['Ngay_Dat']?></p>
+                                    </div>
+                                    <div class="order-items">
+                                        <?php foreach($detailOrders as $item):?>
+                                            <div class="order-items-container">
+                                                <img src="<?= explode(';',$item['Hinh_Anh'])[0]?>">
+                                                <div class="order-items-info">
+                                                    <h3><?= $item['Ten_SP']?></h3>
+                                                    <p><?= $item['so_luong']?>x</p>
+                                                    <p><strong><?= $item['tong_tien']?> USD</strong></p>
+                                                </div>
+                                            </div>
+                                        <?php endforeach;?>
+                                    </div>
+                                </div>
+                                <div class="order-feature">
+                                    <h2>FEATURE</h2>
+                                    <form action="/The-Ordinary/admin/orders" method="post" class="update-status">
+                                        <input hidden name="id_order" type="text" value="<?= $_GET['view']?>">
+                                        <button type="submit" name="update" value="update">TO COMFIRM</button>
+                                    </form>
+                                    <form class="delete-order">
+                                        <input hidden name="delete" type="text" value="<?= $_GET['view']?>">
+                                        <button type="submit">DELETE</button>
+                                    </form>
+                                    <button class="print-receipt">RECEIPT PRINT</button>
+                                </div>
+                            </div>
+                        <?php endif;?>
+                    </div>
                 <?php endif; ?>
 
                 

@@ -42,4 +42,44 @@ class Order{
         $stmt->execute([$id]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public static function getAllOrder(){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM don_hang";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getDetailOrderById($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT 
+                o.ID_Don_Hang AS ID_Don_Hang,
+                o.tong_tien,
+                o.Ngay_Dat,
+                p.Ten_SP AS Ten_SP,
+                p.Hinh_Anh AS Hinh_Anh,
+                oi.so_luong,
+                oi.price_each
+            FROM don_hang o
+            JOIN chi_tiet_don_hang oi ON o.ID_Don_Hang = oi.ID_Don_Hang
+            JOIN san_pham p ON oi.ID_San_Pham = p.ID_San_Pham
+            WHERE o.ID_Don_Hang = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function UpdateStatus($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = 
+        'UPDATE don_hang 
+        SET Trang_Thai = :status
+        WHERE ID_Don_Hang = :id';
+        $stmt = $db->prepare($query);
+        $stmt->execute([':id'=>$id, ':status' => 'shipped']);
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Core\JWT;
 use App\Models\Store;
 use App\Models\Cart;
+use App\Models\Order;
 
 class AdminController
 {
@@ -23,6 +24,8 @@ class AdminController
         }
 
         $products = Product::getAllProducts();
+        $orders = Order::getAllOrder();
+        
 
         if (isset($_GET['search'])){
             
@@ -38,6 +41,7 @@ class AdminController
 
         if (isset($_GET['view'])){
             $product = Product::getProductsById($_GET['view']);
+            $detailOrders = Order::getDetailOrderById($_GET['view']);
         }
 
         
@@ -62,6 +66,8 @@ class AdminController
                 "key_ingredients"=>$_POST['ingredients_product']
             ];
             try{
+                $newQuantityStore = Store::getQuantityById($data['id'])['SL'] - $data['quantity'];
+                Store::updateQuantity($data['id'],$newQuantityStore);
                 Product::Update($data);
                 header('Location: /The-Ordinary/admin?page=Products&view='.$_POST['id_product']);
                 session_start();
@@ -113,7 +119,7 @@ class AdminController
                 echo $e;
                 session_start();
                 $_SESSION['flash'] = [
-                    'type' => 'warning', // success, danger, warning, info
+                    'type' => 'danger', // success, danger, warning, info
                     'message' => 'Create product is fail!'
                 ];
             }
@@ -138,11 +144,36 @@ class AdminController
                 echo $e;
                 session_start();
                 $_SESSION['flash'] = [
-                    'type' => 'warning', // success, danger, warning, info
+                    'type' => 'danger', // success, danger, warning, info
                     'message' => 'Delete product is fail!'
                 ];
             }
         }
+    }
+
+    public function CRUD_Orders(){
+
+        if (isset($_POST['update']) && $_POST['update']==='update'){
+            try{
+                Order::UpdateStatus($_POST['id_order']);
+                header('Location: /The-Ordinary/admin?page=Orders&view='.$_POST['id_order']);
+                session_start();
+                $_SESSION['flash'] = [
+                    'type' => 'success', // success, danger, warning, info
+                    'message' => 'Update order status is success!'
+                ];
+                exit;
+            }
+            catch(\Exception $e){
+                session_start();
+                header('Location: /The-Ordinary/admin?page=Orders&view='.$_POST['id_order']);
+                $_SESSION['flash'] = [
+                    'type' => 'warning', // success, danger, warning, info
+                    'message' => 'Update order is fail!'
+                ];
+            }
+        }
+        
     }
 
 }

@@ -50,6 +50,7 @@ function defineRoutes($router)
     // Admin Routes //
     $router->get('/admin',[App\Controllers\AdminController::class,'index']);
     $router->post('/admin/products',[App\Controllers\AdminController::class,'CRUD_Products']);
+    $router->post('/admin/orders',[App\Controllers\AdminController::class,'CRUD_Orders']);
 
     // Paypal //
     $router->post('/paypal-verify',[App\Controllers\Paypal::class,'paypal_verify']);

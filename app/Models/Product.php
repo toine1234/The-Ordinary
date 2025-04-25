@@ -3,6 +3,7 @@ namespace App\Models;
 require_once __DIR__ . '/../Models/Database.php';
 use App\Models\Database;
 use Cloudinary\Api\Upload\UploadApi;
+use App\Models\Store;
 
 
 class Product {
@@ -150,31 +151,11 @@ class Product {
             ":key_ingredients"=> $data['key_ingredients']
 
         ]);
-        // $product_id = $db->lastInsertId();
-        // unset($stmt);
 
-        // $query = "INSERT INTO ql_kho (ID_San_Pham) VALUES (:id)";
-        // $stmt = $db->prepare($query);
-        // $stmt->execute([':id' => 'SP001']);
-        // unset($stmt);
+        Store::updateQuantity($product_id,$data['quantity_store'] - $data['quantity']);
+
 
         
-    //     foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-    //         $result = (new UploadApi())->upload($tmp_name, [
-    //             'folder' => 'product_images'
-    //         ]);
-
-    //         $publicUrl = $result['secure_url']; // ảnh URL từ Cloudinary
-
-    //         // Lưu vào DB:
-    //         $query = "INSERT INTO thu_vien_anh (ID_San_Pham, img_name) VALUES (:id, :name)";
-    //         $stmt = $db->prepare($query);
-    //         $stmt->execute([
-    //             ":id" => 'SP001',
-    //             ":name" => $publicUrl
-    //         ]);
-        
-    // }
         
     }
 
