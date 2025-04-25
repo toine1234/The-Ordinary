@@ -57,6 +57,37 @@ a{
     color: var(--black);
 }
 
+/*================= NAVBAR =================*/
+/*================= NAVBAR =================*/
+/*================= NAVBAR =================*/
+
+.navbar-container{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top:0;
+    left: 0;
+    background-color: #00000029;
+    z-index: 1000;
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*================= SEARCH =================*/
 /*================= SEARCH =================*/
 /*================= SEARCH =================*/
@@ -709,7 +740,7 @@ a{
         color: black;
     }
 
-    .icon-header-btn-menu {
+    .icon-header-btn:nth-child(1){
         display: block;
     }
 
