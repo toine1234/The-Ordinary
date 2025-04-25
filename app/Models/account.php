@@ -24,6 +24,24 @@ class Account
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getAllAccount(){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = 'SELECT * FROM tai_khoan';
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function SearchAccount($keyword) {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM tai_khoan WHERE ID_Khach_Hang LIKE ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute(['%' . $keyword . '%']);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
 
     public static function generateUUID(): string
     {

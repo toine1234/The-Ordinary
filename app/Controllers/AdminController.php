@@ -25,11 +25,15 @@ class AdminController
 
         $products = Product::getAllProducts();
         $orders = Order::getAllOrder();
+        $users = Users::getAllUsers();
+        $accounts = Account::getAllAccount();
         
 
         if (isset($_GET['search'])){
             
             $products = Product::SearchProduct($_GET['search']);
+            $users = Users::SearchUser($_GET['search']);
+            $accounts = Account::SearchAccount($_GET['search']);
         }
 
         if (isset($_GET['sort'])){

@@ -25,6 +25,7 @@
 $list_page = [
     "Products",
     "Orders",
+    "Users",
     "Payment",
     "Sales",
     "Setting",
@@ -451,7 +452,96 @@ $list_filter_sort = [
                 <!-------------- USERS PAGE -------------->
 
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Users'): ?>
-                    <div>Users</div>
+                    <div class="content-admin-user">
+                        <div class="header-table">
+                                <h2 class="table-title">USER TABLE</h2>
+                                <button class="overview-content-toggle">
+                                    <i class="fa-solid fa-angle-up"></i>
+                                </button>
+                            </div>
+                            <script>
+                                document.querySelector('.overview-content-toggle').addEventListener('click', function () {
+                                    const content = document.querySelector('.table-data-user');
+                                    const feature = document.querySelector('.feature-user-table')
+                                    feature.style.display = feature.style.display === 'flex' ? 'none' : 'flex';
+                                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                                    document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
+                                });
+                            </script>
+                            <div style="display: flex;" id="user" class="feature-user-table">
+                            <form method="get" class="form-search">
+                                <input type="text" hidden name="page" value="Users">
+                                <div id="search" class="search">
+                                    <i class='fa-solid fa-magnifying-glass'></i>
+                                    <input name="search" type="text">
+                                </div>
+                                <button class="btn-search" type="submit">Search</button>
+                            </form>
+                        </div>
+                        <div style="display: block;" id="user" class="table-data-user">
+                            <table class="custom-table">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>EMAIL</th>
+                                        <th>FULLNAME</th>
+                                        <th>PHONE</th>
+                                        <th>ADDRESS</th>
+                                    </tr>
+                                    <?php foreach($users as $user):?>
+                                    <tr style="<?= isset($_GET['view']) && $_GET['view'] === $user['ID_Khach_Hang'] ? "background-color:var(--graynhe)":""?>" 
+                                    id="<?=$user['ID_Khach_Hang']?>" 
+                                    onclick="window.location.href='/The-Ordinary/admin?page=Users&view=<?=$user['ID_Khach_Hang']?>#<?=$user['ID_Khach_Hang']?>'">
+                                    
+                                        <td><?= $user['ID_Khach_Hang']?></td>
+                                        <td><?= $user['Email']?></td>
+                                        <td><?= $user['HoTen']?></td>
+                                        <td><?= $user['SDT']?></td>
+                                        <td><?= $user['DiaChi']?></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                    
+                            </table>
+                        </div>
+                        <div class="header-table">
+                                <h2 class="table-title">ACCOUNT TABLE</h2>
+                                <button class="overview-content-toggle--2">
+                                    <i class="fa-solid fa-angle-up"></i>
+                                </button>
+                            </div>
+                            <script>
+                                document.querySelector('.overview-content-toggle--2').addEventListener('click', function () {
+                                    const content = document.querySelector('.table-data-account');
+                                    
+                                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                                    document.querySelector('.overview-content-toggle--2').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
+                                });
+                            </script>
+                        
+                        <div style="display: block;" id="account" class="table-data-account">
+                            <table class="custom-table">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>PASSWORD</th>
+                                        <th>EMAIL</th>
+                                        <th>ROLE</th>
+                                        <th>CREATE DATE</th>
+                                    </tr>
+                                    <?php foreach($accounts as $account):?>
+                                    <tr style="<?= isset($_GET['view']) && $_GET['view'] === $account['ID_Khach_Hang'] ? "background-color:var(--graynhe)":""?>" 
+                                    id="<?=$account['ID_Khach_Hang']?>" 
+                                    onclick="window.location.href='/The-Ordinary/admin?page=Users&view=<?=$account['ID_Khach_Hang']?>#<?=$account['ID_Khach_Hang']?>'">
+                                    
+                                        <td><?= $account['ID_Khach_Hang']?></td>
+                                        <td><?= $account['Password']?></td>
+                                        <td><?= $account['Email']?></td>
+                                        <td><?= $account['Roles']?></td>
+                                        <td><?= $account['Ngay_Tao']?></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                    
+                            </table>
+                        </div>
+                    </div>
                 <?php endif; ?>
 
                 <!-------------- ORDERS PAGE -------------->
@@ -473,6 +563,7 @@ $list_filter_sort = [
                                     document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
                                 });
                             </script>
+                            
                         <div style="display: block;" id="order" class="table-data-order">
                             <table class="custom-table">
                                     <tr>

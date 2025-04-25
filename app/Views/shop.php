@@ -63,7 +63,7 @@ $list_filter_sort = [
             <!--------------- Product Type Filter ------------------>
             <!--------------- Product Type Filter ------------------>
 
-            <div class="filter-group">
+            <!-- <div class="filter-group">
                 <div class="filter-group-title">
                     <p class="name-filter">Product Type</p>
                     <button class="btn-more-filter--type">&#43;</button>
@@ -98,19 +98,7 @@ $list_filter_sort = [
                                 });
                     </script>
                 </div>
-            </div>
-
-            <!--------------- Active Ingredient Filter ------------------>
-            <!--------------- Active Ingredient Filter ------------------>
-            <!--------------- Active Ingredient Filter ------------------>
-
-
-            <div class="filter-group">
-                <div class="filter-group-title">
-                    <p class="name-filter">Active Ingredient</p>
-                    <button class="btn-more-filter--active">&#43;</button>
-                </div>
-            </div>
+            </div> -->
 
             <!--------------- Format Filter ------------------>
             <!--------------- Format Filter ------------------>
@@ -119,12 +107,14 @@ $list_filter_sort = [
             <div class="filter-group">
                 <div class="filter-group-title">
                     <p class="name-filter">Format</p>
-                    <button class="btn-more-filter--format">&#43;</button>
+                    <button class="btn-more-filter--format"><?= isset($_GET['type']) ? '-' :'+'?></button>
                 </div>
                 <script>
                     document.querySelector('.btn-more-filter--format').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--format');
                         items.style.display = items.style.display === 'block' ? 'none' : 'block';
+                        this.innerText = items.style.display === 'block' ? '-' : '+';
+
 
                     });
                 </script>
@@ -205,7 +195,7 @@ $list_filter_sort = [
              }
             ?>
             <?php foreach ($products as $product): ?>
-                <form action="/The-Ordinary/cart" method="post" class="product-container">
+                <form aria-disabled="true" action="/The-Ordinary/cart" method="post" class="product-container">
                     <input type="hidden" name="productId" value="<?= htmlspecialchars($product["ID_San_Pham"]) ?>">
                     <input type="hidden" name="quantity" value="1">
                     <a href="/The-Ordinary/product?id=<?= htmlspecialchars($product["ID_San_Pham"]) ?>">
@@ -218,8 +208,12 @@ $list_filter_sort = [
                         <p class="product-price"><?= number_format($product["Gia"], 2) ?> USD</p>
                         <p><?= htmlspecialchars($product["Dung_Tich"]) ?></p>
                     </div>
-                    <button class="btn-add-to-cart" type="submit">Add to Cart</button>
-                    <i class="fa-regular fa-heart action-like"></i>
+                    <button <?= $product['SL'] == 0 ? "disabled":""?> class="btn-add-to-cart" type="submit">Add to Cart</button>
+                    <?php if ($product['SL'] == 0):?>
+                    <div class="sold-out">
+                        <p>Sold Out</p>
+                    </div>
+                    <?php endif;?>
                 </form>
             <?php endforeach ?>
         </div>
