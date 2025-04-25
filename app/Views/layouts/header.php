@@ -85,7 +85,7 @@
                     }
                 </script>
                 <div class='icon-header'>
-                    <button class='icon-header-btn'>
+                    <button class='icon-header-btn open-navbar-btn'>
                         <i class='fa-solid fa-bars'></i>
                     </button>
                     <button class='icon-header-btn'>
