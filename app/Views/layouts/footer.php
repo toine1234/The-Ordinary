@@ -340,7 +340,7 @@
 
             <li>Bestsellers</li>
             <li class="sidebar-menu-skincare" onclick="slidebarSkincare()">Skincare
-                <i id="sidebar-menu-new-icon" class="fa-solid fa-plus" style="padding-left: 165px;"></i>
+                <i id="sidebar-menu-skincare-icon" class="fa-solid fa-plus" style="padding-left: 165px;"></i>
             </li>
             <div id="sidebar-menu-skincare-content" class="sidebar-menu-skincare-content">
                 <ul>
@@ -400,6 +400,21 @@
     function slidebarNew() {
         const content = document.getElementById('sidebar-menu-new-content');
         const icon = document.getElementById('sidebar-menu-new-icon');
+
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+            icon.classList.remove('fa-minus');
+            icon.classList.add('fa-plus');
+        } else {
+            content.style.display = 'block';
+            icon.classList.remove('fa-plus');
+            icon.classList.add('fa-minus');
+        }
+    }
+
+    function slidebarSkincare() {
+        const content = document.getElementById('sidebar-menu-skincare-content');
+        const icon = document.getElementById('sidebar-menu-skincare-icon');
 
         if (content.style.display === 'block') {
             content.style.display = 'none';
