@@ -158,9 +158,9 @@ a{
 
 .amount-cart {
     position: absolute;
-    top: -5px;
-    right: -10px;
-    background-color: black;
+    top: -15px;
+    right: -20px;
+    background-color: transparent;
     color: white;
     font-size: 12px;
     padding: 2px 6px;
@@ -226,7 +226,7 @@ a{
 
 .site-search{
     position: fixed;
-    width: 577px;
+    width: 500px;
     height: 100%;
     z-index: 1001;
     top: 0px;
@@ -596,6 +596,61 @@ a{
     margin-top: 15px;
 }
 
+@media (max-width: 431px) {
+    .filter-products-shop{
+        display: none !important;
+    }
+
+    .products-list{
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 20px;
+        width: 100%;
+        padding: 0 !important;
+        padding-top: 50px !important;
+    }
+
+    .products-list-title{
+        padding: 10px;
+        position: absolute;
+        top: 0px;
+    }
+
+    .product-title{
+        font-size: 10px !important;
+        height: 35px !important;
+    }
+
+    .product-targets{
+        font-size: 10px !important;
+    }
+
+    .product-quantity{
+        font-size: 10px !important;
+        height: 45px !important;
+    }
+
+    .filter-sort{
+        position: absolute;
+        right: 0;
+    }
+
+    .list-page-product{
+        bottom: -50px !important;
+    }
+
+    .list-page-product a{
+        width: 20px !important;
+        height: 20px !important;
+        padding:0 !important
+    }
+
+    .sold-out{
+        width: 100% !important;
+        top:20% !important;
+        font-size: 15px !important;
+    }
+}
+
 
 
 /******************** Page HEADER **********************/
@@ -720,12 +775,6 @@ a{
     display: none;
 }
 
-.amount-cart{
-    position: absolute;
-    top: -10px;
-    right: -15px;
-    font-size: 15px;
-}
 
 .brand-nav{
     height: 37px;
@@ -2197,6 +2246,30 @@ h3{
 
 
 }
+
+.list-page-product{
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -10px;
+    gap: 10px;
+    
+
+}
+
+.list-page-product a{
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    color: var(--white);
+    text-align: center;
+}
+
+
 
 /*=================== Product Detail ===================*/
 /*=================== Product Detail ===================*/

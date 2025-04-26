@@ -13,7 +13,7 @@ class Users
         $query = "SELECT * FROM khach_hang WHERE ID_Khach_Hang = :id";
         $stmt = $db->prepare($query);
         $stmt->execute([':id' => $id]);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public static function getAllUsers(){

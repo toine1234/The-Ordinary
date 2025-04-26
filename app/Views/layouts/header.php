@@ -96,7 +96,7 @@
                         <?php if (isset($_SESSION['username'])): ?>
                             <?php $fullname = explode(" ", $_SESSION['username']); ?>
                             <?php $name = end($fullname); ?>
-                            <p><?= $name ? "Hello, " . $name : "" ?></p>
+                            <p><?= $name ? "Hello, " . htmlspecialchars($name) : "" ?></p>
                         <?php endif; ?>
                     </a>
                     <button class='icon-header-btn'>

@@ -84,4 +84,26 @@ class Order{
         $stmt = $db->prepare($query);
         $stmt->execute([':id'=>$id, ':status' => 'shipped']);
     }
+
+    public  static function SearchOrder($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = 
+        'SELECT *
+        FROM don_hang
+        WHERE ID_Khach_Hang LIKE ?';
+        $stmt = $db->prepare($query);
+        $stmt->execute(['%'.$id.'%']);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function FilterStatus($filter = null) {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM don_hang WHERE Trang_Thai = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$filter]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
 }

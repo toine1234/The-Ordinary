@@ -216,6 +216,15 @@ $list_filter_sort = [
                     <?php endif;?>
                 </form>
             <?php endforeach ?>
+            <div class="list-page-product">
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <a 
+                    style="<?= isset($_GET['page']) && $_GET['page'] == $i ? "background-color:var(--black)":"background-color:var(--graynhe)"?>" 
+                    href="/The-Ordinary/shop?page=<?= $i ?>"><?= $i ?></a>
+                <?php endfor;?>
+            </div>
+            
+
         </div>
     </div>
 </div>

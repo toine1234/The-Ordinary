@@ -12,6 +12,9 @@ class AuthController
     public function showLogin()
     {
         session_start();
+        if (empty($_SESSION['csrf_token'])){
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
 
         if (isset($_COOKIE['accessToken'])) {
             header('Location: /The-Ordinary/account');
@@ -26,11 +29,24 @@ class AuthController
 
     public function login()
     {
-
+        session_start();
         $this->config = require __DIR__ . '/../../config/config.php';
         JWT::setSecret('hoaSYT98etSi3txRYAyvYO1dbNNoCy');
         $email = $_POST['email'] ?? '';
         $password = trim($_POST['password'] ?? '');
+        $csrfToken = $_POST['csrf_token'] ??'';
+
+
+        if (!hash_equals($_SESSION['csrf_token'], $csrfToken)) {
+            
+            
+            $_SESSION['flash'] = [
+                'type' => 'danger', // success, danger, warning, info
+                'message' => 'CSRF token validation failed!'
+            ];
+            header('Location: /The-Ordinary/login');
+            die('CSRF token validation failed');
+        }
 
 
         $userModel = new Account();

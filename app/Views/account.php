@@ -53,15 +53,15 @@
                         <div class="profile-info-frame">
                             <div class="profile-info-card">
 
-                                <p><strong><?= $user['HoTen'] ?></strong></p>
-                                <p><?= $user['Email'] ?></p>
-                                <p><?= $user['SDT'] ?></p>
+                                <p><strong><?= htmlspecialchars($user['HoTen']) ?></strong></p>
+                                <p><?= htmlspecialchars($user['Email']) ?></p>
+                                <p><?= htmlspecialchars($user['SDT']) ?></p>
                             </div>
                             <a href="/The-Ordinary/profile-edit">Edit</a>
                         </div>
                         <hr>
                         <div class="profile-password">
-                            <input class="profile-password-input" type="password" value="<?= $account[0]['Password'] ?>" readonly disabled>
+                            <input class="profile-password-input" type="password" value="<?= htmlspecialchars($account[0]['Password']) ?>" readonly disabled>
                             <a href="/The-Ordinary/password-edit">Edit</a>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                 <h3>Address Book</h3>
                 <div class="account-dashboard-address-frame">
                     <div class="account-dashboard-address-info">
-                        <p><?= $user['DiaChi'] ?></p>
+                        <p><?= htmlspecialchars($user['DiaChi']) ?></p>
                     </div>
                 </div>
             </div>

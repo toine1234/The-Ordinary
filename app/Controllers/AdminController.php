@@ -34,10 +34,15 @@ class AdminController
             $products = Product::SearchProduct($_GET['search']);
             $users = Users::SearchUser($_GET['search']);
             $accounts = Account::SearchAccount($_GET['search']);
+            $orders = Order::SearchOrder($_GET['search']);
         }
 
         if (isset($_GET['sort'])){
             $products = Product::getSortedProducts($_GET['sort']);
+        }
+
+        if (isset($_GET['filter'])){
+            $orders = Order::FilterStatus($_GET['filter']);
         }
 
 

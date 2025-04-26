@@ -16,6 +16,28 @@ class Product {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getAllProductLimit($page) {
+        $limit = 12;
+        $offset = ($page -1) * $limit;
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT COUNT(*) AS total FROM san_pham";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $total = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        unset($stmt);
+
+        $total_page = ceil($total[0]["total"] / $limit);
+        $query = "SELECT * FROM san_pham LIMIT $limit OFFSET $offset";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return [
+            "total_page"=> $total_page,
+            "result"=> $result,
+        ];
+    }
+
     public static function getProductsById($id) {
         $database = new Database();
         $db = $database->getConnection();

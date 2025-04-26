@@ -65,6 +65,13 @@ $list_category = [
 $list_filter_sort = [
     'Rank by lowest price',
     'Rank by highest price'
+];
+
+$list_filter = [
+    'pending',
+    'shipped',
+    'delivered',
+    'cancelled'
 ]
     ?>
 
@@ -154,7 +161,9 @@ $list_filter_sort = [
                                     <th>Created Date</th>
                                 </tr>
                                 <?php foreach($store as $item):?>
-                                <tr>
+                                <tr 
+                                style="<?= isset($_GET['view']) && $_GET['view'] === $item['ID_San_Pham'] ? "background-color:var(--graynhe)":""?>"
+                                id="<?= $item['ID_San_Pham']?>"> 
                                     <td><?= $item['ID_San_Pham']?></td>
                                     <td><?= $item['Gia_Nhap']?></td>
                                     <td><?= $item['SL']?></td>
@@ -559,11 +568,42 @@ $list_filter_sort = [
                             <script>
                                 document.querySelector('.overview-content-toggle').addEventListener('click', function () {
                                     const content = document.querySelector('.table-data-order');
+                                    const feature = document.querySelector('.feature-order-table')
+                                    feature.style.display = feature.style.display === 'flex' ? 'none' : 'flex';
                                     content.style.display = content.style.display === 'block' ? 'none' : 'block';
                                     document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
                                 });
                             </script>
-                            
+                        <div style="display: flex;" id="product" class="feature-order-table">
+                            <form method="get" class="form-search">
+                                <input type="text" hidden name="page" value="Orders">
+                                <div id="search" class="search">
+                                    <i class='fa-solid fa-magnifying-glass'></i>
+                                    <input name="search" type="text">
+                                </div>
+                                <button class="btn-search" type="submit">Search</button>
+                            </form>
+                            <form method="get" class="form-filter">
+                                <input type="text" hidden name="page" value="Orders">
+                                <select style="height: 100%;" name="filter">
+                                    <option value="" disabled selected>Select filter</option>
+                                    <?php foreach($list_filter as $filter):?>
+                                        <option <?= isset($_GET['filter']) && $_GET['filter'] === $filter ? 'selected' :''?> value="<?= $filter?>"><?= $filter?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </form>
+                            <script>
+                            document.querySelectorAll('.form-filter select')
+                                .forEach(
+                                    function (checkbox) {
+                                        checkbox.addEventListener('change', function () {
+                                            document.querySelector('.form-filter').submit();
+
+                                        });
+
+                                    });
+                            </script>
+                        </div>
                         <div style="display: block;" id="order" class="table-data-order">
                             <table class="custom-table">
                                     <tr>

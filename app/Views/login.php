@@ -23,6 +23,7 @@
                     style="color: black;">reset your password</a></p>
 
             <form method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                 <input class="login-input" type="email" name="email" placeholder="Email" required>
                 <div class="password-wrapper">
                     <input type="password" name="password" placeholder="Password" required>
