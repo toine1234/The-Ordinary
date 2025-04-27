@@ -85,6 +85,14 @@ class Order{
         $stmt->execute([':id'=>$id, ':status' => 'shipped']);
     }
 
+    public static function delete($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query ="DELETE FROM don_hang WHERE ID_Don_Hang= ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+    }
+
     public  static function SearchOrder($id){
         $database = new Database();
         $db = $database->getConnection();

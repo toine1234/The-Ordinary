@@ -61,12 +61,16 @@ class Product {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public static function getProductCategory($cate){
+    public static function getProductCategory($cate = []){
         $database = new Database();
         $db = $database->getConnection();
-        $query = "SELECT * FROM san_pham WHERE ID_Danh_Muc = ?";
+        $query = "SELECT * FROM san_pham";
+        if (!empty($cate)) {
+            $placeholders = implode(',', array_fill(0, count($cate), '?'));
+            $query .= " WHERE ID_Danh_Muc IN ($placeholders) ";
+        }
         $stmt = $db->prepare($query);
-        $stmt->execute([trim($cate)]);
+        $stmt->execute($cate);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 

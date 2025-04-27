@@ -184,6 +184,27 @@ class AdminController
                 ];
             }
         }
+
+        if (isset($_POST['delete']) && $_POST['delete']=== 'delete'){
+            try{
+                Order::delete($_POST['id_order']);
+                header('Location: /The-Ordinary/admin?page=Orders');
+                session_start();
+                $_SESSION['flash'] = [
+                    'type' => 'success', // success, danger, warning, info
+                    'message' => 'Delete order status is success!'
+                ];
+                exit;
+            }
+            catch(\Exception $e){
+                session_start();
+                header('Location: /The-Ordinary/admin?page=Orders&view='.$_POST['id_order']);
+                $_SESSION['flash'] = [
+                    'type' => 'warning', // success, danger, warning, info
+                    'message' => 'Delete order is fail!'
+                ];
+            }
+        }
         
     }
 

@@ -1,18 +1,18 @@
 <?php
-$list_filter_type = [
-    'Serums',
-    'Moisturizers',
-    'Exfoliators',
-    'Eye Serums',
-    'Facial Cleansers',
-    'Face Oils',
-    'Toners & Essences',
-    'Face Masques',
-    'Explore Skincare',
+$list_filter_category = [
+    'Serums' => '1',
+    'Moisturizers' => '2',
+    'Exfoliators' => '3',
+    'Eye Serums' => '4',
+    'Facial Cleansers' => '5',
+    'Face Oils' => '6',
+    'Toners & Essences' => '7',
+    'Face Masques' => '8',
+    'Explore Skincare' => '9',
 ];
 
 $list_filter_format = [
-    'Serum',
+    'Serum' ,
     'Cream',
     'Gel',
     'Liquid',
@@ -63,7 +63,7 @@ $list_filter_sort = [
             <!--------------- Product Type Filter ------------------>
             <!--------------- Product Type Filter ------------------>
 
-            <!-- <div class="filter-group">
+            <div class="filter-group">
                 <div class="filter-group-title">
                     <p class="name-filter">Product Type</p>
                     <button class="btn-more-filter--type">&#43;</button>
@@ -72,17 +72,20 @@ $list_filter_sort = [
                     document.querySelector('.btn-more-filter--type').addEventListener('click', function () {
                         const items = document.querySelector('.filter-group-items--type');
                         items.style.display = items.style.display === 'block' ? 'none' : 'block';
+                        this.innerText = items.style.display === 'block' ? '-' : '+';
 
                     });
                 </script>
-                <div class="filter-group-items--type" style="display: none;">
+                <div 
+                class="filter-group-items--type"
+                style="<?= isset($_GET['cate']) ? 'display: block;' : 'display: none;' ?>">
                     <form method="GET" id="filter-form--type">
-                            <?php foreach ($list_filter_type as $item):
-                                $checked = in_array($item, $_GET['type'] ?? []) ? 'checked' : ''; ?>
+                            <?php foreach ($list_filter_category as $item => $value): 
+                                $checked = in_array($value, $_GET['cate'] ?? []) ? 'checked' : ''; ?>
                                 <label class="filter-item">
-                                <input type="checkbox" name="type[]" value="<?= htmlspecialchars($item) ?>" <?= $checked ?>>
+                                <input type="checkbox" name="cate[]" value="<?= htmlspecialchars($value) ?>" <?= $checked ?>>
                                 <?= htmlspecialchars($item) ?>
-                            </label>
+                                </label>
                         <?php endforeach; ?>
                     </form>
                     <script>
@@ -98,7 +101,7 @@ $list_filter_sort = [
                                 });
                     </script>
                 </div>
-            </div> -->
+            </div>
 
             <!--------------- Format Filter ------------------>
             <!--------------- Format Filter ------------------>
@@ -106,7 +109,7 @@ $list_filter_sort = [
 
             <div class="filter-group">
                 <div class="filter-group-title">
-                    <p class="name-filter">Category</p>
+                    <p class="name-filter">Format</p>
                     <button class="btn-more-filter--format"><?= isset($_GET['type']) ? '-' :'+'?></button>
                 </div>
                 <script>

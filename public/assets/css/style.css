@@ -1027,9 +1027,25 @@ h3{
     color: grey;
 }
 
-@media only screen and (431px){
+@media only screen and (max-width:431px){
+    .footer-col{
+        flex-direction: column;
+    }
     .footer-col h3{
-        font-size: 10px !important;
+        font-size: 15px !important;
+    }
+
+    .footer-col div{
+        width: 100%;
+    }
+
+    .content-info{
+        width: 100% !important;
+        max-width: none;
+    }
+
+    .menu-company:nth-child(2) h3{
+        margin-top: 50px !important;
     }
 }
 
@@ -1594,7 +1610,31 @@ h3{
 }
 
 
+@media only screen and (max-width: 431px){
+    .login-wrapper{
+        justify-content: center;
+        flex-direction: column;
+    }
 
+    .login-left{
+        width: 100%;
+        padding: 30px !important;
+    }
+
+    .login-right{
+        width: 100%;
+        padding: 30px !important;
+    }
+
+    .vertical-divider{
+        display: none;
+    }
+
+    .login-container{
+        min-height:500px !important ;
+        height: auto;
+    }
+}
 
 
 /********************* Sign up *********************/
@@ -1685,6 +1725,13 @@ h3{
 .signup-content-asset a{
     color: var(--black);
     font-size: 11px;
+}
+
+@media only screen and (max-width:431px){
+    .signup-wrapper{
+        width: 100%;
+        padding: 30px;
+    }
 }
 
 
@@ -1939,6 +1986,13 @@ h3{
     font-size: 12px;
 }
 
+@media only screen and (max-width:431px){
+    .resetpw-content{
+        width: 100%;
+        padding: 30px;
+    }
+}
+
 /* ================== SHOP ================== */
 /* ================== SHOP ================== */
 /* ================== SHOP ================== */
@@ -2133,7 +2187,6 @@ h3{
 .products-list{
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    grid-auto-rows: 1fr;
     gap: 20px;
     width: 100%;
     padding: 50px;

@@ -79,8 +79,15 @@ class AuthController
         setcookie(
             'accessToken',
             $token,
-            time() + (60 * 60),
-            '/The-Ordinary',
+            [
+            'expires' => time() + 3600, 
+            'path' => '/The-Ordinary',              
+            'domain' => '',             
+            'secure' => true,           
+            'httponly' => true,
+            'samesite' => 'Strict' 
+            ]
+
         );
 
         session_start();

@@ -662,9 +662,9 @@ $list_filter = [
                                         <input hidden name="id_order" type="text" value="<?= $_GET['view']?>">
                                         <button type="submit" name="update" value="update">TO COMFIRM</button>
                                     </form>
-                                    <form class="delete-order">
-                                        <input hidden name="delete" type="text" value="<?= $_GET['view']?>">
-                                        <button type="submit">DELETE</button>
+                                    <form action="/The-Ordinary/admin/orders" method="post" class="delete-order">
+                                        <input hidden name="id_order" type="text" value="<?= $_GET['view']?>">
+                                        <button type="submit" name="delete" value="delete">DELETE</button>
                                     </form>
                                     <button class="print-receipt">RECEIPT PRINT</button>
                                 </div>
