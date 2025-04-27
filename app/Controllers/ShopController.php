@@ -20,6 +20,11 @@ class ShopController {
             }
 
             $products = Product::getFilteredProducts($filters);
+            
+        }
+
+        if (isset($_GET['cate'])) {
+            $products = Product::getProductCategory($_GET['cate']);
         }
 
         if (isset($_GET['sort'])) {

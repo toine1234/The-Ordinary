@@ -344,15 +344,17 @@
             </li>
             <div id="sidebar-menu-skincare-content" class="sidebar-menu-skincare-content">
                 <ul>
-                    <li>All Skincare</li>
-                    <li>Serums</li>
-                    <li>Moisturizers</li>
-                    <li>Exfoliators</li>
-                    <li>Eye Serums</li>
-                    <li>Facial Cleansers</li>
-                    <li>Face Oils</li>
-                    <li>Toners & Essences</li>
-                    <li>Face Masques</li>
+                    <li>
+                        <a href="/The-Ordinary/shop?page=1">All Skincare</a>
+                    </li>
+                    <li><a href="/The-Ordinary/shop?cate=1">Serums</a></li>
+                    <li><a href="/The-Ordinary/shop?cate=2">Moisturizers</a></li>
+                    <li><a href="/The-Ordinary/shop?cate=3">Exfoliators</a></li>
+                    <li><a href="/The-Ordinary/shop?cate=4">Eye Serums</a></li>
+                    <li><a href="/The-Ordinary/shop?cate=5">Facial Cleansers</a></li>
+                    <li><a href="/The-Ordinary/shop?cate=6">Face Oils</a></li>
+                    <li><a href="/The-Ordinary/shop?cate=7">Toners & Essences</a></li>
+                    <li><a href="/The-Ordinary/shop?cate=8">Face Masques</a></li>
                 </ul>
             </div>
 

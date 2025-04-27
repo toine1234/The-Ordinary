@@ -138,7 +138,7 @@
         <div class='navbar-expand'>
             <div class='group-menu'>
                 <ul class='menu-list'>
-                    <li class='menu-item'><a href="/The-Ordinary/shop">All Products</a></li>
+                    <li class='menu-item'><a href="/The-Ordinary/shop?page=1">All Products</a></li>
                     <li class='menu-item'><a href="/The-Ordinary/new">New</a></li>
                     <li class='menu-item'>Bestsellers</li>
                 </ul>

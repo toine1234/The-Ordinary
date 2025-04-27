@@ -106,7 +106,7 @@ $list_filter_sort = [
 
             <div class="filter-group">
                 <div class="filter-group-title">
-                    <p class="name-filter">Format</p>
+                    <p class="name-filter">Category</p>
                     <button class="btn-more-filter--format"><?= isset($_GET['type']) ? '-' :'+'?></button>
                 </div>
                 <script>

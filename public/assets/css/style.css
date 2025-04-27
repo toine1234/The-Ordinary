@@ -159,12 +159,11 @@ a{
 .amount-cart {
     position: absolute;
     top: -15px;
-    right: -20px;
+    right: -15px;
     background-color: transparent;
     color: white;
     font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 50%;
+    
 }
 
 .sidebar-menu {
@@ -196,15 +195,6 @@ a{
 .sidebar-menu-new-content{
     display: none;
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -277,6 +267,12 @@ a{
     border: none;
     cursor: pointer;
 
+}
+
+@media only screen and (max-width:431px){
+    .site-search{
+        width: 360px !important;
+    }
 }
 
 
@@ -489,12 +485,28 @@ a{
     opacity: 80%;
 }
 
+@media only screen and (max-width:431px) {
+    .cart-Container{
+        height: 100% !important;
+    }
+    .site-cart{
+        width: 360px !important;
+        height: 100% !important;
+    }
+
+    .cart-checkout-container{
+        width: 325px !important;
+        bottom: 30px !important;
+    }
+}
+
 
 
 /*================= CART MAIN ================*/
 
 .cart-wrapper{
     display: flex;
+    
 
 }
 
@@ -596,58 +608,19 @@ a{
     margin-top: 15px;
 }
 
-@media (max-width: 431px) {
-    .filter-products-shop{
-        display: none !important;
+@media only screen and (max-width:431px){
+    .cart-wrapper{
+        flex-direction: column;
+        align-items: center;
     }
-
-    .products-list{
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 20px;
-        width: 100%;
-        padding: 0 !important;
-        padding-top: 50px !important;
-    }
-
-    .products-list-title{
-        padding: 10px;
-        position: absolute;
-        top: 0px;
-    }
-
-    .product-title{
-        font-size: 10px !important;
-        height: 35px !important;
-    }
-
-    .product-targets{
-        font-size: 10px !important;
-    }
-
-    .product-quantity{
-        font-size: 10px !important;
-        height: 45px !important;
-    }
-
-    .filter-sort{
-        position: absolute;
-        right: 0;
-    }
-
-    .list-page-product{
-        bottom: -50px !important;
-    }
-
-    .list-page-product a{
-        width: 20px !important;
-        height: 20px !important;
-        padding:0 !important
-    }
-
-    .sold-out{
+    
+    .cart-content, .order-summary{
         width: 100% !important;
-        top:20% !important;
-        font-size: 15px !important;
+        padding: 20px !important;
+    }
+
+    .order-summary{
+        height: 45vh !important;
     }
 }
 
@@ -863,7 +836,7 @@ a{
     color: var(--black);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 431px) {
     .header-top {
         flex-direction: column;
         align-items: stretch;
@@ -874,12 +847,15 @@ a{
     .header-slide {
         width: 100%;
         display: flex;
-        flex-direction: center;
         align-items: center;
         padding: 8px 10px;
         justify-content: center;
         background-color: black;
         position: relative;
+    }
+
+    .slides{
+        font-size: 10px !important;
     }
 
     .header-promo-slider {
@@ -914,9 +890,17 @@ a{
     }
 
     .amount-cart {
-        font-size: 12px;
+        font-size: 10px;
         top: -6px;
         right: -10px;
+        background-color: var(--black);
+        color: var(--white);
+        border-radius: 100%;
+        height: 15px;
+        width: 15px;
+        padding: 5px;
+        text-align: center;
+        line-height: 3px;
     }
 
     .brand-nav,
@@ -1041,6 +1025,12 @@ h3{
     justify-content: space-around;
     font-size: 13px;
     color: grey;
+}
+
+@media only screen and (431px){
+    .footer-col h3{
+        font-size: 10px !important;
+    }
 }
 
 
@@ -2143,6 +2133,7 @@ h3{
 .products-list{
     display: grid;
     grid-template-columns: repeat(4,1fr);
+    grid-auto-rows: 1fr;
     gap: 20px;
     width: 100%;
     padding: 50px;
@@ -2267,6 +2258,61 @@ h3{
     padding: 5px;
     color: var(--white);
     text-align: center;
+}
+
+@media (max-width: 431px) {
+    .filter-products-shop{
+        display: none !important;
+    }
+
+    .products-list{
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 20px;
+        width: 100%;
+        padding: 0 !important;
+        padding-top: 50px !important;
+    }
+
+    .products-list-title{
+        padding: 10px;
+        position: absolute;
+        top: 0px;
+    }
+
+    .product-title{
+        font-size: 10px !important;
+        height: 35px !important;
+    }
+
+    .product-targets{
+        font-size: 10px !important;
+    }
+
+    .product-quantity{
+        font-size: 10px !important;
+        height: 45px !important;
+    }
+
+    .filter-sort{
+        position: absolute;
+        right: 0;
+    }
+
+    .list-page-product{
+        bottom: -50px !important;
+    }
+
+    .list-page-product a{
+        width: 20px !important;
+        height: 20px !important;
+        padding:0 !important
+    }
+
+    .sold-out{
+        width: 100% !important;
+        top:20% !important;
+        font-size: 15px !important;
+    }
 }
 
 
@@ -2652,6 +2698,74 @@ h3{
     cursor: pointer;
     padding: 10px;
     transition: transform 0.3s ease;
+}
+
+@media only screen and (max-width:431px){
+    .container-product-detail{
+        padding: 0 10px !important;
+
+
+    }
+
+    .product-detail-main{
+        flex-direction: column;
+        gap: 10px !important;
+    }
+
+    .product-detail-img, .product-detail-info{
+        width: 100% !important;
+        padding: 0 !important;
+        
+    }
+
+    .product-detail-img{
+        height: 300px !important;
+    }
+
+    .img-main-item{
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .product-detail-overview{
+        padding: 0 !important;
+        flex-direction: column;
+    }
+
+    .product-detail-overview--block{
+        padding: 0 !important;
+        border: none;
+
+    }
+
+    .overview-inner-tab{
+        margin: 0 !important;
+    }
+
+    .tab-pane{
+        flex-direction: column;
+    }
+
+    .tab-pane--left{
+        width: 100% !important;
+    }
+
+    .tab-pane--right{
+        padding: 0 !important;
+    }
+
+    .product-detail-usage{
+        padding: 0 !important;
+    }
+
+    .product-detail-usage--content{
+        gap:5px !important
+    }
+
+    .usage-item--content{
+        padding: 0 !important;
+        font-size: 15px;
+    }
 }
 
 

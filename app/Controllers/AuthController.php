@@ -12,6 +12,8 @@ class AuthController
     public function showLogin()
     {
         session_start();
+
+        // create csrf_token
         if (empty($_SESSION['csrf_token'])){
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }

@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+use App\Middlewares\AuthMiddleware;
 use App\Models\Users;
 use App\Models\Account;
 use App\Models\Product;
@@ -13,7 +14,8 @@ class AdminController
     public function index()
     {
         session_start();
-        if (!isset($_COOKIE["accessToken"])) {
+        $jwt_decode = AuthMiddleware::AuthJWT();
+        if (!$jwt_decode) {
             header('Location: /The-Ordinary/login');
             session_start();
             $_SESSION['flash'] = [

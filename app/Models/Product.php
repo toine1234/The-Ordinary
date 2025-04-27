@@ -61,6 +61,15 @@ class Product {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getProductCategory($cate){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM san_pham WHERE ID_Danh_Muc = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([trim($cate)]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public static function getSortedProducts($sortBy = null) {
         $database = new Database();
         $db = $database->getConnection();
