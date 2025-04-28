@@ -68,6 +68,16 @@ class AuthController
             return;
         }
 
+        if ($user[0]['is_verified'] == 0){
+            $_SESSION['flash'] = [
+                'type' => 'danger', // success, danger, warning, info
+                'message' => 'Unverified email!'
+            ];
+
+            header('Location: /The-Ordinary/login');
+            return;
+        }
+
 
         $token = JWT::create(['ID' => $user[0]['ID_Khach_Hang'], 'Email' => $user[0]['Email'], 'Role' => $user[0]['Roles']], 60);
         echo json_encode([

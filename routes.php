@@ -54,4 +54,7 @@ function defineRoutes($router)
 
     // Paypal //
     $router->post('/paypal-verify',[App\Controllers\Paypal::class,'paypal_verify']);
+
+    // Verify Emial //
+    $router->get('/verifyEmail',[App\Controllers\VerifyEmailController::class,'Verify']);
 }

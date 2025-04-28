@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\Account;
+use App\Core\EmailHandle;
 
 class SignupController
 {
@@ -19,6 +20,8 @@ class SignupController
         $password = trim($_POST['password'] ?? '');
         $phone = $_POST['phone'] ?? '';
         $fullname = $_POST['name'] ?? '';
+        $token = bin2hex(random_bytes(32)); 
+        $tokenExpireAt = date('Y-m-d H:i:s', strtotime('+24 hours'));
 
         if (!$email || !$password) {
             echo "Vui lòng nhập đầy đủ thông tin.";
@@ -28,15 +31,24 @@ class SignupController
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         $id = Account::generateUUID();
-        $account = Account::createAccount($id,$email, $hashedPassword);
-        $user = Account::createUser($id,$email, $fullname,$phone);
-        session_start();
-        $_SESSION['flash'] = [
-            'type' => 'success', // success, danger, warning, info
-            'message' => 'Sign up is success!'
-        ];
+        try{
+            $account = Account::createAccount($id,$email, $hashedPassword,$token,$tokenExpireAt);
+            $user = Account::createUser($id,$email, $fullname,$phone);
+            EmailHandle::sendVerificationEmail($email,$token);
+             
+            session_start();
+            $_SESSION['flash'] = [
+                'type' => 'success', // success, danger, warning, info
+                'message' => 'Sign up is success!, please comfirm Email'
+            ];
 
-        header('Location: /The-Ordinary/login');
-        exit;
+            header('Location: /The-Ordinary/login');
+            exit;
+        }
+        catch(\Exception $e){
+
+            echo $e->getMessage();
+        }
+       
     }
 }

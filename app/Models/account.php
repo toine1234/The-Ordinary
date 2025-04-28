@@ -59,17 +59,19 @@ class Account
     }
 
 
-    public static function createAccount($id, $email, $password)
+    public static function createAccount($id, $email, $password,$token,$tokenExpireAt)
     {
         $database = new Database();
         $db = $database->getConnection();
-        $query = "INSERT INTO tai_khoan (ID_Khach_Hang,Password,Email,Roles,Ngay_Tao) VALUES (:id, :password, :email, :roles, NOW())";
+        $query = "INSERT INTO tai_khoan (ID_Khach_Hang,Password,Email,Roles,Ngay_Tao,token,token_expire_at) VALUES (:id, :password, :email, :roles, NOW(),:token,:expireToken)";
         $stmt = $db->prepare($query);
         $stmt->execute([
             ':id' => $id,
             ':password' => $password,
             ':email' => $email,
-            ':roles' => 'customer'
+            ':roles' => 'customer',
+            ':token'=> $token,
+            ':expireToken'=> $tokenExpireAt
         ]);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -105,5 +107,23 @@ class Account
             ':newPassword' => $newPassword
         ]);
 
+    }
+
+    public static function checkToken($email,$token){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * FROM tai_khoan 
+        WHERE Email = ? AND token = ? AND is_verified = 0";
+        $stmt = $db->prepare($query);
+        $stmt->execute(params: [$email,$token]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function updateVerifedAccount($email){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "UPDATE tai_khoan SET is_verified = 1, token = NULL, token_expire_at = NULL WHERE Email = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute(params: [$email]);
     }
 }

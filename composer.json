@@ -2,7 +2,8 @@
     "name": "vendor/index.js",
     "require": {
         "firebase/php-jwt": "^6.11",
-        "cloudinary/cloudinary_php": "^3.1"
+        "cloudinary/cloudinary_php": "^3.1",
+        "phpmailer/phpmailer": "^6.10"
     },
     "autoload": {
         "psr-4": {
