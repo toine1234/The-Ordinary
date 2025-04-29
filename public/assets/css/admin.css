@@ -407,7 +407,7 @@ a{
     flex-direction: column;
     gap: 10px;
     overflow-y: scroll;
-    height: 420px;
+    min-height: 270px;
 }
 
 .order-items-container{
@@ -432,6 +432,10 @@ a{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.order-info-user{
+    margin-top: 20px;
 }
 
 .order-feature{
@@ -474,6 +478,25 @@ a{
     font-weight: bold;
     padding: 10px;
 }
+
+@media print {
+    body * {
+      visibility: hidden;
+    }
+  
+    #receipt, #receipt * {
+      visibility: visible;
+    }
+  
+    #receipt {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+
 
 
 

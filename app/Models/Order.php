@@ -65,10 +65,13 @@ class Order{
                 p.Ten_SP AS Ten_SP,
                 p.Hinh_Anh AS Hinh_Anh,
                 oi.so_luong,
-                oi.price_each
+                oi.price_each,
+                u.HoTen,
+                u.SDT
             FROM don_hang o
             JOIN chi_tiet_don_hang oi ON o.ID_Don_Hang = oi.ID_Don_Hang
             JOIN san_pham p ON oi.ID_San_Pham = p.ID_San_Pham
+            JOIN khach_hang u ON u.ID_Khach_Hang = o.ID_Khach_Hang
             WHERE o.ID_Don_Hang = ?";
         $stmt = $db->prepare($query);
         $stmt->execute([$id]);

@@ -258,7 +258,7 @@ $list_filter = [
                         <div class="info-detail">
                             <h2 class="info-detail-title">INFORMATION</h2>
                             <?php if (isset($_GET['view'])):?>
-                            <form action="/The-Ordinary/admin/products" method="post" class="form-product-detail">
+                            <form action="/The-Ordinary/admin/products" method="post" class="form-product-detail" onsubmit="return confirmUpdateSubmit()">
                                 <div hidden class="form-group">
                                     <span>Id</span>
                                     <input readonly name="id_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['ID_San_Pham'] :""?>">
@@ -332,7 +332,7 @@ $list_filter = [
 
                         <div class="create-product">
                             <h2 class="create-product-title">CREATE</h2>
-                            <form action="/The-Ordinary/admin/products" method="post" enctype="multipart/form-data" class="form-create-product">
+                            <form action="/The-Ordinary/admin/products" method="post" enctype="multipart/form-data" class="form-create-product" onsubmit="return confirmCreatSubmit()">
                                 <h3 style="grid-column-start:1;grid-column-end:3;width:100%">Create Stock</h3>
                                 <div class="form-group">
                                     <span>Price Import</span>
@@ -638,7 +638,7 @@ $list_filter = [
                         </div>
                         <?php if (isset($_GET['view'])): ?>
                             <div class="receipt-order">
-                                <div class="receipt-container">
+                                <div class="receipt-container" id="receipt">
                                     <div class="receipt-header">
                                         <h2>RECIEPT</h2>
                                         <p><?= $detailOrders[0]['Ngay_Dat']?></p>
@@ -655,28 +655,43 @@ $list_filter = [
                                             </div>
                                         <?php endforeach;?>
                                     </div>
+                                    <div class="order-info-user">
+                                        <p><strong>Recipient: </strong><?= $detailOrders[0]['HoTen'];?></p>
+                                        <p><strong>Phone: </strong><?= $detailOrders[0]['SDT'];?></p>
+                                        <p><strong>Address: </strong><?= $detailOrders[0]['dia_chi_giao'];?></p>
+                                    </div>
                                 </div>
                                 <div class="order-feature">
                                     <h2>FEATURE</h2>
-                                    <form action="/The-Ordinary/admin/orders" method="post" class="update-status">
+                                    <form action="/The-Ordinary/admin/orders" method="post" class="update-status" onsubmit="return confirmUpdateSubmit()">
                                         <input hidden name="id_order" type="text" value="<?= $_GET['view']?>">
                                         <button type="submit" name="update" value="update">TO COMFIRM</button>
                                     </form>
-                                    <form action="/The-Ordinary/admin/orders" method="post" class="delete-order">
+                                    <form action="/The-Ordinary/admin/orders" method="post" class="delete-order" onsubmit="return confirmDeleteSubmit()">
                                         <input hidden name="id_order" type="text" value="<?= $_GET['view']?>">
                                         <button type="submit" name="delete" value="delete">DELETE</button>
                                     </form>
-                                    <button class="print-receipt">RECEIPT PRINT</button>
+                                    <button onclick="window.print()" class="print-receipt">RECEIPT PRINT</button>
                                 </div>
+                               
                             </div>
                         <?php endif;?>
                     </div>
                 <?php endif; ?>
-
-                
             </div>
         </div>
     </div>
+    <script>
+    function confirmUpdateSubmit() {
+        return confirm("Are you sure you want to update?");
+    }
+    function confirmDeleteSubmit() {
+        return confirm("Are you sure you want to delete?");
+    }
+    function confirmCreatSubmit() {
+        return confirm("Are you sure you want to create?");
+    }  
+    </script>
 </body>
 
 </html>
