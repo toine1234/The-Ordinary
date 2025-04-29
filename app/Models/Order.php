@@ -61,6 +61,7 @@ class Order{
                 o.ID_Don_Hang AS ID_Don_Hang,
                 o.tong_tien,
                 o.Ngay_Dat,
+                o.dia_chi_giao,
                 p.Ten_SP AS Ten_SP,
                 p.Hinh_Anh AS Hinh_Anh,
                 oi.so_luong,

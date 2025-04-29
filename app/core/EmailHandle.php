@@ -12,8 +12,8 @@ class EmailHandle{
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com'; 
             $mail->SMTPAuth   = true; 
-            $mail->Username   = 'dinhvanhuy.04032019@gmail.com'; // Gmail của bạn
-            $mail->Password   = 'zfnp vspa oeei lzyq';    // App password chứ không phải mật khẩu Gmail thường
+            $mail->Username   = 'dinhvanhuy.04032019@gmail.com'; 
+            $mail->Password   = 'zfnp vspa oeei lzyq';    
             $mail->SMTPSecure = 'tls'; 
             $mail->Port       = 587;
     

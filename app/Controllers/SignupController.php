@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\Account;
 use App\Core\EmailHandle;
+use App\Validators\SignupValidation;
 
 class SignupController
 {
@@ -18,10 +19,25 @@ class SignupController
     {
         $email = $_POST['email'] ?? '';
         $password = trim($_POST['password'] ?? '');
+        $comfirmPassword = trim($_POST['confirm-password'] ??'');
         $phone = $_POST['phone'] ?? '';
         $fullname = $_POST['name'] ?? '';
+        
         $token = bin2hex(random_bytes(32)); 
         $tokenExpireAt = date('Y-m-d H:i:s', strtotime('+24 hours'));
+
+       
+        $Validator = new SignupValidation();
+        $errors = $Validator->Validate($email, $password,$phone, $comfirmPassword);
+       
+
+        if ($errors['count'] > 0) {
+            session_start();
+            $_SESSION['Validations'] = $errors;
+            header('Location: /The-Ordinary/signup');
+            return;
+        }
+        
 
         if (!$email || !$password) {
             echo "Vui lòng nhập đầy đủ thông tin.";

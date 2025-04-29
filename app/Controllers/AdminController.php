@@ -53,6 +53,7 @@ class AdminController
         if (isset($_GET['view'])){
             $product = Product::getProductsById($_GET['view']);
             $detailOrders = Order::getDetailOrderById($_GET['view']);
+            $usersInfoOrder = Users::getUserById($_GET['view']);
         }
 
         

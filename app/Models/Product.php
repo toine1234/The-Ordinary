@@ -28,7 +28,7 @@ class Product {
         unset($stmt);
 
         $total_page = ceil($total[0]["total"] / $limit);
-        $query = "SELECT * FROM san_pham LIMIT $limit OFFSET $offset";
+        $query = "SELECT * FROM san_pham LIMIT $offset,$limit";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
