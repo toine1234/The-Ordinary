@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="public\assets\css\admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <?php
@@ -27,7 +28,7 @@ $list_page = [
     "Orders",
     "Users",
     "Payment",
-    "Sales",
+    "Revenue",
     "Setting",
 ];
 
@@ -77,7 +78,7 @@ $list_filter = [
 
 <body>
     <div class="wrapper-admin">
-        <div class="header-admin">
+        <!-- <div class="header-admin">
             <nav class="navbar-admin">
                 <ul class="navbar-admin-items">
                     <li><a href="/The-Ordinary">Home</a></li>
@@ -89,7 +90,7 @@ $list_filter = [
                 <img src='https://brandlogos.net/wp-content/uploads/2025/02/the_ordinary-logo_brandlogos.net_ruxn6.png'>
 
             </div>
-        </div>
+        </div> -->
         <?php if (isset($_SESSION['flash'])): ?>
             <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
                 <?= $_SESSION['flash']['message'] ?>
@@ -98,20 +99,29 @@ $list_filter = [
             <?php unset($_SESSION['flash']); ?>
         <?php endif; ?>
         <div class="container-admin">
+        
             <div class="sidebar-admin">
+                <div class="logo-brand-admin">
+                <img src='https://brandlogos.net/wp-content/uploads/2025/02/the_ordinary-logo_brandlogos.net_ruxn6.png'>
+
+            </div>
                 <form class="sidebar-admin-items" method="get">
                     <?php foreach ($list_page as $item): ?>
                         <label
-                        style="<?= isset($_GET['page']) && $_GET['page'] === $item ? "background-color:var(--black);color:var(--white)":"" ?>"
+                        style="<?= isset($_GET['page']) && $_GET['page'] === $item ? "border:1px solid var(--white)":"" ?>"
                         class="sidebar-item">
                             <input hidden type="radio" name="page" value=<?= $item ?> 
                             <?=isset($_GET['page']) && $_GET['page'] === $item ? "checked":"" ?>>
                             <p><?= $item ?></p>
+                            <p>&gt;</p>
                         </label>
                     <?php endforeach; ?>
                 </form>
                 <div class="sidebar-admin-items">
-                    <a class="sidebar-item" href="/The-Ordinary/logout">Logout</a>
+                    <a class="sidebar-item" href="/The-Ordinary/logout">
+                        <p>Log out</p>
+                        <p>&gt;</p>
+                    </a>
                 </div class="sibe-bar-admin-items">
                 <script>
                     document.querySelectorAll('.sidebar-admin-items input[type="radio"]')
@@ -152,13 +162,13 @@ $list_filter = [
                         <div style="display: block;" id="store" class="table-data-store">
                             <table class="custom-table">
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Brand Producer</th>
+                                    <th>ID</th>
+                                    <th>PRICE</th>
+                                    <th>QUANTITY</th>
+                                    <th>PRODUCER</th>
                                     <th>EXP</th>
                                     <th>MFG</th>
-                                    <th>Created Date</th>
+                                    <th>CREATE AT</th>
                                 </tr>
                                 <?php foreach($store as $item):?>
                                 <tr 
@@ -229,11 +239,11 @@ $list_filter = [
                         <div style="display: block;" class="table-data-products">
                             <table class="custom-table">
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>Format</th>
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>QUANTITY</th>
+                                    <th>PRICE</th>
+                                    <th>FORMAT</th>
                                     
                                 </tr>
                                 <?php foreach($products as $item): ?>
@@ -533,7 +543,7 @@ $list_filter = [
                                         <th>PASSWORD</th>
                                         <th>EMAIL</th>
                                         <th>ROLE</th>
-                                        <th>CREATE DATE</th>
+                                        <th>CREATE AT</th>
                                     </tr>
                                     <?php foreach($accounts as $account):?>
                                     <tr style="<?= isset($_GET['view']) && $_GET['view'] === $account['ID_Khach_Hang'] ? "background-color:var(--graynhe)":""?>" 
@@ -615,7 +625,7 @@ $list_filter = [
                                         <th>PAYMENT METHOD</th>
                                         <th>PAYMENT STATUS</th>
                                         <th>STATUS</th>
-                                        <th>CREATE DATE</th>
+                                        <th>CREATE AT</th>
                                     </tr>
                                     <?php foreach($orders as $order):?>
                                     <tr style="<?= isset($_GET['view']) && $_GET['view'] === $order['ID_Don_Hang'] ? "background-color:var(--graynhe)":""?>" 
@@ -678,7 +688,118 @@ $list_filter = [
                         <?php endif;?>
                     </div>
                 <?php endif; ?>
+
+                <!-------------- REVENUE PAGE -------------->
+                <!-------------- REVENUE PAGE -------------->
+                <!-------------- REVENUE PAGE -------------->
+
+                <?php if(isset($_GET['page']) && $_GET['page'] === 'Revenue'): ?>
+                    <div class="content-admin-revenue">
+                        <div class="chart">
+                            <canvas id="revenueChart" height="300px"></canvas>
+                        </div>
+                        <div class="statistical-product">
+                            <div class="statistical-product-bestseller">
+                                <?php $qty_total = $total_quantity['total_quantity'] ?>  
+                                <?php foreach($bestseller as $item):?>
+                                    <div class="group-bestseller">
+                                        <p><?= $item['Ten_SP']?></p>
+                                        <div class="bar-bestseller">
+                                            <div style="width:<?=$item['sold']/$qty_total*100 ?>%" class="bar-bestseller-fill"></div>
+                                        </div>
+                                        <p style="text-align: left;"><strong><?= $item['sold']?></strong></p>
+                                    </div>
+                                <?php endforeach;?>
+                            </div>
+                            <div class="statistical-product-least">
+                                <?php foreach($leastproduct as $item):?>
+                                    <div class="group-leastproduct">
+                                        <p><?= $item['Ten_SP']?></p>
+                                        <div class="bar-leastproduct">
+                                            <div style="width:<?=$item['sold']/$qty_total*100 ?>%" class="bar-leastproduct-fill"></div>
+                                        </div>
+                                        <p style="text-align: left;"><strong><?= $item['sold']?></strong></p>
+                                    </div>
+                                <?php endforeach;?>
+                            </div>
+                        </div>
+                        <script>
+                            const ctx = document.getElementById('revenueChart').getContext('2d');
+                            const gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
+                            gradient1.addColorStop(0, 'rgb(144, 224, 239)');
+                            gradient1.addColorStop(1, 'rgba(202, 240, 248, 0)');
+                            const chart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: <?= json_encode(array_column($monthlyData, 'month')) ?>,
+                                datasets: [
+                                    {
+                                        label: 'Revenue (USD)',
+                                        fill: true,
+                                        backgroundColor: gradient1,
+                                        tension: 0.4, // đường cong mượt
+                                        pointRadius: 0, // ẩn chấm tròn
+                                        borderWidth: 2,
+                                        borderColor: 'rgb(0, 180, 216)',
+                                        data: <?= json_encode(array_map(fn($r) => round($r['revenue'], 0), $monthlyData)) ?>
+                                    },
+                                    {
+                                        label: 'Profit (USD)',
+                                        fill: true,
+                                        backgroundColor: gradient1,
+                                        tension: 0.4, // đường cong mượt
+                                        pointRadius: 0, // ẩn chấm tròn
+                                        borderWidth: 2,
+                                        borderColor: 'rgb(0, 180, 216)',
+                                        data: <?= json_encode(array_map(fn($r) => round($r['profit'], 0), $monthlyData)) ?>
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                        labels: {
+                                            usePointStyle: true,
+                                            pointStyle: 'circle',
+                                            padding: 20,
+                                            generateLabels(chart) {
+                                                return chart.data.datasets.map((dataset, i) => ({
+                                                    text: dataset.label,
+                                                    fillStyle: dataset.backgroundColor,
+                                                    hidden: !chart.isDatasetVisible(i),
+                                                    strokeStyle: 'transparent',
+                                                    index: i,
+                                                    pointStyle: 'circle'
+                                                }));
+                                            }
+                                            
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        grid: {
+                                            drawBorder: false
+                                        }
+                                    },
+                                    x: {
+                                        grid: {
+                                            drawBorder: false,
+                                        },
+
+                                    }
+                                }
+                            }
+                        });
+                        </script>
+                    </div>
+                <?php endif; ?>
             </div>
+            
         </div>
     </div>
     <script>
@@ -692,6 +813,7 @@ $list_filter = [
         return confirm("Are you sure you want to create?");
     }  
     </script>
+    
 </body>
 
 </html>

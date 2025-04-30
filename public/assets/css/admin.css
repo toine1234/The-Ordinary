@@ -9,6 +9,7 @@
 
 body{
     overflow: hidden;
+    
 }
 
 ::-webkit-scrollbar {
@@ -63,9 +64,12 @@ a{
 
 
 
+
+
 /*================ ADMIN ==============*/
 
 .wrapper-admin{
+    
     
 }
 
@@ -107,16 +111,15 @@ a{
 
 .container-admin{
     width: 100%;
-    height: 600px;
+    height: 100vh;
     display: flex;
-    margin-top: 30px;
-    border-top: 1px solid var(--black);
 }
 
 .sidebar-admin{
-    width: 20%;
+    width: 17%;
     height: 100%;
-    border-right: 1px solid var(--black);
+    background-color: var(--black);
+    padding: 10px;
 
 }
 
@@ -125,14 +128,19 @@ a{
     grid-template-columns: repeat(1,1fr);
     padding: 10px;
     gap: 5px;
+    margin-top: 20px;
+    color: var(--white);
 
 }
 
 .sidebar-item{
     display: flex;
-    padding: 20px;
-    border: 1px solid var(--black);
+    padding: 10px;
+    color:var(--white);
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
 }
 
@@ -407,7 +415,7 @@ a{
     flex-direction: column;
     gap: 10px;
     overflow-y: scroll;
-    min-height: 270px;
+    min-height: 400px;
 }
 
 .order-items-container{
@@ -493,8 +501,71 @@ a{
       left: 0;
       top: 0;
       width: 100%;
+      box-shadow: none;
     }
   }
+
+  .content-admin-revenue{
+    display: flex;
+    flex-direction: column;
+  }
+
+.chart{
+    width: 70%;
+}
+
+.statistical-product{
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--graynhe);
+    display: flex;
+    position: relative;
+    width: 70%;
+}
+
+.statistical-product::after{
+    content: "";
+    height: 100%;
+    width: 0.5px;
+    background-color: var(--graynhe);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
+.statistical-product-bestseller,.statistical-product-least{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.group-bestseller, .group-leastproduct{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    gap: 10px;
+}
+
+.group-bestseller p, .group-leastproduct p{
+    width: 130px;
+    text-align: right;
+    font-size: 10px;
+}
+
+.bar-bestseller, .bar-leastproduct{
+    width: 150px;
+    height: 20px;
+}
+
+.bar-bestseller-fill, .bar-leastproduct-fill{
+    height: 100%;
+    background-color: rgb(144, 224, 239);
+}
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 use App\Middlewares\AuthMiddleware;
+use App\Models\Revenue;
 use App\Models\Users;
 use App\Models\Account;
 use App\Models\Product;
@@ -29,7 +30,10 @@ class AdminController
         $orders = Order::getAllOrder();
         $users = Users::getAllUsers();
         $accounts = Account::getAllAccount();
-        
+        $monthlyData = Revenue::Revenue();
+        $bestseller = Revenue::Bestsellers();
+        $leastproduct = Revenue::LeastProduct();
+        $total_quantity = Revenue::TotalQuantity();
 
         if (isset($_GET['search'])){
             
