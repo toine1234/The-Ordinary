@@ -32,6 +32,7 @@ class AdminController
         $accounts = Account::getAllAccount();
         $monthlyData = Revenue::Revenue();
         $bestseller = Revenue::Bestsellers();
+        $currentMonthlyData = Revenue::RevenueByMonth();
         $leastproduct = Revenue::LeastProduct();
         $total_quantity = Revenue::TotalQuantity();
 

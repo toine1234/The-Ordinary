@@ -443,7 +443,7 @@ a{
 }
 
 .order-info-user{
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .order-feature{
@@ -508,37 +508,37 @@ a{
   .content-admin-revenue{
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
-.chart{
+  .content-admin-revenue::after{
+    content: "";
+    width: 1.5px;
+    height: 100%;
+    top: 0;
+    right: 30%;
+    position: absolute;
+    background-color: var(--dividergrey);
+  }
+
+.revenue{
     width: 70%;
+    padding: 10px;
 }
 
 .statistical-product{
     margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--graynhe);
-    display: flex;
+    padding: 20px;
+    border-top: 2px solid var(--dividergrey);
     position: relative;
     width: 70%;
 }
 
-.statistical-product::after{
-    content: "";
-    height: 100%;
-    width: 0.5px;
-    background-color: var(--graynhe);
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%,0);
-}
 
 .statistical-product-bestseller,.statistical-product-least{
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 20px;
 }
 
 .group-bestseller, .group-leastproduct{
@@ -563,6 +563,26 @@ a{
     height: 100%;
     background-color: rgb(144, 224, 239);
 }
+
+.gauge {
+    width: 300px;
+    text-align: center;
+    font-family: sans-serif;
+    position: absolute;
+    right: 0;
+    top: 50px;
+  }
+  
+  .needle-line {
+    transform-origin: 50% 100%;
+    
+  }
+  
+  .value {
+    
+    font-size: 16px;
+    font-weight: bold;
+  }
 
 
 

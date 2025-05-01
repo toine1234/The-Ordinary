@@ -10,11 +10,30 @@ class Revenue{
                     DATE_FORMAT(o.Ngay_Dat, '%Y-%m') AS month,
                     SUM(oi.price_each * oi.so_luong) AS revenue,
                     SUM((oi.price_each - s.Gia_Nhap) * oi.so_luong) AS profit
-                    
                     FROM don_hang o
                     JOIN chi_tiet_don_hang oi ON o.ID_Don_Hang = oi.ID_Don_Hang
                     JOIN san_pham p ON oi.ID_San_Pham = p.ID_San_Pham
                     JOIN ql_kho s ON s.ID_San_Pham = oi.ID_San_Pham
+                    GROUP BY month
+                    ORDER BY month ASC";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function RevenueByMonth(){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT 
+                    DATE_FORMAT(o.Ngay_Dat, '%Y-%m') AS month,
+                    SUM(oi.price_each * oi.so_luong) AS revenue,
+                    SUM((oi.price_each - s.Gia_Nhap) * oi.so_luong) AS profit
+                    FROM don_hang o
+                    
+                    JOIN chi_tiet_don_hang oi ON o.ID_Don_Hang = oi.ID_Don_Hang
+                    JOIN san_pham p ON oi.ID_San_Pham = p.ID_San_Pham
+                    JOIN ql_kho s ON s.ID_San_Pham = oi.ID_San_Pham
+                    WHERE DATE_FORMAT(o.Ngay_Dat,'%m') = MONTH(CURDATE())
                     GROUP BY month
                     ORDER BY month ASC";
         $stmt = $db->prepare($query);

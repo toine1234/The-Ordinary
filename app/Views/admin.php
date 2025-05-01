@@ -113,14 +113,14 @@ $list_filter = [
                             <input hidden type="radio" name="page" value=<?= $item ?> 
                             <?=isset($_GET['page']) && $_GET['page'] === $item ? "checked":"" ?>>
                             <p><?= $item ?></p>
-                            <p>&gt;</p>
+                            <i class="fa-solid fa-angle-right"></i>
                         </label>
                     <?php endforeach; ?>
                 </form>
                 <div class="sidebar-admin-items">
                     <a class="sidebar-item" href="/The-Ordinary/logout">
                         <p>Log out</p>
-                        <p>&gt;</p>
+                        <i class="fa-solid fa-angle-right"></i>
                     </a>
                 </div class="sibe-bar-admin-items">
                 <script>
@@ -660,7 +660,7 @@ $list_filter = [
                                                 <div class="order-items-info">
                                                     <h3><?= $item['Ten_SP']?></h3>
                                                     <p><?= $item['so_luong']?>x</p>
-                                                    <p><strong><?= $item['tong_tien']?> USD</strong></p>
+                                                    <p><strong><?= $item['price_each']?> USD</strong></p>
                                                 </div>
                                             </div>
                                         <?php endforeach;?>
@@ -669,6 +669,7 @@ $list_filter = [
                                         <p><strong>Recipient: </strong><?= $detailOrders[0]['HoTen'];?></p>
                                         <p><strong>Phone: </strong><?= $detailOrders[0]['SDT'];?></p>
                                         <p><strong>Address: </strong><?= $detailOrders[0]['dia_chi_giao'];?></p>
+                                        <p><strong>Total:</strong><?= $detailOrders[0]['tong_tien']?> USD</p>
                                     </div>
                                 </div>
                                 <div class="order-feature">
@@ -695,39 +696,42 @@ $list_filter = [
 
                 <?php if(isset($_GET['page']) && $_GET['page'] === 'Revenue'): ?>
                     <div class="content-admin-revenue">
-                        <div class="chart">
+                        <h2>Revenue</h2>
+                        <div class="revenue">
                             <canvas id="revenueChart" height="300px"></canvas>
                         </div>
                         <div class="statistical-product">
+                            <h2>Bestseller</h2>
                             <div class="statistical-product-bestseller">
-                                <?php $qty_total = $total_quantity['total_quantity'] ?>  
-                                <?php foreach($bestseller as $item):?>
-                                    <div class="group-bestseller">
-                                        <p><?= $item['Ten_SP']?></p>
-                                        <div class="bar-bestseller">
-                                            <div style="width:<?=$item['sold']/$qty_total*100 ?>%" class="bar-bestseller-fill"></div>
-                                        </div>
-                                        <p style="text-align: left;"><strong><?= $item['sold']?></strong></p>
-                                    </div>
-                                <?php endforeach;?>
+                                <canvas id="bestseller" height="200px"></canvas>
                             </div>
-                            <div class="statistical-product-least">
-                                <?php foreach($leastproduct as $item):?>
-                                    <div class="group-leastproduct">
-                                        <p><?= $item['Ten_SP']?></p>
-                                        <div class="bar-leastproduct">
-                                            <div style="width:<?=$item['sold']/$qty_total*100 ?>%" class="bar-leastproduct-fill"></div>
-                                        </div>
-                                        <p style="text-align: left;"><strong><?= $item['sold']?></strong></p>
-                                    </div>
-                                <?php endforeach;?>
-                            </div>
+                        </div>
+                        <div class="gauge">
+                            <?php $kpi = 100 ;?>
+                            <?php $revenue = $currentMonthlyData[0]['revenue'] / $kpi * 100 ;?>
+                            <?php $rotate = ($revenue / 100) * 180 - 90; ?>
+                            <h4 style="text-align: left;">Churn Rate</h4>
+                            <svg viewBox="0 0 100 50">
+                                <defs>
+                                <linearGradient id="gradient" x1="0" x2="1" y1="0" y2="0">
+                                    <stop offset="0%" stop-color="#A66EFF" />
+                                    <stop offset="100%" stop-color="#007BFF" />
+                                </linearGradient>
+                                </defs>
+                                <path d="M10,50 A40,40 0 0,1 90,50" stroke="url(#gradient)" stroke-width="10" fill="none" />
+                                <circle class="needle" cx="50" cy="50" r="2" fill="#00BFFF" />
+                                <line style="transform:rotate(<?= $rotate?>deg) ;" class="needle-line" x1="50" y1="50" x2="50" y2="20" stroke="#00BFFF" stroke-width="2" />
+                            </svg>
+                            <div class="value"><?= $revenue?>%</div>
                         </div>
                         <script>
                             const ctx = document.getElementById('revenueChart').getContext('2d');
                             const gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
                             gradient1.addColorStop(0, 'rgb(144, 224, 239)');
                             gradient1.addColorStop(1, 'rgba(202, 240, 248, 0)');
+                            const gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
+                            gradient2.addColorStop(0, 'rgb(199, 125, 255)');
+                            gradient2.addColorStop(1, 'rgba(224, 170, 255, 0)');
                             const chart = new Chart(ctx, {
                             type: 'line',
                             data: {
@@ -746,11 +750,11 @@ $list_filter = [
                                     {
                                         label: 'Profit (USD)',
                                         fill: true,
-                                        backgroundColor: gradient1,
+                                        backgroundColor: gradient2,
                                         tension: 0.4, // đường cong mượt
                                         pointRadius: 0, // ẩn chấm tròn
                                         borderWidth: 2,
-                                        borderColor: 'rgb(0, 180, 216)',
+                                        borderColor: 'rgb(199, 125, 255)',
                                         data: <?= json_encode(array_map(fn($r) => round($r['profit'], 0), $monthlyData)) ?>
                                     }
                                 ]
@@ -787,6 +791,72 @@ $list_filter = [
                                         }
                                     },
                                     x: {
+                                        grid: {
+                                            drawBorder: false,
+                                        },
+
+                                    }
+                                }
+                            }
+                        });
+                        </script>
+                        <script>
+                            const ctx2 = document.getElementById('bestseller').getContext('2d');
+                            const gradient3 = ctx2.createLinearGradient(0, 0, 0, 400);
+                            gradient3.addColorStop(0, 'rgb(0, 180, 216)');
+                            gradient3.addColorStop(1, 'rgb(199, 125, 255)');
+                            const chart2 = new Chart(ctx2, {
+                            type: 'bar',
+                            data: {
+                                labels: <?= json_encode(array_column($bestseller, 'Ten_SP')) ?>,
+                                datasets: [
+                                    {
+                                        label: 'Top 5 bestseller',
+                                        fill: true,
+                                        backgroundColor: gradient3,
+                                        pointRadius: 0,
+                                        data: <?= json_encode(array_map(fn($r) => round($r['sold'], 0), $bestseller)) ?>
+                                    },
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                        labels: {
+                                            usePointStyle: true,
+                                            pointStyle: 'circle',
+                                            padding: 20,
+                                            generateLabels(chart) {
+                                                return chart.data.datasets.map((dataset, i) => ({
+                                                    text: dataset.label,
+                                                    fillStyle: dataset.backgroundColor,
+                                                    hidden: !chart.isDatasetVisible(i),
+                                                    strokeStyle: 'transparent',
+                                                    index: i,
+                                                    pointStyle: 'circle'
+                                                }));
+                                            }
+                                            
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        grid: {
+                                            drawBorder: false
+                                        }
+                                    },
+                                    x: {
+                                        ticks: {
+                                            callback: function(value) {
+                                            let label = this.getLabelForValue(value);
+                                            return label.length > 15 ? label.substring(0, 12) + '...' : label;
+                                            }
+                                        },
                                         grid: {
                                             drawBorder: false,
                                         },
