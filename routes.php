@@ -57,4 +57,7 @@ function defineRoutes($router)
 
     // Verify Emial //
     $router->get('/verifyEmail',[App\Controllers\VerifyEmailController::class,'Verify']);
+
+    // Chat box //
+    $router->post('/chatbox',[App\Controllers\ChatboxController::class,'AI']);
 }

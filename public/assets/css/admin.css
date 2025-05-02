@@ -521,6 +521,11 @@ a{
     background-color: var(--dividergrey);
   }
 
+.revenue-manage-title{
+    padding: 20px 0;
+    border-bottom: 1.5px solid var(--dividergrey);
+}
+
 .revenue{
     width: 70%;
     padding: 10px;

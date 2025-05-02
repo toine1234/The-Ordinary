@@ -106,12 +106,18 @@ class Product {
     public static function SearchProduct($keyword) {
         $database = new Database();
         $db = $database->getConnection();
-        $query = "SELECT * FROM san_pham WHERE Ten_SP LIKE ?";
+        $query = "SELECT * FROM san_pham WHERE Ten_SP LIKE ? OR Suited_to LIKE ? OR Format LIKE ?";
         $stmt = $db->prepare($query);
-        $stmt->execute(['%' . $keyword . '%']);
+        $stmt->execute([
+            '%' . $keyword . '%',
+            '%'. $keyword . '%',
+            '%'. $keyword . '%'
+        ]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
+
+   
 
     public static function Update($data) {
         $database = new Database();
