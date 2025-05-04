@@ -17,10 +17,10 @@
                 <span><?= isset($name) && $name ? "Hello " . htmlspecialchars($name). ", What do you want to help ?" : "hello, please login" ?></span>
             </div>
         </div>
-        <div id="input-area">
+        <form onsubmit="sendMessage(event)" id="input-area">
             <input type="text" id="user-input" placeholder="Enter questions...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+            <button type="submit">Send</button>
+        </form>
     </div>
     <script>
         const chatboxIcon = document.querySelector('.chatbox-icon')
@@ -49,7 +49,8 @@
       chatLog.scrollTop = chatLog.scrollHeight; // Tự cuộn xuống
     }
 
-    async function sendMessage() {
+    async function sendMessage(e) {
+        e.preventDefault();
       const input = document.getElementById("user-input");
       const message = input.value.trim();
       if (message === "") return;
@@ -57,7 +58,7 @@
       appendMessage("user", message);
       input.value = "";
 
-      appendMessage("ai", "Đang trả lời...");
+      appendMessage("ai", "...");
 
       const res = await fetch("/The-Ordinary/chatbox", {
         method: "POST",

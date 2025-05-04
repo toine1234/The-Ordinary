@@ -3575,6 +3575,7 @@ h3{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     width: 500px;
     animation: fadeInBottomRight 0.3s linear;
+    border-radius: 10px;
 }
 
 .chatbox-header{
@@ -3608,7 +3609,8 @@ h3{
   .user span {
     background: var(--black); 
     padding: 8px 12px;
-    display: inline-block; border-radius: 15px;
+    display: inline-block; 
+    border-radius: 15px;
     color: var(--white);
   }
   .ai span {
