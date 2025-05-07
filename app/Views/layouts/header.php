@@ -24,7 +24,13 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 
+<?php header('Content-Type: text/html; charset=UTF-8');?>
 <body>
+<script>
+  if (window.top !== window.self) {
+    window.top.location = window.self.location;
+  }
+</script>
     <?php if (!isset($_COOKIE['accessToken'])): ?>
         <?php if(isset($_SESSION['idUser'])) unset($_SESSION['idUser']); ?>
         <?php if(isset($_SESSION['cart'])) unset($_SESSION['cart']); ?>
@@ -97,7 +103,7 @@
                         <?php if (isset($_SESSION['username'])): ?>
                             <?php $fullname = explode(" ", $_SESSION['username']); ?>
                             <?php $name = end($fullname); ?>
-                            <p><?= $name ? "Hello, " . htmlspecialchars($name) : "" ?></p>
+                            <p><?= $name ? "Hello, " . htmlspecialchars($name,ENT_QUOTES,'UTF-8') : "" ?></p>
                         <?php endif; ?>
                     </a>
                     <button class='icon-header-btn'>

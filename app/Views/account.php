@@ -44,7 +44,7 @@
         <div class="account-dashboard-profile">
             <?php $fullnameArray = explode(" ", $user['HoTen']) ?>
             <?php $name = end($fullnameArray) ?>
-            <h1>Hello, <?= $name ?></h1>
+            <h1>Hello, <?= htmlspecialchars(htmlspecialchars($name, ENT_QUOTES, 'UTF-8'),ENT_QUOTES, 'UTF-8') ?></h1>
             <hr>
             <div class="user-dashboard-card">
                 <div class="profile-section">
@@ -52,10 +52,9 @@
                     <div class="profile-info">
                         <div class="profile-info-frame">
                             <div class="profile-info-card">
-
-                                <p><strong><?= htmlspecialchars($user['HoTen']) ?></strong></p>
-                                <p><?= htmlspecialchars($user['Email']) ?></p>
-                                <p><?= htmlspecialchars($user['SDT']) ?></p>
+                                <p><strong><?= htmlspecialchars(htmlspecialchars($user['HoTen'], ENT_QUOTES, 'UTF-8'),ENT_QUOTES, 'UTF-8') ?></strong></p>
+                                <p><?= htmlspecialchars($user['Email'], ENT_QUOTES, 'UTF-8') ?></p>
+                                <p><?= htmlspecialchars($user['SDT'],ENT_QUOTES, 'UTF-8') ?></p>
                             </div>
                             <a href="/The-Ordinary/profile-edit">Edit</a>
                         </div>

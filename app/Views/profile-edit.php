@@ -18,7 +18,7 @@
     <div class="profile-edit-wrapper">
         <h3>EDIT PROFILE</h3>
         <form method="post">
-            <input class="signup-input" type="text" name="name" value="<?= htmlspecialchars($profile['HoTen'])?>" placeholder="Full name" maxlength="20" required >
+            <input class="signup-input" type="text" name="name" value="<?= htmlspecialchars($profile['HoTen'])?>" placeholder="Full name" required >
             <input class="signup-input" type="text" name="phone" value="<?= htmlspecialchars($profile['SDT'])?>" placeholder="Phone" required >
             <input class="signup-input" type="email" name="email" value="<?= htmlspecialchars($profile['Email'])?>" placeholder="Email" required>
             <input class="signup-input" type="email" name="comfirm-email" placeholder="Comfirm Email" required>

@@ -14,7 +14,7 @@
         </div>
         <div id="chat-log">
             <div class="message ai">
-                <span><?= isset($name) && $name ? "Hello " . htmlspecialchars($name). ", What do you want to help ?" : "hello, please login" ?></span>
+                <span><?= isset($name) && $name ? "Hello " . htmlspecialchars($name,ENT_QUOTES,'UTF-8'). ", What do you want to help ?" : "hello, please login" ?></span>
             </div>
         </div>
         <form onsubmit="sendMessage(event)" id="input-area">
