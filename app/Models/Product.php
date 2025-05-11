@@ -6,8 +6,10 @@ use Cloudinary\Api\Upload\UploadApi;
 use App\Models\Store;
 
 
-class Product {
-    public static function getAllProducts() {
+class Product
+{
+    public static function getAllProducts()
+    {
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT * FROM san_pham";
@@ -16,9 +18,25 @@ class Product {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public static function getAllProductLimit($page) {
+    public static function getFeedback($id)
+    {
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT * 
+                FROM danh_gia d
+                JOIN khach_hang k on d.ID_Khach_Hang = k.ID_Khach_Hang
+                JOIN san_pham s on s.ID_San_Pham = d.ID_San_Pham
+                WHERE d.ID_San_Pham = ?
+                GROUP BY d.ID_Khach_Hang";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getAllProductLimit($page)
+    {
         $limit = 12;
-        $offset = ($page -1) * $limit;
+        $offset = ($page - 1) * $limit;
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT COUNT(*) AS total FROM san_pham";
@@ -33,21 +51,23 @@ class Product {
         $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return [
-            "total_page"=> $total_page,
-            "result"=> $result,
+            "total_page" => $total_page,
+            "result" => $result,
         ];
     }
 
-    public static function getProductsById($id) {
+    public static function getProductsById($id)
+    {
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT * FROM san_pham WHERE ID_San_Pham = :id";
         $stmt = $db->prepare($query);
-        $stmt->execute([":id"=>trim($id)]);
+        $stmt->execute([":id" => trim($id)]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-    
-    public static function getFilteredProducts($types = []) {
+
+    public static function getFilteredProducts($types = [])
+    {
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT * FROM san_pham";
@@ -55,13 +75,14 @@ class Product {
             $placeholders = implode(',', array_fill(0, count($types), '?'));
             $query .= " WHERE Format IN ($placeholders) ";
         }
-        
+
         $stmt = $db->prepare($query);
         $stmt->execute($types);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public static function getProductCategory($cate = []){
+    public static function getProductCategory($cate = [])
+    {
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT * FROM san_pham";
@@ -74,7 +95,8 @@ class Product {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public static function getSortedProducts($sortBy = null) {
+    public static function getSortedProducts($sortBy = null)
+    {
         $database = new Database();
         $db = $database->getConnection();
         $sql = "SELECT * FROM san_pham";
@@ -103,46 +125,49 @@ class Product {
 
     }
 
-    public static function SearchProduct($keyword) {
+    public static function SearchProduct($keyword)
+    {
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT * FROM san_pham WHERE Ten_SP LIKE ? OR Suited_to LIKE ? OR Format LIKE ?";
         $stmt = $db->prepare($query);
         $stmt->execute([
             '%' . $keyword . '%',
-            '%'. $keyword . '%',
-            '%'. $keyword . '%'
+            '%' . $keyword . '%',
+            '%' . $keyword . '%'
         ]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 
-   
 
-    public static function Update($data) {
+
+    public static function Update($data)
+    {
         $database = new Database();
         $db = $database->getConnection();
-        $query = 
-        'UPDATE san_pham 
+        $query =
+            'UPDATE san_pham 
         SET Ten_SP = :name, Mo_Ta = :description, Gia = :price, SL = :quantity, Dung_Tich = :size, Targets = :targets, Format = :format, Suited_to = :suited, Key_ingredients = :key_ingredients
         WHERE ID_San_Pham = :id';
         $stmt = $db->prepare($query);
         $stmt->execute([
-            ":id"=>$data['id'],
-            ":name"=>$data['name'],
-            ":description"=>$data['description'],
-            ":price"=>$data['price'],
+            ":id" => $data['id'],
+            ":name" => $data['name'],
+            ":description" => $data['description'],
+            ":price" => $data['price'],
             ":quantity" => $data['quantity'],
             ":size" => $data['size'],
             ":targets" => $data['targets'],
             ":format" => $data['format'],
-            ":suited"=> $data['suited'],
-            ":key_ingredients"=> $data['key_ingredients']
+            ":suited" => $data['suited'],
+            ":key_ingredients" => $data['key_ingredients']
 
         ]);
     }
 
-    public static function Create($data){
+    public static function Create($data)
+    {
 
         $imageUrls = [];
 
@@ -181,45 +206,48 @@ class Product {
             ":id" => $product_id,
             ":cate" => '1',
             ":img" => $imageUrlsStr,
-            ":name"=>$data['name'],
-            ":description"=>$data['description'],
-            ":price"=>$data['price'],
+            ":name" => $data['name'],
+            ":description" => $data['description'],
+            ":price" => $data['price'],
             ":quantity" => $data['quantity'],
             ":size" => $data['size'],
             ":targets" => $data['targets'],
             ":format" => $data['format'],
-            ":suited"=> $data['suited'],
-            ":key_ingredients"=> $data['key_ingredients']
+            ":suited" => $data['suited'],
+            ":key_ingredients" => $data['key_ingredients']
 
         ]);
 
-        Store::updateQuantity($product_id,$data['quantity_store'] - $data['quantity']);
-        
+        Store::updateQuantity($product_id, $data['quantity_store'] - $data['quantity']);
+
     }
 
-    public static function delete($id){
+    public static function delete($id)
+    {
         $database = new Database();
         $db = $database->getConnection();
         $query = "DELETE FROM san_pham WHERE ID_San_Pham= :id";
         $stmt = $db->prepare($query);
         $stmt->execute([
-            ":id"=> $id
+            ":id" => $id
         ]);
     }
 
-    public static function getQuantityById($id){
+    public static function getQuantityById($id)
+    {
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT SL FROM san_pham WHERE ID_San_Pham = :id";
         $stmt = $db->prepare($query);
         $stmt->execute([
-            ':id'=>$id
+            ':id' => $id
         ]);
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public static function UpdateQuantityById($id, $qty){
+    public static function UpdateQuantityById($id, $qty)
+    {
         $database = new Database();
         $db = $database->getConnection();
         $query = "UPDATE san_pham 
@@ -227,8 +255,8 @@ class Product {
         WHERE ID_San_Pham = :id";
         $stmt = $db->prepare($query);
         $stmt->execute([
-            ':id'=>$id, 
-            ':qty'=>$qty
+            ':id' => $id,
+            ':qty' => $qty
         ]);
     }
 }

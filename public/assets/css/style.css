@@ -2759,6 +2759,109 @@ h3{
     transition: transform 0.3s ease;
 }
 
+/*********** REVIEWS ************/
+
+.reviews{
+    margin-top: 50px;
+    width: 90%;
+    border-top: 1px solid var(--graynhe);
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reviews-title{
+    width: 95%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--graynhe);
+}
+
+.reviews-overview{
+    width: 95%;
+    display: flex;
+    margin-top: 20px;
+}
+
+.rating-snapshot{
+    width: 30%;
+}
+
+.gr-rating{
+    display:flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.process-rating-bar{
+    flex: 1;
+    height: 15px;
+    border-radius: 10px;
+    background-color: var(--graynhe);
+}
+
+.process-rating-bar--fill{
+    height: 100%;
+    background-color: var(--black);
+    border-radius: 10px 0 0 10px;
+}
+
+.gr-rating-title{
+    width: 45px;
+}
+
+.overall-rating{
+    width: 30%;
+    margin-left:50px;
+    
+}
+
+.overall-value{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.overall-value > h2{
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.feedback{
+    flex: 1;
+}
+
+.rating{
+    margin-top: 30px;
+}
+
+
+.rating i{
+    font-size: 15px;
+    padding: 20px;
+    border: 1px solid var(--black);
+    border-radius: 5px;
+}
+
+.comments{
+    width: 95%;
+    border-top: 1px solid var(--black);
+    margin-top: 30px;
+}
+
+.filters-comments{
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.filters-comments select{
+    padding: 10px 15px;
+    
+}
+
+
 @media only screen and (max-width:431px){
     .container-product-detail{
         padding: 0 10px !important;

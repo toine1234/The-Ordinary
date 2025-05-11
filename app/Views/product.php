@@ -1,9 +1,9 @@
 <div class="container-product-detail">
-    <?php if ($product[0]['SL'] ==0):?>
+    <?php if ($product[0]['SL'] == 0): ?>
         <div class="display-sold-out">
             <p>SOLD OUT</p>
         </div>
-    <?php endif;?>
+    <?php endif; ?>
     <div class="router-product-detail">
         <ul class="list-router-product-detail">
             <li><a href="/The-Ordinary/shop" style="color: gray;">Shop</a></li>
@@ -238,4 +238,141 @@
         </div>
     </div>
 
+    <!------------------- REVIEWS PRODUCT --------------------->
+    <!------------------- REVIEWS PRODUCT --------------------->
+    <!------------------- REVIEWS PRODUCT --------------------->
+
+    <div class="reviews">
+        <h2 class="reviews-title">Reviews</h2>
+        <div class="reviews-overview">
+            <div class="rating-snapshot">
+                <p>Rating Snapshot</p>
+                <div class="gr-rating">
+                    <p class="gr-rating-title">5 stars</p>
+                    <div class="process-rating-bar">
+                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                    </div>
+                    <p>831</p>
+                </div>
+                <div class="gr-rating">
+                    <p class="gr-rating-title">4 stars</p>
+                    <div class="process-rating-bar">
+                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                    </div>
+                    <p>831</p>
+                </div>
+                <div class="gr-rating">
+                    <p class="gr-rating-title">3 stars</p>
+                    <div class="process-rating-bar">
+                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                    </div>
+                    <p>831</p>
+                </div>
+                <div class="gr-rating">
+                    <p class="gr-rating-title">2 stars</p>
+                    <div class="process-rating-bar">
+                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                    </div>
+                    <p>831</p>
+                </div>
+                <div class="gr-rating">
+                    <p class="gr-rating-title">1 stars</p>
+                    <div class="process-rating-bar">
+                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                    </div>
+                    <p>831</p>
+                </div>
+            </div>
+            <div class="overall-rating">
+                <p>Overall Rating</p>
+                <div class="overall-value">
+                    <h2>4.5</h2>
+                    <div class="overall-value-r">
+                        <div class="rating-group">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                        <p>1081 Reviews</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feedback">
+                <p>Review this Product</p>
+                <div class="rating mb-3">
+                    <i class="bi bi-star" data-index="1"></i>
+                    <i class="bi bi-star" data-index="2"></i>
+                    <i class="bi bi-star" data-index="3"></i>
+                    <i class="bi bi-star" data-index="4"></i>
+                    <i class="bi bi-star" data-index="5"></i>
+                </div>
+                <script>
+                    const stars = document.querySelectorAll('.rating i');
+                    let currentRating = 0;
+
+                    stars.forEach(star => {
+                        star.addEventListener('mouseover', () => {
+                            const index = +star.dataset.index;
+                            highlightStars(index);
+                        });
+
+                        star.addEventListener('click', () => {
+                            currentRating = +star.dataset.index;
+                            highlightStars(currentRating);
+                            sendRatingToServer(currentRating); // Gửi rating
+                        });
+
+                        star.addEventListener('mouseout', () => {
+                            highlightStars(currentRating);
+                        });
+                    });
+
+                    function highlightStars(index) {
+                        stars.forEach((star, i) => {
+                            if (i < index) {
+                                star.classList.remove('bi-star');
+                                star.classList.add('bi-star-fill');
+                                star.style.background = 'var(--black)'
+                                star.style.color = 'var(--white)'
+                            } else {
+                                star.classList.remove('bi-star-fill');
+                                star.classList.add('bi-star');
+                                star.style.background = 'var(--white)'
+                                star.style.color = 'var(--black)'
+                            }
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+        <div class="comments">
+            <div class="filters-comments">
+                <select name="rating" class="rating-filter">
+                    <option value="" selected disabled>Rating</option>
+                    <option value="5 stars">5 stars</option>
+                    <option value="4 stars">4 stars</option>
+                    <option value="3 stars">3 stars</option>
+                    <option value="2 stars">2 stars</option>
+                    <option value="1 stars">1 stars</option>
+                </select>
+                <select name="skin-type" class="type-filter">
+                    <option value="" selected disabled>Skin Type</option>
+                    <option value="Combination">Combination</option>
+                    <option value="Dry Skin">Dry Skin</option>
+                    <option value="Oily Skin">Oily Skin</option>
+                </select>
+                <select name="skin-tone" class="tone-filter">
+                    <option value="" selected disabled>Skin Tone</option>
+                    <option value="Light">Light</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Dark">Dark</option>
+                </select>
+            </div>
+            <div class="list-comments">
+                
+            </div>
+        </div>
+    </div>
 </div>
