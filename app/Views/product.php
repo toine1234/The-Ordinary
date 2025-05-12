@@ -309,41 +309,7 @@
                     <i class="bi bi-star" data-index="5"></i>
                 </div>
                 <script>
-                    const stars = document.querySelectorAll('.rating i');
-                    let currentRating = 0;
 
-                    stars.forEach(star => {
-                        star.addEventListener('mouseover', () => {
-                            const index = +star.dataset.index;
-                            highlightStars(index);
-                        });
-
-                        star.addEventListener('click', () => {
-                            currentRating = +star.dataset.index;
-                            highlightStars(currentRating);
-                            sendRatingToServer(currentRating); // Gửi rating
-                        });
-
-                        star.addEventListener('mouseout', () => {
-                            highlightStars(currentRating);
-                        });
-                    });
-
-                    function highlightStars(index) {
-                        stars.forEach((star, i) => {
-                            if (i < index) {
-                                star.classList.remove('bi-star');
-                                star.classList.add('bi-star-fill');
-                                star.style.background = 'var(--black)'
-                                star.style.color = 'var(--white)'
-                            } else {
-                                star.classList.remove('bi-star-fill');
-                                star.classList.add('bi-star');
-                                star.style.background = 'var(--white)'
-                                star.style.color = 'var(--black)'
-                            }
-                        });
-                    }
                 </script>
             </div>
         </div>
@@ -386,36 +352,171 @@
                     </div>
                     <div class="comment-content-feedback">
                         <div class="rating-group">
-                            <?php $du = $feedback['rating']%10;?>
-                            <?php for($i=0;$i<$du;$i++):?>
+                            <?php $du = $feedback['rating'] % 10; ?>
+                            <?php for ($i = 0; $i < $du; $i++): ?>
                             <i class="bi bi-star-fill"></i>
-                            <?php endfor ;?>
+                            <?php endfor; ?>
+                            <?php for ($i = 0; $i < 5 - $du; $i++): ?>
                             <i class="bi bi-star"></i>
+                            <?php endfor; ?>
+
                         </div>
-                        <p><?= htmlspecialchars(htmlspecialchars($feedback['ngay_dang'],ENT_QUOTES,'UTF-8'),ENT_QUOTES,'UTF-8')?></p>
-                        <p><?= htmlspecialchars($feedback['binh_luan'],ENT_QUOTES,'UTF-8')?></p>
+                        <p>
+                            <?= htmlspecialchars(htmlspecialchars($feedback['ngay_dang'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') ?>
+                        </p>
+                        <p>
+                            <?= htmlspecialchars($feedback['binh_luan'], ENT_QUOTES, 'UTF-8') ?>
+                        </p>
                         <div class="images-feedback">
-                            <?php foreach (explode(";",$feedback['hinh_anh']) as $item):?>
-                                <img src="<?= $item?>">
-                            <?php endforeach;?>
+                            <?php foreach (explode(";", $feedback['hinh_anh']) as $item): ?>
+                            <img src="<?= $item ?>">
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
                 <?php endforeach; ?>
             </div>
             <div style="display:none" class="form-feedback">
-                <form id="feedback">
+                <form method="post" action="/The-Ordinary/feedback" id="feedback" enctype="multipart/form-data">
                     <h3>FEEDBACK</h3>
-                    <div class="form-group"></div>
-                    <div onclick="showFormFeedback()" class="close-form-feedback"><i class="fa-solid fa-xmark"></i></div>
+                    <input hidden name="id" type="text" value="<?= $_GET['id']?>">
+                    <div class="overall-rating-feedback">
+                        <p>Overall Rating</p>
+                        <input hidden name="rating" type="number">
+                        <div class="rating-feedback mb-3">
+
+                        </div>
+                    </div>
+                    <div class="review-area">
+                        <p>Review</p>
+                        <textarea name="comments" cols="61" rows="5"></textarea>
+                    </div>
+                    <div class="personal-information">
+                        <p>Personal Infomation</p>
+                        <div class="select-personal">
+                            <select name="skin-type" class="type-filter">
+                                <option value="" selected disabled>Skin Type</option>
+                                <option value="Combination">Combination</option>
+                                <option value="Dry Skin">Dry Skin</option>
+                                <option value="Oily Skin">Oily Skin</option>
+                            </select>
+                            <select name="skin-tone" class="tone-filter">
+                                <option value="" selected disabled>Skin Tone</option>
+                                <option value="Bright">Bright</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Dark">Dark</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="gallery-feedback">
+                        <p>Add Images</p>
+                        <div class="dropzone" id="dropzone">
+                            <p>Drag drop image in here</p>
+                        </div>
+                        <input type="file" name="images[]" id="fileInput" multiple style="display:none">
+                        <div class="preview" id="preview"></div>
+                    </div>
+                    <button class="btn-submit-feedback" type="submit">SUBMIT</button>
+                    <div onclick="showFormFeedback()" class="close-form-feedback"><i class="fa-solid fa-xmark"></i>
+                    </div>
                 </form>
             </div>
             <script>
-                function showFormFeedback(){
+                const stars = document.querySelectorAll('.rating i');
+                var currentRating = 0;
+                stars.forEach(star => {
+                    star.addEventListener('mouseover', () => {
+                        const index = +star.dataset.index;
+                        highlightStars(index);
+                    });
+
+                    star.addEventListener('click', () => {
+                        currentRating = +star.dataset.index;
+                        const main = document.querySelector('.rating-feedback')
+                        const input = document.querySelector('.overall-rating-feedback input[name="rating"]')
+                        input.value = currentRating
+                        let child = ""
+                        for (let i = 0; i < currentRating; i++) {
+                            child += `<i style="background-color:var(--black);color:var(--white)" class="bi bi-star-fill" data-index=${i + 1}></i>`
+                        }
+
+                        for (let i = 1; i <= 5 - currentRating; i++) {
+                            child += `<i class="bi bi-star" data-index=${i + currentRating}></i>`
+                        }
+                        main.innerHTML = child
+                        console.log(child)
+
+
+                        highlightStars(currentRating);
+
+                    });
+
+                    star.addEventListener('mouseout', () => {
+                        highlightStars(currentRating);
+                    });
+                });
+
+                function highlightStars(index) {
+                    stars.forEach((star, i) => {
+                        if (i < index) {
+                            star.classList.remove('bi-star');
+                            star.classList.add('bi-star-fill');
+                            star.style.background = 'var(--black)'
+                            star.style.color = 'var(--white)'
+                        } else {
+                            star.classList.remove('bi-star-fill');
+                            star.classList.add('bi-star');
+                            star.style.background = 'var(--white)'
+                            star.style.color = 'var(--black)'
+                        }
+                    });
+                }
+
+                function showFormFeedback() {
                     const form = document.querySelector('.form-feedback')
                     const body = document.querySelector('body')
                     form.style.display = form.style.display === 'none' ? 'flex' : 'none'
-                    body.style.overflow = form.style.display === 'none'? 'scroll' : 'hidden'
+                    body.style.overflow = form.style.display === 'none' ? 'scroll' : 'hidden'
+                }
+            </script>
+            <script>
+                const dropzone = document.getElementById('dropzone');
+                const fileInput = document.getElementById('fileInput');
+                const preview = document.getElementById('preview');
+
+                dropzone.addEventListener('click', () => fileInput.click());
+
+                dropzone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.add('dragover');
+                });
+
+                dropzone.addEventListener('dragleave', () => {
+                    dropzone.classList.remove('dragover');
+                });
+
+                dropzone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('dragover');
+                    fileInput.files = e.dataTransfer.files;
+                    showPreview(fileInput.files);
+                });
+
+                fileInput.addEventListener('change', () => {
+                    showPreview(fileInput.files);
+                });
+
+                function showPreview(files) {
+                    preview.innerHTML = "";
+                    for (let i = 0; i < files.length; i++) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const img = document.createElement("img");
+                            img.src = e.target.result;
+                            preview.appendChild(img);
+                        };
+                        reader.readAsDataURL(files[i]);
+                    }
                 }
             </script>
         </div>

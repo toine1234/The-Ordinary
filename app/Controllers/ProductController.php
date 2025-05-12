@@ -3,13 +3,14 @@ namespace App\Controllers;
 
 require_once __DIR__ . '/../Models/Product.php';
 use App\Models\Product;
+use App\Models\Feedback;
 
 class ProductController {
     public function detail() {
         session_start();
         if (isset($_GET['id'])) {
             $product = Product::getProductsById($_GET['id']);
-            $feedbacks = Product::getFeedback($_GET['id']);
+            $feedbacks = Feedback::getFeedback($_GET['id']);
 
             if (!$product) {
             

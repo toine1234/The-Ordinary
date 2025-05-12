@@ -60,4 +60,7 @@ function defineRoutes($router)
 
     // Chat box //
     $router->post('/chatbox',[App\Controllers\ChatboxController::class,'AI']);
+
+    // Feedback //
+    $router->post('/feedback',[App\Controllers\FeedbackController::class,'addFeedback']);
 }
