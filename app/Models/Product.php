@@ -30,7 +30,7 @@ class Product
                 GROUP BY d.ID_Khach_Hang";
         $stmt = $db->prepare($query);
         $stmt->execute([$id]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public static function getAllProductLimit($page)

@@ -301,7 +301,7 @@
             </div>
             <div class="feedback">
                 <p>Review this Product</p>
-                <div class="rating mb-3">
+                <div onclick="showFormFeedback()" class="rating mb-3">
                     <i class="bi bi-star" data-index="1"></i>
                     <i class="bi bi-star" data-index="2"></i>
                     <i class="bi bi-star" data-index="3"></i>
@@ -371,8 +371,53 @@
                 </select>
             </div>
             <div class="list-comments">
-                
+                <?php foreach ($feedbacks as $feedback): ?>
+                <div class="comment-flex">
+                    <div class="comment-content-info">
+                        <p>
+                            <?= htmlspecialchars(htmlspecialchars($feedback['HoTen'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') ?>
+                        </p>
+                        <p><strong>Skin Type </strong>
+                            <?= htmlspecialchars(htmlspecialchars($feedback['loai_da'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') ?>
+                        </p>
+                        <p><strong>Skin Tone </strong>
+                            <?= htmlspecialchars(htmlspecialchars($feedback['skin_tone'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8') ?>
+                        </p>
+                    </div>
+                    <div class="comment-content-feedback">
+                        <div class="rating-group">
+                            <?php $du = $feedback['rating']%10;?>
+                            <?php for($i=0;$i<$du;$i++):?>
+                            <i class="bi bi-star-fill"></i>
+                            <?php endfor ;?>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <p><?= htmlspecialchars(htmlspecialchars($feedback['ngay_dang'],ENT_QUOTES,'UTF-8'),ENT_QUOTES,'UTF-8')?></p>
+                        <p><?= htmlspecialchars($feedback['binh_luan'],ENT_QUOTES,'UTF-8')?></p>
+                        <div class="images-feedback">
+                            <?php foreach (explode(";",$feedback['hinh_anh']) as $item):?>
+                                <img src="<?= $item?>">
+                            <?php endforeach;?>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
             </div>
+            <div style="display:none" class="form-feedback">
+                <form id="feedback">
+                    <h3>FEEDBACK</h3>
+                    <div class="form-group"></div>
+                    <div onclick="showFormFeedback()" class="close-form-feedback"><i class="fa-solid fa-xmark"></i></div>
+                </form>
+            </div>
+            <script>
+                function showFormFeedback(){
+                    const form = document.querySelector('.form-feedback')
+                    const body = document.querySelector('body')
+                    form.style.display = form.style.display === 'none' ? 'flex' : 'none'
+                    body.style.overflow = form.style.display === 'none'? 'scroll' : 'hidden'
+                }
+            </script>
         </div>
     </div>
 </div>

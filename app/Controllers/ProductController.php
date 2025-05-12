@@ -9,7 +9,7 @@ class ProductController {
         session_start();
         if (isset($_GET['id'])) {
             $product = Product::getProductsById($_GET['id']);
-            $feedback = Product::getFeedback($_GET['id']);
+            $feedbacks = Product::getFeedback($_GET['id']);
 
             if (!$product) {
             
