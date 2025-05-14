@@ -73,6 +73,17 @@ class Cart
         ]);
     }
 
+    public static function update($cartId,$quantity){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "UPDATE gio_hang SET SL = ? WHERE ID_Gio_Hang = ? ";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            $quantity,
+            $cartId
+        ]);
+    }
+
     public static function deleteByIdProduct($idProduct){
         $database = new Database();
         $db = $database->getConnection();

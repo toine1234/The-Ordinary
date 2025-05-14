@@ -31,7 +31,7 @@ function defineRoutes($router)
 
     // Cart Routes //
     $router->get('/cart', [App\Controllers\CartController::class, 'index']);
-    $router->post('/cart', [App\Controllers\CartController::class, 'addtocart']);
+    $router->post('/cart', [App\Controllers\CartController::class, 'CRUD_Cart']);
     $router->post('/cart/remove', [App\Controllers\CartController::class, 'RemoveCart']);
 
     // Edit Profile Routes //
@@ -63,4 +63,7 @@ function defineRoutes($router)
 
     // Feedback //
     $router->post('/feedback',[App\Controllers\FeedbackController::class,'addFeedback']);
+
+    // voucher //
+    $router->post('/voucher',[App\Controllers\VoucherController::class,'getVoucherByCode']);
 }

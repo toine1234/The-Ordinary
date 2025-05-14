@@ -216,7 +216,7 @@
             </div>
         <?php endif; ?>
         <?php foreach ($carts as $item): ?>
-            <form action="/The-Ordinary/cart/remove" method="post" class="cart-product-item">
+            <form action="/The-Ordinary/cart" method="post" class="cart-product-item">
                 <input type="hidden" name="cartId" value="<?= $item['ID_Gio_Hang'] ?>">
                 <div class="cart-product-image">
                     <img src="<?= $item['Hinh_Anh'] ?>" alt="Product Image">
@@ -231,7 +231,7 @@
                     <p class="cart-product-price">
                         <?= number_format($item['Gia'], 2) . " USD" ?>
                     </p>
-                    <button class="remove-item-cart">Remove</button>
+                    <button name="remove" value="remove" class="remove-item-cart">Remove</button>
                     <p class="cart-product-size">Size: 30ml</p>
                     <div class="cart-product-quantity">
                         <button class="btn-cart-quantity" type="button">-</button>
@@ -259,7 +259,7 @@
                 </p>
             </div>
             <a href="/The-Ordinary/cart" class="cart-checkout-btn">
-                CHECKOUT
+                MY CART
             </a>
         </div>
     <?php endif; ?>

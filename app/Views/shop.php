@@ -211,7 +211,7 @@ $list_filter_sort = [
                         <p class="product-price"><?= number_format($product["Gia"], 2) ?> USD</p>
                         <p><?= htmlspecialchars($product["Dung_Tich"]) ?></p>
                     </div>
-                    <button <?= $product['SL'] == 0 ? "disabled":""?> class="btn-add-to-cart" type="submit">Add to Cart</button>
+                    <button name="create" value="create" <?= $product['SL'] == 0 ? "disabled":""?> class="btn-add-to-cart" type="submit">Add to Cart</button>
                     <?php if ($product['SL'] == 0):?>
                     <div class="sold-out">
                         <p>Sold Out</p>

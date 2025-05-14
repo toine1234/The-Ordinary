@@ -40,7 +40,7 @@
                 </div>
             <?php endif; ?>
             <?php foreach ($carts as $item): ?>
-                <form action="/The-Ordinary/cart/remove" method="post" class="cart-product-item">
+                <form action="/The-Ordinary/cart" method="post" class="cart-product-item">
                     <input type="hidden" name="cartId" value="<?= $item['ID_Gio_Hang'] ?>">
                     <div style="width: 80px;height: 80px" class="cart-product-image">
                         <img src="<?= $item['Hinh_Anh'] ?>" alt="Product Image">
@@ -55,12 +55,12 @@
                         <p class="cart-product-price">
                             <?= number_format($item['Gia'], 2) . " USD" ?>
                         </p>
-                        <button class="remove-item-cart">Remove</button>
+                        <button name="remove" value="remove" class="remove-item-cart">Remove</button>
                         <p class="cart-product-size">Size: 30ml</p>
                         <div class="cart-product-quantity">
-                            <button class="btn-cart-quantity" type="button">-</button>
-                            <input type="text" disabled value="<?= $item['SL'] ?>" class="cart-quantity-input">
-                            <button class="btn-cart-quantity" type="button">+</button>
+                            <button name="update" value="update" class="btn-cart-quantity" type="submit">-</button>
+                            <input name="quantity" type="text" value="<?= $item['SL'] ?>" class="cart-quantity-input">
+                            <button name="update" value="update" class="btn-cart-quantity" type="submit">+</button>
                         </div>
                     </div>
                 </form>
