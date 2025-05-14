@@ -111,7 +111,7 @@ class AuthController
 
         
 
-        header('Location: /The-Ordinary/account');
+        header('Location: /The-Ordinary/account?page=account');
         exit;
 
     }

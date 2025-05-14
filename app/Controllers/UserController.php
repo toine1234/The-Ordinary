@@ -5,6 +5,7 @@ use App\Models\Users;
 use App\Models\Account;
 use App\Core\JWT;
 use App\Middlewares\AuthMiddleware;
+use App\Models\Order;
 
 class UserController
 {
@@ -30,6 +31,7 @@ class UserController
         session_start();
         $user = Users::getUserById($jwt_decode->ID);
         $account = Account::findByID($jwt_decode->ID);
+        $orders = Order::getAllOrderByUser($user['ID_Khach_Hang']);
         $_SESSION['username'] = $user['HoTen'];
         
 

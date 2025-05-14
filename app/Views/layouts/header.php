@@ -99,7 +99,7 @@
                     <button class='icon-header-btn'>
                         <i class='fa-solid fa-magnifying-glass'></i>
                     </button>
-                    <a href='/The-Ordinary/account' class='icon-header-btn'>
+                    <a href='/The-Ordinary/account?page=account' class='icon-header-btn'>
                         <i class='fa-solid fa-user'></i>
                         <?php if (isset($_SESSION['username'])): ?>
                             <?php $fullname = explode(" ", $_SESSION['username']); ?>

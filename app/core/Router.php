@@ -35,7 +35,7 @@ class Router
         }
 
         http_response_code(404);
-        echo "404 - Not Found";
+        require_once __DIR__ . '/../Views/404.php';
     }
 
 }

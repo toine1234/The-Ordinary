@@ -3266,6 +3266,25 @@ h3{
     color: var(--white);
 }
 
+.orders-history{
+    flex: 1;
+}
+
+.orders-grid{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    
+}
+
+.orders-gap{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 10px;
+}
+
 /********************** PAGE Profile Edit ******************************/
 
 .page-profile-edit-container{

@@ -15,10 +15,10 @@
         <div class="account-dashboard-menu">
             <ul class="account-menu">
                 <li>
-                    <a href="/The-Ordinary/account" class="user-active">Account Settings</a>
+                    <a href="/The-Ordinary/account?page=account" style=<?= isset($_GET['page']) && $_GET['page'] == 'account' ? "text-decoration:underline;text-underline-offset:5px;margin-top:20px":""?>>Account Settings</a>
                 </li>
                 <li>
-                    <a href="#">Order History</a>
+                    <a href="/The-Ordinary/account?page=orders" style=<?= isset($_GET['page']) && $_GET['page'] == 'orders' ? "text-decoration:underline;text-underline-offset:5px;margin-top:20px":""?>>Order History</a>
                 </li>
                 <hr>
                 <li>
@@ -40,7 +40,7 @@
                 </li>
             </ul>
         </div>
-
+        <?php if (isset($_GET['page']) && $_GET['page'] == 'account'): ?>
         <div class="account-dashboard-profile">
             <?php $fullnameArray = explode(" ", $user['HoTen']) ?>
             <?php $name = end($fullnameArray) ?>
@@ -98,7 +98,25 @@
                     </form>
                 </div>
             </div>
-
         </div>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['page']) && $_GET['page'] == 'orders'): ?>
+            <div class="orders-history">
+                <div class="orders-grid">
+                    <?php foreach($orders as $order): ?>
+                        <div class="orders-gap">
+                            <p><strong>ID: </strong><?= $order['ID_Don_Hang']?></p>
+                            <p><strong>Date: </strong><?= $order['Ngay_Dat']?></p>
+                            <hr>
+                            <p><strong>Address: </strong><?= $order['dia_chi_giao']?></p>
+                            <p><strong>Status: </strong><?= $order['Trang_Thai']?></p>
+                            <p><strong>Total: </strong><?= $order['tong_tien']?> USD</p>
+                            <a style="text-decoration:underline" href="/The-Ordinary/account?page=orders&id=<?= $order['ID_Don_Hang']?>">Detail</a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>

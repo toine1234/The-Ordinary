@@ -1,3 +1,10 @@
+<?php if (isset($_SESSION['flash'])): ?>
+    <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
+        <?= $_SESSION['flash']['message'] ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['flash']); ?>
+<?php endif; ?>
 <div class="container-product-detail">
     <?php if ($product[0]['SL'] == 0): ?>
         <div class="display-sold-out">
@@ -64,13 +71,14 @@
                     <div class="quantity-amount-item">
                         <button class="btn-quantity" type="button"
                             onclick="this.parentNode.querySelector('input[type=number]')">-</button>
-                        <input type="text" name="quantity" disabled value="1" class="input-quantity">
+                        <input type="text" name="quantity" 
+                         value="1" class="input-quantity">
                         <input type="hidden" name="productId" value="<?= htmlspecialchars($item["ID_San_Pham"]) ?>">
                         <button class="btn-quantity" type="button"
                             onclick="this.parentNode.querySelector('input[type=number]')">+</button>
                     </div>
                     <div class="quantity-amount-item">
-                        <button class="submit-add-to-cart" type="submit">
+                        <button name="create" value="create" class="submit-add-to-cart" type="submit">
                             <i class='fa-solid fa-cart-shopping'></i>
                             Add to cart
                         </button>

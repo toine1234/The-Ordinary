@@ -74,7 +74,7 @@ class CartController
                     ];
                     $cartItems = Cart::get_cart($user_id);
                     $_SESSION['cart'] = $cartItems;
-                    header('Location: /The-Ordinary/shop');
+                    header('Location: '. $_SERVER['HTTP_REFERER']);
                 } catch (\Exception $e) {
                     echo $e->getMessage();
                 }
