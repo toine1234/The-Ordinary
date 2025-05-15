@@ -16,18 +16,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="public\assets\css\404.css" />
+    <link rel="stylesheet" href="public\assets\css\404.css?v=<?= time() ?>" />
 </head>
 
 <body>
-    <div class="wrapper">
-      <h1>Hmm.</h1>
-      <p>It seems that you're lost in a perpetual black hole. Let us help guide you out and get you back home.</p>
-      <div class="buttons"><a href="/The-Ordinary/">back</a><a href="/The-Ordinary/">home</a><br/><span>Help me out</span></div>
-    </div>
-    <div class="space">
-      <div class="blackhole"></div>
-      <div class="ship"></div>
-    </div>
+     <div id="clouds">
+            <div class="cloud x1"></div>
+            <div class="cloud x1_5"></div>
+            <div class="cloud x2"></div>
+            <div class="cloud x3"></div>
+            <div class="cloud x4"></div>
+            <div class="cloud x5"></div>
+        </div>
+        <div class='c'>
+            <div class='_404'>404</div>
+            <hr>
+            <div class='_1'>THE PAGE</div>
+            <div class='_2'>WAS NOT FOUND</div>
+            <a class='btn' href='/The-Ordinary/'>BACK TO MARS</a>
+        </div>
 </body>
 </html>

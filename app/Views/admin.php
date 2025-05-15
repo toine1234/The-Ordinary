@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="public\assets\css\admin.css?v=<?= time() ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -27,7 +28,6 @@ $list_page = [
     "Products",
     "Orders",
     "Users",
-    "Payment",
     "Revenue",
     "Setting",
 ];
@@ -142,6 +142,7 @@ $list_filter = [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Products'): ?>
                     <div class="management-product">
                         <h2>Management Product</h2>
+                        <hr>
                         <div class="content-admin-products">
     
                         <!-------------- STORE TABLE -------------->
@@ -528,38 +529,97 @@ $list_filter = [
                                 </table>
                             </div>
                             <div class="information-detail-user">
-                                <h4>Profile</h4>
+                                <h2>PROFILE</h2>
                                 <hr>
                                 <?php if (isset($_GET['view'])):?>
-                                <div class="profile-flex">
+                                <?php $totalbuy = 0;?>
+                                <?php foreach($order as $item):?>
+                                <?php $totalbuy += $item['tong_tien'];?>
+                                <?php endforeach;?>
+                                <form class="profile-flex">
                                     <?php foreach($users as $user):?>
-                                        <p><strong>Name: </strong><?= $user['HoTen']?></p>
-                                        <p><strong>Gender: </strong><?= $user['gioi_tinh']?></p>
-                                        <p><strong>Birth: </strong><?= $user['ngay_sinh'] == "" ? "Empty" : $user['ngay_sinh']?></p>
-                                        <p><strong>Phone: </strong><?= $user['SDT']?></p>
-                                        <p><strong>Address: </strong><?= $user['DiaChi'] == "" ? "Empty" : $user['DiaChi']?></p>
+                                        <div class="form-group">
+                                            <span>Name</span>
+                                            <input name="fullname" value="<?= $user['HoTen']?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <span>Gender</span>
+                                            <input name="gender" value="<?= $user['gioi_tinh']?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <span>Birth</span>
+                                            <input type="date" name="birth" type="datetime" value="<?= $user['ngay_sinh']?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <span>Phone</span>
+                                            <input name="phone" value="<?= $user['SDT']?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <span>Address</span>
+                                            <input name="address" value="<?= $user['DiaChi']?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <span>Total Purchase</span>
+                                            <input disabled value="<?= $totalbuy?> USD">
+                                        </div>
                                     <?php endforeach;?>
-                                </div>
+                                    <div class="feature-manage-user">
+                                        <button name="block" value="block">BLOCK</button>
+                                        <button name="unblock" value="unblock">UNBLOCK</button>
+                                        <button name="delete" value="delete">DELETE</button>
+                                        <button name="update" value="update">UPDATE</button>
+                                        <button type="button" name="sendmail" value="sendmail">SEND MAIL</button>
+                                    </div>
+                                </form>
+                                <br>
+                                <h2>ORDERS HISTORY</h2>
+                                <hr>
                                 <div style="display: block;" id="order" class="table-data-order">
-                                <table class="custom-table">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>TOTAL</th>
-                                            <th>STATUS</th>
-                                            <th>CREATE AT</th>
-                                        </tr>
-                                        <?php foreach($order as $item):?>
-                                        <tr>
-                                        
-                                            <td><?= $item['ID_Don_Hang']?></td>
-                                            <td><?= $item['tong_tien']?> USD</td>
-                                            <td><?= $item['Trang_Thai']?></td>
-                                            <td><?= $item['Ngay_Dat']?></td>
-                                        </tr>
-                                        <?php endforeach;?>
-                                        
-                                </table>
-                            </div>
+                                    <table class="custom-table">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>TOTAL</th>
+                                                <th>STATUS</th>
+                                                <th>CREATE AT</th>
+                                            </tr>
+                                            <?php foreach($order as $item):?>
+                                            <tr>
+                                                <td><?= $item['ID_Don_Hang']?></td>
+                                                <td><?= $item['tong_tien']?> USD</td>
+                                                <td><?= $item['Trang_Thai']?></td>
+                                                <td><?= $item['Ngay_Dat']?></td>
+                                            </tr>
+                                            <?php endforeach;?>
+                                            
+                                    </table>
+                                </div>
+                                <br>
+                                <h2>FEEDBACKS</h2>
+                                <hr>
+                                <div style="display: block;" id="order" class="table-data-comments">
+                                    <table class="custom-table">
+                                            <tr>
+                                                <th>ID PRODUCT</th>
+                                                <th>RATING</th>
+                                                <th>COMMENT</th>
+                                                <th>CREATE AT</th>
+                                            </tr>
+                                            <?php foreach($feedbacks as $item):?>
+                                            <tr>
+                                            
+                                                <td><?= $item['ID_San_Pham']?></td>
+                                                <td>
+                                                    <?php for($i = 0; $i < $item['rating'];$i++):?>
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <?php endfor;?>
+                                                </td>
+                                                <td><?= $item['binh_luan']?></td>
+                                                <td><?= $item['ngay_dang']?></td>
+                                            </tr>
+                                            <?php endforeach;?>
+                                            
+                                    </table>
+                                </div>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -573,6 +633,7 @@ $list_filter = [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Orders'): ?>
                     <div class="management-order">
                         <h2>Management Order</h2>
+                        <hr>
                         <div class="content-admin-order">
                             <div class="header-table">
                                     <h2 class="table-title">ORDER TABLE</h2>

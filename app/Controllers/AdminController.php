@@ -9,6 +9,7 @@ use App\Core\JWT;
 use App\Models\Store;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Feedback;
 
 class AdminController
 {
@@ -59,6 +60,7 @@ class AdminController
             $detailOrders = Order::getDetailOrderById($_GET['view']);
             $users = Users::SearchUser($_GET['view']);
             $order = Order::getAllOrderByUser($_GET['view']);
+            $feedbacks = Feedback::getFeedbackByUser($_GET['view']);
             
         }
 

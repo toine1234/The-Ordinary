@@ -12,7 +12,6 @@ class Feedback
         $query = "SELECT * 
                 FROM danh_gia d
                 JOIN khach_hang k on d.ID_Khach_Hang = k.ID_Khach_Hang
-                JOIN san_pham s on s.ID_San_Pham = d.ID_San_Pham
                 WHERE d.ID_San_Pham = ?
                 GROUP BY d.ID_Khach_Hang";
         $stmt = $db->prepare($query);
@@ -38,5 +37,14 @@ class Feedback
             $data['skintone'],
             
         ]);
+    }
+
+    public static function getFeedbackByUser($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = 'SELECT * FROM danh_gia WHERE ID_Khach_Hang = ?';
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
