@@ -39,7 +39,6 @@ class AdminController
         if (isset($_GET['search'])){
             
             $products = Product::SearchProduct($_GET['search']);
-            $users = Users::SearchUser($_GET['search']);
             $accounts = Account::SearchAccount($_GET['search']);
             $orders = Order::SearchOrder($_GET['search']);
         }
@@ -58,6 +57,8 @@ class AdminController
         if (isset($_GET['view'])){
             $product = Product::getProductsById($_GET['view']);
             $detailOrders = Order::getDetailOrderById($_GET['view']);
+            $users = Users::SearchUser($_GET['view']);
+            $order = Order::getAllOrderByUser($_GET['view']);
             
         }
 

@@ -384,6 +384,23 @@ a{
     transition: transform 0.3s ease;
 }
 
+/************** USERS *************/
+
+.information-detail-user{
+    margin-top: 20px;
+}
+
+.profile-flex{
+    display: flex;
+    gap: 10px;
+}
+
+.profile-flex p{
+    font-size: 15px;
+    border-right: 1px solid var(--graynhe);
+    padding-right: 5px;
+}
+
 /*================= ORDERS ================*/
 
 .receipt-order{

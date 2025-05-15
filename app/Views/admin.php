@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="public\assets\css\admin.css" />
+    <link rel="stylesheet" href="public\assets\css\admin.css?v=<?= time() ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -476,57 +476,19 @@ $list_filter = [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'Users'): ?>
                     <div class="management-user">
                         <h2>Management User</h2>
+                        <hr>
                         <div class="content-admin-user">
-                            <div class="header-table">
-                                    <h2 class="table-title">USER TABLE</h2>
-                                    <button class="overview-content-toggle">
-                                        <i class="fa-solid fa-angle-up"></i>
-                                    </button>
-                                </div>
-                                <script>
-                                    document.querySelector('.overview-content-toggle').addEventListener('click', function () {
-                                        const content = document.querySelector('.table-data-user');
-                                        const feature = document.querySelector('.feature-user-table')
-                                        feature.style.display = feature.style.display === 'flex' ? 'none' : 'flex';
-                                        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-                                        document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
-                                    });
-                                </script>
                                 <div style="display: flex;" id="user" class="feature-user-table">
-                                <form method="get" class="form-search">
-                                    <input type="text" hidden name="page" value="Users">
-                                    <div id="search" class="search">
-                                        <i class='fa-solid fa-magnifying-glass'></i>
-                                        <input name="search" type="text">
-                                    </div>
-                                    <button class="btn-search" type="submit">Search</button>
-                                </form>
-                            </div>
-                            <div style="display: block;" id="user" class="table-data-user">
-                                <table class="custom-table">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>EMAIL</th>
-                                            <th>FULLNAME</th>
-                                            <th>PHONE</th>
-                                            <th>ADDRESS</th>
-                                        </tr>
-                                        <?php foreach($users as $user):?>
-                                        <tr style="<?= isset($_GET['view']) && $_GET['view'] === $user['ID_Khach_Hang'] ? "background-color:var(--graynhe)":""?>" 
-                                        id="<?=$user['ID_Khach_Hang']?>" 
-                                        onclick="window.location.href='/The-Ordinary/admin?page=Users&view=<?=$user['ID_Khach_Hang']?>#<?=$user['ID_Khach_Hang']?>'">
-                                        
-                                            <td><?= $user['ID_Khach_Hang']?></td>
-                                            <td><?= $user['Email']?></td>
-                                            <td><?= $user['HoTen']?></td>
-                                            <td><?= $user['SDT']?></td>
-                                            <td><?= $user['DiaChi']?></td>
-                                        </tr>
-                                        <?php endforeach;?>
-                                        
-                                </table>
-                            </div>
-                            <div class="header-table">
+                                    <form method="get" class="form-search">
+                                        <input type="text" hidden name="page" value="Users">
+                                        <div id="search" class="search">
+                                            <i class='fa-solid fa-magnifying-glass'></i>
+                                            <input name="search" type="text">
+                                        </div>
+                                        <button class="btn-search" type="submit">Search</button>
+                                    </form>
+                                </div>
+                                <div class="header-table">
                                     <h2 class="table-title">ACCOUNT TABLE</h2>
                                     <button class="overview-content-toggle--2">
                                         <i class="fa-solid fa-angle-up"></i>
@@ -545,9 +507,9 @@ $list_filter = [
                                 <table class="custom-table">
                                         <tr>
                                             <th>ID</th>
-                                            <th>PASSWORD</th>
                                             <th>EMAIL</th>
                                             <th>ROLE</th>
+                                            <th>STATUS</th>
                                             <th>CREATE AT</th>
                                         </tr>
                                         <?php foreach($accounts as $account):?>
@@ -556,14 +518,49 @@ $list_filter = [
                                         onclick="window.location.href='/The-Ordinary/admin?page=Users&view=<?=$account['ID_Khach_Hang']?>#<?=$account['ID_Khach_Hang']?>'">
                                         
                                             <td><?= $account['ID_Khach_Hang']?></td>
-                                            <td><?= $account['Password']?></td>
                                             <td><?= $account['Email']?></td>
                                             <td><?= $account['Roles']?></td>
+                                            <td><?= $account['trang_thai']?></td>
                                             <td><?= $account['Ngay_Tao']?></td>
                                         </tr>
                                         <?php endforeach;?>
                                         
                                 </table>
+                            </div>
+                            <div class="information-detail-user">
+                                <h4>Profile</h4>
+                                <hr>
+                                <?php if (isset($_GET['view'])):?>
+                                <div class="profile-flex">
+                                    <?php foreach($users as $user):?>
+                                        <p><strong>Name: </strong><?= $user['HoTen']?></p>
+                                        <p><strong>Gender: </strong><?= $user['gioi_tinh']?></p>
+                                        <p><strong>Birth: </strong><?= $user['ngay_sinh'] == "" ? "Empty" : $user['ngay_sinh']?></p>
+                                        <p><strong>Phone: </strong><?= $user['SDT']?></p>
+                                        <p><strong>Address: </strong><?= $user['DiaChi'] == "" ? "Empty" : $user['DiaChi']?></p>
+                                    <?php endforeach;?>
+                                </div>
+                                <div style="display: block;" id="order" class="table-data-order">
+                                <table class="custom-table">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>TOTAL</th>
+                                            <th>STATUS</th>
+                                            <th>CREATE AT</th>
+                                        </tr>
+                                        <?php foreach($order as $item):?>
+                                        <tr>
+                                        
+                                            <td><?= $item['ID_Don_Hang']?></td>
+                                            <td><?= $item['tong_tien']?> USD</td>
+                                            <td><?= $item['Trang_Thai']?></td>
+                                            <td><?= $item['Ngay_Dat']?></td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                        
+                                </table>
+                            </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
