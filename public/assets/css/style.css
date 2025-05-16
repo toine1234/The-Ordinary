@@ -837,6 +837,7 @@ a{
     color: var(--black);
 }
 
+/* MOBLIE */
 @media (max-width: 431px) {
     .header-top {
         flex-direction: column;
@@ -887,7 +888,17 @@ a{
     }
 
     .icon-header-btn:nth-child(1){
-        display: block;
+        display: inline-flex;
+        margin-right: auto;
+    }
+    .icon-header-btn:nth-child(2),
+    .icon-header-btn:nth-child(4)
+    {
+        display: inline-flex;
+    }
+
+    .icon-header-btn:nth-child(3) { /* user icon */
+        display: none !important;
     }
 
     .amount-cart {
@@ -1129,10 +1140,12 @@ h3{
     .title{
         position: absolute;
         width: 200px;
+        height: auto;
         top: 50%;
         left: 10%;
     }
     .h1-title{
+        padding-bottom: 0;
         font-size: 1rem;
         font-weight: 700;
     }
@@ -1140,7 +1153,7 @@ h3{
         font-size: 0.8rem;
     }
     .btn-title{
-        padding: 10px;
+        padding: 5px;
         font-size: 0.8rem;
         width: 150px;
     }
