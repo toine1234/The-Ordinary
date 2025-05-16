@@ -38,6 +38,9 @@
 
         <script>
             document.querySelector('.btn-reset-password').addEventListener('click', function () {
+                this.innerHTML = `<div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>`
                 const data = document.querySelector('.login-resetpw').value
                 console.log(data)
                 const main = document.querySelector('.resetpw-content')

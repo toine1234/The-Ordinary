@@ -47,4 +47,34 @@ class EmailHandle{
             return false;
         }
     }
+
+    public static function sendMail($sender, $receiver, $title, $content ) {
+        $mail = new PHPMailer(true);
+    
+        try {
+            // Cấu hình server SMTP
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com'; 
+            $mail->SMTPAuth   = true; 
+            $mail->Username   = 'dinhvanhuy.04032019@gmail.com'; 
+            $mail->Password   = 'zfnp vspa oeei lzyq';    
+            $mail->SMTPSecure = 'tls'; 
+            $mail->Port       = 587;
+    
+            // Người gửi và người nhận
+            $mail->setFrom($sender, 'The Ordinary');
+            $mail->addAddress($receiver);
+    
+            // Nội dung email
+            $mail->isHTML(true);
+            $mail->Subject = $title;
+            $mail->Body    = "
+                    <h1>".$title."</h1>
+                    <p>".$content."</p>";
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

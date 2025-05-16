@@ -536,7 +536,8 @@ $list_filter = [
                                 <?php foreach($order as $item):?>
                                 <?php $totalbuy += $item['tong_tien'];?>
                                 <?php endforeach;?>
-                                <form class="profile-flex">
+                                <form method="post" action="/The-Ordinary/admin/users/status" class="profile-flex">
+                                    <input name="id" hidden value="<?= isset($_GET['view'])?$_GET['view']:""?>" >
                                     <?php foreach($users as $user):?>
                                         <div class="form-group">
                                             <span>Name</span>
@@ -558,17 +559,12 @@ $list_filter = [
                                             <span>Address</span>
                                             <input name="address" value="<?= $user['DiaChi']?>">
                                         </div>
-                                        <div class="form-group">
-                                            <span>Total Purchase</span>
-                                            <input disabled value="<?= $totalbuy?> USD">
-                                        </div>
+                                        
                                     <?php endforeach;?>
                                     <div class="feature-manage-user">
                                         <button name="block" value="block">BLOCK</button>
                                         <button name="unblock" value="unblock">UNBLOCK</button>
-                                        <button name="delete" value="delete">DELETE</button>
-                                        <button name="update" value="update">UPDATE</button>
-                                        <button type="button" name="sendmail" value="sendmail">SEND MAIL</button>
+                                        <button onclick="showFormMail()" type="button" name="sendmail" value="sendmail">SEND MAIL</button>
                                     </div>
                                 </form>
                                 <br>
@@ -623,6 +619,42 @@ $list_filter = [
                                 <?php endif; ?>
                             </div>
                         </div>
+                        <div style="display: none;" class="sendmail">
+                            <form method="post" action="/The-Ordinary/admin/users/sendmail" class="form-mail">
+                                <h3>EMAIL</h3>
+                                <hr>
+                                <div class="form-group">
+                                    <span>From</span>
+                                    <input name="mailsender" readonly type="email" value="dinhvanhuy.04032019@gmail.com">
+                                </div>
+                                <div class="form-group">
+                                    <span>To</span>
+                                    <input name="mailreceiver" readonly type="email" value="<?= $users[0]['Email']?>">
+                                </div>
+                                <div class="form-group">
+                                    <span>Title</span>
+                                    <input type="text" name="title">
+                                </div>
+                                <div class="form-group">
+                                    <span>Content</span>
+                                    <textarea name="content" cols="5" rows="5"></textarea>
+                                </div>
+                                <button name="sendmail" type="submit">SEND</button>
+                                <button onclick="showFormMail()" type="button" class="close"><i class="fa-solid fa-xmark"></i></button>
+                            </form>
+                        </div>
+                        <script>
+                            function showFormMail(){
+                                const form = document.querySelector('.sendmail')
+                                form.style.display = form.style.display === 'none' ? 'flex' : 'none'
+                            }
+
+                            document.querySelector('.form-mail button[name="sendmail"]').addEventListener('click',function(){
+                                this.innerHTML = `<div class="spinner-border spinner-border-sm" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>`
+                            })
+                        </script>
                     </div>
                 <?php endif; ?>
 

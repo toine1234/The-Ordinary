@@ -70,7 +70,6 @@ a{
 
 .wrapper-admin{
     
-    
 }
 
 .header-admin{
@@ -146,8 +145,11 @@ a{
 
 .content-admin{
     flex: 1;
-    padding: 10px 30px;
     overflow-y: scroll;
+}
+
+.management-user, .management-order, .management-product, .management-revenue{
+    padding: 20px 30px;
 }
 
 .content-admin-products{
@@ -390,6 +392,10 @@ h2{
 
 /************** USERS *************/
 
+.management-user{
+    position: relative;
+}
+
 .information-detail-user{
     margin-top: 20px;
 }
@@ -408,6 +414,7 @@ h2{
 .feature-manage-user{
     display: flex;
     gap: 10px;
+    flex: 1;
 }
 
 .feature-manage-user button{
@@ -417,6 +424,50 @@ h2{
     border: 1px solid var(--black);
     padding: 10px 20px;
     
+}
+
+.sendmail{
+    position: fixed;
+    top:0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0000001f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.form-mail{
+    width: 400px;
+    min-height: 450px;
+    background-color: var(--white);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+.form-mail > button{
+    width: 100%;
+    padding: 10px;
+    background-color: var(--black);
+    box-shadow: none;
+    border: none;
+    color: var(--white);
+    font-weight: bolder;
+
+}
+
+.close{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 0px !important;
+    background-color: transparent !important;
+    color: var(--black) !important;
 }
 
 /*================= ORDERS ================*/

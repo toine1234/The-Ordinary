@@ -136,4 +136,12 @@ class Account
         $stmt = $db->prepare($query);
         $stmt->execute(params: [$email]);
     }
+
+    public static function updateSatusAccount($id, $status){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "UPDATE tai_khoan SET trang_thai = ? WHERE ID_Khach_Hang = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute(params: [$status,$id]);
+    }
 }
