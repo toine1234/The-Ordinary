@@ -36,5 +36,7 @@
             <p class="signup-content-asset">By clicking “Join Now” you agree to the <a href="">Privacy Policy</a> and <a href="">Terms of Use</a>.</p>
             <?php unset($_SESSION["Validations"]); ?>
         </form>
+
+        
     </div>
 </div>

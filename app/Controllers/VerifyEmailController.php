@@ -7,6 +7,7 @@ class VerifyEmailController{
     public static function Verify(){
         $email = $_GET['email'] ?? '';
         $token = $_GET['token'] ?? '';
+        $type = $_GET['type'] ?? '';
 
         if (!$email || !$token) {
             exit("Link xác nhận không hợp lệ.");
@@ -24,10 +25,17 @@ class VerifyEmailController{
             session_start();
             $_SESSION['flash'] = [
                 'type' => 'success', // success, danger, warning, info
-                'message' => 'Confirmation successful! You can log in.'
+                'message' => 'Confirmation successful!'
             ];
 
-            header('Location: /The-Ordinary/login');
+            if ($type == 'signup'){
+                header('Location: /The-Ordinary/login');
+            }
+
+            if ($type == 'resetpassword'){
+                header('Location: /The-Ordinary/resetpassword?token='.urldecode($token).'&email='.urlencode($email));
+            }
+            
         
         }
         else{

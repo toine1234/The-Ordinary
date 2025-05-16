@@ -94,17 +94,18 @@ class Account
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public static function changePassword($id, $newPassword){
+    public static function changePassword($id, $newPassword, $email){
         $database = new Database();
         $db = $database->getConnection();
         $query = 
         'UPDATE tai_khoan
         SET Password = :newPassword
-        WHERE ID_Khach_Hang = :id';
+        WHERE ID_Khach_Hang = :id OR Email = :email';
         $stmt = $db->prepare($query);
         $stmt->execute([ 
             ':id' => $id, 
-            ':newPassword' => $newPassword
+            ':newPassword' => $newPassword,
+            ':email' => $email
         ]);
 
     }
@@ -117,6 +118,15 @@ class Account
         $stmt = $db->prepare($query);
         $stmt->execute(params: [$email,$token]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function updateToken($email, $token, $expire){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "UPDATE tai_khoan SET token = ?, token_expire_at = ?, is_verified = 0 WHERE Email = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute(params: [$token,$expire,$email]);
+        
     }
 
     public static function updateVerifedAccount($email){

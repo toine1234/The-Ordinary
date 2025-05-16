@@ -25,7 +25,8 @@ function defineRoutes($router)
 
     // Reset Password Routes //
     $router->get('/resetpassword', [App\Controllers\ResetPasswordController::class, 'index']);
-
+    $router->post('/resetpassword', [App\Controllers\ResetPasswordController::class, 'resetpassword']);
+    $router->post('/resetpassword/update', [App\Controllers\ResetPasswordController::class, 'updatepassword']);
     // Account Routes //
     $router->get('/account', [App\Controllers\UserController::class, 'index']);
 

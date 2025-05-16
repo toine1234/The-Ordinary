@@ -50,7 +50,7 @@ class SignupController
         try{
             $account = Account::createAccount($id,$email, $hashedPassword,$token,$tokenExpireAt);
             $user = Account::createUser($id,$email, $fullname,$phone);
-            EmailHandle::sendVerificationEmail($email,$token);
+            EmailHandle::sendVerificationEmail($email,$token,'signup');
              
             session_start();
             $_SESSION['flash'] = [

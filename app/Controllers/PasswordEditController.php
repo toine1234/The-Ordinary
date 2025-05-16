@@ -40,7 +40,7 @@ class PasswordEditController {
             return;
         }
 
-        Account::changePassword($id,  password_hash($newPassword,PASSWORD_BCRYPT));
+        Account::changePassword($id,  password_hash($newPassword,PASSWORD_BCRYPT),null);
         http_response_code(202);
         echo json_encode(['message'=> 'chang password success']);
         $_SESSION['flash'] = [
