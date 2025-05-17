@@ -626,9 +626,9 @@ a{
 }
 
 
-
+/*******************************************************/
 /******************** Page HEADER **********************/
-
+/*******************************************************/
 
 .main-nav{
     width: 100%;
@@ -837,7 +837,7 @@ a{
     color: var(--black);
 }
 
-/* MOBLIE */
+/* MOBLIE XR*/
 @media (max-width: 431px) {
     .header-top {
         flex-direction: column;
@@ -922,7 +922,93 @@ a{
 }
 
 
-/********************* Footer ************************/
+/* Ipad Mini*/
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        padding: 0;
+    }
+
+    .header-slide {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 8px 10px;
+        justify-content: center;
+        background-color: black;
+        position: relative;
+    }
+
+    .slides{
+        font-size: 10px !important;
+    }
+
+    .header-promo-slider {
+        width: 70%;
+        height: 20px;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .header-icon-previous, .header-icon-next {
+        font-size: 12px;
+        padding: 0 5px;
+    }
+
+    .icon-header {
+        width: 100%;
+        padding: 8px 15px;
+        display: flex;
+        justify-content: space-between;
+        position: static;
+        background-color: white;
+        color: black;
+    }
+
+    .icon-header-btn {
+        font-size: 16px;
+        color: black;
+    }
+
+    .icon-header-btn:nth-child(1){
+        display: inline-flex;
+        margin-right: auto;
+    }
+    .icon-header-btn:nth-child(2),
+    .icon-header-btn:nth-child(4)
+    {
+        display: inline-flex;
+    }
+
+    .icon-header-btn:nth-child(3) { /* user icon */
+        display: none !important;
+    }
+
+    .amount-cart {
+        font-size: 10px;
+        top: -6px;
+        right: -10px;
+        background-color: var(--black);
+        color: var(--white);
+        border-radius: 100%;
+        height: 15px;
+        width: 15px;
+        padding: 5px;
+        text-align: center;
+        line-height: 3px;
+    }
+
+    .brand-nav,
+    .navbar-expand {
+        display: none;
+    }
+}
+
+/******************************************************/
+/********************* FOOTER ************************/
+/******************************************************/
 .footer-container{
     width: 100%;
     display: flex;
@@ -1061,8 +1147,9 @@ h3{
     }
 }
 
-
+/*******************************************************/
 /********************* Page HOME ***********************/
+/*******************************************************/
 .poster{
     height: 1300px;
     width: 100%;
@@ -1125,42 +1212,12 @@ h3{
     color: white;
 }
 
-@media (max-width: 768px) {
-    .poster{
-        position: relative;
-        height: 300px;
-    }
-    .poster-img-brand{
-        margin: 0;
-        width: 130px;
-        height: auto;
-        padding: 20px;
-        top: 0;
-    }
-    .title{
-        position: absolute;
-        width: 200px;
-        height: auto;
-        top: 50%;
-        left: 10%;
-    }
-    .h1-title{
-        padding-bottom: 0;
-        font-size: 1rem;
-        font-weight: 700;
-    }
-    .title p{
-        font-size: 0.8rem;
-    }
-    .btn-title{
-        padding: 5px;
-        font-size: 0.8rem;
-        width: 150px;
-    }
-}
 
-/* Bestseller-home */
 
+
+/**********************************************/
+/*************** BESTSELLER HOME **************/
+/**********************************************/
 .homepage, .footerpage, .login-container{
     display: flex;
     flex-direction: column;
@@ -1461,17 +1518,6 @@ h3{
     right: 0;
 }
 
-@media only screen and (max-width:500px) {
-    .title{
-        left: -50px;
-    }
-
-    .h1-title{
-        font-size: 15px;
-    }
-}
-
-
 
 
 
@@ -1754,8 +1800,9 @@ h3{
     }
 }
 
-
+/***************************************************/
 /******************** Page NEW *********************/
+/***************************************************/
 /* Header New */
 .new-container{
     width: 100%;

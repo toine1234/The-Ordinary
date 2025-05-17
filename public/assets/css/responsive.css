@@ -1,0 +1,407 @@
+
+/*******************************************************/
+/******************** Page HEADER **********************/
+/*******************************************************/
+/* Ipad Mini*/
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        padding: 0;
+    }
+
+    .header-slide {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 8px 10px;
+        justify-content: center;
+        background-color: black;
+        position: relative;
+    }
+
+    .slides{
+        font-size: 10px !important;
+    }
+
+    .header-promo-slider {
+        width: 70%;
+        height: 20px;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .header-icon-previous, .header-icon-next {
+        font-size: 12px;
+        padding: 0 5px;
+    }
+
+    .icon-header {
+        width: 100%;
+        padding: 8px 15px;
+        display: flex;
+        justify-content: space-between;
+        position: static;
+        background-color: white;
+        color: black;
+    }
+
+    .icon-header-btn {
+        font-size: 16px;
+        color: black;
+    }
+
+    .icon-header-btn:nth-child(1){
+        display: inline-flex;
+        margin-right: auto;
+    }
+    .icon-header-btn:nth-child(2),
+    .icon-header-btn:nth-child(4)
+    {
+        display: inline-flex;
+    }
+
+    .icon-header-btn:nth-child(3) { /* user icon */
+        display: none !important;
+    }
+
+    .amount-cart {
+        font-size: 10px;
+        top: -6px;
+        right: -10px;
+        background-color: var(--black);
+        color: var(--white);
+        border-radius: 100%;
+        height: 15px;
+        width: 15px;
+        padding: 5px;
+        text-align: center;
+        line-height: 3px;
+    }
+
+    .brand-nav,
+    .navbar-expand {
+        display: none;
+    }
+}
+
+/* MOBLIE XR*/
+@media (max-width: 431px) {
+    .header-top {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        padding: 0;
+    }
+
+    .header-slide {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 8px 10px;
+        justify-content: center;
+        background-color: black;
+        position: relative;
+    }
+
+    .slides{
+        font-size: 10px !important;
+    }
+
+    .header-promo-slider {
+        width: 70%;
+        height: 20px;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .header-icon-previous, .header-icon-next {
+        font-size: 12px;
+        padding: 0 5px;
+    }
+
+    .icon-header {
+        width: 100%;
+        padding: 8px 15px;
+        display: flex;
+        justify-content: space-between;
+        position: static;
+        background-color: white;
+        color: black;
+    }
+
+    .icon-header-btn {
+        font-size: 16px;
+        color: black;
+    }
+
+    .icon-header-btn:nth-child(1){
+        display: inline-flex;
+        margin-right: auto;
+    }
+    .icon-header-btn:nth-child(2),
+    .icon-header-btn:nth-child(4)
+    {
+        display: inline-flex;
+    }
+
+    .icon-header-btn:nth-child(3) { /* user icon */
+        display: none !important;
+    }
+
+    .amount-cart {
+        font-size: 10px;
+        top: -6px;
+        right: -10px;
+        background-color: var(--black);
+        color: var(--white);
+        border-radius: 100%;
+        height: 15px;
+        width: 15px;
+        padding: 5px;
+        text-align: center;
+        line-height: 3px;
+    }
+
+    .brand-nav,
+    .navbar-expand {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+/*******************************************************/
+/********************* Page HOME ***********************/
+/*******************************************************/
+/************* Ipad ****************/
+@media only screen and (max-width:770px){
+    /* Post Header */
+    .poster{
+        position: relative;
+        height: 400px;
+    }
+    .poster-img-brand{
+        margin: 20px 0 0 20px;
+        width: 100px;
+        height: auto;
+        padding: 10px;
+        top: 0;
+    }
+    .title{
+        position: absolute;
+        width: 250px;
+        height: auto;
+        margin: 80px 0 0 0;
+        gap: 15px;
+    }
+    .h1-title{
+        font-size: 1.3rem;
+        font-weight: 700;
+
+    }
+    .title p{
+        font-size: 1rem;
+    }
+    .btn-title{
+        padding: 10px;
+        font-size: 1rem;
+        width: 150px;
+    }
+
+    
+}
+
+/**************** Moblie ****************/
+@media only screen and (max-width:480px){
+    /* Poster Header */
+    .poster{
+        position: relative;
+        height: 300px;
+    }
+    .poster-img-brand{
+        width: 100px;
+        height: auto;
+        padding: 10px;
+    }
+    .title{
+        position: absolute;
+        width: 150px;
+        height: auto;
+        top: 20%;
+        left: 0;
+    }
+    .h1-title{
+        font-size: 1rem;
+        font-weight: 600;
+        padding-bottom: 0;
+    }
+    .title p{
+        font-size: 0.8rem;
+    }
+    .btn-title{
+        margin-top: 10px;
+        padding: 5px;
+        font-size: 0.6rem;
+        width: 90px;
+    }
+
+    /* Main Home Page */
+    .homepage{
+        padding: 0 10px;
+    }
+    .home-list-bestsellers {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        align-items: stretch;
+    }
+    .home-bestsellers {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        background: white;
+        border: 1px solid #eee;
+        padding: 10px;
+    }
+    .home-bestsellers > a {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 40px;
+    }
+
+    /* Home-Concert */
+    .home-list-concert {
+        grid-template-columns: repeat(3, 1fr); /* Hiển thị 1 cột trên mobile */
+        gap: 15px;
+    }
+
+    .home-concert {
+        font-size: 1rem;
+    }
+
+    .type-concert > a {
+        line-height: 32px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    /* Home Find Your Formulation */
+    .formulation-text {
+        width: 100%;
+        height: auto;
+        font-size: 1rem;
+    }
+    .formulation-form {
+        position: static;
+        width: 100%;
+        margin-top: 30px;
+        padding: 20px;
+    }
+
+    .formulation-form form {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .formulation-form label {
+        font-size: 16px;
+    }
+
+    .formulation-form select {
+        font-size: 16px;
+        min-width: 100%;
+    }
+
+    .formulation-form button {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Home Soothe Sensitive Skin */
+    .home-soothe-sensitive {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .home-soothe-sensitive img {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    }
+
+    .soothe-text {
+        position: static;
+        width: 100%;
+        padding: 0 15px 15px 15px;
+        font-size: 1rem;
+        text-align: center;
+        transform: none;
+    }
+
+    .soothe-text button {
+        font-size: 14px;
+        padding: 10px 16px;
+        width: 100%;
+        max-width: 280px;
+        margin: 10px auto 0 auto;
+        display: block;
+    }
+
+    /* Home Skincare with Integrity */
+    .home-intergrity {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        position: relative;
+    }
+
+    .home-intergrity img {
+        position: static;
+        width: 90%;
+        max-width: 90%;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .home-intergrity-text {
+        position: static;
+        width: 100%;
+        padding: 15px;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .home-intergrity button {
+        font-size: 14px;
+        padding: 10px 16px;
+        margin-top: 10px;
+        width: 100%;
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
