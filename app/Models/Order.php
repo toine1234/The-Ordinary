@@ -71,8 +71,10 @@ class Order{
                 o.tong_tien,
                 o.Ngay_Dat,
                 o.dia_chi_giao,
+                o.Trang_Thai,
                 p.Ten_SP AS Ten_SP,
                 p.Hinh_Anh AS Hinh_Anh,
+                p.ID_San_Pham AS ID_San_Pham,
                 oi.so_luong,
                 oi.price_each,
                 u.HoTen,
@@ -87,7 +89,7 @@ class Order{
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public static function UpdateStatus($id){
+    public static function UpdateStatus($id,$status){
         $database = new Database();
         $db = $database->getConnection();
         $query = 
@@ -95,7 +97,7 @@ class Order{
         SET Trang_Thai = :status
         WHERE ID_Don_Hang = :id';
         $stmt = $db->prepare($query);
-        $stmt->execute([':id'=>$id, ':status' => 'shipped']);
+        $stmt->execute([':id'=>$id, ':status' => $status]);
     }
 
     public static function delete($id){

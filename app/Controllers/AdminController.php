@@ -173,9 +173,10 @@ class AdminController
     public function CRUD_Orders()
     {
 
-        if (isset($_POST['update']) && $_POST['update'] === 'update') {
+        if (isset($_POST['update'])) {
             try {
-                Order::UpdateStatus($_POST['id_order']);
+
+                Order::UpdateStatus($_POST['id_order'],$_POST['update']);
                 header('Location: /The-Ordinary/admin?page=Orders&view=' . $_POST['id_order']);
                 session_start();
                 $_SESSION['flash'] = [

@@ -58,6 +58,15 @@ a{
     color: var(--black);
 }
 
+.close{
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    position: absolute;
+    top:10px;
+    right: 10px;
+}
+
 /*================= NAVBAR =================*/
 /*================= NAVBAR =================*/
 /*================= NAVBAR =================*/
@@ -3281,11 +3290,12 @@ h3{
 
 .orders-history{
     flex: 1;
+    
 }
 
 .orders-grid{
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(2,1fr);
     gap: 20px;
     
 }
@@ -3294,9 +3304,58 @@ h3{
     display: flex;
     flex-direction: column;
     gap: 5px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     padding: 10px;
+    border: 1px solid var(--graynhe);
 }
+
+.orders-detail{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0000001f;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.orders-detail-container{
+    width: 450px;
+    min-height: 450px;
+    background-color: var(--white);
+    padding: 20px;
+    position: relative;
+    
+}
+
+.flex-products-order{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-products-order{
+    display: flex;
+    gap: 10px;
+}
+
+.card-products-order img{
+    width: 100px;
+    height: 100px;
+    background-color: var(--greylightnhe);
+}
+
+.order-actions button{
+    border: none;
+    box-shadow: none;
+    padding: 10px;
+    background-color: var(--black);
+    color: var(--white);
+}
+
+
 
 /********************** PAGE Profile Edit ******************************/
 

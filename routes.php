@@ -29,7 +29,7 @@ function defineRoutes($router)
     $router->post('/resetpassword/update', [App\Controllers\ResetPasswordController::class, 'updatepassword']);
     // Account Routes //
     $router->get('/account', [App\Controllers\UserController::class, 'index']);
-
+    $router->post('/account', [App\Controllers\UserController::class,'ActionsOrder']);
     // Cart Routes //
     $router->get('/cart', [App\Controllers\CartController::class, 'index']);
     $router->post('/cart', [App\Controllers\CartController::class, 'CRUD_Cart']);

@@ -774,7 +774,7 @@ $list_filter = [
                                         <h2>FEATURE</h2>
                                         <form action="/The-Ordinary/admin/orders" method="post" class="update-status" onsubmit="return confirmUpdateSubmit()">
                                             <input hidden name="id_order" type="text" value="<?= $_GET['view']?>">
-                                            <button type="submit" name="update" value="update">TO COMFIRM</button>
+                                            <button type="submit" name="update" value="confirm">TO CONFIRM</button>
                                         </form>
                                         <form action="/The-Ordinary/admin/orders" method="post" class="delete-order" onsubmit="return confirmDeleteSubmit()">
                                             <input hidden name="id_order" type="text" value="<?= $_GET['view']?>">
