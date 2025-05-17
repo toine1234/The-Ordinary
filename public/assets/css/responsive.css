@@ -2,8 +2,9 @@
 /*******************************************************/
 /******************** Page HEADER **********************/
 /*******************************************************/
-/* Ipad Mini*/
-@media (max-width: 768px) {
+
+/* IPAD MINI*/
+@media (max-width: 770px) {
     .header-top {
         flex-direction: column;
         align-items: stretch;
@@ -84,9 +85,25 @@
     .navbar-expand {
         display: none;
     }
+
+    /* Home-Concert */
+    .type-concert{
+        height: auto;
+    }
+    .type-concert > a{
+        font-size: 13px;
+    }
+
+    /* Home Find Your Formulation */
+    .formulation-text p{
+        width: 400px;
+    }
+
+    /* Home Soothe Sensitive Skin */
+    
 }
 
-/* MOBLIE XR*/
+/* MOBLIE */
 @media (max-width: 431px) {
     .header-top {
         flex-direction: column;
