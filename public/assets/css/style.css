@@ -234,6 +234,7 @@ a{
     padding: 20px;
     display: none;
     animation: slideInRight 0.3s ease;
+    overflow-y: scroll;
 }
 
 .search-header{
@@ -276,6 +277,25 @@ a{
     border: none;
     cursor: pointer;
 
+}
+
+.result-products-search{
+    margin-top: 30px;
+}
+
+.result-gap{
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.result-gap-info{
+
+}
+
+.result-gap img{
+    width: 100px;
+    height: 100px;
 }
 
 @media only screen and (max-width:431px){
