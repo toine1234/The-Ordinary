@@ -289,10 +289,6 @@ a{
     margin-top: 20px;
 }
 
-.result-gap-info{
-
-}
-
 .result-gap img{
     width: 100px;
     height: 100px;
@@ -2884,6 +2880,11 @@ h3{
     margin-top: 5px;
 }
 
+.gr-rating p{
+    width: 50px;
+    text-align: center;
+}
+
 .process-rating-bar{
     flex: 1;
     height: 15px;
@@ -2957,6 +2958,7 @@ h3{
 
 .comment-flex{
     display: flex;
+    margin-top: 30px;
 }
 
 .comment-content-info{

@@ -254,56 +254,80 @@
         <h2 class="reviews-title">Reviews</h2>
         <div class="reviews-overview">
             <div class="rating-snapshot">
+                <?php $totalfeedbacks = count($feedbacks); ?>
+                <?php function countRank($rank,$array){
+                    $condition = $rank;
+                    $result = count(array_filter($array,function($n) use ($condition){
+                        return $n['rating'] == $condition;
+                    }));
+                    return $result;
+                } ?>
+                <?php $one_star = countRank(1,$feedbacks); ?>
+                <?php $two_star = countRank(2,$feedbacks); ?>
+                <?php $three_star = countRank(3,$feedbacks); ?>
+                <?php $four_star = countRank(4,$feedbacks); ?>
+                <?php $five_star = countRank(5,$feedbacks); ?>
                 <p>Rating Snapshot</p>
                 <div class="gr-rating">
                     <p class="gr-rating-title">5 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= ($five_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $five_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">4 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= ($four_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $four_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">3 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width:<?= ($three_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $three_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">2 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= ($two_star/$totalfeedbacks)*100;?>%;" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $two_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">1 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= ($one_star/$totalfeedbacks)*100;?>%;" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $one_star?></p>
                 </div>
             </div>
             <div class="overall-rating">
                 <p>Overall Rating</p>
-                <div class="overall-value">
-                    <h2>4.5</h2>
+                <div class="overall-value"> 
+                    <?php $sumRate = array_sum(array_column($feedbacks, 'rating'))?>
+                    <?php $overallRate = $sumRate / $totalfeedbacks?>
+                    <h2><?= number_format($overallRate,1)?></h2>
                     <div class="overall-value-r">
+                        <?php 
+                        $fullstar = floor($overallRate);
+                        $halfstar = ($overallRate - $fullstar) >= 0.5 ? 1:0;
+                        $emptystar = 5 - $fullstar - $halfstar;
+                        ?>
                         <div class="rating-group">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
+                            <?php for ($i = 0; $i < $fullstar; $i++):?>
+                                <i class="bi bi-star-fill"></i>
+                            <?php endfor; ?>
+                            <?php for ($i = 0; $i < $halfstar;$i++):?>
+                                <i class="bi bi-star-half"></i>
+                            <?php endfor; ?>
+                            <?php for ($i = 0; $i < $emptystar;$i++):?>
+                                <i class="bi bi-star"></i>
+                            <?php endfor; ?>
                         </div>
-                        <p>1081 Reviews</p>
+                        <p><?= $totalfeedbacks?> Reviews</p>
                     </div>
                 </div>
             </div>
@@ -402,13 +426,13 @@
                     <div class="personal-information">
                         <p>Personal Infomation</p>
                         <div class="select-personal">
-                            <select name="skin-type" class="type-filter">
+                            <select required name="skin-type" class="type-filter">
                                 <option value="" selected disabled>Skin Type</option>
                                 <option value="Combination">Combination</option>
                                 <option value="Dry Skin">Dry Skin</option>
                                 <option value="Oily Skin">Oily Skin</option>
                             </select>
-                            <select name="skin-tone" class="tone-filter">
+                            <select required name="skin-tone" class="tone-filter">
                                 <option value="" selected disabled>Skin Tone</option>
                                 <option value="Bright">Bright</option>
                                 <option value="Medium">Medium</option>
@@ -430,6 +454,11 @@
                 </form>
             </div>
             <script>
+                document.querySelector('.btn-submit-feedback').addEventListener('click',function(){
+                    this.innerHTML = `<div class="spinner-border spinner-border-sm" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>`
+                })
                 const stars = document.querySelectorAll('.rating i');
                 var currentRating = 0;
                 stars.forEach(star => {

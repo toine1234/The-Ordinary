@@ -390,7 +390,7 @@
             <div id="sidebar-menu-skincare-content" class="sidebar-menu-skincare-content">
                 <ul>
                     <li>
-                        <a href="/The-Ordinary/shop?page[]=1">All Skincare</a>
+                        <a href="/The-Ordinary/shop?page=1">All Skincare</a>
                     </li>
                     <li><a href="/The-Ordinary/shop?cate[]=1">Serums</a></li>
                     <li><a href="/The-Ordinary/shop?cate[]=2">Moisturizers</a></li>
