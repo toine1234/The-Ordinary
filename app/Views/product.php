@@ -255,7 +255,9 @@
         <div class="reviews-overview">
             <div class="rating-snapshot">
                 <?php $totalfeedbacks = count($feedbacks); ?>
+                
                 <?php function countRank($rank,$array){
+                    if (count($array) == 0) return 0;
                     $condition = $rank;
                     $result = count(array_filter($array,function($n) use ($condition){
                         return $n['rating'] == $condition;
@@ -271,35 +273,35 @@
                 <div class="gr-rating">
                     <p class="gr-rating-title">5 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: <?= ($five_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= $totalfeedbacks == 0 ? 0:($five_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
                     <p><?= $five_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">4 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: <?= ($four_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= $totalfeedbacks == 0 ? 0:($four_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
                     <p><?= $four_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">3 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width:<?= ($three_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
+                        <div style="width:<?= $totalfeedbacks == 0 ? 0:($three_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
                     <p><?= $three_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">2 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: <?= ($two_star/$totalfeedbacks)*100;?>%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= $totalfeedbacks == 0 ? 0:($two_star/$totalfeedbacks)*100;?>%;" class="process-rating-bar--fill"></div>
                     </div>
                     <p><?= $two_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">1 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: <?= ($one_star/$totalfeedbacks)*100;?>%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= $totalfeedbacks == 0 ? 0:($one_star/$totalfeedbacks)*100;?>%;" class="process-rating-bar--fill"></div>
                     </div>
                     <p><?= $one_star?></p>
                 </div>
@@ -307,8 +309,8 @@
             <div class="overall-rating">
                 <p>Overall Rating</p>
                 <div class="overall-value"> 
-                    <?php $sumRate = array_sum(array_column($feedbacks, 'rating'))?>
-                    <?php $overallRate = $sumRate / $totalfeedbacks?>
+                    <?php $sumRate = $totalfeedbacks == 0 ? 0:array_sum(array_column($feedbacks, 'rating'))?>
+                    <?php $overallRate = $totalfeedbacks == 0 ? 0:$sumRate / $totalfeedbacks?>
                     <h2><?= number_format($overallRate,1)?></h2>
                     <div class="overall-value-r">
                         <?php 
@@ -369,6 +371,7 @@
                 </select>
             </div>
             <div class="list-comments">
+                <h3 style="text-align: center;"><?= $totalfeedbacks == 0 ? 'feedback empty':''?></h3>
                 <?php foreach ($feedbacks as $feedback): ?>
                 <div class="comment-flex">
                     <div class="comment-content-info">
@@ -421,18 +424,18 @@
                     </div>
                     <div class="review-area">
                         <p>Review</p>
-                        <textarea name="comments" cols="61" rows="5"></textarea>
+                        <textarea required name="comments" cols="61" rows="5"></textarea>
                     </div>
                     <div class="personal-information">
                         <p>Personal Infomation</p>
                         <div class="select-personal">
-                            <select required name="skin-type" class="type-filter">
+                            <select name="skin-type" class="type-filter">
                                 <option value="" selected disabled>Skin Type</option>
                                 <option value="Combination">Combination</option>
                                 <option value="Dry Skin">Dry Skin</option>
                                 <option value="Oily Skin">Oily Skin</option>
                             </select>
-                            <select required name="skin-tone" class="tone-filter">
+                            <select name="skin-tone" class="tone-filter">
                                 <option value="" selected disabled>Skin Tone</option>
                                 <option value="Bright">Bright</option>
                                 <option value="Medium">Medium</option>
@@ -445,7 +448,7 @@
                         <div class="dropzone" id="dropzone">
                             <p>Drag drop image in here</p>
                         </div>
-                        <input type="file" name="images[]" id="fileInput" multiple style="display:none">
+                        <input required type="file" name="images[]" id="fileInput" multiple style="display:none">
                         <div class="preview" id="preview"></div>
                     </div>
                     <button class="btn-submit-feedback" type="submit">SUBMIT</button>

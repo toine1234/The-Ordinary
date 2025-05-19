@@ -2323,7 +2323,7 @@ h3{
 }
 
 .product-targets{
-    height: 45px;
+    height: 20px;
     overflow: hidden;
 }
 
@@ -2411,7 +2411,7 @@ h3{
     }
 
     .products-list{
-        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px;
         width: 100%;
         padding: 0 !important;
@@ -2917,6 +2917,15 @@ h3{
 .overall-value > h2{
     font-size: 50px;
     margin-bottom: 10px;
+}
+
+.rating-group{
+    display: flex;
+    gap: 2px;
+}
+
+.rating-group p{
+    margin-left: 5px;
 }
 
 .feedback{

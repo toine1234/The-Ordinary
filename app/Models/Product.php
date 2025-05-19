@@ -46,7 +46,13 @@ class Product
         unset($stmt);
 
         $total_page = ceil($total[0]["total"] / $limit);
-        $query = "SELECT * FROM san_pham LIMIT $offset,$limit";
+        $query = "SELECT *, 
+        IFNULL(AVG(d.rating),0) as overall, 
+        IFNULL(COUNT(d.rating),0) as reviews
+                    FROM san_pham s
+                    LEFT JOIN danh_gia d ON d.ID_San_Pham = s.ID_San_Pham
+                    GROUP BY s.ID_San_Pham 
+                 LIMIT $offset,$limit";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -66,54 +72,88 @@ class Product
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public static function getFilteredProducts($types = [])
+    public static function getFilteredProducts($types = [], $page)
     {
+        $limit = 12;
+        $offset = ($page - 1) * $limit;
         $database = new Database();
         $db = $database->getConnection();
-        $query = "SELECT * FROM san_pham";
+        $query = "SELECT *,
+        IFNULL(AVG(d.rating),0) as overall, 
+        IFNULL(COUNT(d.rating),0) as reviews
+         FROM san_pham s"
+        ;
         if (!empty($types)) {
             $placeholders = implode(',', array_fill(0, count($types), '?'));
-            $query .= " WHERE Format IN ($placeholders) ";
+            $query .= " LEFT JOIN danh_gia d ON d.ID_San_Pham = s.ID_San_Pham 
+                        WHERE Format IN ($placeholders) 
+                    GROUP BY s.ID_San_Pham 
+                 LIMIT $offset,$limit ";
         }
 
         $stmt = $db->prepare($query);
         $stmt->execute($types);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return [
+            "total_page" => ceil(count($result) / $limit),
+            "result" => $result,
+        ];
     }
 
-    public static function getProductCategory($cate = [])
+    public static function getProductCategory($cate = [],$page)
     {
+        $limit = 12;
+        $offset = ($page - 1) * $limit;
         $database = new Database();
         $db = $database->getConnection();
-        $query = "SELECT * FROM san_pham";
+        $query = "SELECT *,
+        IFNULL(AVG(d.rating),0) as overall, 
+        IFNULL(COUNT(d.rating),0) as reviews
+         FROM san_pham s"
+        ;
         if (!empty($cate)) {
             $placeholders = implode(',', array_fill(0, count($cate), '?'));
-            $query .= " WHERE ID_Danh_Muc IN ($placeholders) ";
+            $query .= " LEFT JOIN danh_gia d ON d.ID_San_Pham = s.ID_San_Pham 
+                        WHERE ID_Danh_Muc IN ($placeholders) 
+                    GROUP BY s.ID_San_Pham 
+                 LIMIT $offset,$limit ";
         }
+
         $stmt = $db->prepare($query);
         $stmt->execute($cate);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return [
+            "total_page" => ceil(count($result) / $limit),
+            "result" => $result,
+        ];
     }
 
-    public static function getSortedProducts($sortBy = null)
+    public static function getSortedProducts($sortBy = null,$page)
     {
+        $limit = 12;
+        $offset = ($page - 1) * $limit;
         $database = new Database();
         $db = $database->getConnection();
-        $sql = "SELECT * FROM san_pham";
+        $sql = "SELECT *,
+        IFNULL(AVG(d.rating),0) as overall, 
+        IFNULL(COUNT(d.rating),0) as reviews
+                    FROM san_pham s
+                    LEFT JOIN danh_gia d ON d.ID_San_Pham = s.ID_San_Pham
+                    GROUP BY s.ID_San_Pham";
         $query = "";
 
         switch ($sortBy) {
             case 'Rank by lowest price':
-                $query = " ORDER BY Gia ASC";
+                $query = " ORDER BY Gia ASC LIMIT $offset,$limit ";
                 break;
             case 'Rank by highest price':
-                $query = " ORDER BY Gia DESC";
+                $query = " ORDER BY Gia DESC LIMIT $offset,$limit ";
                 break;
             case 'name_asc':
-                $query = " ORDER BY name ASC";
+                $query = " ORDER BY name ASC LIMIT $offset,$limit ";
                 break;
             case 'name_desc':
-                $query = " ORDER BY name DESC";
+                $query = " ORDER BY name DESC LIMIT $offset,$limit ";
                 break;
             default:
                 break;
@@ -121,7 +161,11 @@ class Product
 
         $stmt = $db->prepare($sql . $query);
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return [
+            "total_page" => ceil(count($result) / $limit),
+            "result" => $result,
+        ];
 
     }
 
