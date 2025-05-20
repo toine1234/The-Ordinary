@@ -1176,7 +1176,7 @@ h3{
 /********************* Page HOME ***********************/
 /*******************************************************/
 .poster{
-    height: 1300px;
+    height: 900px;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -1199,7 +1199,7 @@ h3{
 }
 .title{
     position: absolute;
-    top: 35%;
+    top: 40%;
     left: 40px;
     width: 500px;
     transform: translate(30%,-50%);
