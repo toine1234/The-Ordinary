@@ -136,9 +136,14 @@
         <button class="close-search"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <form class="form-search" action="/The-Ordinary/shop" method="GET">
-        <input type="text" name="search" class="search-input" placeholder="Search for products...">
+        <input oninput="Search()" type="text" name="search" class="search-input" placeholder="Search for products...">
         <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
+    <div class="result-products-search">
+        <div class="result-flex">
+
+        </div>
+    </div>
 </div>
 <script>
     const searchButton = document.querySelector('.icon-header-btn:nth-child(2)');
@@ -164,6 +169,44 @@
         body.style.overflow = 'auto';
 
     });
+
+    function Search() {
+        const parent = document.querySelector('.result-flex')
+        parent.innerHTML = `<div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>`
+        var keyword = document.querySelector('.search-input').value
+        if (keyword === "") {
+            keyword = '@'
+        }
+        fetch("/The-Ordinary/product", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({ keyword })
+        })
+            .then(res => res.json())
+            .then(result => renderResultProductSearch(result))
+    }
+
+    function renderResultProductSearch(data) {
+
+        const parent = document.querySelector('.result-flex')
+        parent.innerHTML = data.map((item, index) => {
+            return `<a href="/The-Ordinary/product?id=${item.ID_San_Pham}" class="result-gap">
+            <img src="${item.Hinh_Anh.split(';')[0]}">
+            <div class="result-gap-info">
+                <p>${item.Ten_SP}</p>
+                <p?>${item.Dung_Tich}</p>
+                <p>${item.Gia} USD</p>
+            </div>
+            </a>`
+        }).join("")
+
+
+    }
+
 </script>
 
 <!----------------------- CART --------------------------->
@@ -176,7 +219,7 @@
 <?php $carts = isset($_SESSION['cart']) ? $_SESSION['cart'] : []; ?>
 <?php $total = 0; ?>
 <?php foreach ($carts as $item): ?>
-    <?php $total += $item['Gia'] * $item['SL']; ?>
+<?php $total += $item['Gia'] * $item['SL']; ?>
 <?php endforeach; ?>
 <div class="site-cart">
     <div class="cart-header">
@@ -184,12 +227,12 @@
         <button class="close-cart"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <?php if (!empty($carts)): ?>
-        <div class="process-free-ship">
-            <p>Free shipping on orders over 39.00 USD</p>
-            <div class="process-free-ship-bar">
-                <div class="process-free-ship-bar-fill"></div>
-            </div>
+    <div class="process-free-ship">
+        <p>Free shipping on orders over 39.00 USD</p>
+        <div class="process-free-ship-bar">
+            <div class="process-free-ship-bar-fill"></div>
         </div>
+    </div>
     <?php endif; ?>
     <script>
         const processBar = document.querySelector('.process-free-ship-bar-fill');
@@ -210,62 +253,62 @@
     </script>
     <div class="list-cart-products">
         <?php if (empty($carts)): ?>
-            <div class="empty-cart-message">
-                <p>Looks like you haven't added anything to your cart yet.</p>
-                <a href="/The-Ordinary/shop" class="continue-shopping-btn">Continue Shopping &#8594;</a>
-            </div>
+        <div class="empty-cart-message">
+            <p>Looks like you haven't added anything to your cart yet.</p>
+            <a href="/The-Ordinary/shop" class="continue-shopping-btn">Continue Shopping &#8594;</a>
+        </div>
         <?php endif; ?>
         <?php foreach ($carts as $item): ?>
-            <form action="/The-Ordinary/cart" method="post" class="cart-product-item">
-                <input type="hidden" name="cartId" value="<?= $item['ID_Gio_Hang'] ?>">
-                <div class="cart-product-image">
-                    <img src="<?= $item['Hinh_Anh'] ?>" alt="Product Image">
+        <form action="/The-Ordinary/cart" method="post" class="cart-product-item">
+            <input type="hidden" name="cartId" value="<?= $item['ID_Gio_Hang'] ?>">
+            <div class="cart-product-image">
+                <img src="<?= $item['Hinh_Anh'] ?>" alt="Product Image">
+            </div>
+            <div class="cart-product-info">
+                <div class="cart-product-name">
+                    <p>THE ORDINARY</p>
+                    <h2>
+                        <?= $item['Ten_SP'] ?>
+                    </h2>
                 </div>
-                <div class="cart-product-info">
-                    <div class="cart-product-name">
-                        <p>THE ORDINARY</p>
-                        <h2>
-                            <?= $item['Ten_SP'] ?>
-                        </h2>
-                    </div>
-                    <p class="cart-product-price">
-                        <?= number_format($item['Gia'], 2) . " USD" ?>
-                    </p>
-                    <button name="remove" value="remove" class="remove-item-cart">Remove</button>
-                    <p class="cart-product-size">Size: 30ml</p>
-                    <div class="cart-product-quantity">
-                        <button class="btn-cart-quantity" type="button">-</button>
-                        <input type="text" disabled value="<?= $item['SL'] ?>" class="cart-quantity-input">
-                        <button class="btn-cart-quantity" type="button">+</button>
-                    </div>
+                <p class="cart-product-price">
+                    <?= number_format($item['Gia'], 2) . " USD" ?>
+                </p>
+                <button name="remove" value="remove" class="remove-item-cart">Remove</button>
+                <p class="cart-product-size">Size: 30ml</p>
+                <div class="cart-product-quantity">
+                    <button class="btn-cart-quantity" type="button">-</button>
+                    <input type="text" disabled value="<?= $item['SL'] ?>" class="cart-quantity-input">
+                    <button class="btn-cart-quantity" type="button">+</button>
                 </div>
-            </form>
+            </div>
+        </form>
         <?php endforeach; ?>
 
     </div>
     <?php if (!empty($carts)): ?>
-        <div class="cart-checkout-container">
-            <div class="cart-checkout-heading">
-                <?php $itemcount = count($carts); ?>
-                <?php $total = 0; ?>
-                <?php foreach ($carts as $item): ?>
-                    <?php $total += $item['Gia'] * $item['SL']; ?>
-                <?php endforeach; ?>
-                <p>
-                    <?= $itemcount; ?> item in cart
-                </p>
-                <p>Estimated Total:
-                    <?= number_format($total, 2) . " USD"; ?>
-                </p>
-            </div>
-            <a href="/The-Ordinary/cart" class="cart-checkout-btn">
-                MY CART
-            </a>
+    <div class="cart-checkout-container">
+        <div class="cart-checkout-heading">
+            <?php $itemcount = count($carts); ?>
+            <?php $total = 0; ?>
+            <?php foreach ($carts as $item): ?>
+            <?php $total += $item['Gia'] * $item['SL']; ?>
+            <?php endforeach; ?>
+            <p>
+                <?= $itemcount; ?> item in cart
+            </p>
+            <p>Estimated Total:
+                <?= number_format($total, 2) . " USD"; ?>
+            </p>
         </div>
+        <a href="/The-Ordinary/cart" class="cart-checkout-btn">
+            MY CART
+        </a>
+    </div>
     <?php endif; ?>
     <script>
-        document.querySelectorAll('.btn-cart-quantity').forEach(function(button) {
-            button.addEventListener('click', function() {
+        document.querySelectorAll('.btn-cart-quantity').forEach(function (button) {
+            button.addEventListener('click', function () {
                 const input = this.parentNode.querySelector('input[type=text]');
                 let value = parseInt(input.value);
                 if (this.innerText === '+') {
@@ -310,7 +353,9 @@
         <div class="navbar-site-header-left">
             <button class="close-navbar"><i class="fa-solid fa-x"></i></button>
             <a class="navbar-site-header-left-logo-active" href="/The-Ordinary">
-                <img class="navbar-site-header-left-logo" src="https://theordinary.com/on/demandware.static/Sites-deciem-us-Site/-/default/dw0972a809/images/brands-logo/theordinary_black.svg" alt="navbar-site-img">
+                <img class="navbar-site-header-left-logo"
+                    src="https://theordinary.com/on/demandware.static/Sites-deciem-us-Site/-/default/dw0972a809/images/brands-logo/theordinary_black.svg"
+                    alt="navbar-site-img">
             </a>
         </div>
         <div class="navbar-site-header-right">
@@ -345,7 +390,7 @@
             <div id="sidebar-menu-skincare-content" class="sidebar-menu-skincare-content">
                 <ul>
                     <li>
-                        <a href="/The-Ordinary/shop?page[]=1">All Skincare</a>
+                        <a href="/The-Ordinary/shop?page=1">All Skincare</a>
                     </li>
                     <li><a href="/The-Ordinary/shop?cate[]=1">Serums</a></li>
                     <li><a href="/The-Ordinary/shop?cate[]=2">Moisturizers</a></li>

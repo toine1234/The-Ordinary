@@ -12,8 +12,7 @@ class Feedback
         $query = "SELECT * 
                 FROM danh_gia d
                 JOIN khach_hang k on d.ID_Khach_Hang = k.ID_Khach_Hang
-                WHERE d.ID_San_Pham = ?
-                GROUP BY d.ID_Khach_Hang";
+                WHERE d.ID_San_Pham = ?";
         $stmt = $db->prepare($query);
         $stmt->execute([$id]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

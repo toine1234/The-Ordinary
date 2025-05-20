@@ -26,8 +26,8 @@ class FeedbackController{
             "idUser" => $_SESSION['idUser'],
             'rating'=> $_POST['rating'],
             'comments'=> $_POST['comments'],
-            'skintype'=> $_POST['skin-type'],
-            'skintone'=> $_POST['skin-tone'],
+            'skintype'=> $_POST['skin-type'] ?? '',
+            'skintone'=> $_POST['skin-tone'] ?? '',
             'images' => $imageUrlsStr
         ];
 

@@ -12,7 +12,7 @@ $list_filter_category = [
 ];
 
 $list_filter_format = [
-    'Serum' ,
+    'Serum',
     'Cream',
     'Gel',
     'Liquid',
@@ -25,7 +25,6 @@ $list_filter_format = [
 
 $list_filter_sort = [
     'Bestsellers',
-    'Best Matches',
     'Rank by lowest price',
     'Rank by highest price',
     'Rating',
@@ -76,16 +75,15 @@ $list_filter_sort = [
 
                     });
                 </script>
-                <div 
-                class="filter-group-items--type"
-                style="<?= isset($_GET['cate']) ? 'display: block;' : 'display: none;' ?>">
+                <div class="filter-group-items--type"
+                    style="<?= isset($_GET['cate']) ? 'display: block;' : 'display: none;' ?>">
                     <form method="GET" id="filter-form--type">
-                            <?php foreach ($list_filter_category as $item => $value): 
-                                $checked = in_array($value, $_GET['cate'] ?? []) ? 'checked' : ''; ?>
-                                <label class="filter-item">
+                        <?php foreach ($list_filter_category as $item => $value):
+                            $checked = in_array($value, $_GET['cate'] ?? []) ? 'checked' : ''; ?>
+                            <label class="filter-item">
                                 <input type="checkbox" name="cate[]" value="<?= htmlspecialchars($value) ?>" <?= $checked ?>>
                                 <?= htmlspecialchars($item) ?>
-                                </label>
+                            </label>
                         <?php endforeach; ?>
                     </form>
                     <script>
@@ -110,7 +108,7 @@ $list_filter_sort = [
             <div class="filter-group">
                 <div class="filter-group-title">
                     <p class="name-filter">Format</p>
-                    <button class="btn-more-filter--format"><?= isset($_GET['type']) ? '-' :'+'?></button>
+                    <button class="btn-more-filter--format"><?= isset($_GET['type']) ? '-' : '+' ?></button>
                 </div>
                 <script>
                     document.querySelector('.btn-more-filter--format').addEventListener('click', function () {
@@ -190,12 +188,12 @@ $list_filter_sort = [
                 </script>
             </div>
             <div class="products-list-title">
-                <h2><?php echo isset($_GET['search']) ? "Results for " . '"'.$_GET['search'].'"':"All products"?></h2>
+                <h2><?php echo isset($_GET['search']) ? "Results for " . '"' . $_GET['search'] . '"' : "All products" ?></h2>
             </div>
-            <?php 
-             if ($products == null) {
+            <?php
+            if ($products == null) {
                 echo '<h2 class="no_product" style="text-align: center; margin-top: 20px;">No products found</h2>';
-             }
+            }
             ?>
             <?php foreach ($products as $product): ?>
                 <form aria-disabled="true" action="/The-Ordinary/cart" method="post" class="product-container">
@@ -206,27 +204,45 @@ $list_filter_sort = [
                             alt="<?= htmlspecialchars($product["Ten_SP"]) ?>" class="product-image">
                     </a>
                     <h2 class="product-title"><?= htmlspecialchars($product["Ten_SP"]) ?></h2>
+                    <div class="rating-group">
+                        <?php 
+                        $fullstar = floor($product['overall']);
+                        $halfstar = ($product['overall'] - $fullstar) >= 0.5 ? 1:0;
+                        $emptystar = 5 - $fullstar - $halfstar;
+                        ?>
+                        <?php for ($i = 0; $i < $fullstar; $i++): ?>
+                            <i class="bi bi-star-fill"></i>
+                        <?php endfor; ?>
+                        <?php for ($i = 0; $i < $halfstar; $i++): ?>
+                            <i class="bi bi-star-half"></i>
+                        <?php endfor; ?>
+                        <?php for ($i = 0; $i < $emptystar; $i++): ?>
+                            <i class="bi bi-star"></i>
+                        <?php endfor; ?>
+                        <p><?=number_format($product['overall'],1)?></p>
+                        <p><?= '('.$product['reviews'].')'?></p>
+                    </div>
                     <p class="product-targets"><?= htmlspecialchars($product["Targets"]) ?></p>
                     <div class="product-quantity">
                         <p class="product-price"><?= number_format($product["Gia"], 2) ?> USD</p>
                         <p><?= htmlspecialchars($product["Dung_Tich"]) ?></p>
                     </div>
-                    <button name="create" value="create" <?= $product['SL'] == 0 ? "disabled":""?> class="btn-add-to-cart" type="submit">Add to Cart</button>
-                    <?php if ($product['SL'] == 0):?>
-                    <div class="sold-out">
-                        <p>Sold Out</p>
-                    </div>
-                    <?php endif;?>
+                    <button name="create" value="create" <?= $product['SL'] == 0 ? "disabled" : "" ?> class="btn-add-to-cart"
+                        type="submit">Add to Cart</button>
+                    <?php if ($product['SL'] == 0): ?>
+                        <div class="sold-out">
+                            <p>Sold Out</p>
+                        </div>
+                    <?php endif; ?>
                 </form>
             <?php endforeach ?>
             <div class="list-page-product">
                 <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <a 
-                    style="<?= isset($_GET['page']) && $_GET['page'] == $i ? "background-color:var(--black)":"background-color:var(--graynhe)"?>" 
-                    href="/The-Ordinary/shop?page=<?= $i ?>"><?= $i ?></a>
-                <?php endfor;?>
+                    <a style="<?= isset($_GET['page']) && $_GET['page'] == $i ? "background-color:var(--black)" : "background-color:var(--graynhe)" ?>"
+                        href="/The-Ordinary/shop?page=<?= $i ?>"><?= $i ?></a>
+                <?php endfor; ?>
             </div>
-            
+
 
         </div>
     </div>

@@ -254,56 +254,82 @@
         <h2 class="reviews-title">Reviews</h2>
         <div class="reviews-overview">
             <div class="rating-snapshot">
+                <?php $totalfeedbacks = count($feedbacks); ?>
+                
+                <?php function countRank($rank,$array){
+                    if (count($array) == 0) return 0;
+                    $condition = $rank;
+                    $result = count(array_filter($array,function($n) use ($condition){
+                        return $n['rating'] == $condition;
+                    }));
+                    return $result;
+                } ?>
+                <?php $one_star = countRank(1,$feedbacks); ?>
+                <?php $two_star = countRank(2,$feedbacks); ?>
+                <?php $three_star = countRank(3,$feedbacks); ?>
+                <?php $four_star = countRank(4,$feedbacks); ?>
+                <?php $five_star = countRank(5,$feedbacks); ?>
                 <p>Rating Snapshot</p>
                 <div class="gr-rating">
                     <p class="gr-rating-title">5 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= $totalfeedbacks == 0 ? 0:($five_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $five_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">4 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= $totalfeedbacks == 0 ? 0:($four_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $four_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">3 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width:<?= $totalfeedbacks == 0 ? 0:($three_star/$totalfeedbacks)*100;?>%" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $three_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">2 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= $totalfeedbacks == 0 ? 0:($two_star/$totalfeedbacks)*100;?>%;" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $two_star?></p>
                 </div>
                 <div class="gr-rating">
                     <p class="gr-rating-title">1 stars</p>
                     <div class="process-rating-bar">
-                        <div style="width: 75%;" class="process-rating-bar--fill"></div>
+                        <div style="width: <?= $totalfeedbacks == 0 ? 0:($one_star/$totalfeedbacks)*100;?>%;" class="process-rating-bar--fill"></div>
                     </div>
-                    <p>831</p>
+                    <p><?= $one_star?></p>
                 </div>
             </div>
             <div class="overall-rating">
                 <p>Overall Rating</p>
-                <div class="overall-value">
-                    <h2>4.5</h2>
+                <div class="overall-value"> 
+                    <?php $sumRate = $totalfeedbacks == 0 ? 0:array_sum(array_column($feedbacks, 'rating'))?>
+                    <?php $overallRate = $totalfeedbacks == 0 ? 0:$sumRate / $totalfeedbacks?>
+                    <h2><?= number_format($overallRate,1)?></h2>
                     <div class="overall-value-r">
+                        <?php 
+                        $fullstar = floor($overallRate);
+                        $halfstar = ($overallRate - $fullstar) >= 0.5 ? 1:0;
+                        $emptystar = 5 - $fullstar - $halfstar;
+                        ?>
                         <div class="rating-group">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
+                            <?php for ($i = 0; $i < $fullstar; $i++):?>
+                                <i class="bi bi-star-fill"></i>
+                            <?php endfor; ?>
+                            <?php for ($i = 0; $i < $halfstar;$i++):?>
+                                <i class="bi bi-star-half"></i>
+                            <?php endfor; ?>
+                            <?php for ($i = 0; $i < $emptystar;$i++):?>
+                                <i class="bi bi-star"></i>
+                            <?php endfor; ?>
                         </div>
-                        <p>1081 Reviews</p>
+                        <p><?= $totalfeedbacks?> Reviews</p>
                     </div>
                 </div>
             </div>
@@ -345,6 +371,7 @@
                 </select>
             </div>
             <div class="list-comments">
+                <h3 style="text-align: center;"><?= $totalfeedbacks == 0 ? 'feedback empty':''?></h3>
                 <?php foreach ($feedbacks as $feedback): ?>
                 <div class="comment-flex">
                     <div class="comment-content-info">
@@ -397,7 +424,7 @@
                     </div>
                     <div class="review-area">
                         <p>Review</p>
-                        <textarea name="comments" cols="61" rows="5"></textarea>
+                        <textarea required name="comments" cols="61" rows="5"></textarea>
                     </div>
                     <div class="personal-information">
                         <p>Personal Infomation</p>
@@ -421,7 +448,7 @@
                         <div class="dropzone" id="dropzone">
                             <p>Drag drop image in here</p>
                         </div>
-                        <input type="file" name="images[]" id="fileInput" multiple style="display:none">
+                        <input required type="file" name="images[]" id="fileInput" multiple style="display:none">
                         <div class="preview" id="preview"></div>
                     </div>
                     <button class="btn-submit-feedback" type="submit">SUBMIT</button>
@@ -430,6 +457,11 @@
                 </form>
             </div>
             <script>
+                document.querySelector('.btn-submit-feedback').addEventListener('click',function(){
+                    this.innerHTML = `<div class="spinner-border spinner-border-sm" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>`
+                })
                 const stars = document.querySelectorAll('.rating i');
                 var currentRating = 0;
                 stars.forEach(star => {

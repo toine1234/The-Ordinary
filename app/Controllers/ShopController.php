@@ -19,17 +19,20 @@ class ShopController {
                 $filters = [$filters];
             }
 
-            $products = Product::getFilteredProducts($filters);
+            $products = Product::getFilteredProducts($filters,$page)['result'];
+            $total_pages = Product::getFilteredProducts($filters,$page)['total_page'];
             
         }
 
         if (isset($_GET['cate'])) {
-            $products = Product::getProductCategory($_GET['cate']);
+            $products = Product::getProductCategory($_GET['cate'],$page)['result'];
+            $total_pages = Product::getProductCategory($_GET['cate'],$page)['total_page'];
         }
 
         if (isset($_GET['sort'])) {
             $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
-            $products = Product::getSortedProducts($sort);
+            $products = Product::getSortedProducts($sort,$page)['result'];
+            $total_pages = Product::getSortedProducts($sort,$page)['total_page'];
 
         }
 

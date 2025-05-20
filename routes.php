@@ -10,6 +10,7 @@ function defineRoutes($router)
 
     // Product Detail Route // 
     $router->get('/product', [App\Controllers\ProductController::class, 'detail']);
+    $router->post('/product', [App\Controllers\ProductController::class,'search']);
 
     // Auth Routes //
     $router->get('/login', [App\Controllers\AuthController::class, 'showLogin']);

@@ -234,6 +234,7 @@ a{
     padding: 20px;
     display: none;
     animation: slideInRight 0.3s ease;
+    overflow-y: scroll;
 }
 
 .search-header{
@@ -276,6 +277,21 @@ a{
     border: none;
     cursor: pointer;
 
+}
+
+.result-products-search{
+    margin-top: 30px;
+}
+
+.result-gap{
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.result-gap img{
+    width: 100px;
+    height: 100px;
 }
 
 @media only screen and (max-width:431px){
@@ -2307,7 +2323,7 @@ h3{
 }
 
 .product-targets{
-    height: 45px;
+    height: 20px;
     overflow: hidden;
 }
 
@@ -2395,7 +2411,7 @@ h3{
     }
 
     .products-list{
-        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px;
         width: 100%;
         padding: 0 !important;
@@ -2864,6 +2880,11 @@ h3{
     margin-top: 5px;
 }
 
+.gr-rating p{
+    width: 50px;
+    text-align: center;
+}
+
 .process-rating-bar{
     flex: 1;
     height: 15px;
@@ -2896,6 +2917,15 @@ h3{
 .overall-value > h2{
     font-size: 50px;
     margin-bottom: 10px;
+}
+
+.rating-group{
+    display: flex;
+    gap: 2px;
+}
+
+.rating-group p{
+    margin-left: 5px;
 }
 
 .feedback{
@@ -2937,6 +2967,7 @@ h3{
 
 .comment-flex{
     display: flex;
+    margin-top: 30px;
 }
 
 .comment-content-info{
