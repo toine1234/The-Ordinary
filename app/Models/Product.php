@@ -169,6 +169,38 @@ class Product
 
     }
 
+    public static function Sort($sortBy = null)
+    {
+        
+        $database = new Database();
+        $db = $database->getConnection();
+        $sql = "SELECT * FROM san_pham";
+        $query = "";
+
+        switch ($sortBy) {
+            case 'Rank by lowest price':
+                $query = " ORDER BY Gia ASC";
+                break;
+            case 'Rank by highest price':
+                $query = " ORDER BY Gia DESC ";
+                break;
+            case 'Rank by lowest quantity':
+                $query = " ORDER BY SL ASC ";
+                break;
+            case 'Rank by highest quantity':
+                $query = " ORDER BY SL DESC ";
+                break;
+            default:
+                break;
+        }
+
+        $stmt = $db->prepare($sql . $query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        
+
+    }
+
     public static function SearchProduct($keyword)
     {
         $database = new Database();

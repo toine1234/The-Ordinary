@@ -46,7 +46,7 @@ class AdminController
         }
 
         if (isset($_GET['sort'])) {
-            $products = Product::getSortedProducts($_GET['sort']);
+            $products = Product::Sort($_GET['sort']);
         }
 
         if (isset($_GET['filter'])) {
@@ -282,5 +282,6 @@ class AdminController
             ];
         }
     }
+
 
 }

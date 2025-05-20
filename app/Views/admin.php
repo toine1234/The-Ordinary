@@ -65,7 +65,9 @@ $list_category = [
 
 $list_filter_sort = [
     'Rank by lowest price',
-    'Rank by highest price'
+    'Rank by highest price',
+    'Rank by lowest quantity',
+    'Rank by highest quantity'
 ];
 
 $list_filter = [
@@ -158,10 +160,42 @@ $list_filter = [
                             <script>
                                 document.querySelector('.overview-content-toggle').addEventListener('click', function () {
                                     const content = document.querySelector('.table-data-store');
+                                    const feature = document.querySelector('.feature-order-table')
+                                    feature.style.display = feature.style.display === 'flex' ? 'none' : 'flex';
                                     content.style.display = content.style.display === 'block' ? 'none' : 'block';
                                     document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
                                 });
                             </script>
+                            <div style="display: flex;" id="product" class="feature-order-table">
+                                <form action="/The-Ordinary/admin/stock/search" method="get" class="form-search">
+                                    <input type="text" hidden name="page" value="Products">
+                                    <div id="search" class="search">
+                                        <i class='fa-solid fa-magnifying-glass'></i>
+                                        <input name="search" type="text">
+                                    </div>
+                                    <button class="btn-search" type="submit">Search</button>
+                                </form>
+                                <form action="/The-Ordinary/admin/stock/sort" method="get" class="form-sort orders">
+                                    <input type="text" hidden name="page" value="Products">
+                                    <select style="height: 100%;" name="sort">
+                                        <option value="" disabled selected>Select Sort</option>
+                                        <?php foreach($list_filter_sort as $sort):?>
+                                            <option <?= isset($_GET['sort']) && $_GET['sort'] === $sort ? 'selected' :''?> value="<?= $sort?>"><?= $sort?></option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </form>
+                                <script>
+                                document.querySelectorAll('.form-sort select')
+                                    .forEach(
+                                        function (checkbox) {
+                                            checkbox.addEventListener('change', function () {
+                                                document.querySelector('.form-sort .order').submit();
+    
+                                            });
+    
+                                        });
+                                </script>
+                            </div>
                             <div style="display: block;" id="store" class="table-data-store">
                                 <table class="custom-table">
                                     <tr>
