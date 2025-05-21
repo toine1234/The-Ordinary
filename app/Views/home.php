@@ -228,13 +228,13 @@
         <div class="gap-formulation"></div>
         <div class="is-divider-fill"></div>
         <div class="gap-formulation"></div>
-        <img src="https://theordinary.com/on/demandware.static/-/Library-Sites-DeciemSharedLibrary/default/dwe781744a/theordinary/50-50-images/sensitive-skin-collection-50-50.jpg" alt="">
         <div class="soothe-text">
             <h3 style="margin-bottom: 30px; margin-top: 100px;">Soothe Sensitive Skin.</h3>
             <p style="margin-bottom: 30px;">The Sensitive Skin Collection carries some of our favourite products
                 designed to smooth and soften skin texture while supporting the skin barrier.</p>
             <button type="submit">Shop The Collection</button>
         </div>
+        <img src="https://theordinary.com/on/demandware.static/-/Library-Sites-DeciemSharedLibrary/default/dwe781744a/theordinary/50-50-images/sensitive-skin-collection-50-50.jpg" alt="">
     </div>
 
     <!------------- Home Skincare with Integrity. -------------->

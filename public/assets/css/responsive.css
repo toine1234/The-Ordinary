@@ -195,7 +195,7 @@
 
 
 /*******************************************************/
-/********************* Page HOME ***********************/
+/********************* PAGE HOME ***********************/
 /*******************************************************/
 /************* Ipad ****************/
 @media only screen and (max-width:770px){
@@ -257,27 +257,99 @@
     }
 
     /* Home Find Your Formulation */
-    .formulation-text{
-        width: 50%;
+        .home-formulation {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .formulation-text {
+        width: 55%;
+        font-size: 1rem;
         height: auto;
+        padding: 10px;
+    }
+
+    .formulation-form {
+        position: relative;
+        width: 40%;
+        margin-top: 0;
+        padding: 20px;
         font-size: 1rem;
     }
-    .formulation-text h3,
-    .formulation-text p{
+
+    .formulation-form form {
+        font-size: 16px;
+        padding: 0;
+        gap: 8px;
+    }
+
+    .formulation-form label {
+        font-size: 16px;
+    }
+
+    .formulation-form select {
+        font-size: 16px;
+        padding: 8px 10px;
+        min-width: 100%;
+    }
+
+    .formulation-form button {
+        font-size: 14px;
+        padding: 10px 16px;
         width: 100%;
+    }
+
+    /* Home Soothe Sensitive Skin */
+    .home-soothe-sensitive {
+        position: relative;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .home-soothe-sensitive img {
+        position: static;
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .soothe-text {
+        position: static;
+        width: 100%;
+        text-align: center;
+        transform: none;
+        font-size: 1rem;
+    }
+
+    .soothe-text h3 {
+        margin-top: 20px;
+    }
+
+    .soothe-text button {
+        width: 100%;
+        max-width: 300px;
+        font-size: 16px;
+        margin: 0 auto;
+    }
+
+    /* Home Skincare with Integrity */
+    .home-intergrity-text{
+        position: absolute;
+        width: 40%;
+        top: 0;
+        left: 0;
         font-size: 1.2rem;
     }
-    .formulation-form{
-        top: 20px;
-        width: 50%;
-        right: 0;
-        height: auto;
-        padding: 0;
-    }
-    .formulation-form form{
-        width: 100%;
-        height: auto;
-    }
+
 }
 
 /**************** Moblie ****************/
