@@ -80,19 +80,6 @@ $list_filter = [
 
 <body>
     <div class="wrapper-admin">
-        <!-- <div class="header-admin">
-            <nav class="navbar-admin">
-                <ul class="navbar-admin-items">
-                    <li><a href="/The-Ordinary">Home</a></li>
-                    <li><a href="/The-Ordinary/shop">Shop</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </nav>
-            <div class="logo-brand-admin">
-                <img src='https://brandlogos.net/wp-content/uploads/2025/02/the_ordinary-logo_brandlogos.net_ruxn6.png'>
-
-            </div>
-        </div> -->
         <?php if (isset($_SESSION['flash'])): ?>
             <div class="alert alert-<?= $_SESSION['flash']['type'] ?> alert-dismissible fade show mt-3 mx-3" role="alert">
                 <?= $_SESSION['flash']['message'] ?>
@@ -175,7 +162,7 @@ $list_filter = [
                                     </div>
                                     <button class="btn-search" type="submit">Search</button>
                                 </form>
-                                <form action="/The-Ordinary/admin/stock/sort" method="get" class="form-sort orders">
+                                <form action="/The-Ordinary/admin/stock/sort" method="get" class="form-sort-order">
                                     <input type="text" hidden name="page" value="Products">
                                     <select style="height: 100%;" name="sort">
                                         <option value="" disabled selected>Select Sort</option>
@@ -185,11 +172,11 @@ $list_filter = [
                                     </select>
                                 </form>
                                 <script>
-                                document.querySelectorAll('.form-sort select')
+                                document.querySelectorAll('.form-sort-order select')
                                     .forEach(
                                         function (checkbox) {
                                             checkbox.addEventListener('change', function () {
-                                                document.querySelector('.form-sort .order').submit();
+                                                document.querySelector('.form-sort-order').submit();
     
                                             });
     
@@ -248,11 +235,11 @@ $list_filter = [
                                     <input type="text" hidden name="page" value="Products">
                                     <div id="search" class="search">
                                         <i class='fa-solid fa-magnifying-glass'></i>
-                                        <input name="search" type="text">
+                                        <input value="<?= isset($_GET['search'])?$_GET['search']:''?>" name="search" type="text">
                                     </div>
                                     <button class="btn-search" type="submit">Search</button>
                                 </form>
-                                <form method="get" class="form-sort">
+                                <form method="get" class="form-sort-product">
                                     <input type="text" hidden name="page" value="Products">
                                     <select style="height: 100%;" name="sort">
                                         <option value="" disabled selected>Select Sort</option>
@@ -262,11 +249,11 @@ $list_filter = [
                                     </select>
                                 </form>
                                 <script>
-                                document.querySelectorAll('.form-sort select')
+                                document.querySelectorAll('.form-sort-product select')
                                     .forEach(
                                         function (checkbox) {
                                             checkbox.addEventListener('change', function () {
-                                                document.querySelector('.form-sort').submit();
+                                                document.querySelector('.form-sort-product').submit();
     
                                             });
     

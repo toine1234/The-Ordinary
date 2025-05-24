@@ -47,6 +47,7 @@ class Product
 
         $total_page = ceil($total[0]["total"] / $limit);
         $query = "SELECT *, 
+        s.ID_San_Pham,
         IFNULL(AVG(d.rating),0) as overall, 
         IFNULL(COUNT(d.rating),0) as reviews
                     FROM san_pham s
