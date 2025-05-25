@@ -179,7 +179,7 @@
         if (keyword === "") {
             keyword = '@'
         }
-        fetch("/The-Ordinary/product", {
+        fetch("/The-Ordinary/product/search", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"

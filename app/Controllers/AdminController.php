@@ -28,7 +28,6 @@ class AdminController
             exit;
         }
 
-        $products = Product::getAllProducts();
         $orders = Order::getAllOrder();
         $users = Users::getAllUsers();
         $accounts = Account::getAllAccount();
@@ -39,8 +38,6 @@ class AdminController
         $total_quantity = Revenue::TotalQuantity();
 
         if (isset($_GET['search'])) {
-
-            $products = Product::SearchProduct($_GET['search']);
             $accounts = Account::SearchAccount($_GET['search']);
             $orders = Order::SearchOrder($_GET['search']);
         }
@@ -69,6 +66,18 @@ class AdminController
 
         require_once __DIR__ . '/../Views/admin.php';
 
+    }
+
+    public function getStocks(){
+        $stocks = Store::getAllStore();
+        header('Content-Type: application/json');
+        echo json_encode($stocks);
+    }
+
+    public function getProducts(){
+        $products = Product::getAllProducts();
+        header('Content-Type: application/json');
+        echo json_encode($products);
     }
 
     public function CRUD_Products()
