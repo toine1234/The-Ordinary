@@ -2123,7 +2123,11 @@ h3{
     text-decoration: none;
 }
 
-/* Shop main content */
+
+/*************************************************************/
+/****************** Shop main content ************************/
+/*************************************************************/
+
 
 .shop-main-content{
     width:90%;
@@ -2404,7 +2408,7 @@ h3{
     color: var(--white);
     text-align: center;
 }
-
+/* 
 @media (max-width: 431px) {
     .filter-products-shop{
         display: none !important;
@@ -2458,7 +2462,7 @@ h3{
         top:20% !important;
         font-size: 15px !important;
     }
-}
+} */
 
 
 
