@@ -134,9 +134,9 @@ $list_filter = [
                         <hr>
                         <div class="content-admin-products">
     
-                        <!-------------- STORE TABLE -------------->
-                        <!-------------- STORE TABLE -------------->
-                        <!-------------- STORE TABLE -------------->
+                        <!-------------- STOCK TABLE -------------->
+                        <!-------------- STOCK TABLE -------------->
+                        <!-------------- STOCK TABLE -------------->
     
                             <div class="header-table">
                                 <h2 class="table-title">STOCK TABLE</h2>
@@ -153,17 +153,15 @@ $list_filter = [
                                     document.querySelector('.overview-content-toggle').style.transform = content.style.display === 'block' ? 'rotate(0)' : 'rotate(180deg)';
                                 });
                             </script>
-                            <div style="display: flex;" id="product" class="feature-order-table">
-                                <form action="/The-Ordinary/admin/stock/search" method="get" class="form-search">
-                                    <input type="text" hidden name="page" value="Products">
+                            <div style="display: flex;" id="stock" class="feature-stock-table">
+                                <form class="form-search">
                                     <div id="search" class="search">
                                         <i class='fa-solid fa-magnifying-glass'></i>
                                         <input name="search" type="text">
                                     </div>
                                     <button class="btn-search" type="submit">Search</button>
                                 </form>
-                                <form action="/The-Ordinary/admin/stock/sort" method="get" class="form-sort-order">
-                                    <input type="text" hidden name="page" value="Products">
+                                <form class="form-sort-order">
                                     <select style="height: 100%;" name="sort">
                                         <option value="" disabled selected>Select Sort</option>
                                         <?php foreach($list_filter_sort as $sort):?>
@@ -172,7 +170,7 @@ $list_filter = [
                                     </select>
                                 </form>
                                 <script>
-                                document.querySelectorAll('.form-sort-order select')
+                                document.querySelectorAll('.form-sort-stock select')
                                     .forEach(
                                         function (checkbox) {
                                             checkbox.addEventListener('change', function () {
@@ -194,22 +192,39 @@ $list_filter = [
                                         <th>MFG</th>
                                         <th>CREATE AT</th>
                                     </tr>
-                                    <?php foreach($store as $item):?>
-                                    <tr 
-                                    style="<?= isset($_GET['view']) && $_GET['view'] === $item['ID_San_Pham'] ? "background-color:var(--graynhe)":""?>"
-                                    id="<?= $item['ID_San_Pham']?>"> 
-                                        <td><?= $item['ID_San_Pham']?></td>
-                                        <td><?= $item['Gia_Nhap']?></td>
-                                        <td><?= $item['SL']?></td>
-                                        <td><?= $item['Don_Vi_Cung_Cap']?></td>
-                                        <td><?= $item['NSX']?></td>
-                                        <td><?= $item['HSD']?></td>
-                                        <td><?=$item["Ngay_Tao"]?></td>
-                                    </tr>
-                                    <?php endforeach;?>
-                                    
                                 </table>
                             </div>
+
+                            <script>
+                                function renderDataTableStocks(data){
+                                    const parent = document.querySelector('.table-data-store .custom-table')
+
+                                    data.forEach((item,index)=>{
+                                        var colums = document.createElement('tr')
+                                        colums.innerHTML=`<td>${item.ID_San_Pham}</td>
+                                        <td>${item.Gia_Nhap} USD</td>
+                                        <td>${item.SL}</td>
+                                        <td>${item.Don_Vi_Cung_Cap}</td>
+                                        <td>${item.NSX}</td>
+                                        <td>${item.HSD}</td>
+                                        <td>${item.Ngay_Tao}</td>`
+                                        parent.appendChild(colums)
+                                    })
+                                }
+
+                                function getDataStocks(){
+                                    fetch("The-Ordinary/admin/stocks",{
+                                        method: "GET",
+                                        headers:{
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        }
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => renderDataTableStocks(data))
+                                }
+
+                                getDataStocks()
+                            </script>
                             
                             <!-------------- PRODUCT TABLE -------------->
                             <!-------------- PRODUCT TABLE -------------->
@@ -231,59 +246,99 @@ $list_filter = [
                                 });
                             </script>
                             <div style="display: flex;" id="product" class="feature-product-table">
-                                <form method="get" class="form-search">
-                                    <input type="text" hidden name="page" value="Products">
+                                <div class="form-search">
                                     <div id="search" class="search">
                                         <i class='fa-solid fa-magnifying-glass'></i>
-                                        <input value="<?= isset($_GET['search'])?$_GET['search']:''?>" name="search" type="text">
+                                        <input oninput="searchProduct()" class="input-search-product" name="search" type="text">
                                     </div>
-                                    <button class="btn-search" type="submit">Search</button>
-                                </form>
-                                <form method="get" class="form-sort-product">
-                                    <input type="text" hidden name="page" value="Products">
-                                    <select style="height: 100%;" name="sort">
+                                </div>
+                                <div class="form-sort-product">
+                                    <select onchange="sortProduct()" style="height: 100%;" name="sort">
                                         <option value="" disabled selected>Select Sort</option>
                                         <?php foreach($list_filter_sort as $sort):?>
                                             <option <?= isset($_GET['sort']) && $_GET['sort'] === $sort ? 'selected' :''?> value="<?= $sort?>"><?= $sort?></option>
                                         <?php endforeach;?>
                                     </select>
-                                </form>
-                                <script>
-                                document.querySelectorAll('.form-sort-product select')
-                                    .forEach(
-                                        function (checkbox) {
-                                            checkbox.addEventListener('change', function () {
-                                                document.querySelector('.form-sort-product').submit();
-    
-                                            });
-    
-                                        });
-                                </script>
+                                </div>
                             </div>
                             <div style="display: block;" class="table-data-products">
                                 <table class="custom-table">
-                                    <tr>
+                                    
+                                </table>
+                            </div>
+
+                            <script>
+                                function renderDataTableProducts(data){
+                                    const parent = document.querySelector('.table-data-products .custom-table')
+                                    parent.innerHTML=""
+                                    parent.innerHTML=`<tr>
                                         <th>ID</th>
                                         <th>NAME</th>
                                         <th>QUANTITY</th>
                                         <th>PRICE</th>
                                         <th>FORMAT</th>
                                         
-                                    </tr>
-                                    <?php foreach($products as $item): ?>
-                                        <tr 
-                                        style="<?= isset($_GET['view']) && $_GET['view'] === $item['ID_San_Pham'] ? "background-color:var(--graynhe)":""?>" 
-                                        id="<?=$item['ID_San_Pham']?>" 
-                                        onclick="window.location.href='/The-Ordinary/admin?page=Products&view=<?=$item['ID_San_Pham']?>#<?=$item['ID_San_Pham']?>'">
-                                            <td><?= $item["ID_San_Pham"]?></td>
-                                            <td><?= $item["Ten_SP"]?></td>
-                                            <td><?= $item["SL"]?></td>
-                                            <td><?=number_format($item["Gia"],2)?> USD</td>
-                                            <td><?=$item["Format"]?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </table>
-                            </div>
+                                    </tr>`
+
+                                    data.forEach((item,index)=>{
+                                        var colums = document.createElement('tr')
+                                        colums.addEventListener('click',function(){
+                                            getDataDetailProduct(item.ID_San_Pham)
+                                        })
+                                        colums.innerHTML=`<td>${item.ID_San_Pham}</td>
+                                        <td>${item.Ten_SP}</td>
+                                        <td>${item.SL}</td>
+                                        <td>${item.Gia} USD</td>
+                                        <td>${item.Format}</td>`
+                                        parent.appendChild(colums)
+                                    })
+                                }
+
+                                function getDataProducts(){
+                                    fetch("The-Ordinary/admin/products",{
+                                        method: "GET",
+                                        headers:{
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        }
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => renderDataTableProducts(data))
+                                }
+
+                                function searchProduct(){
+                                    var keyword = document.querySelector('.input-search-product').value
+                                    console.log(keyword)
+
+                                    fetch("/The-Ordinary/product/search", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ keyword })
+                                    })
+                                    .then(res => res.json())
+                                    .then(result => renderDataTableProducts(result))
+                                }
+
+                                function sortProduct(e){
+                                    var sort = document.querySelector('.form-sort-product select').value
+                                    console.log(sort)
+
+                                    fetch("/The-Ordinary/product/sort", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ sort })
+                                    })
+                                    .then(res => res.json())
+                                    .then(result => renderDataTableProducts(result))
+                                }
+
+                                getDataProducts()
+
+                                                       
+                            </script>
                             
                             <!-------------- INFORMATION -------------->
                             <!-------------- INFORMATION -------------->
@@ -291,74 +346,90 @@ $list_filter = [
                             
                             <div class="info-detail">
                                 <h2 class="info-detail-title">INFORMATION</h2>
-                                <?php if (isset($_GET['view'])):?>
                                 <form action="/The-Ordinary/admin/products" method="post" class="form-product-detail" onsubmit="return confirmUpdateSubmit()">
-                                    <div hidden class="form-group">
+                                    
+                                </form>
+                            </div>
+
+                            <script>
+                                function renderDataDetailProduct(data){
+                                    const parent = document.querySelector('.form-product-detail')
+                                    console.log(parent)
+                                    const typeSkin = ['All Skin Types','Dry Skin','Oily Skin']
+                                    const format = ['Serum','Cream','Gel','Liquid','Oil','Powder','Balm','Masque','Suspension',]
+                                    
+
+                                    parent.innerHTML = `<div hidden class="form-group">
                                         <span>Id</span>
-                                        <input readonly name="id_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['ID_San_Pham'] :""?>">
+                                        <input readonly name="id_product" type="text" value="${data[0].ID_San_Pham}">
                                     </div>
                                     <div class="form-group">
                                         <span>Name</span>
-                                        <input name="name_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['Ten_SP'] :""?>">
+                                        <input name="name_product" type="text" value="${data[0].Ten_SP}">
                                     </div>
                                     <div class="form-group">
                                         <span>Price</span>
-                                        <input name="price_product" type="text" value="<?= isset($_GET['view']) ? number_format($product[0]['Gia'],2) :""?>">
+                                        <input name="price_product" type="text" value="${data[0].Gia}">
                                     </div>
                                    
                                     <div class="form-group">
                                         <span>Quantity</span>
-                                        <input name="quantity_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['SL'] :""?>">
+                                        <input name="quantity_product" type="text" value="${data[0].SL}">
                                     </div>
                                     <div class="form-group">
                                         <span>Size</span>
-                                        <input name="size_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['Dung_Tich'] :""?>">
+                                        <input name="size_product" type="text" value="${data[0].Dung_Tich}">
                                     </div>
                                     <div class="form-group">
                                         <span>Targets</span>
-                                        <input name="targets_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['Targets'] :""?>">
+                                        <input name="targets_product" type="text" value="${data[0].Targets}">
                                     </div>
                                     <div class="form-group">
                                         <span>Key ingredients</span>
-                                        <input name="ingredients_product" type="text" value="<?= isset($_GET['view']) ? $product[0]['Key_ingredients'] :""?>">
+                                        <input name="ingredients_product" type="text" value="${data[0].Key_ingredients}">
                                     </div>
                                     <div class="form-group">
                                         <span>Suited to</span>
                                         <select name="suited_product">
                                             <option disabled value="" >Select Suited</option>
-                                            <?php foreach ($list_suited_to as $suited): ?>
-                                            <option value="<?=$suited?>" <?=isset($_GET['view'])&&trim($suited) === trim($product[0]['Suited_to']) ? 'selected':''?>><?=$suited?></option>
-                                            <?php endforeach; ?>
+                                            ${typeSkin.map(item => `<option value="${item}" ${item === data[0].Suited_to ? `selected`:``}>${item}</option>`).join("")}
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <span>Category</span>
                                         <select name="format_product">
                                             <option disabled value="" >Select Category</option>
-                                            <?php foreach ($list_filter_format as $format): ?>
-                                            <option value="<?=$format?>" <?= isset($_GET['view'])&&$format === $product[0]['Format'] ? 'selected':''?>><?=$format?></option>
-                                            <?php endforeach; ?>
+                                            ${format.map(item => `<option value="${item}" ${item === data[0].Format ? `selected`:``}>${item}</option>`).join("")}
                                         </select>
                                     </div>
                                     <div style="grid-column-start:1;grid-column-end:3;width:100%" class="form-group">
                                         <span>Description</span>
-                                        <textarea name="description_product" rows="5" cols="50"><?= isset($_GET['view']) ? $product[0]['Mo_Ta'] :""?></textarea>
+                                        <textarea name="description_product" rows="5" cols="50">${data[0].Mo_Ta}</textarea>
                                     </div>
                                     <div class="Album">
                                         <span>Album</span>
                                         <div class="list-img">
-                                        <?php foreach(explode(";",$product[0]['Hinh_Anh']) as $img):?>
-                                            <img class="list-img-item" src="<?= $img?>">
-                                        <?php endforeach; ?>
+                                            ${data[0].Hinh_Anh.split(';').map(item => `<img class="list-img-item" src="${item}">`).join("")}
                                         </div>
                                     </div>
                                     <div class="btn-group">
                                         <button type="submit" name="update" value="update">Update</button>
                                         <button type="submit" name="delete" value="delete">Delete</button>
-                                    </div>
-                                </form>
-                                <?php endif; ?>
-                            </div>
+                                    </div>`
+                                }
+
+                                function getDataDetailProduct(id){
+                                    fetch("/The-Ordinary/product", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ id })
+                                    })
+                                    .then(res => res.json())
+                                    .then(result => renderDataDetailProduct(result))
+                                }        
+                            </script>
     
                             <!-------------- CREATE -------------->
                             <!-------------- CREATE -------------->

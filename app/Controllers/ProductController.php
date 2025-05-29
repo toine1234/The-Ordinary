@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\Feedback;
 
 class ProductController {
-    public function detail() {
+    public function index() {
         session_start();
         if (isset($_GET['id'])) {
             $product = Product::getProductsById($_GET['id']);
@@ -30,6 +30,22 @@ class ProductController {
         $keyword = isset($_POST['keyword']) ? $_POST['keyword'] :'';
         
         $data = Product::SearchProduct($keyword);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    public function sort(){
+        $sort = isset($_POST['sort']) ? $_POST['sort'] :'';
+
+        $data = Product::Sort($sort);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    public function getDetailProduct(){
+        $id = isset($_POST['id']) ? $_POST['id'] :0;
+
+        $data = Product::getProductsById($id);
         header('Content-Type: application/json');
         echo json_encode($data);
     }

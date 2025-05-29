@@ -9,8 +9,10 @@ function defineRoutes($router)
     $router->get('/shop', [App\Controllers\ShopController::class, 'index']);
 
     // Product Detail Route // 
-    $router->get('/product', [App\Controllers\ProductController::class, 'detail']);
-    $router->post('/product', [App\Controllers\ProductController::class,'search']);
+    $router->get('/product', [App\Controllers\ProductController::class, 'index']);
+    $router->post('/product', [App\Controllers\ProductController::class,'getDetailProduct']);
+    $router->post('/product/search', [App\Controllers\ProductController::class,'search']);
+    $router->post('/product/sort', [App\Controllers\ProductController::class,'sort']);
 
     // Auth Routes //
     $router->get('/login', [App\Controllers\AuthController::class, 'showLogin']);
@@ -51,6 +53,8 @@ function defineRoutes($router)
 
     // Admin Routes //
     $router->get('/admin',[App\Controllers\AdminController::class,'index']);
+    $router->get('/admin/stocks',[App\Controllers\AdminController::class,'getStocks']);
+    $router->get('/admin/products', [App\Controllers\AdminController::class,'getProducts']);
     $router->post('/admin/products',[App\Controllers\AdminController::class,'CRUD_Products']);
     $router->post('/admin/orders',[App\Controllers\AdminController::class,'CRUD_Orders']);
     $router->post('/admin/users/status',[App\Controllers\AdminController::class,'ManageSatusAccount']);
