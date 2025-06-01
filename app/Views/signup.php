@@ -14,19 +14,15 @@
         <form method="post">
             <input class="signup-input" type="text" name="name" placeholder="Full name" >
             <input class="signup-input" type="text" name="phone" placeholder="Phone" >
-            <p class="message-error"><?= isset($_SESSION['Validations']['phone']) ? $_SESSION['Validations']['phone'] : "" ?></p>
             <input class="signup-input" type="email" name="email" placeholder="Email" required>
-            <p class="message-error"><?= isset($_SESSION['Validations']['email']) ? $_SESSION['Validations']['email'] : "" ?></p>
             <div class="input-group">
                 <input type="password" name="password" placeholder="Password" required>
                 <i class="fa-regular fa-eye-slash"></i>
             </div>
-            <p class="message-error"><?= isset($_SESSION['Validations']['Pass']) ? $_SESSION['Validations']['Pass'] : "" ?></p>
             <div class="input-group">
                 <input type="password" name="confirm-password" placeholder="Confirm Password" required>
                 <i class="fa-regular fa-eye-slash"></i>
             </div>
-            <p class="message-error"><?= isset($_SESSION['Validations']['comfirmPass']) ? $_SESSION['Validations']['comfirmPass'] : "" ?></p>
             <div class="options">
                 <label><input type="checkbox" />Keep me updated</label>
             </div>

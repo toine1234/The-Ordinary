@@ -92,7 +92,7 @@ class Product
                  LIMIT $offset,$limit ";
         }
 
-        $stmt = $db->prepare($query);
+        $stmt = $db->prepare($query);   
         $stmt->execute($types);
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return [
@@ -110,8 +110,8 @@ class Product
         $query = "SELECT *,
         IFNULL(AVG(d.rating),0) as overall, 
         IFNULL(COUNT(d.rating),0) as reviews
-         FROM san_pham s"
-        ;
+        FROM san_pham s";
+        
         if (!empty($cate)) {
             $placeholders = implode(',', array_fill(0, count($cate), '?'));
             $query .= " LEFT JOIN danh_gia d ON d.ID_San_Pham = s.ID_San_Pham 
