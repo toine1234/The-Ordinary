@@ -27,7 +27,7 @@ class AdminController
             ];
             exit;
         }
-
+        $products = Product::getAllProducts();
         $orders = Order::getAllOrder();
         $users = Users::getAllUsers();
         $accounts = Account::getAllAccount();
@@ -75,9 +75,12 @@ class AdminController
     }
 
     public function getProducts(){
-        $products = Product::getAllProducts();
+        $page = $_POST['navigation'];
+        $products = Product::getAllProductLimit($page)['result'];
+        $total_page = Product::getAllProductLimit($page)['total_page'];
+        
         header('Content-Type: application/json');
-        echo json_encode($products);
+        echo json_encode([$products,$total_page]);
     }
 
     public function CRUD_Products()
