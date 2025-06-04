@@ -42,6 +42,15 @@ class ProductController {
         echo json_encode($data);
     }
 
+    public function category(){
+        $cate[] = isset($_POST['cate']) ? $_POST['cate'] :'';
+
+        $data = Product::getProductCategory($cate,1)['result'];
+        $total_page = Product::getProductCategory($cate,1)['total_page'];
+        header('Content-Type: application/json');
+        echo json_encode([$data,$total_page]);
+    }
+
     public function getDetailProduct(){
         $id = isset($_POST['id']) ? $_POST['id'] :0;
 

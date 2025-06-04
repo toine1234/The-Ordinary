@@ -25,7 +25,7 @@ class UserController
         if ($jwt_decode->Role === 'admin') {
             session_start();
             $user = Users::getUserById($jwt_decode->ID);
-            header('Location: /The-Ordinary/admin?page=Products');
+            header('Location: /The-Ordinary/admin?page=dashboards');
             exit;
         }
         session_start();

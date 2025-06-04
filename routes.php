@@ -13,6 +13,7 @@ function defineRoutes($router)
     $router->post('/product', [App\Controllers\ProductController::class,'getDetailProduct']);
     $router->post('/product/search', [App\Controllers\ProductController::class,'search']);
     $router->post('/product/sort', [App\Controllers\ProductController::class,'sort']);
+    $router->post('/product/category',[App\Controllers\ProductController::class,'category']);
 
     // Auth Routes //
     $router->get('/login', [App\Controllers\AuthController::class, 'showLogin']);
@@ -55,7 +56,7 @@ function defineRoutes($router)
     $router->get('/admin',[App\Controllers\AdminController::class,'index']);
     $router->get('/admin/stocks',[App\Controllers\AdminController::class,'getStocks']);
     $router->post('/admin/products', [App\Controllers\AdminController::class,'getProducts']);
-    $router->post('/admin/products',[App\Controllers\AdminController::class,'CRUD_Products']);
+    $router->post('/admin/product',[App\Controllers\AdminController::class,'CRUD_Products']);
     $router->post('/admin/orders',[App\Controllers\AdminController::class,'CRUD_Orders']);
     $router->post('/admin/users/status',[App\Controllers\AdminController::class,'ManageSatusAccount']);
     $router->post('/admin/users/sendmail',[App\Controllers\AdminController::class,'sendMail']);

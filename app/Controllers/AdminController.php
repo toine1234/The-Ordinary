@@ -140,7 +140,7 @@ class AdminController
 
             try {
                 Product::Create($data);
-                header('Location: /The-Ordinary/admin?page=Products');
+                header('Location: /The-Ordinary/admin?page=products');
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -158,7 +158,7 @@ class AdminController
         }
 
         if (isset($_POST['delete']) && $_POST['delete'] === 'delete') {
-
+            
             $id = $_POST['id_product'];
 
             try {

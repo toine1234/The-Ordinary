@@ -80,6 +80,7 @@ $list_filter = [
 
 <body>
     <div class="flex h-screen bg-gray-50">
+
         <!-- Sidebar -->
         <div id="sidebar"
             class="sidebar bg-gradient-to-b from-purple-700 to-pink-500 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 z-50 transition duration-200 ease-in-out">
@@ -142,7 +143,14 @@ $list_filter = [
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
+        <div class="flex-1 relative flex flex-col overflow-hidden">
+            <?php if (isset($_SESSION['flash'])): ?>
+                <div class="absolute z-99 w-full h-10 <?= $_SESSION['flash']['type'] ?>">
+                    <?= $_SESSION['flash']['message'] ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['flash']); ?>
+            <?php endif; ?>
             <!-- Top Header -->
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between p-4">
@@ -250,6 +258,82 @@ $list_filter = [
                                 <div class="h-80">
                                     <canvas id="revenueChart"></canvas>
                                 </div>
+                                <script>
+                                    const ctx = document.getElementById('revenueChart').getContext('2d');
+                                    const gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
+                                    gradient1.addColorStop(0, 'rgb(144, 224, 239)');
+                                    gradient1.addColorStop(1, 'rgba(202, 240, 248, 0)');
+                                    const gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
+                                    gradient2.addColorStop(0, 'rgb(199, 125, 255)');
+                                    gradient2.addColorStop(1, 'rgba(224, 170, 255, 0)');
+                                    const chart = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels: <?= json_encode(array_column($monthlyData, 'month')) ?>,
+                                            datasets: [
+                                                {
+                                                    label: 'Revenue (USD)',
+                                                    fill: true,
+                                                    backgroundColor: gradient1,
+                                                    tension: 0.4, // đường cong mượt
+                                                    pointRadius: 0, // ẩn chấm tròn
+                                                    borderWidth: 2,
+                                                    borderColor: 'rgb(0, 180, 216)',
+                                                    data: <?= json_encode(array_map(fn($r) => round($r['revenue'], 0), $monthlyData)) ?>
+                                                },
+                                                {
+                                                    label: 'Profit (USD)',
+                                                    fill: true,
+                                                    backgroundColor: gradient2,
+                                                    tension: 0.4, // đường cong mượt
+                                                    pointRadius: 0, // ẩn chấm tròn
+                                                    borderWidth: 2,
+                                                    borderColor: 'rgb(199, 125, 255)',
+                                                    data: <?= json_encode(array_map(fn($r) => round($r['profit'], 0), $monthlyData)) ?>
+                                                }
+                                            ]
+                                        },
+                                        options: {
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                legend: {
+                                                    position: 'top',
+                                                    labels: {
+                                                        usePointStyle: true,
+                                                        pointStyle: 'circle',
+                                                        padding: 20,
+                                                        generateLabels(chart) {
+                                                            return chart.data.datasets.map((dataset, i) => ({
+                                                                text: dataset.label,
+                                                                fillStyle: dataset.backgroundColor,
+                                                                hidden: !chart.isDatasetVisible(i),
+                                                                strokeStyle: 'transparent',
+                                                                index: i,
+                                                                pointStyle: 'circle'
+                                                            }));
+                                                        }
+
+                                                    }
+                                                }
+                                            },
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true,
+                                                    grid: {
+                                                        drawBorder: false
+                                                    }
+                                                },
+                                                x: {
+                                                    grid: {
+                                                        drawBorder: false,
+                                                    },
+
+                                                }
+                                            }
+                                        }
+                                    });
+                                </script>
                             </div>
 
                             <div class="bg-white p-6 rounded-xl shadow-sm">
@@ -264,8 +348,74 @@ $list_filter = [
                                     </div>
                                 </div>
                                 <div class="h-80">
-                                    <canvas id="categoryChart"></canvas>
+                                    <canvas id="bestseller"></canvas>
                                 </div>
+                                <script>
+                                    const ctx2 = document.getElementById('bestseller').getContext('2d');
+                                    const gradient3 = ctx2.createLinearGradient(0, 0, 0, 400);
+                                    gradient3.addColorStop(0, 'rgb(0, 180, 216)');
+                                    gradient3.addColorStop(1, 'rgb(199, 125, 255)');
+                                    const chart2 = new Chart(ctx2, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: <?= json_encode(array_column($bestseller, 'Ten_SP')) ?>,
+                                            datasets: [
+                                                {
+                                                    label: 'Top 5 bestseller',
+                                                    fill: true,
+                                                    backgroundColor: gradient3,
+                                                    pointRadius: 0,
+                                                    data: <?= json_encode(array_map(fn($r) => round($r['sold'], 0), $bestseller)) ?>
+                                                },
+                                            ]
+                                        },
+                                        options: {
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                legend: {
+                                                    position: 'top',
+                                                    labels: {
+                                                        usePointStyle: true,
+                                                        pointStyle: 'circle',
+                                                        padding: 20,
+                                                        generateLabels(chart) {
+                                                            return chart.data.datasets.map((dataset, i) => ({
+                                                                text: dataset.label,
+                                                                fillStyle: dataset.backgroundColor,
+                                                                hidden: !chart.isDatasetVisible(i),
+                                                                strokeStyle: 'transparent',
+                                                                index: i,
+                                                                pointStyle: 'circle'
+                                                            }));
+                                                        }
+
+                                                    }
+                                                }
+                                            },
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true,
+                                                    grid: {
+                                                        drawBorder: false
+                                                    }
+                                                },
+                                                x: {
+                                                    ticks: {
+                                                        callback: function (value) {
+                                                            let label = this.getLabelForValue(value);
+                                                            return label.length > 15 ? label.substring(0, 12) + '...' : label;
+                                                        }
+                                                    },
+                                                    grid: {
+                                                        drawBorder: false,
+                                                    },
+
+                                                }
+                                            }
+                                        }
+                                    });
+                                </script>
                             </div>
                         </div>
 
@@ -335,13 +485,20 @@ $list_filter = [
 
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'products'): ?>
                     <div id="products-section" class="space-y-6">
-                        <div class="flex justify-between items-center">
+                        <div class="create-btn flex justify-between items-center">
                             <h2 class="text-xl font-semibold text-gray-800">Products management</h2>
-                            <button
-                                class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center">
+                            <button onclick="displayCreate()"
+                                class=" bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center">
                                 <i class="fas fa-plus mr-2"></i> Add
                             </button>
                         </div>
+
+                        <script>
+                            function displayCreate() {
+                                var element = document.querySelector('.create-product')
+                                element.style.display = element.style.display === 'none' ? 'flex' : 'none'
+                            }
+                        </script>
 
                         <div class="bg-white p-6 rounded-xl shadow-sm">
                             <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-3 md:space-y-0">
@@ -351,9 +508,9 @@ $list_filter = [
                                             class="input-search-product py-2 pl-10 pr-4 w-64 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                                         <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                                     </div>
-                                    <select 
-                                        class=" border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                        <option>All</option>
+                                    <select onchange="categoryFilter()"
+                                        class="filter-product border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option value="all">All</option>
                                         <?php foreach ($list_category as $value => $item): ?>
                                             <option value="<?= $value + 1 ?>"><?= $item ?></option>
                                         <?php endforeach; ?>
@@ -378,7 +535,7 @@ $list_filter = [
 
                             <div class="overflow-x-auto">
                                 <table class="table-products min-w-full divide-y divide-gray-200">
-                                    
+
                                 </table>
                             </div>
 
@@ -428,12 +585,12 @@ $list_filter = [
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.Gia} USD</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.SL}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">${item.SL == 0 ? 'Sold out' : 'In stock'}</span>
+                                                <span class="px-3 py-1 text-xs rounded-full ${item.SL == 0 ? 'bg-orange-100 text-orange-400' : 'bg-green-100 text-green-800'}">${item.SL == 0 ? 'Sold out' : 'In stock'}</span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <button class="text-blue-600 hover:text-blue-900 mr-3"><i
                                                         class="fas fa-edit"></i></button>
-                                                <button class="text-red-600 hover:text-red-900"><i
+                                                <button onclick="deleteProduct(${item.ID_San_Pham})" class="cursor-pointer text-red-600 hover:text-red-900"><i
                                                         class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>`
@@ -459,7 +616,7 @@ $list_filter = [
 
                                 }
 
-                                function searchProduct(){
+                                function searchProduct() {
                                     var keyword = document.querySelector('.input-search-product').value
                                     console.log(keyword)
 
@@ -470,11 +627,11 @@ $list_filter = [
                                         },
                                         body: new URLSearchParams({ keyword })
                                     })
-                                    .then(res => res.json())
-                                    .then(result => renderDataTableProducts(result))
+                                        .then(res => res.json())
+                                        .then(result => renderDataTableProducts(result))
                                 }
 
-                                function sortProduct(){
+                                function sortProduct() {
                                     var sort = document.querySelector('.sort-product').value
                                     console.log(sort)
 
@@ -485,8 +642,43 @@ $list_filter = [
                                         },
                                         body: new URLSearchParams({ sort })
                                     })
-                                    .then(res => res.json())
-                                    .then(result => renderDataTableProducts(result))
+                                        .then(res => res.json())
+                                        .then(result => renderDataTableProducts(result))
+                                }
+
+                                function categoryFilter() {
+                                    var cate = document.querySelector('.filter-product').value
+                                    console.log(cate)
+
+                                    if (cate == 'all') {
+                                        getDataProducts(1)
+                                        return
+                                    }
+
+                                    fetch("/The-Ordinary/product/category", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ cate })
+                                    })
+                                        .then(res => res.json())
+                                        .then(result => {
+                                            renderDataTableProducts(result[0])
+                                            renderNavigation(result[1])
+                                        })
+                                }
+
+                                function deleteProduct(id_product) {
+
+                                    fetch("/The-Ordinary/admin/product", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ id_product, 'delete': 'delete' })
+                                    })
+                                        .then(getDataProducts(1))
                                 }
 
                                 function getDataProducts(navigation) {
@@ -495,7 +687,7 @@ $list_filter = [
                                         headers: {
                                             "Content-Type": "application/x-www-form-urlencoded"
                                         },
-                                        body: new URLSearchParams({navigation})
+                                        body: new URLSearchParams({ navigation })
                                     })
                                         .then(res => res.json())
                                         .then(data => {
@@ -1110,6 +1302,150 @@ $list_filter = [
                     </div>
                 <?php endif; ?>
             </main>
+            <div style="display: none;"
+                class="create-product fixed flex items-center justify-center top-0 z-999 w-[84%] h-full bg-black/20">
+                <div class="container relative overflow-y-scroll h-150 p-6 w-300 bg-white rounded-xl">
+                    <form action="/The-Ordinary/admin/product" method="post" enctype="multipart/form-data"
+                        class="w-full relative" onsubmit="return confirmCreatSubmit()">
+                        <h3 class="font-bold">Create stock</h3>
+                        <div class="w-[50%] grid grid-cols-2 gap-2">
+                            <div class="mt-3">
+                                <span>Price Import</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="price_store" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>Quantity</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_store" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>Brand Producer</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="producer_store" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>EXP</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="exp_store" type="date">
+                            </div>
+                            <div class="mt-3">
+                                <span>MFG</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="mfg_store" type="date">
+                            </div>
+                        </div>
+                        <h3 class="mt-3 font-bold">Create Product</h3>
+                        <div class="w-[50%] grid grid-cols-2 gap-2">
+                            <div class="mt-3">
+                                <span>Name</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="name_product" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>Price</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="price_product" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>Quantity</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>Size</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="size_product" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>Targets</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="targets_product" type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>Key ingredients</span>
+                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="ingredients_product"
+                                    type="text">
+                            </div>
+                            <div class="mt-3">
+                                <span>Suited to</span>
+                                <select class="w-full mt-2 ring-1 ring-gray-200 p-2" name="suited_product">
+                                    <option disabled selected value="">Select Suited</option>
+                                    <?php foreach ($list_suited_to as $suited): ?>
+                                        <option><?= $suited ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="mt-3">
+                                <span>Category</span>
+                                <select class="w-full mt-2 ring-1 ring-gray-200 p-2" name="format_product">
+                                    <option disabled selected value="">Select Category</option>
+                                    <?php foreach ($list_filter_format as $format): ?>
+                                        <option value="<?= $format ?>"><?= $format ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="mt-3">
+                                <span>Description</span>
+                                <textarea class="w-full mt-2 ring-1 ring-gray-200 p-2" name="description_product"
+                                    rows="5" cols="50"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="Album">
+                            <span>Album</span>
+                            <div class="dropzone" id="dropzone">
+                                <p>Drag drop image in here</p>
+                            </div>
+                            <input type="file" name="images[]" id="fileInput" multiple style="display:none">
+                            <div class="preview" id="preview"></div>
+
+                            <script>
+                                const dropzone = document.getElementById('dropzone');
+                                const fileInput = document.getElementById('fileInput');
+                                const preview = document.getElementById('preview');
+
+                                dropzone.addEventListener('click', () => fileInput.click());
+
+                                dropzone.addEventListener('dragover', (e) => {
+                                    e.preventDefault();
+                                    dropzone.classList.add('dragover');
+                                });
+
+                                dropzone.addEventListener('dragleave', () => {
+                                    dropzone.classList.remove('dragover');
+                                });
+
+                                dropzone.addEventListener('drop', (e) => {
+                                    e.preventDefault();
+                                    dropzone.classList.remove('dragover');
+                                    fileInput.files = e.dataTransfer.files;
+                                    showPreview(fileInput.files);
+                                });
+
+                                fileInput.addEventListener('change', () => {
+                                    showPreview(fileInput.files);
+                                });
+
+                                function showPreview(files) {
+                                    preview.innerHTML = "";
+                                    for (let i = 0; i < files.length; i++) {
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => {
+                                            const img = document.createElement("img");
+                                            img.src = e.target.result;
+                                            preview.appendChild(img);
+                                        };
+                                        reader.readAsDataURL(files[i]);
+                                    }
+                                }
+                            </script>
+                        </div>
+                        <div class="bg-purple-500 w-70 mt-2 p-4">
+                            <button class="text-center w-full text-white text-bold" type="submit" name="create"
+                                value="create">Create</button>
+                        </div>
+                        <div class="border border-black w-70 mt-2 p-4">
+                            <button onclick="displayCreate()" type="button"
+                                class="create-btn text-center text-black w-full text-bold" type="submit" name="create"
+                                value="create">Cancle</button>
+                        </div>
+                    </form>
+
+
+
+                </div>
+            </div>
         </div>
     </div>
     <script>
