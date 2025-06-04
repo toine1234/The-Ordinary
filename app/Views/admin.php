@@ -143,7 +143,7 @@ $list_filter = [
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 relative flex flex-col overflow-hidden">
+        <div class="main-content flex-1 relative flex flex-col overflow-hidden">
             <?php if (isset($_SESSION['flash'])): ?>
                 <div class="absolute z-99 w-full h-10 <?= $_SESSION['flash']['type'] ?>">
                     <?= $_SESSION['flash']['message'] ?>
@@ -493,12 +493,7 @@ $list_filter = [
                             </button>
                         </div>
 
-                        <script>
-                            function displayCreate() {
-                                var element = document.querySelector('.create-product')
-                                element.style.display = element.style.display === 'none' ? 'flex' : 'none'
-                            }
-                        </script>
+
 
                         <div class="bg-white p-6 rounded-xl shadow-sm">
                             <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-3 md:space-y-0">
@@ -569,7 +564,7 @@ $list_filter = [
                                     var tr = ""
                                     console.log(data)
                                     data.forEach((item, index) => {
-                                        tr += `<tr class="table-row" onclick="getDataDetailProduct(${item.ID_San_Pham})">
+                                        tr += `<tr class="table-row">
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
                                                     <img src="${item.Hinh_Anh.split(';')[0]}"
@@ -588,7 +583,7 @@ $list_filter = [
                                                 <span class="px-3 py-1 text-xs rounded-full ${item.SL == 0 ? 'bg-orange-100 text-orange-400' : 'bg-green-100 text-green-800'}">${item.SL == 0 ? 'Sold out' : 'In stock'}</span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3"><i
+                                                <button onclick="getDataProductById(${item.ID_San_Pham})" class="text-blue-600 hover:text-blue-900 mr-3"><i
                                                         class="fas fa-edit"></i></button>
                                                 <button onclick="deleteProduct(${item.ID_San_Pham})" class="cursor-pointer text-red-600 hover:text-red-900"><i
                                                         class="fas fa-trash"></i></button>
@@ -669,6 +664,91 @@ $list_filter = [
                                         })
                                 }
 
+                                function renderUpdateProduct(data) {
+                                    const typeSkin = ['All Skin Types', 'Dry Skin', 'Oily Skin']
+                                    const format = ['Serum', 'Cream', 'Gel', 'Liquid', 'Oil', 'Powder', 'Balm', 'Masque', 'Suspension']
+                                    const main = document.querySelector('.main-content')
+                                    var child = document.createElement('div')
+                                    child.classList.add("update-product", "fixed", "flex", "items-center", "justify-center", "top-0", "z-999", "w-[84%]", "h-full", "bg-black/20")
+
+                                    child.innerHTML = `<div class="container relative overflow-y-scroll h-150 p-6 w-200 bg-white rounded-xl">
+                                    <form action="/The-Ordinary/admin/product" method="post" enctype="multipart/form-data"
+                                        class="w-full relative" onsubmit="return confirmUpdateSubmit()">
+                                        <input hidden name="id_product" value="${data[0].ID_San_Pham}">
+                                        <h3 class="mt-3 font-bold">Create Product</h3>
+                                        <div class="w-[50%] grid grid-cols-2 gap-2">
+                                            <div class="mt-3">
+                                                <span>Name</span>
+                                                <input value="${data[0].Ten_SP}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="name_product" type="text">
+                                            </div>
+                                            <div class="mt-3">
+                                                <span>Price</span>
+                                                <input value="${data[0].Gia}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="price_product" type="text">
+                                            </div>
+                                            <div class="mt-3">
+                                                <span>Quantity</span>
+                                                <input ${data[0].SL == 0 ? '' :'disabled readonly'} value="${data[0].SL}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
+                                            </div>
+                                            <div class="mt-3">
+                                                <span>Size</span>
+                                                <input value="${data[0].Dung_Tich}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="size_product" type="text">
+                                            </div>
+                                            <div class="mt-3">
+                                                <span>Targets</span>
+                                                <input value="${data[0].Targets}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="targets_product" type="text">
+                                            </div>
+                                            <div class="mt-3">
+                                                <span>Key ingredients</span>
+                                                <input value="${data[0].Key_ingredients}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="ingredients_product"
+                                                    type="text">
+                                            </div>
+                                            <div class="mt-3">
+                                                <span>Suited to</span>
+                                                <select class="w-full mt-2 ring-1 ring-gray-200 p-2" name="suited_product">
+                                                    <option disabled selected value="">Select Suited</option>
+                                                    ${typeSkin.map(item => `<option value="${item}" ${item === data[0].Suited_to ? `selected` : ``}>${item}</option>`).join("")}
+                                                </select>
+                                            </div>
+                                            <div class="mt-3">
+                                                <span>Category</span>
+                                                <select class="w-full mt-2 ring-1 ring-gray-200 p-2" name="format_product">
+                                                    <option disabled selected value="">Select Category</option>
+                                                    ${format.map(item => `<option value="${item}" ${item === data[0].Format ? `selected` : ``}>${item}</option>`).join("")}
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="mt-3 w-[50%]">
+                                            <span>Description</span>
+                                            <textarea class="w-full mt-2 ring-1 ring-gray-200 p-2" name="description_product" rows="3"
+                                                cols="1">${data[0].Mo_Ta}</textarea>
+                                        </div>
+
+                                        <div class="Album">
+                                            <span>Album</span>
+                                            <div class="dropzone" id="dropzone">
+                                                <p>Drag drop image in here</p>
+                                            </div>
+                                            <input type="file" name="images[]" id="fileInput" multiple style="display:none">
+                                            <div class="preview" id="preview">
+                                                <div class="list-img">${data[0].Hinh_Anh.split(';').map(item => `<img class="list-img-item" src="${item}">`).join("")}</div>
+                                            </div>
+                                    </div>
+                                    <div class="bg-purple-500 w-[50%] mt-2 p-4">
+                                        <button class="text-center w-full text-white text-bold" type="submit" name="update"
+                                            value="update">Update</button>
+                                    </div>
+                                    <div class="border border-black w-[50%] mt-2 p-4">
+                                        <button onclick="displayUpdate()" type="button"
+                                            class="create-btn text-center text-black w-full text-bold" type="submit">Cancle</button>
+                                    </div>
+                                    </form>
+                                </div>`
+
+                                    main.appendChild(child)
+                                }
+
                                 function deleteProduct(id_product) {
 
                                     fetch("/The-Ordinary/admin/product", {
@@ -697,19 +777,25 @@ $list_filter = [
 
                                 }
 
+                                function getDataProductById(id) {
+                                    fetch("The-Ordinary/product", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ id })
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => renderUpdateProduct(data))
+                                }
+
                                 getDataProducts(1)
                             </script>
 
                             <div class="flex justify-between items-center mt-6">
                                 <div class="text-sm text-gray-500">Hiển thị 1-5 của 24 sản phẩm</div>
                                 <div class="navigation flex space-x-1">
-                                    <!-- <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Trước</button>
-                                    <button class="px-3 py-1 border rounded-md bg-purple-600 text-white">1</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">2</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">3</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">4</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">5</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Sau</button> -->
+
                                 </div>
                             </div>
                         </div>
@@ -1304,7 +1390,7 @@ $list_filter = [
             </main>
             <div style="display: none;"
                 class="create-product fixed flex items-center justify-center top-0 z-999 w-[84%] h-full bg-black/20">
-                <div class="container relative overflow-y-scroll h-150 p-6 w-300 bg-white rounded-xl">
+                <div class="container relative overflow-y-scroll h-150 p-6 w-200 bg-white rounded-xl">
                     <form action="/The-Ordinary/admin/product" method="post" enctype="multipart/form-data"
                         class="w-full relative" onsubmit="return confirmCreatSubmit()">
                         <h3 class="font-bold">Create stock</h3>
@@ -1375,11 +1461,13 @@ $list_filter = [
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="mt-3">
-                                <span>Description</span>
-                                <textarea class="w-full mt-2 ring-1 ring-gray-200 p-2" name="description_product"
-                                    rows="5" cols="50"></textarea>
-                            </div>
+
+                        </div>
+
+                        <div class="mt-3 w-[50%]">
+                            <span>Description</span>
+                            <textarea class="w-full mt-2 ring-1 ring-gray-200 p-2" name="description_product" rows="3"
+                                cols="1"></textarea>
                         </div>
 
                         <div class="Album">
@@ -1389,61 +1477,17 @@ $list_filter = [
                             </div>
                             <input type="file" name="images[]" id="fileInput" multiple style="display:none">
                             <div class="preview" id="preview"></div>
-
-                            <script>
-                                const dropzone = document.getElementById('dropzone');
-                                const fileInput = document.getElementById('fileInput');
-                                const preview = document.getElementById('preview');
-
-                                dropzone.addEventListener('click', () => fileInput.click());
-
-                                dropzone.addEventListener('dragover', (e) => {
-                                    e.preventDefault();
-                                    dropzone.classList.add('dragover');
-                                });
-
-                                dropzone.addEventListener('dragleave', () => {
-                                    dropzone.classList.remove('dragover');
-                                });
-
-                                dropzone.addEventListener('drop', (e) => {
-                                    e.preventDefault();
-                                    dropzone.classList.remove('dragover');
-                                    fileInput.files = e.dataTransfer.files;
-                                    showPreview(fileInput.files);
-                                });
-
-                                fileInput.addEventListener('change', () => {
-                                    showPreview(fileInput.files);
-                                });
-
-                                function showPreview(files) {
-                                    preview.innerHTML = "";
-                                    for (let i = 0; i < files.length; i++) {
-                                        const reader = new FileReader();
-                                        reader.onload = (e) => {
-                                            const img = document.createElement("img");
-                                            img.src = e.target.result;
-                                            preview.appendChild(img);
-                                        };
-                                        reader.readAsDataURL(files[i]);
-                                    }
-                                }
-                            </script>
                         </div>
-                        <div class="bg-purple-500 w-70 mt-2 p-4">
+                        <div class="bg-purple-500 w-[50%] mt-2 p-4">
                             <button class="text-center w-full text-white text-bold" type="submit" name="create"
                                 value="create">Create</button>
                         </div>
-                        <div class="border border-black w-70 mt-2 p-4">
+                        <div class="border border-black w-[50%] mt-2 p-4">
                             <button onclick="displayCreate()" type="button"
                                 class="create-btn text-center text-black w-full text-bold" type="submit" name="create"
                                 value="create">Cancle</button>
                         </div>
                     </form>
-
-
-
                 </div>
             </div>
         </div>
@@ -1457,7 +1501,56 @@ $list_filter = [
         }
         function confirmCreatSubmit() {
             return confirm("Are you sure you want to create?");
-        }  
+        }
+
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('dragover');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('dragover');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            fileInput.files = e.dataTransfer.files;
+            showPreview(fileInput.files);
+        });
+
+        fileInput.addEventListener('change', () => {
+            showPreview(fileInput.files);
+        });
+
+        function showPreview(files) {
+            preview.innerHTML = "";
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function displayCreate() {
+            var element = document.querySelector('.create-product')
+            element.style.display = element.style.display === 'none' ? 'flex' : 'none'
+        }
+
+        function displayUpdate() {
+            var element = document.querySelector('.update-product').remove()
+            
+        }
     </script>
 
 </body>

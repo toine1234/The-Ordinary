@@ -1,90 +1,106 @@
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+::-webkit-scrollbar {
+  width: 3px; /* Chiều rộng của thanh cuộn dọc */
+  height: 8px; /* Chiều cao của thanh cuộn ngang */
+  border-radius: none;
 }
 
-.card{
-    transition:0.5s;
+::-webkit-scrollbar-track {
+  background: transparent; /* Màu nền track */
+  border-radius: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent; /* Màu nút kéo */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Hover */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  transition: 0.5s;
 }
 
 .status-delivered {
-    background-color: #e6f8f0;
-    color: #0abb87;
+  background-color: #e6f8f0;
+  color: #0abb87;
 }
 
 .status-shipped {
-    background-color: #e8f4ff;
-    color: #0095ff;
+  background-color: #e8f4ff;
+  color: #0095ff;
 }
 
 .status-pending {
-    background-color: #fff4de;
-    color: #ffa800;
+  background-color: #fff4de;
+  color: #ffa800;
 }
 
 .status-cancelled {
-    background-color: #ffe2e5;
-    color: #f64e60;
+  background-color: #ffe2e5;
+  color: #f64e60;
 }
 
 .sidebar-link.active {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-left: 4px solid #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-left: 4px solid #fff;
 }
 
 .sidebar-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.Album{
-    position: absolute;
-    right: 0px;
-    width: 400px;
-    font-weight: 600;
-    top:0;
+.Album {
+  position: absolute;
+  right: 0px;
+  width: 45%;
+  font-weight: 600;
+  top: 0;
 }
 
 .dropzone {
-    width: 100%;
-    height: 200px;
-    padding: 30px;
-    border: 2px dashed gray;
-    text-align: center;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-  }
-  .dropzone.dragover {
-    background: #eef;
-  }
-  .preview{
-      height: 400px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      margin-top: 10px;
-      
-  }
-  .preview img {
-    width: 100%;
-    margin: 5px;
-    object-fit: cover;
-  }
-
-.list-img{
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    height: 400px;
-   
+  width: 100%;
+  height: 200px;
+  padding: 30px;
+  border: 2px dashed gray;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dropzone.dragover {
+  background: #eef;
+}
+.preview {
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 10px;
+}
+.preview img {
+  width: 100%;
+  margin: 5px;
+  object-fit: cover;
 }
 
-.list-img-item{
-    width: 100%;
-    background-color: var(--greylightnhe);
+.list-img {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 400px;
 }
 
-.success{
-    
+.list-img-item {
+  width: 100%;
+  background-color: var(--greylightnhe);
+}
+
+.success {
 }

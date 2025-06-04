@@ -92,7 +92,7 @@ class AdminController
                 "name" => $_POST['name_product'],
                 "description" => $_POST['description_product'],
                 "price" => $_POST['price_product'],
-                "quantity" => $_POST['quantity_product'],
+                "quantity" => isset($_POST['quantity_product']) ? isset($_POST['quantity_product']) : 0,
                 "size" => $_POST['size_product'],
                 "targets" => $_POST['targets_product'],
                 "format" => $_POST['format_product'],

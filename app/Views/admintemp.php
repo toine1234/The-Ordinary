@@ -356,7 +356,7 @@ $list_filter = [
                                     const parent = document.querySelector('.form-product-detail')
                                     console.log(parent)
                                     const typeSkin = ['All Skin Types','Dry Skin','Oily Skin']
-                                    const format = ['Serum','Cream','Gel','Liquid','Oil','Powder','Balm','Masque','Suspension',]
+                                    const format = ['Serum','Cream','Gel','Liquid','Oil','Powder','Balm','Masque','Suspension']
                                     
 
                                     parent.innerHTML = `<div hidden class="form-group">
