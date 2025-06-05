@@ -45,13 +45,26 @@ class Order{
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public static function getAllOrder(){
+    public static function getAllOrder($page){
+        $limit = 6;
+        $offset = ($page - 1)*$limit;
         $database = new Database();
         $db = $database->getConnection();
-        $query = "SELECT * FROM don_hang";
+        $query = "SELECT COUNT(*) AS total FROM don_hang";
+        $stmt=$db->prepare($query);
+        $stmt->execute();
+        $total = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        unset($stmt);
+
+        $total_page = ceil($total[0]["total"]/$limit);
+        $query = "SELECT * FROM don_hang LIMIT $offset,$limit";
         $stmt = $db->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return [
+            "total_page" => $total_page,
+            "result" => $result
+        ];
     }
 
     public static function getAllOrderByUser($id){
@@ -114,9 +127,9 @@ class Order{
         $query = 
         'SELECT *
         FROM don_hang
-        WHERE ID_Khach_Hang LIKE ?';
+        WHERE ID_Khach_Hang LIKE ? OR ID_Don_Hang LIKE ?';
         $stmt = $db->prepare($query);
-        $stmt->execute(['%'.$id.'%']);
+        $stmt->execute(['%'.$id.'%','%'.$id.'%']);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 

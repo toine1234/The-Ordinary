@@ -28,7 +28,7 @@ class AdminController
             exit;
         }
         $products = Product::getAllProducts();
-        $orders = Order::getAllOrder();
+        $orders = Order::getAllOrder(1)['result'];
         $users = Users::getAllUsers();
         $accounts = Account::getAllAccount();
         $monthlyData = Revenue::Revenue();
@@ -81,6 +81,32 @@ class AdminController
         
         header('Content-Type: application/json');
         echo json_encode([$products,$total_page]);
+    }
+
+    public function getOrders(){
+        $page = $_POST['navigation'];
+        $orders = Order::getAllOrder($page)['result'];
+        $total_page = Order::getAllOrder($page)['total_page'];
+        
+        header('Content-Type: application/json');
+        echo json_encode([$orders,$total_page]);
+    }
+
+    public function searchOrder(){
+        $id = $_POST['id'];
+        $result = Order::SearchOrder($id);
+
+        header('Content-Type: application/json');
+        echo json_encode($result);
+
+    }
+
+    public function getOrderFilter(){
+        $status = $_POST['status'];
+        $result = Order::FilterStatus($status);
+
+        header('Content-Type: application/json');
+        echo json_encode($result);
     }
 
     public function CRUD_Products()

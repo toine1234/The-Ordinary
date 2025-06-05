@@ -486,7 +486,7 @@ $list_filter = [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'products'): ?>
                     <div id="products-section" class="space-y-6">
                         <div class="create-btn flex justify-between items-center">
-                            <h2 class="text-xl font-semibold text-gray-800">Products management</h2>
+                            <h2 class="text-xl font-semibold text-gray-800">Products Management</h2>
                             <button onclick="displayCreate()"
                                 class=" bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center">
                                 <i class="fas fa-plus mr-2"></i> Add
@@ -605,9 +605,9 @@ $list_filter = [
                                         navigation += `<button onclick="getDataProducts(${i})" class='px-3 py-1 border rounded-md bg-purple-600 text-white'>${i}</button>`
                                     }
                                     parent.innerHTML = `
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Trước</button>
+                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Previous</button>
                                 ${navigation}
-                                <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Sau</button>`
+                                <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Next</button>`
 
                                 }
 
@@ -687,7 +687,7 @@ $list_filter = [
                                             </div>
                                             <div class="mt-3">
                                                 <span>Quantity</span>
-                                                <input ${data[0].SL == 0 ? '' :'disabled readonly'} value="${data[0].SL}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
+                                                <input ${data[0].SL == 0 ? '' : 'disabled readonly'} value="${data[0].SL}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Size</span>
@@ -793,7 +793,7 @@ $list_filter = [
                             </script>
 
                             <div class="flex justify-between items-center mt-6">
-                                <div class="text-sm text-gray-500">Hiển thị 1-5 của 24 sản phẩm</div>
+                                <div class="text-sm text-gray-500">Display 1-12 of <?= count($products) ?> products</div>
                                 <div class="navigation flex space-x-1">
 
                                 </div>
@@ -808,15 +808,15 @@ $list_filter = [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'orders'): ?>
                     <div id="orders-section" class="space-y-6">
                         <div class="flex justify-between items-center">
-                            <h2 class="text-xl font-semibold text-gray-800">Quản lý đơn hàng</h2>
+                            <h2 class="text-xl font-semibold text-gray-800">Orders Management</h2>
                             <div class="flex space-x-2">
                                 <button
                                     class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50">
-                                    <i class="fas fa-file-export mr-2"></i> Xuất Excel
+                                    <i class="fas fa-file-export mr-2"></i> Excel Export
                                 </button>
                                 <button
                                     class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50">
-                                    <i class="fas fa-print mr-2"></i> In
+                                    <i class="fas fa-print mr-2"></i> Print
                                 </button>
                             </div>
                         </div>
@@ -825,27 +825,26 @@ $list_filter = [
                             <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-3 md:space-y-0">
                                 <div class="flex items-center space-x-2">
                                     <div class="relative">
-                                        <input type="text" placeholder="Tìm đơn hàng..."
-                                            class="py-2 pl-10 pr-4 w-64 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                        <input oninput="searchOrder()" type="text" placeholder="Search..."
+                                            class="input-search-order py-2 pl-10 pr-4 w-64 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                                         <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                                     </div>
-                                    <select
-                                        class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                        <option>Tất cả trạng thái</option>
-                                        <option>Chờ xác nhận</option>
-                                        <option>Đang xử lý</option>
-                                        <option>Đã giao</option>
-                                        <option>Đã hủy</option>
+                                    <select onchange="statusFilter()"
+                                        class="filter-order border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option value="all">All</option>
+                                        <?php foreach ($list_filter as $item): ?>
+                                            <option value="<?= $item ?>"><?= $item ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <div class="flex items-center space-x-1">
-                                        <span class="text-sm text-gray-600">Từ:</span>
+                                        <span class="text-sm text-gray-600">From:</span>
                                         <input type="date"
                                             class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
                                     </div>
                                     <div class="flex items-center space-x-1">
-                                        <span class="text-sm text-gray-600">Đến:</span>
+                                        <span class="text-sm text-gray-600">To:</span>
                                         <input type="date"
                                             class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
                                     </div>
@@ -853,147 +852,149 @@ $list_filter = [
                             </div>
 
                             <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Mã đơn</th>
-                                            <th
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Khách hàng</th>
-                                            <th
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Ngày đặt</th>
-                                            <th
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Tổng tiền</th>
-                                            <th
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Thanh toán</th>
-                                            <th
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Trạng thái</th>
-                                            <th
-                                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Thao tác</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                #ORD-2305</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Nguyễn Thị Hương
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">15/06/2023</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">1.250.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Đã
-                                                    thanh toán</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-3 py-1 text-xs rounded-full status-delivered">Đã giao</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                #ORD-2304</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Trần Văn Nam</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">15/06/2023</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">850.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Đã
-                                                    thanh toán</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-3 py-1 text-xs rounded-full status-processing">Đang xử
-                                                    lý</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                #ORD-2303</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Lê Thị Hoa</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">14/06/2023</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2.100.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                <span
-                                                    class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Chờ
-                                                    thanh toán</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-3 py-1 text-xs rounded-full status-pending">Chờ xác
-                                                    nhận</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                #ORD-2302</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Phạm Minh Tuấn
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">14/06/2023</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">750.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                <span class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-800">Đã
-                                                    hủy</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-3 py-1 text-xs rounded-full status-cancelled">Đã hủy</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                #ORD-2301</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Vũ Thị Lan</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13/06/2023</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">1.800.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Đã
-                                                    thanh toán</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-3 py-1 text-xs rounded-full status-delivered">Đã giao</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                <table class="table-orders min-w-full divide-y divide-gray-200">
+                                    
+                                    
                                 </table>
                             </div>
 
+                            <script>
+                                function renderDataTableOrders(data){
+                                    const parent = document.querySelector('.table-orders')
+                                    parent.innerHTML = ""
+                                    parent.innerHTML = `<thead>
+                                        <tr>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                CODE</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                CUSTOMER</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                DATE</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                TOTAL</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                PAYMENT</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                STATUS</th>
+                                            <th
+                                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Operation</th>
+                                        </tr>
+                                    </thead>`
+                                
+                                    var tr=""
+                                    console.log(data)
+                                    data.forEach((item,index)=>{
+                                        tr+=`<tr class="table-row">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                #${item.ID_Don_Hang}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">#${item.ID_Khach_Hang}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.Ngay_Dat}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.tong_tien} USD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">${item.payment_status}</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-3 py-1 text-xs rounded-full status-${item.Trang_Thai}">${item.Trang_Thai}</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
+                                                <button class="text-gray-600 hover:text-gray-900"><i
+                                                        class="fas fa-ellipsis-v"></i></button>
+                                            </td>
+                                        </tr>`
+                                    })
+
+                                    var tbody = document.createElement('tbody')
+                                    tbody.classList.add('bg-white', 'divide-y', 'divide-gray-200')
+                                    tbody.innerHTML = tr
+                                    parent.appendChild(tbody)
+                                }
+
+                                function renderNavigation(index) {
+                                    const parent = document.querySelector('.navigation')
+                                    var navigation = ""
+                                    for (let i = 1; i <= index; i++) {
+                                        navigation += `<button onclick="getDataOrders(${i})" class='px-3 py-1 border rounded-md bg-purple-600 text-white'>${i}</button>`
+                                    }
+                                    parent.innerHTML = `
+                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Previous</button>
+                                ${navigation}
+                                <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Next</button>`
+
+                                }
+
+                                function searchOrder() {
+                                    var id = document.querySelector('.input-search-order').value
+                                    console.log(id)
+
+                                    fetch("/The-Ordinary/admin/order/search", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ id })
+                                    })
+                                        .then(res => res.json())
+                                        .then(result => {
+                                            renderDataTableOrders(result)
+                                            renderNavigation(1)
+                                        })
+                                }
+
+                                function statusFilter() {
+                                    var status = document.querySelector('.filter-order').value
+                                    console.log(status)
+
+                                    if (status == 'all') {
+                                        getDataProducts(1)
+                                        return
+                                    }
+
+                                    fetch("/The-Ordinary/admin/order/filter", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ status })
+                                    })
+                                        .then(res => res.json())
+                                        .then(result => {
+                                            renderDataTableOrders(result)
+                                            renderNavigation(result(1))
+                                        })
+                                }
+
+                                function getDataOrders(navigation) {
+                                    fetch("The-Ordinary/admin/orders", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ navigation })
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            renderDataTableOrders(data[0])
+                                            renderNavigation(data[1])
+                                        })
+
+                                }
+
+                                getDataOrders(1)
+                            </script>
+
                             <div class="flex justify-between items-center mt-6">
                                 <div class="text-sm text-gray-500">Hiển thị 1-5 của 42 đơn hàng</div>
-                                <div class="flex space-x-1">
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Trước</button>
-                                    <button class="px-3 py-1 border rounded-md bg-purple-600 text-white">1</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">2</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">3</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">4</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">5</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Sau</button>
+                                <div class="navigation flex space-x-1">
+                                    
                                 </div>
                             </div>
                         </div>
@@ -1549,7 +1550,7 @@ $list_filter = [
 
         function displayUpdate() {
             var element = document.querySelector('.update-product').remove()
-            
+
         }
     </script>
 

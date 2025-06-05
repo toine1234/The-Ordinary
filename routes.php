@@ -51,13 +51,17 @@ function defineRoutes($router)
     $router->get('/order', [App\Controllers\OrderController::class, 'index']);
     $router->post('/order',[App\Controllers\OrderController::class,'CreateOrder']);
     $router->get('/orderStatus',[App\Controllers\OrderController::class,'ViewResultOrder']);
+    $router->get('/order/search',[App\Controllers\OrderController::class,'searchOrder']);
 
     // Admin Routes //
     $router->get('/admin',[App\Controllers\AdminController::class,'index']);
     $router->get('/admin/stocks',[App\Controllers\AdminController::class,'getStocks']);
     $router->post('/admin/products', [App\Controllers\AdminController::class,'getProducts']);
     $router->post('/admin/product',[App\Controllers\AdminController::class,'CRUD_Products']);
-    $router->post('/admin/orders',[App\Controllers\AdminController::class,'CRUD_Orders']);
+    $router->post('/admin/orders',[App\Controllers\AdminController::class,'getOrders']);
+    $router->post('/admin/order',[App\Controllers\AdminController::class,'CRUD_Orders']);
+    $router->post('/admin/order/search',[App\Controllers\AdminController::class,'searchOrder']);
+    $router->post('/admin/order/filter',[App\Controllers\AdminController::class,'getOrderFilter']);
     $router->post('/admin/users/status',[App\Controllers\AdminController::class,'ManageSatusAccount']);
     $router->post('/admin/users/sendmail',[App\Controllers\AdminController::class,'sendMail']);
 
