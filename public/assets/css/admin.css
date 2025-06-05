@@ -1,3 +1,7 @@
+button{
+  cursor:pointer;
+}
+
 ::-webkit-scrollbar {
   width: 3px; /* Chiều rộng của thanh cuộn dọc */
   height: 8px; /* Chiều cao của thanh cuộn ngang */
@@ -104,3 +108,26 @@
 
 .success {
 }
+
+@media print {
+    body * {
+      visibility: hidden;
+    }
+  
+    .receipt, .receipt * {
+      visibility: visible;
+    }
+  
+    .receipt {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      box-shadow: none;
+    }
+
+    .receipt-info{
+      position: relative;
+      margin-top:50px;
+    }
+  }

@@ -135,9 +135,9 @@ $list_filter = [
                         <p class="text-xs opacity-70">admin@beautyshop.com</p>
                     </div>
                 </div>
-                <div class="mt-6 flex items-center text-sm hover:bg-purple-800 p-2 rounded-md cursor-pointer">
+                <div class="mt-6 flex items-center text-sm hover:bg-purple-100/10 p-2 rounded-md cursor-pointer">
                     <i class="fas fa-sign-out-alt mr-2"></i>
-                    <span>Log out</span>
+                    <a href="/The-Ordinary/logout">Log out</a>
                 </div>
             </div>
         </div>
@@ -805,6 +805,7 @@ $list_filter = [
                 <!-- Orders Section -->
                 <!-- Orders Section -->
                 <!-- Orders Section -->
+
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'orders'): ?>
                     <div id="orders-section" class="space-y-6">
                         <div class="flex justify-between items-center">
@@ -853,13 +854,13 @@ $list_filter = [
 
                             <div class="overflow-x-auto">
                                 <table class="table-orders min-w-full divide-y divide-gray-200">
-                                    
-                                    
+
+
                                 </table>
                             </div>
 
                             <script>
-                                function renderDataTableOrders(data){
+                                function renderDataTableOrders(data) {
                                     const parent = document.querySelector('.table-orders')
                                     parent.innerHTML = ""
                                     parent.innerHTML = `<thead>
@@ -887,11 +888,11 @@ $list_filter = [
                                                 Operation</th>
                                         </tr>
                                     </thead>`
-                                
-                                    var tr=""
+
+                                    var tr = ""
                                     console.log(data)
-                                    data.forEach((item,index)=>{
-                                        tr+=`<tr class="table-row">
+                                    data.forEach((item, index) => {
+                                        tr += `<tr class="table-row">
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                 #${item.ID_Don_Hang}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">#${item.ID_Khach_Hang}
@@ -905,9 +906,11 @@ $list_filter = [
                                                 <span class="px-3 py-1 text-xs rounded-full status-${item.Trang_Thai}">${item.Trang_Thai}</span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
+                                                <button onclick="getDataOrderDetail(${item.ID_Don_Hang})" class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
+                                                <button class="relative text-gray-600 hover:text-gray-900"><i
+                                                        class="fas fa-ellipsis-v"></i>
+                                                    <div class=""></div>
+                                                </button>
                                             </td>
                                         </tr>`
                                     })
@@ -931,6 +934,46 @@ $list_filter = [
 
                                 }
 
+                                function renderOrderDetail(data) {
+                                    console.log(data)
+
+                                    const main = document.querySelector('.main-content')
+                                    var child = document.createElement('div')
+                                    child.classList.add("detail-order", "fixed", "flex", "items-center", "justify-center", "top-0", "z-999", "w-[84%]", "h-full", "bg-black/20")
+                                    child.innerHTML = `<div class="container flex-row gap-5 relative overflow-y-scroll min-h-120 p-6 w-100 bg-white rounded-xl">
+                                    <div class="receipt relative p-3 w-full min-h-100 ring-1 ring-gray-200">
+                                        <div class="flex justify-between">
+                                            <h4>RECEIPT</h4>
+                                            <h4>${data[0].Ngay_Dat}</h4>
+                                        </div>
+                                        <hr class="border-0.5 border-gray-200">
+                                                ${data.map((item) => {
+                                                    return `<div class="flex gap-5 mt-5">
+                                                    <img src="${item.Hinh_Anh.split(";")[0]}" class="bg-gray-100 w-[50px] h-[50px]">
+                                                    <div>
+                                                        <h5>${item.Ten_SP}</h5>
+                                                        <span>${item.so_luong}x</span>
+                                                        <span class="text-red-500">${item.price_each} USD</span>
+                                                    </div>
+                                                </div>`}).join("")}
+                                        <div class="receipt-info absolute bottom-4 left-4">
+                                            <p><strong>Name:</strong> ${data[0].HoTen}</p>
+                                            <p><strong>Phone:</strong> ${data[0].SDT}</p>
+                                            <p><strong>Address:</strong> ${data[0].dia_chi_giao}</p>
+                                            <p><strong>Total:</strong> ${data[0].tong_tien} USD</p>
+                                        </div>
+                                        
+                                    </div>
+                                    <button onclick="print()" class="bg-blue-200 text-blue-500 font-bold mt-2 w-full ring-1 ring-gray-200 p-2"><i class="fas fa-print mr-2"></i>Print</button>
+                                    <button onclick="displayDetailOrder()" class="font-bold w-full ring-1 ring-gray-200 p-2 mt-2">Back</button>
+                                    
+                                    
+                                </div>`
+
+                                main.appendChild(child)
+
+                                }
+
                                 function searchOrder() {
                                     var id = document.querySelector('.input-search-order').value
                                     console.log(id)
@@ -949,6 +992,23 @@ $list_filter = [
                                         })
                                 }
 
+                                function updateStatus(id_order,status){
+
+                                    if (!confirm("Are you sure update ?")){
+                                        return
+                                    }
+
+                                    var update = status
+                                    fetch('The-Ordinary/admin/order',{
+                                        method:"POST",
+                                        headers:{
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({id_order,update})
+                                    })
+                                    .then(getDataOrders(1))
+                                }
+                                
                                 function statusFilter() {
                                     var status = document.querySelector('.filter-order').value
                                     console.log(status)
@@ -988,13 +1048,25 @@ $list_filter = [
 
                                 }
 
+                                function getDataOrderDetail(id) {
+                                    fetch("The-Ordinary/admin/order/detail", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ id })
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => renderOrderDetail(data))
+
+                                }
                                 getDataOrders(1)
                             </script>
 
                             <div class="flex justify-between items-center mt-6">
                                 <div class="text-sm text-gray-500">Hiển thị 1-5 của 42 đơn hàng</div>
                                 <div class="navigation flex space-x-1">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -1491,6 +1563,8 @@ $list_filter = [
                     </form>
                 </div>
             </div>
+
+
         </div>
     </div>
     <script>
@@ -1551,6 +1625,10 @@ $list_filter = [
         function displayUpdate() {
             var element = document.querySelector('.update-product').remove()
 
+        }
+
+        function displayDetailOrder(){
+            var element = document.querySelector('.detail-order').remove()
         }
     </script>
 

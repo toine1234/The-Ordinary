@@ -60,6 +60,7 @@ function defineRoutes($router)
     $router->post('/admin/product',[App\Controllers\AdminController::class,'CRUD_Products']);
     $router->post('/admin/orders',[App\Controllers\AdminController::class,'getOrders']);
     $router->post('/admin/order',[App\Controllers\AdminController::class,'CRUD_Orders']);
+    $router->post('/admin/order/detail',[App\Controllers\AdminController::class,'getDetailOrder']);
     $router->post('/admin/order/search',[App\Controllers\AdminController::class,'searchOrder']);
     $router->post('/admin/order/filter',[App\Controllers\AdminController::class,'getOrderFilter']);
     $router->post('/admin/users/status',[App\Controllers\AdminController::class,'ManageSatusAccount']);

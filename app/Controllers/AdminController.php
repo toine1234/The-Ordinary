@@ -92,6 +92,14 @@ class AdminController
         echo json_encode([$orders,$total_page]);
     }
 
+    public function getDetailOrder(){
+        $id = $_POST['id'];
+        $order = Order::getDetailOrderById($id);
+
+        header('Content-Type: application/json');
+        echo json_encode($order);
+    }
+
     public function searchOrder(){
         $id = $_POST['id'];
         $result = Order::SearchOrder($id);
