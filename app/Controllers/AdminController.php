@@ -29,7 +29,7 @@ class AdminController
         }
         $products = Product::getAllProducts();
         $orders = Order::getAllOrder(1)['result'];
-        $users = Users::getAllUsers();
+        $total_order = Order::getAllOrder(1)['total_order'];
         $accounts = Account::getAllAccount();
         $monthlyData = Revenue::Revenue();
         $bestseller = Revenue::Bestsellers();
@@ -37,30 +37,16 @@ class AdminController
         $leastproduct = Revenue::LeastProduct();
         $total_quantity = Revenue::TotalQuantity();
 
-        if (isset($_GET['search'])) {
-            $accounts = Account::SearchAccount($_GET['search']);
-            $orders = Order::SearchOrder($_GET['search']);
-        }
+        
 
-        if (isset($_GET['sort'])) {
-            $products = Product::Sort($_GET['sort']);
-        }
+        
 
-        if (isset($_GET['filter'])) {
-            $orders = Order::FilterStatus($_GET['filter']);
-        }
+        
 
 
         $store = Store::getAllStore();
 
-        if (isset($_GET['view'])) {
-            $product = Product::getProductsById($_GET['view']);
-            $detailOrders = Order::getDetailOrderById($_GET['view']);
-            $users = Users::SearchUser($_GET['view']);
-            $order = Order::getAllOrderByUser($_GET['view']);
-            $feedbacks = Feedback::getFeedbackByUser($_GET['view']);
-
-        }
+        
 
 
 
@@ -115,6 +101,45 @@ class AdminController
 
         header('Content-Type: application/json');
         echo json_encode($result);
+    }
+
+    public function getUsers(){
+        $page = $_POST['navigation'];
+        $data = Users::getAllUsers($page)['result'];
+        $total_page = Users::getAllUsers($page)['total_page'];
+
+        header('Content-Type: application/json');
+        echo json_encode([$data,$total_page]);
+    }
+
+    public function searchCustomer(){
+        $keyword = $_POST['keyword'];
+        $data = Users::SearchUser($keyword,1)['result'];
+        $total_page = Users::SearchUser($keyword,1)['total_page'];
+
+        header('Content-Type: application/json');
+        echo json_encode([$data,$total_page]);
+
+    }
+
+    public function sortCustomer(){
+        $sort = $_POST['sort'];
+        $data = Users::sortUser($sort,1)['result'];
+        $total_page = Users::sortUser($sort,1)['total_page'];
+
+        header('Content-Type: application/json');
+        echo json_encode([$data,$total_page]);
+    }
+
+    public function filterCustomer(){
+        $gender = $_POST['gender'];
+        $status = $_POST['status'];
+
+        $data = Users::filterUser($gender,$status,1)['result'];
+        $total_page = Users::filterUser($gender,$status,1)['total_page'];
+
+         header('Content-Type: application/json');
+        echo json_encode([$data,$total_page]);
     }
 
     public function CRUD_Products()

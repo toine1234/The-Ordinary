@@ -6,12 +6,7 @@ use App\Models\Product;
 
 class NewController {
     public function index() {
-        $products = Product::getFilteredProducts([
-            'Serum',
-            'Moisturizer',
-            'Cleanser',
-            'Sunscreen'
-        ]);
+        
 
         require 'app/Views/layouts/header.php';
         require 'app/Views/new.php';

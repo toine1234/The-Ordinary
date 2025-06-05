@@ -63,7 +63,8 @@ class Order{
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return [
             "total_page" => $total_page,
-            "result" => $result
+            "result" => $result,
+            "total_order" => $total[0]["total"]
         ];
     }
 

@@ -74,7 +74,21 @@ $list_filter = [
     'pending',
     'shipped',
     'delivered',
-    'cancelled'
+    'canceled'
+];
+
+$list_status_account = [
+    'Active',
+    'Blocked'
+];
+
+$list_sort_customer =  [
+    'Sort by a-z name',
+    'Sort by z-a name',
+    'Sort by lowest orders',
+    'Sort by highest orders',
+    'Sort by lowest spent',
+    'Sort by highest spent'
 ]
     ?>
 
@@ -203,7 +217,7 @@ $list_filter = [
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <p class="text-sm text-gray-500 font-medium">Orders</p>
-                                        <p class="text-2xl font-bold text-gray-800"><?= count($orders) ?></p>
+                                        <p class="text-2xl font-bold text-gray-800"><?= $total_order ?></p>
                                         <p class="text-xs text-green-500 mt-2"><i class="fas fa-arrow-up mr-1"></i>5% from
                                             last month</p>
                                     </div>
@@ -217,7 +231,7 @@ $list_filter = [
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <p class="text-sm text-gray-500 font-medium">Customers</p>
-                                        <p class="text-2xl font-bold text-gray-800"><?= count($users) ?></p>
+                                        <p class="text-2xl font-bold text-gray-800"><?= count($accounts) ?></p>
                                         <p class="text-xs text-green-500 mt-2"><i class="fas fa-arrow-up mr-1"></i>15% from
                                             last month</p>
                                     </div>
@@ -905,12 +919,15 @@ $list_filter = [
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="px-3 py-1 text-xs rounded-full status-${item.Trang_Thai}">${item.Trang_Thai}</span>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <td class="relative px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <button onclick="getDataOrderDetail(${item.ID_Don_Hang})" class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
-                                                <button class="relative text-gray-600 hover:text-gray-900"><i
+                                                <button class="dropdown p-2 text-gray-600 hover:text-gray-900"><i
                                                         class="fas fa-ellipsis-v"></i>
-                                                    <div class=""></div>
                                                 </button>
+                                                 <div class="dropdown-content shadow bg-gray-50 p-2 right-5 z-99 absolute">
+                                                        <button style=${item.Trang_Thai != 'pending' ? "opacity:50%":"opacity:100%"} ${item.Trang_Thai != 'pending' ? "disabled":""} onclick="updateStatus('${item.ID_Don_Hang}','shipped')" class="w-full text-center font-bold bg-orange-200 text-orange-400 px-2 rounded-xl">Confirm</button><br>
+                                                        <button style=${item.Trang_Thai != 'shipped' ? "opacity:50%":"opacity:100%"} ${item.Trang_Thai != 'shipped' ? "disabled":""} onclick="updateStatus('${item.ID_Don_Hang}','delivered')" class="w-full mt-2 text-center font-bold bg-green-200 text-green-400 px-2 rounded-xl">Delivered</button>
+                                                    </div>
                                             </td>
                                         </tr>`
                                     })
@@ -948,7 +965,7 @@ $list_filter = [
                                         </div>
                                         <hr class="border-0.5 border-gray-200">
                                                 ${data.map((item) => {
-                                                    return `<div class="flex gap-5 mt-5">
+                                    return `<div class="flex gap-5 mt-5">
                                                     <img src="${item.Hinh_Anh.split(";")[0]}" class="bg-gray-100 w-[50px] h-[50px]">
                                                     <div>
                                                         <h5>${item.Ten_SP}</h5>
@@ -970,7 +987,7 @@ $list_filter = [
                                     
                                 </div>`
 
-                                main.appendChild(child)
+                                    main.appendChild(child)
 
                                 }
 
@@ -992,29 +1009,29 @@ $list_filter = [
                                         })
                                 }
 
-                                function updateStatus(id_order,status){
+                                function updateStatus(id_order, status) {
 
-                                    if (!confirm("Are you sure update ?")){
+                                    if (!confirm("Are you sure update ?")) {
                                         return
                                     }
 
                                     var update = status
-                                    fetch('The-Ordinary/admin/order',{
-                                        method:"POST",
-                                        headers:{
+                                    fetch('The-Ordinary/admin/order', {
+                                        method: "POST",
+                                        headers: {
                                             "Content-Type": "application/x-www-form-urlencoded"
                                         },
-                                        body: new URLSearchParams({id_order,update})
+                                        body: new URLSearchParams({ id_order, update })
                                     })
-                                    .then(getDataOrders(1))
+                                        .then(getDataOrders(1))
                                 }
-                                
+
                                 function statusFilter() {
                                     var status = document.querySelector('.filter-order').value
                                     console.log(status)
 
                                     if (status == 'all') {
-                                        getDataProducts(1)
+                                        getDataOrders(1)
                                         return
                                     }
 
@@ -1077,15 +1094,15 @@ $list_filter = [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'users'): ?>
                     <div id="customers-section" class="space-y-6">
                         <div class="flex justify-between items-center">
-                            <h2 class="text-xl font-semibold text-gray-800">Quản lý khách hàng</h2>
+                            <h2 class="text-xl font-semibold text-gray-800">Customer Management</h2>
                             <div class="flex space-x-2">
                                 <button
                                     class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50">
-                                    <i class="fas fa-file-export mr-2"></i> Xuất danh sách
+                                    <i class="fas fa-file-export mr-2"></i> Export
                                 </button>
                                 <button
                                     class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center">
-                                    <i class="fas fa-plus mr-2"></i> Thêm khách hàng
+                                    <i class="fas fa-plus mr-2"></i> Add
                                 </button>
                             </div>
                         </div>
@@ -1094,215 +1111,205 @@ $list_filter = [
                             <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-3 md:space-y-0">
                                 <div class="flex items-center space-x-2">
                                     <div class="relative">
-                                        <input type="text" placeholder="Tìm khách hàng..."
-                                            class="py-2 pl-10 pr-4 w-64 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                        <input oninput="searchCustomer()" type="text" placeholder="Search..."
+                                            class="input-search-customer py-2 pl-10 pr-4 w-64 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                                         <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                                     </div>
                                     <select
                                         class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                        <option>Tất cả nhóm</option>
+                                        <option>Group</option>
                                         <option>VIP</option>
-                                        <option>Thường xuyên</option>
-                                        <option>Mới</option>
+                                        <option>Normally</option>
+                                        <option>Newbie</option>
+                                    </select>
+                                    <select
+                                        onchange="filterCustomer()"
+                                        class="filter-gender border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option value="">Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                    <select
+                                        onchange="filterCustomer()"
+                                        class="filter-status border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option value="">Status</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Blocked">Blocked</option>
                                     </select>
                                 </div>
                                 <div class="flex items-center space-x-2">
-                                    <select
-                                        class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                        <option>Sắp xếp theo</option>
-                                        <option>Tên: A-Z</option>
-                                        <option>Tên: Z-A</option>
-                                        <option>Đơn hàng: Cao đến thấp</option>
-                                        <option>Đơn hàng: Thấp đến cao</option>
+                                    <select onchange="sortCustomer()"
+                                        class="sort-customer border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option value="Sort by a-z name">Sort by</option>
+                                        <?php foreach($list_sort_customer as $sort):?>
+                                            <option value="<?= $sort ?>"><?= $sort ?></option>
+                                        <?php endforeach;?>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead>
+                                <table class="table-customers min-w-full divide-y divide-gray-200">
+                                   
+                                    
+                                </table>
+                            </div>
+
+                            <script>
+                                function renderDataTableCustomers(data){
+                                    const parent = document.querySelector('.table-customers')
+                                    parent.innerHTML=""
+                                    parent.innerHTML=` <thead>
                                         <tr>
                                             <th
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Khách hàng</th>
+                                                Customer</th>
                                             <th
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Email</th>
                                             <th
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Số điện thoại</th>
+                                                Phone</th>
                                             <th
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Đơn hàng</th>
+                                                ORDERS</th>
                                             <th
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Tổng chi tiêu</th>
+                                                Spent</th>
                                             <th
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Nhóm</th>
+                                                Status</th>
                                             <th
                                                 class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Thao tác</th>
+                                                OPERATION</th>
                                         </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr class="table-row">
+                                    </thead>`
+
+                                    var tr = ""
+                                    console.log(data)
+                                    data.forEach((item,index)=>{
+                                        tr += `<tr class="table-row">
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
                                                     <div
                                                         class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
-                                                        <span class="text-purple-600 font-medium">NT</span>
+                                                        <span class="text-purple-600 font-medium">${item.HoTen.slice(0,1)}</span>
                                                     </div>
                                                     <div class="ml-4">
-                                                        <div class="text-sm font-medium text-gray-900">Nguyễn Thị Hương
+                                                        <div class="text-sm font-medium text-gray-900">${item.HoTen}
                                                         </div>
-                                                        <div class="text-xs text-gray-500">Hà Nội</div>
+                                                        <div class="text-xs text-gray-500">#${item.ID_Khach_Hang}</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                huong.nguyen@email.com</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">0912345678</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">8</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">5.250.000đ</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.Email}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.SDT}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.total_orders}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.total_spent}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span
-                                                    class="px-3 py-1 text-xs rounded-full bg-purple-100 text-purple-800">VIP</span>
+                                                    class="px-3 py-1 text-xs rounded-full status-${item.trang_thai}">${item.trang_thai}</span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
+                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
                                                 <button class="text-gray-600 hover:text-gray-900"><i
                                                         class="fas fa-ellipsis-v"></i></button>
                                             </td>
-                                        </tr>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <div
-                                                        class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                                        <span class="text-blue-600 font-medium">TV</span>
-                                                    </div>
-                                                    <div class="ml-4">
-                                                        <div class="text-sm font-medium text-gray-900">Trần Văn Nam</div>
-                                                        <div class="text-xs text-gray-500">TP. Hồ Chí Minh</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">nam.tran@email.com
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">0987654321</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">5</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">3.850.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span
-                                                    class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800">Thường
-                                                    xuyên</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <div
-                                                        class="h-10 w-10 rounded-full bg-pink-100 flex items-center justify-center">
-                                                        <span class="text-pink-600 font-medium">LH</span>
-                                                    </div>
-                                                    <div class="ml-4">
-                                                        <div class="text-sm font-medium text-gray-900">Lê Thị Hoa</div>
-                                                        <div class="text-xs text-gray-500">Đà Nẵng</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">hoa.le@email.com
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">0923456789</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">3</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2.100.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span
-                                                    class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800">Thường
-                                                    xuyên</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <div
-                                                        class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-                                                        <span class="text-green-600 font-medium">PM</span>
-                                                    </div>
-                                                    <div class="ml-4">
-                                                        <div class="text-sm font-medium text-gray-900">Phạm Minh Tuấn</div>
-                                                        <div class="text-xs text-gray-500">Hải Phòng</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                tuan.pham@email.com</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">0934567890</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">1</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">750.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span
-                                                    class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Mới</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <div
-                                                        class="h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center">
-                                                        <span class="text-yellow-600 font-medium">VL</span>
-                                                    </div>
-                                                    <div class="ml-4">
-                                                        <div class="text-sm font-medium text-gray-900">Vũ Thị Lan</div>
-                                                        <div class="text-xs text-gray-500">Cần Thơ</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">lan.vu@email.com
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">0945678901</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">6</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">4.800.000đ</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span
-                                                    class="px-3 py-1 text-xs rounded-full bg-purple-100 text-purple-800">VIP</span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Chi tiết</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
-                                                        class="fas fa-ellipsis-v"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </tr>`
+                                    })
+
+                                    var tbody =document.createElement('tbody')
+                                    tbody.classList.add('bg-white', 'divide-y', 'divide-gray-200')
+                                    tbody.innerHTML = tr
+                                    parent.appendChild(tbody)
+                                }
+
+                                function renderNavigation(index) {
+                                    const parent = document.querySelector('.navigation')
+                                    var navigation = ""
+                                    for (let i = 1; i <= index; i++) {
+                                        navigation += `<button onclick="getDataCustomers(${i})" class='px-3 py-1 border rounded-md bg-purple-600 text-white'>${i}</button>`
+                                    }
+                                    parent.innerHTML = `
+                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Previous</button>
+                                ${navigation}
+                                <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Next</button>`
+
+                                }
+
+                                function searchCustomer(){
+                                    var keyword = document.querySelector('.input-search-customer').value
+                                    console.log(keyword)
+
+                                    fetch("/The-Ordinary/admin/users/search", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ keyword })
+                                    })
+                                        .then(res => res.json())
+                                        .then(result => {
+                                            renderDataTableCustomers(result[0])
+                                            renderNavigation(result[1])
+                                        })
+                                }
+                                
+                                function sortCustomer(){
+                                    var sort = document.querySelector('.sort-customer').value
+                                    console.log(sort)
+
+                                    fetch("/The-Ordinary/admin/users/sort", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ sort })
+                                    })
+                                        .then(res => res.json())
+                                        .then(result => renderDataTableCustomers(result[0]))
+                                }
+
+                                function filterCustomer(){
+                                    var gender = document.querySelector('.filter-gender').value
+                                    var status = document.querySelector('.filter-status').value
+                                    console.log(gender)
+                                    console.log(status)
+                                    fetch("/The-Ordinary/admin/users/filter",{
+                                        method:"POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ gender,status })
+                                    })
+                                    .then(res => res.json())
+                                    .then(result => renderDataTableCustomers(result[0]))
+                                }
+
+
+                                function getDataCustomers(navigation){
+                                    fetch("The-Ordinary/admin/users",{
+                                        method: "POST",
+                                        headers:{
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({navigation})
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        renderDataTableCustomers(data[0])
+                                        renderNavigation(data[1])
+                                    })
+                                }
+
+                                getDataCustomers(1)
+                                
+                            </script>
 
                             <div class="flex justify-between items-center mt-6">
                                 <div class="text-sm text-gray-500">Hiển thị 1-5 của 120 khách hàng</div>
-                                <div class="flex space-x-1">
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Trước</button>
-                                    <button class="px-3 py-1 border rounded-md bg-purple-600 text-white">1</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">2</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">3</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">4</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">5</button>
-                                    <button class="px-3 py-1 border rounded-md hover:bg-gray-50">Sau</button>
+                                <div class="navigation flex space-x-1">
+                                    
                                 </div>
                             </div>
                         </div>
@@ -1627,7 +1634,7 @@ $list_filter = [
 
         }
 
-        function displayDetailOrder(){
+        function displayDetailOrder() {
             var element = document.querySelector('.detail-order').remove()
         }
     </script>

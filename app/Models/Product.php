@@ -108,6 +108,7 @@ class Product
         $database = new Database();
         $db = $database->getConnection();
         $query = "SELECT *,
+        s.ID_San_Pham,
         IFNULL(AVG(d.rating),0) as overall, 
         IFNULL(COUNT(d.rating),0) as reviews
         FROM san_pham s";

@@ -58,7 +58,7 @@ class UserController
                 exit;
             }
             try {
-                Order::UpdateStatus($id, 'canclled');
+                Order::UpdateStatus($id, 'canceled');
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
