@@ -125,11 +125,12 @@ $list_sort_customer = [
 
         <!-- Sidebar -->
         <div id="sidebar"
-            class="sidebar bg-gradient-to-b from-purple-700 to-pink-500 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 z-50 transition duration-200 ease-in-out">
+            class="sidebar bg-gradient-to-b from-blue-700 to-purple-500 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 z-50 transition duration-200 ease-in-out">
             <div class="flex items-center justify-between px-4">
-                <div class="flex items-center space-x-2">
-                    <i class="fas fa-spa text-2xl"></i>
-                    <span class="text-xl font-bold">Beauty Admin</span>
+                <div class="items-center space-x-2">
+                    <p class="font-bold text-2xl">The Ordinary</p>
+                    <span class="opacity-70">Admistrator</span>
+
                 </div>
                 <button id="closeSidebar" class="md:hidden p-2 rounded-md hover:bg-purple-800">
                     <i class="fas fa-times"></i>
@@ -174,7 +175,7 @@ $list_sort_customer = [
                         alt="Admin" class="w-10 h-10 rounded-full">
                     <div>
                         <p class="text-sm font-medium">Admin</p>
-                        <p class="text-xs opacity-70">admin@beautyshop.com</p>
+                        <p class="text-xs opacity-70">dinhvanhuy.04032019@gm...</p>
                     </div>
                 </div>
                 <div class="mt-6 flex items-center text-sm hover:bg-purple-100/10 p-2 rounded-md cursor-pointer">
@@ -204,7 +205,7 @@ $list_sort_customer = [
                     </div>
                     <div class="flex items-center space-x-4">
                         <div class="relative">
-                            <input type="text" placeholder="Tìm kiếm..."
+                            <input type="text" placeholder="Search..."
                                 class="py-2 pl-10 pr-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                             <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                         </div>
@@ -727,55 +728,55 @@ $list_sort_customer = [
                                     <form action="/The-Ordinary/admin/product" method="post" enctype="multipart/form-data"
                                         class="w-full relative" onsubmit="return confirmUpdateSubmit()">
                                         <input hidden name="id_product" value="${data[0].ID_San_Pham}">
-                                        <h3 class="mt-3 font-bold">Create Product</h3>
-                                        <div class="w-[50%] grid grid-cols-2 gap-2">
+                                        
+                                        <div class="w-[50%] rounded-sm p-2 ring-1 ring-gray-200 grid grid-cols-2 gap-2">
                                             <div class="mt-3">
                                                 <span>Name</span>
-                                                <input value="${data[0].Ten_SP}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="name_product" type="text">
+                                                <input value="${data[0].Ten_SP}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="name_product" type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Price</span>
-                                                <input value="${data[0].Gia}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="price_product" type="text">
+                                                <input value="${data[0].Gia}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="price_product" type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Quantity</span>
-                                                <input ${data[0].SL == 0 ? '' : 'disabled readonly'} value="${data[0].SL}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
+                                                <input ${data[0].SL == 0 ? '' : 'disabled readonly'} value="${data[0].SL}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Size</span>
-                                                <input value="${data[0].Dung_Tich}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="size_product" type="text">
+                                                <input value="${data[0].Dung_Tich}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="size_product" type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Targets</span>
-                                                <input value="${data[0].Targets}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="targets_product" type="text">
+                                                <input value="${data[0].Targets}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="targets_product" type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Key ingredients</span>
-                                                <input value="${data[0].Key_ingredients}" class="w-full mt-2 ring-1 ring-gray-200 p-2" name="ingredients_product"
+                                                <input value="${data[0].Key_ingredients}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="ingredients_product"
                                                     type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Suited to</span>
-                                                <select class="w-full mt-2 ring-1 ring-gray-200 p-2" name="suited_product">
+                                                <select class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="suited_product">
                                                     <option disabled selected value="">Select Suited</option>
                                                     ${typeSkin.map(item => `<option value="${item}" ${item === data[0].Suited_to ? `selected` : ``}>${item}</option>`).join("")}
                                                 </select>
                                             </div>
                                             <div class="mt-3">
                                                 <span>Category</span>
-                                                <select class="w-full mt-2 ring-1 ring-gray-200 p-2" name="format_product">
+                                                <select class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="format_product">
                                                     <option disabled selected value="">Select Category</option>
                                                     ${format.map(item => `<option value="${item}" ${item === data[0].Format ? `selected` : ``}>${item}</option>`).join("")}
                                                 </select>
                                             </div>
-
-                                        </div>
-
-                                        <div class="mt-3 w-[50%]">
+                                            <div class="mt-3 col-start-1 col-end-3">
                                             <span>Description</span>
                                             <textarea class="w-full mt-2 ring-1 ring-gray-200 p-2" name="description_product" rows="3"
-                                                cols="1">${data[0].Mo_Ta}</textarea>
+                                                cols="3">${data[0].Mo_Ta}</textarea>
                                         </div>
+                                        </div>
+
+                                       
 
                                         <div class="Album">
                                             <span>Album</span>
@@ -783,17 +784,17 @@ $list_sort_customer = [
                                                 <p>Drag drop image in here</p>
                                             </div>
                                             <input type="file" name="images[]" id="fileInput" multiple style="display:none">
-                                            <div class="preview" id="preview">
-                                                <div class="list-img">${data[0].Hinh_Anh.split(';').map(item => `<img class="list-img-item" src="${item}">`).join("")}</div>
+                                            <div class="preview p-2 ring-1 ring-gray-200 rounded-sm" id="preview">
+                                                ${data[0].Hinh_Anh.split(';').map(item => `<img class="list-img-item" src="${item}">`).join("")}
                                             </div>
                                     </div>
-                                    <div class="bg-purple-500 w-[50%] mt-2 p-4">
+                                    <div class="rounded-sm bg-blue-500 w-[50%] mt-2 p-4">
                                         <button class="text-center w-full text-white text-bold" type="submit" name="update"
                                             value="update">Update</button>
                                     </div>
-                                    <div class="border border-black w-[50%] mt-2 p-4">
+                                    <div class="rounded-sm bg-red-500 w-[50%] mt-2 p-4">
                                         <button onclick="displayUpdate()" type="button"
-                                            class="create-btn text-center text-black w-full text-bold" type="submit">Cancle</button>
+                                            class="create-btn text-center text-white w-full text-bold" type="submit">Cancle</button>
                                     </div>
                                     </form>
                                 </div>`
@@ -802,6 +803,10 @@ $list_sort_customer = [
                                 }
 
                                 function deleteProduct(id_product) {
+
+                                    if(!confirm('Are you sure delete?')){
+                                        return
+                                    }
 
                                     fetch("/The-Ordinary/admin/product", {
                                         method: "POST",
@@ -845,7 +850,7 @@ $list_sort_customer = [
                             </script>
 
                             <div class="flex justify-between items-center mt-6">
-                                <div class="text-sm text-gray-500">Display 1-12 of <?= count($products) ?> products</div>
+                                <div class="text-sm text-gray-500"></div>
                                 <div class="navigation flex space-x-1">
 
                                 </div>
@@ -1119,7 +1124,7 @@ $list_sort_customer = [
                             </script>
 
                             <div class="flex justify-between items-center mt-6">
-                                <div class="text-sm text-gray-500">Hiển thị 1-5 của 42 đơn hàng</div>
+                                <div class="text-sm text-gray-500"></div>
                                 <div class="navigation flex space-x-1">
 
                                 </div>
@@ -1250,7 +1255,7 @@ $list_sort_customer = [
                                                 <button onclick="getDataCustomerByid('${item.ID_Khach_Hang}')" class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
                                                 <button class="dropdown p-2 text-gray-600 hover:text-gray-900"><i
                                                         class="fas fa-ellipsis-v"></i></button>
-                                                <div class="dropdown-content shadow bg-gray-50 p-2 right-10 z-99 absolute">
+                                                <div class="dropdown-content shadow w-30 bg-gray-50 p-2 right-10 z-99 absolute">
                                                         <button style=${item.trang_thai != 'Blocked' ? "opacity:50%" : "opacity:100%"} ${item.Trang_Thai != 'Blocked' ? "disabled" : ""} onclick="updateStatus('${item.ID_Khach_Hang}','shipped')" class="w-full text-center font-bold bg-green-200 text-green-400 px-2 rounded-xl">Unlock</button><br>
                                                         <button style=${item.trang_thai != 'Active' ? "opacity:50%" : "opacity:100%"} ${item.trang_thai != 'Active' ? "disabled" : ""} onclick="updateStatus('${item.ID_Khach_Hang}','delivered')" class="w-full mt-2 text-center font-bold bg-rose-200 text-rose-400 px-2 rounded-xl">Block</button>
                                                     </div>
@@ -1316,7 +1321,7 @@ $list_sort_customer = [
                                                                         <span class="">${data[0].total_spent}</span>
                                                                     </div>
                                                                     <div class="mt-2 w-full bg-gray-100 h-5 rounded-xl">
-                                                                        <div class="h-full w-[50%] bg-blue-200 rounded-xl flex items-center">
+                                                                        <div class="h-full w-[50%] bg-gradient-to-r from-blue-700 to-purple-500 rounded-xl flex items-center">
 
                                                                         </div>
                                                                     </div>
@@ -1452,7 +1457,7 @@ $list_sort_customer = [
                             </script>
 
                             <div class="flex justify-between items-center mt-6">
-                                <div class="text-sm text-gray-500">Hiển thị 1-5 của 120 khách hàng</div>
+                                <div class="text-sm text-gray-500"></div>
                                 <div class="navigation flex space-x-1">
 
                                 </div>
@@ -1625,24 +1630,28 @@ $list_sort_customer = [
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        <?php foreach($bestseller as $item):?>
-                                        <tr class="table-row">
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <img src="<?= explode(";",$item['Hinh_Anh'])[0]?>"
-                                                        class="h-12 w-12 bg-gray-100 rounded-md flex items-center justify-center">
-                                                        
-                                                    <div class="ml-4">
-                                                        <div class="text-sm font-medium text-gray-900"><?=$item['Ten_SP']?></div>
-                                                        <div class="text-xs text-gray-500">#<?=$item['ID_San_Pham']?></div>
+                                        <?php foreach ($bestseller as $item): ?>
+                                            <tr class="table-row">
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        <img src="<?= explode(";", $item['Hinh_Anh'])[0] ?>"
+                                                            class="h-12 w-12 bg-gray-100 rounded-md flex items-center justify-center">
+
+                                                        <div class="ml-4">
+                                                            <div class="text-sm font-medium text-gray-900"><?= $item['Ten_SP'] ?>
+                                                            </div>
+                                                            <div class="text-xs text-gray-500">#<?= $item['ID_San_Pham'] ?></div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?= $list_category[$item['ID_Danh_Muc']]?></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?=$item['Gia']?> USD</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?=$item['sold']?></td>
-                                        </tr>
-                                        <?php endforeach;?>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <?= $list_category[$item['ID_Danh_Muc']] ?></td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?= $item['Gia'] ?>
+                                                    USD</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?= $item['sold'] ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -1655,62 +1664,73 @@ $list_sort_customer = [
                 <div class="container relative overflow-y-scroll h-150 p-6 w-200 bg-white rounded-xl">
                     <form action="/The-Ordinary/admin/product" method="post" enctype="multipart/form-data"
                         class="w-full relative" onsubmit="return confirmCreatSubmit()">
-                        
-                       <div class="">
+
+                        <div class="">
                             <span class="text-blue-500 font-bold">STEP 1: Create Stock</span>
                             <div class="w-[50%] rounded-sm p-2 ring-1 ring-gray-200 grid grid-cols-2 gap-2">
                                 <div class="mt-3">
                                     <span>Price Import</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="price_store" type="text">
-                                </div>
-                                <div class="mt-3">
-                                    <span>Quantity</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_store" type="text">
-                                </div>
-                                <div class="mt-3">
-                                    <span>Brand Producer</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="producer_store" type="text">
-                                </div>
-                                <div class="mt-3">
-                                    <span>EXP</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="exp_store" type="date">
-                                </div>
-                                <div class="mt-3">
-                                    <span>MFG</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="mfg_store" type="date">
-                                </div>
-                            </div>
-                            <br>
-                           <span class="text-blue-500 font-bold">STEP 2: Create Product</span>
-                            <div class="w-[50%] rounded-sm p-2 ring-1 ring-gray-200 grid grid-cols-2 gap-2">
-                                <div class="mt-3">
-                                    <span>Name</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="name_product" type="text">
-                                </div>
-                                <div class="mt-3">
-                                    <span>Price</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="price_product" type="text">
-                                </div>
-                                <div class="mt-3">
-                                    <span>Quantity</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
-                                </div>
-                                <div class="mt-3">
-                                    <span>Size</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="size_product" type="text">
-                                </div>
-                                <div class="mt-3">
-                                    <span>Targets</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="targets_product" type="text">
-                                </div>
-                                <div class="mt-3">
-                                    <span>Key ingredients</span>
-                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="ingredients_product"
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="price_store"
                                         type="text">
                                 </div>
                                 <div class="mt-3">
+                                    <span>Quantity</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_store"
+                                        type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Brand Producer</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="producer_store"
+                                        type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>EXP</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="exp_store"
+                                        type="date">
+                                </div>
+                                <div class="mt-3">
+                                    <span>MFG</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="mfg_store"
+                                        type="date">
+                                </div>
+                            </div>
+                            <br>
+                            <span class="text-blue-500 font-bold">STEP 2: Create Product</span>
+                            <div class="w-[50%] rounded-sm p-2 ring-1 ring-gray-200 grid grid-cols-2 gap-2">
+                                <div class="mt-3">
+                                    <span>Name</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="name_product"
+                                        type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Price</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="price_product"
+                                        type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Quantity</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2"
+                                        name="quantity_product" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Size</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="size_product"
+                                        type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Targets</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2"
+                                        name="targets_product" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Key ingredients</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2"
+                                        name="ingredients_product" type="text">
+                                </div>
+                                <div class="mt-3">
                                     <span>Suited to</span>
-                                    <select class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="suited_product">
+                                    <select class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2"
+                                        name="suited_product">
                                         <option disabled selected value="">Select Suited</option>
                                         <?php foreach ($list_suited_to as $suited): ?>
                                             <option><?= $suited ?></option>
@@ -1719,27 +1739,22 @@ $list_sort_customer = [
                                 </div>
                                 <div class="mt-3">
                                     <span>Category</span>
-                                    <select class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="format_product">
+                                    <select class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2"
+                                        name="format_product">
                                         <option disabled selected value="">Select Category</option>
                                         <?php foreach ($list_filter_format as $format): ?>
                                             <option value="<?= $format ?>"><?= $format ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="mt-3">
+                                <div class="mt-3 col-end-3 col-start-1">
                                     <span>Description</span>
-                                    <textarea class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="description_product" rows="3"
-                                        cols="3"></textarea>
+                                    <textarea class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2"
+                                        name="description_product" rows="3" cols="3"></textarea>
                                 </div>
-                                <div>
-                                    <button class="mt-11 text-center w-full h-10 bg-blue-500 rounded-sm text-white text-bold" type="submit" name="create"
-                                    value="create">Create</button>
-                                    <button onclick="displayCreate()" type="button"
-                                    class="create-btn text-center bg-red-500 rounded-sm mt-2 h-10 text-white w-full text-bold" type="submit" name="create"
-                                    value="create">Cancle</button>
-                                </div>
+
                             </div>
-                       </div>
+                        </div>
 
                         <div class="Album ">
                             <span class="text-blue-500 font-bold">STEP 3: Add Image</span>
@@ -1748,6 +1763,14 @@ $list_sort_customer = [
                             </div>
                             <input type="file" name="images[]" id="fileInput" multiple style="display:none">
                             <div class="preview rounded-sm ring-1 ring-gray-200 p-2" id="preview"></div>
+                            <div>
+                                <button
+                                    class="mt-2 text-center w-full h-10 bg-blue-500 rounded-sm text-white text-bold"
+                                    type="submit" name="create" value="create">Create</button>
+                                <button onclick="displayCreate()" type="button"
+                                    class="create-btn text-center bg-red-500 rounded-sm mt-2 h-10 text-white w-full text-bold"
+                                    type="submit" name="create" value="create">Cancle</button>
+                            </div>
                         </div>
                     </form>
                 </div>
