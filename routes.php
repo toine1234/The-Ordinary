@@ -67,6 +67,7 @@ function defineRoutes($router)
     $router->post('/admin/users/search',[App\Controllers\AdminController::class,'searchCustomer']);
     $router->post('/admin/users/sort',[App\Controllers\AdminController::class,'sortCustomer']);
     $router->post('/admin/users/filter',[App\Controllers\AdminController::class,'filterCustomer']);
+    $router->post('/admin/users/detail',[App\Controllers\AdminController::class,'getCustomerDetail']);
     $router->post('/admin/users/status',[App\Controllers\AdminController::class,'ManageSatusAccount']);
     $router->post('/admin/users/sendmail',[App\Controllers\AdminController::class,'sendMail']);
 

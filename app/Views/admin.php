@@ -21,6 +21,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 </head>
 
 <?php
@@ -52,7 +54,6 @@ $list_suited_to = [
 
 $list_category = [
     'Serums',
-    'Gifts',
     'Moisturizers',
     'Exfoliators',
     'Eye Serums',
@@ -60,7 +61,8 @@ $list_category = [
     'Face Oils',
     'Toners & Essences',
     'Face Masques',
-    'Explore Skincare'
+    'Explore Skincare',
+    'Gifts'
 ];
 
 $list_filter_sort = [
@@ -82,7 +84,7 @@ $list_status_account = [
     'Blocked'
 ];
 
-$list_sort_customer =  [
+$list_sort_customer = [
     'Sort by a-z name',
     'Sort by z-a name',
     'Sort by lowest orders',
@@ -93,7 +95,33 @@ $list_sort_customer =  [
     ?>
 
 <body>
-    <div class="flex h-screen bg-gray-50">
+    <?php if (isset($_SESSION['flash'])): ?>
+        <div id="toast-success"
+            class="fixed z-999 left-[50%] translate-x-[-30%] top-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm <?= $_SESSION['flash']['type'] ?> "
+            role="alert">
+            <div
+                class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg <?= $_SESSION['flash']['type'] ?>">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Check icon</span>
+            </div>
+            <div class="ms-3 text-sm font-normal"><?= $_SESSION['flash']['message'] ?></div>
+            <button type="button"
+                class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                data-dismiss-target="#toast-success" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+        <?php unset($_SESSION['flash']); ?>
+    <?php endif; ?>
+    <div class="wrapper flex h-screen bg-gray-50">
 
         <!-- Sidebar -->
         <div id="sidebar"
@@ -507,8 +535,6 @@ $list_sort_customer =  [
                             </button>
                         </div>
 
-
-
                         <div class="bg-white p-6 rounded-xl shadow-sm">
                             <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-3 md:space-y-0">
                                 <div class="flex items-center space-x-2">
@@ -550,6 +576,18 @@ $list_sort_customer =  [
 
                             <script>
                                 function renderDataTableProducts(data) {
+                                    var list_category = [
+                                        'Serums',
+                                        'Moisturizers',
+                                        'Exfoliators',
+                                        'Eye Serums',
+                                        'Facial Cleansers',
+                                        'Face Oils',
+                                        'Toners & Essences',
+                                        'Face Masques',
+                                        'Explore Skincare',
+                                        'Gifts'
+                                    ];
                                     const parent = document.querySelector('.table-products')
                                     parent.innerHTML = ""
                                     parent.innerHTML = `<thead>
@@ -590,7 +628,7 @@ $list_sort_customer =  [
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.ID_Danh_Muc}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${list_category[item.ID_Danh_Muc - 1]}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.Gia} USD</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.SL}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -825,7 +863,7 @@ $list_sort_customer =  [
                         <div class="flex justify-between items-center">
                             <h2 class="text-xl font-semibold text-gray-800">Orders Management</h2>
                             <div class="flex space-x-2">
-                                <button
+                                <button onclick="exportDataOrder()"
                                     class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50">
                                     <i class="fas fa-file-export mr-2"></i> Excel Export
                                 </button>
@@ -925,8 +963,8 @@ $list_sort_customer =  [
                                                         class="fas fa-ellipsis-v"></i>
                                                 </button>
                                                  <div class="dropdown-content shadow bg-gray-50 p-2 right-5 z-99 absolute">
-                                                        <button style=${item.Trang_Thai != 'pending' ? "opacity:50%":"opacity:100%"} ${item.Trang_Thai != 'pending' ? "disabled":""} onclick="updateStatus('${item.ID_Don_Hang}','shipped')" class="w-full text-center font-bold bg-orange-200 text-orange-400 px-2 rounded-xl">Confirm</button><br>
-                                                        <button style=${item.Trang_Thai != 'shipped' ? "opacity:50%":"opacity:100%"} ${item.Trang_Thai != 'shipped' ? "disabled":""} onclick="updateStatus('${item.ID_Don_Hang}','delivered')" class="w-full mt-2 text-center font-bold bg-green-200 text-green-400 px-2 rounded-xl">Delivered</button>
+                                                        <button style=${item.Trang_Thai != 'pending' ? "opacity:50%" : "opacity:100%"} ${item.Trang_Thai != 'pending' ? "disabled" : ""} onclick="updateStatus('${item.ID_Don_Hang}','shipped')" class="w-full text-center font-bold bg-orange-200 text-orange-400 px-2 rounded-xl">Confirm</button><br>
+                                                        <button style=${item.Trang_Thai != 'shipped' ? "opacity:50%" : "opacity:100%"} ${item.Trang_Thai != 'shipped' ? "disabled" : ""} onclick="updateStatus('${item.ID_Don_Hang}','delivered')" class="w-full mt-2 text-center font-bold bg-green-200 text-green-400 px-2 rounded-xl">Delivered</button>
                                                     </div>
                                             </td>
                                         </tr>`
@@ -1096,9 +1134,9 @@ $list_sort_customer =  [
                         <div class="flex justify-between items-center">
                             <h2 class="text-xl font-semibold text-gray-800">Customer Management</h2>
                             <div class="flex space-x-2">
-                                <button
+                                <button onclick="exportDataCustomer()"
                                     class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50">
-                                    <i class="fas fa-file-export mr-2"></i> Export
+                                    <i class="fas fa-file-export mr-2"></i> Export Excel
                                 </button>
                                 <button
                                     class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center">
@@ -1122,15 +1160,13 @@ $list_sort_customer =  [
                                         <option>Normally</option>
                                         <option>Newbie</option>
                                     </select>
-                                    <select
-                                        onchange="filterCustomer()"
+                                    <select onchange="filterCustomer()"
                                         class="filter-gender border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
                                         <option value="">Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
-                                    <select
-                                        onchange="filterCustomer()"
+                                    <select onchange="filterCustomer()"
                                         class="filter-status border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
                                         <option value="">Status</option>
                                         <option value="Active">Active</option>
@@ -1141,25 +1177,25 @@ $list_sort_customer =  [
                                     <select onchange="sortCustomer()"
                                         class="sort-customer border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
                                         <option value="Sort by a-z name">Sort by</option>
-                                        <?php foreach($list_sort_customer as $sort):?>
+                                        <?php foreach ($list_sort_customer as $sort): ?>
                                             <option value="<?= $sort ?>"><?= $sort ?></option>
-                                        <?php endforeach;?>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="overflow-x-auto">
                                 <table class="table-customers min-w-full divide-y divide-gray-200">
-                                   
-                                    
+
+
                                 </table>
                             </div>
 
                             <script>
-                                function renderDataTableCustomers(data){
+                                function renderDataTableCustomers(data) {
                                     const parent = document.querySelector('.table-customers')
-                                    parent.innerHTML=""
-                                    parent.innerHTML=` <thead>
+                                    parent.innerHTML = ""
+                                    parent.innerHTML = ` <thead>
                                         <tr>
                                             <th
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -1187,13 +1223,13 @@ $list_sort_customer =  [
 
                                     var tr = ""
                                     console.log(data)
-                                    data.forEach((item,index)=>{
+                                    data.forEach((item, index) => {
                                         tr += `<tr class="table-row">
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
                                                     <div
                                                         class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
-                                                        <span class="text-purple-600 font-medium">${item.HoTen.slice(0,1)}</span>
+                                                        <span class="text-purple-600 font-medium">${item.HoTen.slice(0, 1)}</span>
                                                     </div>
                                                     <div class="ml-4">
                                                         <div class="text-sm font-medium text-gray-900">${item.HoTen}
@@ -1211,17 +1247,114 @@ $list_sort_customer =  [
                                                     class="px-3 py-1 text-xs rounded-full status-${item.trang_thai}">${item.trang_thai}</span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
-                                                <button class="text-gray-600 hover:text-gray-900"><i
+                                                <button onclick="getDataCustomerByid('${item.ID_Khach_Hang}')" class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
+                                                <button class="dropdown p-2 text-gray-600 hover:text-gray-900"><i
                                                         class="fas fa-ellipsis-v"></i></button>
+                                                <div class="dropdown-content shadow bg-gray-50 p-2 right-10 z-99 absolute">
+                                                        <button style=${item.trang_thai != 'Blocked' ? "opacity:50%" : "opacity:100%"} ${item.Trang_Thai != 'Blocked' ? "disabled" : ""} onclick="updateStatus('${item.ID_Khach_Hang}','shipped')" class="w-full text-center font-bold bg-green-200 text-green-400 px-2 rounded-xl">Unlock</button><br>
+                                                        <button style=${item.trang_thai != 'Active' ? "opacity:50%" : "opacity:100%"} ${item.trang_thai != 'Active' ? "disabled" : ""} onclick="updateStatus('${item.ID_Khach_Hang}','delivered')" class="w-full mt-2 text-center font-bold bg-rose-200 text-rose-400 px-2 rounded-xl">Block</button>
+                                                    </div>
                                             </td>
                                         </tr>`
                                     })
 
-                                    var tbody =document.createElement('tbody')
+                                    var tbody = document.createElement('tbody')
                                     tbody.classList.add('bg-white', 'divide-y', 'divide-gray-200')
                                     tbody.innerHTML = tr
                                     parent.appendChild(tbody)
+                                }
+
+                                function renderDataCustomerDetail(data) {
+                                    console.log(data)
+
+                                    const main = document.querySelector('.main-content')
+                                    var child = document.createElement('div')
+                                    child.classList.add("customer-detail", "fixed", "flex", "items-center", "justify-center", "top-0", "z-999", "w-[84%]", "h-full", "bg-black/20")
+                                    child.innerHTML = `<div class="container relative overflow-y-scroll p-6 w-100 bg-white rounded-xl">
+                                                            <div class="flex gap-2 items-center">
+                                                                <div
+                                                                    class="rounded-xl ring-1 ring-gray-200 w-30 h-30 flex justify-center items-center text-purple-500 font-bold text-5xl">
+                                                                    <span>${data[0].HoTen.slice(0, 1)}</span>
+                                                                </div>
+                                                                <div class="flex-1 ring-1 ring-gray-200 h-30 rounded-xl p-4">
+                                                                    <strong>${data[0].HoTen}</strong>
+                                                                    <p class="text-gray-500 mt-1">#${data[0].ID_Khach_Hang}</p>
+                                                                    <div class="flex items-center gap-2">
+                                                                        <p class="status-${data[0].trang_thai} mt-1 py-1 px-2 text-center rounded-xl">${data[0].trang_thai}</p>
+                                                                        <p class="rounded-xl mt-1 py-1 px-2 bg-blue-200 text-blue-500">Newbie</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="w-full">
+                                                                <div class="flex ring-1 ring-gray-200 rounded-sm items-center gap-2 mt-2">
+                                                                    <i class="text-gray-500 p-2 fa-solid fa-envelope"></i>
+                                                                    <p class="text-gray-500">${data[0].Email}</p>
+                                                                </div>
+                                                                <div class="flex ring-1 ring-gray-200 rounded-sm items-center gap-2 mt-2">
+                                                                    <i class="text-gray-500 bg-purle-300 p-2 rounded-full fa-solid fa-location-dot"></i>
+                                                                    <p class="text-gray-500">${data[0].DiaChi}</p>
+                                                                </div>
+                                                                <div class="flex ring-1 ring-gray-200 rounded-sm items-center gap-2 mt-2">
+                                                                    <i class="text-gray-500 p-2 rounded-full fa-solid fa-phone"></i>
+                                                                    <p class="text-gray-500">${data[0].SDT}</p>
+                                                                </div>
+                                                                <div class="flex ring-1 ring-gray-200 rounded-sm items-center gap-2 mt-2">
+                                                                    <i class="text-gray-500 p-2 rounded-full fa-solid fa-clock"></i>
+                                                                    <p class="text-gray-500">${data[0].ngay_sinh}</p>
+                                                                </div>
+                                                                <div class="flex ring-1 ring-gray-200 rounded-sm items-center gap-2 mt-2">
+                                                                    <i class="text-gray-500 p-2 rounded-full fa-solid fa-venus-mars"></i>
+                                                                    <p class="text-gray-500">${data[0].gioi_tinh}</p>
+                                                                </div>
+                                                                <div class="flex ring-1 ring-gray-200 rounded-sm items-center gap-2 mt-2">
+                                                                    <i class="text-gray-500 p-2 rounded-full fa-solid fa-box"></i>
+                                                                    <p class="text-gray-500">${data[0].total_orders}</p>
+                                                                </div>
+                                                                <div class=" p-3 ring-1 ring-gray-200 rounded-sm items-center gap-2 mt-2">
+                                                                    <div class="flex justify-between items-center">
+                                                                        <span>Point</span>
+                                                                        <span class="">${data[0].total_spent}</span>
+                                                                    </div>
+                                                                    <div class="mt-2 w-full bg-gray-100 h-5 rounded-xl">
+                                                                        <div class="h-full w-[50%] bg-blue-200 rounded-xl flex items-center">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="flex mt-4 gap-2">
+                                                                    <button onclick="displayCustomer()" class="w-full rounded-sm p-2 font-bold ring-1 ring-gray-200">Back</button>
+                                                                    <button onclick="displayContact()" class="w-full p-2 font-bold bg-blue-500 rounded-sm text-white">Contact</button>
+                                                                </div>
+                                                            </div>
+                                                            <div style="display:none" class="contact absolute p-4 top-0 left-0 bg-white w-full h-full">
+                                                                <form method="post" action="/The-Ordinary/admin/users/sendmail">
+                                                                    <div class="rounded-sm mt-1 flex p-2 w-full ring-1 ring-gray-200">
+                                                                        <strong><span>From: </span></strong>
+                                                                        <input name="mailsender" value="dinhvanhuy.04032019@gmail.com" class="w-full ml-2 outline-none" readonly></input>
+                                                                    </div>
+                                                                    <div class="rounded-sm mt-3 flex p-2 w-full ring-1 ring-gray-200">
+                                                                        <strong><span>To: </span></strong>
+                                                                        <input name="mailreceiver" value="${data[0].Email}" class="w-full ml-2 outline-none" readonly></input>
+                                                                    </div>
+                                                                    <div class="rounded-sm mt-3 flex p-2 w-full ring-1 ring-gray-200">
+                                                                        <strong><span>Title: </span></strong>
+                                                                        <input name="title" class="w-full ml-2 outline-none"></input>
+                                                                    </div>
+                                                                    <div class="rounded-sm mt-3 p-2 w-full ring-1 ring-gray-200">
+                                                                        <strong><span>Content: </span></strong>
+                                                                        <textarea name="content" class="w-full outline-none" rows="10"></textarea>
+                                                                    </div>
+                                                                    <div class="flex mt-4 gap-2">
+                                                                        <button type="button" onclick="displayContact()" class="w-full rounded-sm p-2 font-bold ring-1 ring-gray-200">Back</button>
+                                                                        <button onclick="loading()" class="send w-full p-2 font-bold bg-blue-500 rounded-sm text-white flex items-center justify-center">Send</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>`
+
+                                    main.appendChild(child)
+
                                 }
 
                                 function renderNavigation(index) {
@@ -1237,7 +1370,7 @@ $list_sort_customer =  [
 
                                 }
 
-                                function searchCustomer(){
+                                function searchCustomer() {
                                     var keyword = document.querySelector('.input-search-customer').value
                                     console.log(keyword)
 
@@ -1254,8 +1387,8 @@ $list_sort_customer =  [
                                             renderNavigation(result[1])
                                         })
                                 }
-                                
-                                function sortCustomer(){
+
+                                function sortCustomer() {
                                     var sort = document.querySelector('.sort-customer').value
                                     console.log(sort)
 
@@ -1270,46 +1403,58 @@ $list_sort_customer =  [
                                         .then(result => renderDataTableCustomers(result[0]))
                                 }
 
-                                function filterCustomer(){
+                                function filterCustomer() {
                                     var gender = document.querySelector('.filter-gender').value
                                     var status = document.querySelector('.filter-status').value
                                     console.log(gender)
                                     console.log(status)
-                                    fetch("/The-Ordinary/admin/users/filter",{
-                                        method:"POST",
+                                    fetch("/The-Ordinary/admin/users/filter", {
+                                        method: "POST",
                                         headers: {
                                             "Content-Type": "application/x-www-form-urlencoded"
                                         },
-                                        body: new URLSearchParams({ gender,status })
+                                        body: new URLSearchParams({ gender, status })
                                     })
-                                    .then(res => res.json())
-                                    .then(result => renderDataTableCustomers(result[0]))
+                                        .then(res => res.json())
+                                        .then(result => renderDataTableCustomers(result[0]))
                                 }
 
-
-                                function getDataCustomers(navigation){
-                                    fetch("The-Ordinary/admin/users",{
+                                function getDataCustomerByid(id) {
+                                    console.log(id)
+                                    fetch("/The-Ordinary/admin/users/detail", {
                                         method: "POST",
-                                        headers:{
+                                        headers: {
                                             "Content-Type": "application/x-www-form-urlencoded"
                                         },
-                                        body: new URLSearchParams({navigation})
+                                        body: new URLSearchParams({ id })
                                     })
-                                    .then(res => res.json())
-                                    .then(data => {
-                                        renderDataTableCustomers(data[0])
-                                        renderNavigation(data[1])
+                                        .then(res => res.json())
+                                        .then(data => renderDataCustomerDetail(data))
+                                }
+
+                                function getDataCustomers(navigation) {
+                                    fetch("The-Ordinary/admin/users", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        body: new URLSearchParams({ navigation })
                                     })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            renderDataTableCustomers(data[0])
+                                            renderNavigation(data[1])
+                                        })
                                 }
 
                                 getDataCustomers(1)
-                                
+
                             </script>
 
                             <div class="flex justify-between items-center mt-6">
                                 <div class="text-sm text-gray-500">Hiển thị 1-5 của 120 khách hàng</div>
                                 <div class="navigation flex space-x-1">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -1320,15 +1465,15 @@ $list_sort_customer =  [
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'revenue'): ?>
                     <div id="revenue-section" class="space-y-6">
                         <div class="flex justify-between items-center">
-                            <h2 class="text-xl font-semibold text-gray-800">Báo cáo doanh thu</h2>
+                            <h2 class="text-xl font-semibold text-gray-800">Revenue Report</h2>
                             <div class="flex space-x-2">
                                 <button
                                     class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50">
-                                    <i class="fas fa-file-export mr-2"></i> Xuất báo cáo
+                                    <i class="fas fa-file-export mr-2"></i> Export
                                 </button>
                                 <button
                                     class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50">
-                                    <i class="fas fa-print mr-2"></i> In báo cáo
+                                    <i class="fas fa-print mr-2"></i> Print
                                 </button>
                             </div>
                         </div>
@@ -1336,75 +1481,82 @@ $list_sort_customer =  [
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="bg-white p-6 rounded-xl shadow-sm">
                                 <div class="flex justify-between items-center mb-4">
-                                    <h3 class="text-sm font-medium text-gray-500">Tổng doanh thu</h3>
+                                    <h3 class="text-sm font-medium text-gray-500">Revenue</h3>
                                     <select
                                         class="text-xs border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                        <option>Tháng này</option>
-                                        <option>Quý này</option>
-                                        <option>Năm nay</option>
+                                        <option>This month</option>
+                                        <option>This year</option>
                                     </select>
                                 </div>
                                 <div class="flex items-center">
-                                    <div class="text-3xl font-bold text-gray-800">42.500.000đ</div>
+                                    <div class="text-3xl font-bold text-gray-800"><?= $currentMonthlyData[0]['revenue'] ?>
+                                        USD
+                                    </div>
                                     <div class="ml-3 text-sm text-green-500"><i class="fas fa-arrow-up mr-1"></i>15%</div>
                                 </div>
                                 <div class="mt-4">
                                     <div class="h-2 bg-gray-200 rounded-full">
-                                        <div class="h-2 bg-purple-500 rounded-full" style="width: 75%"></div>
+                                        <div class="h-2 bg-purple-500 rounded-full"
+                                            style="width: <?= ($currentMonthlyData[0]['revenue'] / 150 * 100) . "%" ?>">
+                                        </div>
                                     </div>
                                     <div class="flex justify-between mt-2 text-xs text-gray-500">
-                                        <div>Mục tiêu: 60.000.000đ</div>
-                                        <div>75%</div>
+                                        <div>Target: 150.00 USD</div>
+                                        <div><?= number_format(($currentMonthlyData[0]['revenue'] / 150 * 100), 2) . "%" ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="bg-white p-6 rounded-xl shadow-sm">
                                 <div class="flex justify-between items-center mb-4">
-                                    <h3 class="text-sm font-medium text-gray-500">Đơn hàng</h3>
+                                    <h3 class="text-sm font-medium text-gray-500">Profit</h3>
                                     <select
                                         class="text-xs border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                        <option>Tháng này</option>
-                                        <option>Quý này</option>
-                                        <option>Năm nay</option>
+                                        <option>This month</option>
+                                        <option>This year</option>
                                     </select>
                                 </div>
                                 <div class="flex items-center">
-                                    <div class="text-3xl font-bold text-gray-800">254</div>
+                                    <div class="text-3xl font-bold text-gray-800"><?= $currentMonthlyData[0]['profit'] ?>
+                                        USD
+                                    </div>
                                     <div class="ml-3 text-sm text-green-500"><i class="fas fa-arrow-up mr-1"></i>8%</div>
                                 </div>
                                 <div class="mt-4">
                                     <div class="h-2 bg-gray-200 rounded-full">
-                                        <div class="h-2 bg-blue-500 rounded-full" style="width: 85%"></div>
+                                        <div class="h-2 bg-blue-500 rounded-full"
+                                            style="width: <?= ($currentMonthlyData[0]['profit'] / 30 * 100) . "%" ?>"></div>
                                     </div>
                                     <div class="flex justify-between mt-2 text-xs text-gray-500">
-                                        <div>Mục tiêu: 300</div>
-                                        <div>85%</div>
+                                        <div>Target: 30.00 USD</div>
+                                        <div><?= number_format(($currentMonthlyData[0]['profit'] / 30 * 100), 2) . "%" ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="bg-white p-6 rounded-xl shadow-sm">
                                 <div class="flex justify-between items-center mb-4">
-                                    <h3 class="text-sm font-medium text-gray-500">Giá trị trung bình</h3>
+                                    <h3 class="text-sm font-medium text-gray-500">Orders</h3>
                                     <select
                                         class="text-xs border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                        <option>Tháng này</option>
-                                        <option>Quý này</option>
-                                        <option>Năm nay</option>
+                                        <option>This month</option>
+                                        <option>This year</option>
                                     </select>
                                 </div>
                                 <div class="flex items-center">
-                                    <div class="text-3xl font-bold text-gray-800">650.000đ</div>
+                                    <div class="text-3xl font-bold text-gray-800"><?= $total_order ?></div>
                                     <div class="ml-3 text-sm text-green-500"><i class="fas fa-arrow-up mr-1"></i>12%</div>
                                 </div>
                                 <div class="mt-4">
                                     <div class="h-2 bg-gray-200 rounded-full">
-                                        <div class="h-2 bg-green-500 rounded-full" style="width: 92%"></div>
+                                        <div class="h-2 bg-green-500 rounded-full"
+                                            style="width: <?= ($total_order / 250 * 100) . "%" ?>"></div>
                                     </div>
                                     <div class="flex justify-between mt-2 text-xs text-gray-500">
-                                        <div>Mục tiêu: 700.000đ</div>
-                                        <div>92%</div>
+                                        <div>Tatget: 250</div>
+                                        <div> <?= number_format(($total_order / 250 * 100), 2) . "%" ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -1413,12 +1565,12 @@ $list_sort_customer =  [
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div class="bg-white p-6 rounded-xl shadow-sm">
                                 <div class="flex justify-between items-center mb-4">
-                                    <h3 class="font-semibold text-gray-800">Doanh thu theo tháng</h3>
+                                    <h3 class="font-semibold text-gray-800">Revenue by year</h3>
                                     <div class="flex space-x-2">
                                         <select
                                             class="text-sm border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                            <option>2023</option>
-                                            <option>2022</option>
+                                            <option>2025</option>
+                                            <option>2024</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1429,25 +1581,24 @@ $list_sort_customer =  [
 
                             <div class="bg-white p-6 rounded-xl shadow-sm">
                                 <div class="flex justify-between items-center mb-4">
-                                    <h3 class="font-semibold text-gray-800">Doanh thu theo danh mục</h3>
+                                    <h3 class="font-semibold text-gray-800">Profit by year</h3>
                                     <div class="flex space-x-2">
                                         <select
                                             class="text-sm border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                            <option>Tháng này</option>
-                                            <option>Quý này</option>
-                                            <option>Năm nay</option>
+                                            <option>2025</option>
+                                            <option>2024</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="h-80">
-                                    <canvas id="categoryRevenueChart"></canvas>
+                                    <canvas id="yearlyProfitChart"></canvas>
                                 </div>
                             </div>
                         </div>
 
                         <div class="bg-white p-6 rounded-xl shadow-sm">
                             <div class="flex justify-between items-center mb-6">
-                                <h3 class="font-semibold text-gray-800">Sản phẩm bán chạy</h3>
+                                <h3 class="font-semibold text-gray-800">Top 5 bestseller</h3>
                                 <select
                                     class="text-sm border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500">
                                     <option>Tháng này</option>
@@ -1459,9 +1610,40 @@ $list_sort_customer =  [
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead>
                                         <tr>
-
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Product</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Category</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Price</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Sold</th>
                                         </tr>
                                     </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <?php foreach($bestseller as $item):?>
+                                        <tr class="table-row">
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <img src="<?= explode(";",$item['Hinh_Anh'])[0]?>"
+                                                        class="h-12 w-12 bg-gray-100 rounded-md flex items-center justify-center">
+                                                        
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900"><?=$item['Ten_SP']?></div>
+                                                        <div class="text-xs text-gray-500">#<?=$item['ID_San_Pham']?></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?= $list_category[$item['ID_Danh_Muc']]?></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?=$item['Gia']?> USD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?=$item['sold']?></td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -1473,105 +1655,103 @@ $list_sort_customer =  [
                 <div class="container relative overflow-y-scroll h-150 p-6 w-200 bg-white rounded-xl">
                     <form action="/The-Ordinary/admin/product" method="post" enctype="multipart/form-data"
                         class="w-full relative" onsubmit="return confirmCreatSubmit()">
-                        <h3 class="font-bold">Create stock</h3>
-                        <div class="w-[50%] grid grid-cols-2 gap-2">
-                            <div class="mt-3">
-                                <span>Price Import</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="price_store" type="text">
+                        
+                       <div class="">
+                            <span class="text-blue-500 font-bold">STEP 1: Create Stock</span>
+                            <div class="w-[50%] rounded-sm p-2 ring-1 ring-gray-200 grid grid-cols-2 gap-2">
+                                <div class="mt-3">
+                                    <span>Price Import</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="price_store" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Quantity</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_store" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Brand Producer</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="producer_store" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>EXP</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="exp_store" type="date">
+                                </div>
+                                <div class="mt-3">
+                                    <span>MFG</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="mfg_store" type="date">
+                                </div>
                             </div>
-                            <div class="mt-3">
-                                <span>Quantity</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_store" type="text">
+                            <br>
+                           <span class="text-blue-500 font-bold">STEP 2: Create Product</span>
+                            <div class="w-[50%] rounded-sm p-2 ring-1 ring-gray-200 grid grid-cols-2 gap-2">
+                                <div class="mt-3">
+                                    <span>Name</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="name_product" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Price</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="price_product" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Quantity</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Size</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="size_product" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Targets</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="targets_product" type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Key ingredients</span>
+                                    <input class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="ingredients_product"
+                                        type="text">
+                                </div>
+                                <div class="mt-3">
+                                    <span>Suited to</span>
+                                    <select class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="suited_product">
+                                        <option disabled selected value="">Select Suited</option>
+                                        <?php foreach ($list_suited_to as $suited): ?>
+                                            <option><?= $suited ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="mt-3">
+                                    <span>Category</span>
+                                    <select class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="format_product">
+                                        <option disabled selected value="">Select Category</option>
+                                        <?php foreach ($list_filter_format as $format): ?>
+                                            <option value="<?= $format ?>"><?= $format ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="mt-3">
+                                    <span>Description</span>
+                                    <textarea class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="description_product" rows="3"
+                                        cols="3"></textarea>
+                                </div>
+                                <div>
+                                    <button class="mt-11 text-center w-full h-10 bg-blue-500 rounded-sm text-white text-bold" type="submit" name="create"
+                                    value="create">Create</button>
+                                    <button onclick="displayCreate()" type="button"
+                                    class="create-btn text-center bg-red-500 rounded-sm mt-2 h-10 text-white w-full text-bold" type="submit" name="create"
+                                    value="create">Cancle</button>
+                                </div>
                             </div>
-                            <div class="mt-3">
-                                <span>Brand Producer</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="producer_store" type="text">
-                            </div>
-                            <div class="mt-3">
-                                <span>EXP</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="exp_store" type="date">
-                            </div>
-                            <div class="mt-3">
-                                <span>MFG</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="mfg_store" type="date">
-                            </div>
-                        </div>
-                        <h3 class="mt-3 font-bold">Create Product</h3>
-                        <div class="w-[50%] grid grid-cols-2 gap-2">
-                            <div class="mt-3">
-                                <span>Name</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="name_product" type="text">
-                            </div>
-                            <div class="mt-3">
-                                <span>Price</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="price_product" type="text">
-                            </div>
-                            <div class="mt-3">
-                                <span>Quantity</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
-                            </div>
-                            <div class="mt-3">
-                                <span>Size</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="size_product" type="text">
-                            </div>
-                            <div class="mt-3">
-                                <span>Targets</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="targets_product" type="text">
-                            </div>
-                            <div class="mt-3">
-                                <span>Key ingredients</span>
-                                <input class="w-full mt-2 ring-1 ring-gray-200 p-2" name="ingredients_product"
-                                    type="text">
-                            </div>
-                            <div class="mt-3">
-                                <span>Suited to</span>
-                                <select class="w-full mt-2 ring-1 ring-gray-200 p-2" name="suited_product">
-                                    <option disabled selected value="">Select Suited</option>
-                                    <?php foreach ($list_suited_to as $suited): ?>
-                                        <option><?= $suited ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mt-3">
-                                <span>Category</span>
-                                <select class="w-full mt-2 ring-1 ring-gray-200 p-2" name="format_product">
-                                    <option disabled selected value="">Select Category</option>
-                                    <?php foreach ($list_filter_format as $format): ?>
-                                        <option value="<?= $format ?>"><?= $format ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                       </div>
 
-                        </div>
-
-                        <div class="mt-3 w-[50%]">
-                            <span>Description</span>
-                            <textarea class="w-full mt-2 ring-1 ring-gray-200 p-2" name="description_product" rows="3"
-                                cols="1"></textarea>
-                        </div>
-
-                        <div class="Album">
-                            <span>Album</span>
+                        <div class="Album ">
+                            <span class="text-blue-500 font-bold">STEP 3: Add Image</span>
                             <div class="dropzone" id="dropzone">
                                 <p>Drag drop image in here</p>
                             </div>
                             <input type="file" name="images[]" id="fileInput" multiple style="display:none">
-                            <div class="preview" id="preview"></div>
-                        </div>
-                        <div class="bg-purple-500 w-[50%] mt-2 p-4">
-                            <button class="text-center w-full text-white text-bold" type="submit" name="create"
-                                value="create">Create</button>
-                        </div>
-                        <div class="border border-black w-[50%] mt-2 p-4">
-                            <button onclick="displayCreate()" type="button"
-                                class="create-btn text-center text-black w-full text-bold" type="submit" name="create"
-                                value="create">Cancle</button>
+                            <div class="preview rounded-sm ring-1 ring-gray-200 p-2" id="preview"></div>
                         </div>
                     </form>
                 </div>
             </div>
-
-
         </div>
     </div>
     <script>
@@ -1637,6 +1817,161 @@ $list_sort_customer =  [
         function displayDetailOrder() {
             var element = document.querySelector('.detail-order').remove()
         }
+
+        function displayCustomer() {
+            var element = document.querySelector('.customer-detail').remove()
+        }
+
+        function displayContact() {
+            var element = document.querySelector('.contact')
+            element.style.display = element.style.display === 'none' ? 'block' : 'none'
+        }
+
+        function loading() {
+            document.querySelector('.send').innerHTML = `<span class="loader"></span>`
+        }
+
+        function exportDataCustomer() {
+
+            const table = document.querySelector(".table-customers");
+            const ws = XLSX.utils.table_to_sheet(table);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+            XLSX.writeFile(wb, "BangDuLieu.xlsx");
+        }
+
+        function exportDataOrder() {
+            const table = document.querySelector(".table-orders");
+            const ws = XLSX.utils.table_to_sheet(table);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+            XLSX.writeFile(wb, "DataOrders.xlsx");
+        }
+
+        const ctx = document.getElementById('yearlyRevenueChart').getContext('2d');
+        const ctx2 = document.getElementById('yearlyProfitChart').getContext('2d');
+        const gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient1.addColorStop(0, 'rgb(144, 224, 239)');
+        gradient1.addColorStop(1, 'rgba(202, 240, 248, 0)');
+        const gradient2 = ctx2.createLinearGradient(0, 0, 0, 400);
+        gradient2.addColorStop(0, 'rgb(199, 125, 255)');
+        gradient2.addColorStop(1, 'rgba(224, 170, 255, 0)');
+        const chartRevenue = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: <?= json_encode(array_column($monthlyData, 'month')) ?>,
+                datasets: [
+                    {
+                        label: 'Revenue (USD)',
+                        fill: true,
+                        backgroundColor: gradient1,
+                        tension: 0.4, // đường cong mượt
+                        pointRadius: 0, // ẩn chấm tròn
+                        borderWidth: 2,
+                        borderColor: 'rgb(0, 180, 216)',
+                        data: <?= json_encode(array_map(fn($r) => round($r['revenue'], 0), $monthlyData)) ?>
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            padding: 20,
+                            generateLabels(chart) {
+                                return chart.data.datasets.map((dataset, i) => ({
+                                    text: dataset.label,
+                                    fillStyle: dataset.backgroundColor,
+                                    hidden: !chart.isDatasetVisible(i),
+                                    strokeStyle: 'transparent',
+                                    index: i,
+                                    pointStyle: 'circle'
+                                }));
+                            }
+
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                        },
+
+                    }
+                }
+            }
+        });
+
+        const chartProfit = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: <?= json_encode(array_column($monthlyData, 'month')) ?>,
+                datasets: [
+                    {
+                        label: 'Profit (USD)',
+                        fill: true,
+                        backgroundColor: gradient2,
+                        tension: 0.4, // đường cong mượt
+                        pointRadius: 0, // ẩn chấm tròn
+                        borderWidth: 2,
+                        borderColor: 'rgb(199, 125, 255)',
+                        data: <?= json_encode(array_map(fn($r) => round($r['profit'], 0), $monthlyData)) ?>
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            padding: 20,
+                            generateLabels(chart) {
+                                return chart.data.datasets.map((dataset, i) => ({
+                                    text: dataset.label,
+                                    fillStyle: dataset.backgroundColor,
+                                    hidden: !chart.isDatasetVisible(i),
+                                    strokeStyle: 'transparent',
+                                    index: i,
+                                    pointStyle: 'circle'
+                                }));
+                            }
+
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                        },
+
+                    }
+                }
+            }
+        });
+
     </script>
 
 </body>

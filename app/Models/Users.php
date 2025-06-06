@@ -49,6 +49,24 @@ class Users
         ];
     }
 
+    public static function getDetailUser($id){
+        $database = new Database();
+        $db = $database->getConnection();
+        $query = "SELECT 
+                u.*,
+                t.trang_thai,
+                COUNT(o.ID_Don_Hang) AS total_orders,
+                COALESCE(SUM(o.tong_tien), 0) AS total_spent
+            FROM khach_hang u
+            LEFT JOIN don_hang o ON u.ID_Khach_Hang = o.ID_Khach_Hang
+            LEFT JOIN tai_khoan t ON u.ID_Khach_Hang = t.ID_Khach_Hang
+            WHERE u.ID_Khach_Hang = ?
+            GROUP BY u.ID_Khach_Hang";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public static function updateUser($id, $fullname, $phone, $email)
     {
         $database = new Database();

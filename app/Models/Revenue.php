@@ -44,7 +44,7 @@ class Revenue{
     public static function Bestsellers(){
         $database = new Database();
         $db = $database->getConnection();
-        $query = "SELECT p.Ten_SP, SUM(oi.so_luong) as sold
+        $query = "SELECT p.Ten_SP, p.Hinh_Anh, p.ID_Danh_Muc, p.ID_San_Pham,p.Gia, SUM(oi.so_luong) as sold
             FROM chi_tiet_don_hang oi
             JOIN san_pham p ON oi.ID_San_Pham = p.ID_San_Pham
             GROUP BY oi.ID_San_Pham

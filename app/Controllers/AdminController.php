@@ -37,19 +37,7 @@ class AdminController
         $leastproduct = Revenue::LeastProduct();
         $total_quantity = Revenue::TotalQuantity();
 
-        
-
-        
-
-        
-
-
         $store = Store::getAllStore();
-
-        
-
-
-
         require_once __DIR__ . '/../Views/admin.php';
 
     }
@@ -142,6 +130,14 @@ class AdminController
         echo json_encode([$data,$total_page]);
     }
 
+    public function getCustomerDetail(){
+        $id = $_POST['id'];
+
+        $data = Users::getDetailUser($id);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
     public function CRUD_Products()
     {
 
@@ -162,7 +158,7 @@ class AdminController
                 $newQuantityStore = Store::getQuantityById($data['id'])['SL'] - $data['quantity'];
                 Store::updateQuantity($data['id'], $newQuantityStore);
                 Product::Update($data);
-                header('Location: /The-Ordinary/admin?page=Products&view=' . $_POST['id_product']);
+                header('Location:'.$_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -199,7 +195,7 @@ class AdminController
 
             try {
                 Product::Create($data);
-                header('Location: /The-Ordinary/admin?page=products');
+                header('Location: '.$_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -223,7 +219,7 @@ class AdminController
             try {
                 Cart::deleteByIdProduct($id);
                 Product::delete($id);
-                header('Location: /The-Ordinary/admin?page=Products');
+                header('Location: '.$_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -248,7 +244,7 @@ class AdminController
             try {
 
                 Order::UpdateStatus($_POST['id_order'],$_POST['update']);
-                header('Location: /The-Ordinary/admin?page=Orders&view=' . $_POST['id_order']);
+                header('Location: ' .$_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -257,7 +253,7 @@ class AdminController
                 exit;
             } catch (\Exception $e) {
                 session_start();
-                header('Location: /The-Ordinary/admin?page=Orders&view=' . $_POST['id_order']);
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
                 $_SESSION['flash'] = [
                     'type' => 'warning', // success, danger, warning, info
                     'message' => 'Update order is fail!'
@@ -268,7 +264,7 @@ class AdminController
         if (isset($_POST['delete']) && $_POST['delete'] === 'delete') {
             try {
                 Order::delete($_POST['id_order']);
-                header('Location: /The-Ordinary/admin?page=Orders');
+                header('Location: '.$_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -277,7 +273,7 @@ class AdminController
                 exit;
             } catch (\Exception $e) {
                 session_start();
-                header('Location: /The-Ordinary/admin?page=Orders&view=' . $_POST['id_order']);
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
                 $_SESSION['flash'] = [
                     'type' => 'warning', // success, danger, warning, info
                     'message' => 'Delete order is fail!'
