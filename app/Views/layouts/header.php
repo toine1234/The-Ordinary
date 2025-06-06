@@ -27,13 +27,11 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 
-<?php header('Content-Type: text/html; charset=UTF-8');?>
+<?php 
+header('Content-Type: text/html; charset=UTF-8');
+$slider = explode(";",isset($dataHome['slider']) ? $dataHome['slider'] :"");
+?>
 <body>
-<script>
-  if (window.top !== window.self) {
-    window.top.location = window.self.location;
-  }
-</script>
     <?php if (!isset($_COOKIE['accessToken'])): ?>
         <?php if(isset($_SESSION['idUser'])) unset($_SESSION['idUser']); ?>
         <?php if(isset($_SESSION['cart'])) unset($_SESSION['cart']); ?>
@@ -53,16 +51,11 @@
 
                     <div class='header-promo-slider'>
                         <div class="slides">
-                            <div tabindex="1" class="slide">
-                                <a>SALE OFF 50%</a>
+                            <?php foreach($slider as $item):?>
+                                <div tabindex="1" class="slide">
+                                <a><?= $item ?></a>
                             </div>
-                            <div tabindex="1" class="slide ">
-                                <a>CARBON NEUTRAL SHIPPING ON ALL OREDERS</a>
-                            </div>
-                            <div tabindex="1" class="slide">
-                                <a>20% OFF SELECT SETS & COLLECTIONS</a>
-                            </div>
-
+                            <?php endforeach;?>
                         </div>
                     </div>
 

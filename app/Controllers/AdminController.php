@@ -11,7 +11,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Feedback;
 use App\Core\EmailHandle;
-
+use App\Models\Home;
 class AdminController
 {
     public function index()
@@ -36,10 +36,17 @@ class AdminController
         $currentMonthlyData = Revenue::RevenueByMonth();
         $leastproduct = Revenue::LeastProduct();
         $total_quantity = Revenue::TotalQuantity();
+        
 
         $store = Store::getAllStore();
         require_once __DIR__ . '/../Views/admin.php';
 
+    }
+
+    public function getHome(){
+        $dataHome = Home::getDataHome();
+        header('Content-Type: application/json');
+        echo json_encode(value: $dataHome);
     }
 
     public function getStocks(){

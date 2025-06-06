@@ -1,15 +1,13 @@
 <!-- Content - Poster Header -->
 <div class="content-wrapper">
     <div class="poster">
-        <img class="poster-image" src="https://cdn.media.amplience.net/i/deciem/ORD-HP-Hero-SS-Regimen-Builder?fmt=auto&$poi$&sm=aspect&w=3840&aspect=37:20"
+        <img class="poster-image" src="<?= $dataHome['banner'] ?>"
             alt="The Ordinary Bestsellers">
         <img class="poster-img-brand" src="https://theordinary.com/on/demandware.static/Sites-deciem-us-Site/-/default/dw5e634eac/images/brands-logo/theOrdinary-logo.svg" alt="poster brand">
         <div class="title">
-            <h1 class="h1-title">Your Regimen in 2 Minutes.</h1>
+            <h1 class="h1-title"><?= $dataHome['heading']?></h1>
             <p>
-            Personalize your skincare with our Regimen Builder. Create a custom program in 
-                <b>under 2 minutes</b>
-                .
+                <?= $dataHome['caption']?>
             </p>
             <a class="btn-title" href="https://theordinary.com/en-vn/category/skincare/skincare-collections">
                 Find My Regimen

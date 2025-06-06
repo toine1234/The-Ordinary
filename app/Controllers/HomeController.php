@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use App\Models\Cart;
 use App\Core\JWT;
+use App\Models\Home;
 class HomeController
 {
     public function index()
@@ -20,6 +21,8 @@ class HomeController
             unset($_SESSION['idUser']);
             unset($_SESSION['cart']);
         }
+
+        $dataHome = Home::getDataHome();
         
         require_once __DIR__ . '/../Views/layouts/header.php';
         require_once __DIR__ . '/../Views/home.php';

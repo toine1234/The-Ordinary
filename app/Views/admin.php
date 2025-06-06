@@ -143,6 +143,11 @@ $list_sort_customer = [
                     <i class="fas fa-tachometer-alt mr-3 w-5 text-center"></i>
                     <span>General</span>
                 </a>
+                <a href="/The-Ordinary/admin?page=home" id="home-link"
+                    class="sidebar-link <?= $_GET['page'] == 'home' ? 'active' : '' ?> flex items-center px-4 py-3 rounded-md cursor-pointer">
+                    <i class="fas fa-house mr-3 w-5 text-center"></i>
+                    <span>Home</span>
+                </a>
                 <a href="/The-Ordinary/admin?page=products" id="products-link"
                     class="sidebar-link <?= $_GET['page'] == 'products' ? 'active' : '' ?> flex items-center px-4 py-3 rounded-md cursor-pointer">
                     <i class="fas fa-box mr-3 w-5 text-center"></i>
@@ -158,11 +163,22 @@ $list_sort_customer = [
                     <i class="fas fa-users mr-3 w-5 text-center"></i>
                     <span>Customers</span>
                 </a>
+                <a href="/The-Ordinary/admin?page=category" id="category-link"
+                    class="sidebar-link <?= $_GET['page'] == 'category' ? 'active' : '' ?> flex items-center px-4 py-3 rounded-md cursor-pointer">
+                    <i class="fas fa-palette mr-3 w-5 text-center"></i>
+                    <span>Category</span>
+                </a>
+                <a href="/The-Ordinary/admin?page=voucher" id="voucher-link"
+                    class="sidebar-link <?= $_GET['page'] == 'voucher' ? 'active' : '' ?> flex items-center px-4 py-3 rounded-md cursor-pointer">
+                    <i class="fas fa-ticket mr-3 w-5 text-center"></i>
+                    <span>Vouchers</span>
+                </a>
                 <a href="/The-Ordinary/admin?page=revenue" id="revenue-link"
                     class="sidebar-link <?= $_GET['page'] == 'revenue' ? 'active' : '' ?> flex items-center px-4 py-3 rounded-md cursor-pointer">
                     <i class="fas fa-chart-line mr-3 w-5 text-center"></i>
                     <span>Revenue</span>
                 </a>
+
                 <div class="sidebar-link flex items-center px-4 py-3 rounded-md cursor-pointer">
                     <i class="fas fa-cog mr-3 w-5"></i>
                     <span>Setting</span>
@@ -522,6 +538,68 @@ $list_sort_customer = [
                     </div>
                 <?php endif; ?>
 
+                <!-- Home Section -->
+                <?php if (isset($_GET['page']) && $_GET['page'] === 'home'): ?>
+                    <div id="home-section" class="space-y-6">
+                        <div class="edit-btn flex justify-between items-center">
+                            <h2 class="text-xl font-semibold text-gray-800">Home Management</h2>
+                            <button onclick="getDataHome()"
+                                class=" bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center">
+                                <i class="fas fa-edit mr-2"></i> Edit
+                            </button>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="view">
+                                <iframe class="w-full h-130" src="http://localhost/The-Ordinary/">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        function renderEditHome(data){
+                            var main = document.querySelector('.main-content')
+                            var child = document.createElement('div')
+                            child.classList.add("edit-home", "fixed", "flex", "items-center", "justify-center", "top-0", "z-999", "w-[84%]", "h-full", "bg-black/20")
+                            child.innerHTML = `<div class="container relative overflow-y-scroll p-6 w-100 bg-white rounded-xl">
+                    <form action="/The-Ordinary/admin/home" method="post" enctype="multipart/form-data"
+                        class="w-full relative" onsubmit="return confirmUpdateSubmit()">
+                        <div class="p-2 ring-1 ring-gray-200 rounded-sm ">
+                            <span class="text-blue-500 font-bold">Slider</span>
+                            ${data.slider.split(";").map(item => {
+                                return `<input name="slider" value="${item}" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">`
+                            }).join("")}
+
+                        </div>
+                        <div class="mt-4 p-2 ring-1 ring-gray-200 rounded-sm ">
+                            <span class="text-blue-500 font-bold">Hero</span>
+                            <input type="hidden" name="banner_old" value="${data.banner}">
+                            <input type="file" name="banner" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">
+                            <input name="heading" value="${data.heading}" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">
+                            <textarea name="caption" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">${data.caption}</textarea>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <button type="button" onclick="displayEditHome()" class="rounded-sm bg-blue-500 p-4 text-white font-bold w-full">Back</button>
+                            <button class="rounded-sm bg-purple-500 p-4 text-white font-bold w-full">Update</button>
+                        </div>
+                    </form>
+                </div>`
+                main.appendChild(child)
+                        }
+
+                        function getDataHome() {
+                            fetch("/The-Ordinary/admin/home", {
+                                method: "GET",
+                                headers: {
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                }
+                            })
+                            .then(res => res.json())
+                            .then(data => renderEditHome(data))
+                        }
+                    </script>
+                <?php endif; ?>
+
+
                 <!-- Products Section -->
                 <!-- Products Section -->
                 <!-- Products Section -->
@@ -804,7 +882,7 @@ $list_sort_customer = [
 
                                 function deleteProduct(id_product) {
 
-                                    if(!confirm('Are you sure delete?')){
+                                    if (!confirm('Are you sure delete?')) {
                                         return
                                     }
 
@@ -1606,9 +1684,8 @@ $list_sort_customer = [
                                 <h3 class="font-semibold text-gray-800">Top 5 bestseller</h3>
                                 <select
                                     class="text-sm border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                    <option>Tháng này</option>
-                                    <option>Quý này</option>
-                                    <option>Năm nay</option>
+                                    <option>This month</option>
+                                    <option>This year</option>
                                 </select>
                             </div>
                             <div class="overflow-x-auto">
@@ -1638,17 +1715,23 @@ $list_sort_customer = [
                                                             class="h-12 w-12 bg-gray-100 rounded-md flex items-center justify-center">
 
                                                         <div class="ml-4">
-                                                            <div class="text-sm font-medium text-gray-900"><?= $item['Ten_SP'] ?>
+                                                            <div class="text-sm font-medium text-gray-900">
+                                                                <?= $item['Ten_SP'] ?>
                                                             </div>
-                                                            <div class="text-xs text-gray-500">#<?= $item['ID_San_Pham'] ?></div>
+                                                            <div class="text-xs text-gray-500">#<?= $item['ID_San_Pham'] ?>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                    <?= $list_category[$item['ID_Danh_Muc']] ?></td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?= $item['Gia'] ?>
-                                                    USD</td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?= $item['sold'] ?>
+                                                    <?= $list_category[$item['ID_Danh_Muc']] ?>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <?= $item['Gia'] ?>
+                                                    USD
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                                    <?= $item['sold'] ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -1764,8 +1847,7 @@ $list_sort_customer = [
                             <input type="file" name="images[]" id="fileInput" multiple style="display:none">
                             <div class="preview rounded-sm ring-1 ring-gray-200 p-2" id="preview"></div>
                             <div>
-                                <button
-                                    class="mt-2 text-center w-full h-10 bg-blue-500 rounded-sm text-white text-bold"
+                                <button class="mt-2 text-center w-full h-10 bg-blue-500 rounded-sm text-white text-bold"
                                     type="submit" name="create" value="create">Create</button>
                                 <button onclick="displayCreate()" type="button"
                                     class="create-btn text-center bg-red-500 rounded-sm mt-2 h-10 text-white w-full text-bold"
@@ -1847,6 +1929,11 @@ $list_sort_customer = [
 
         function displayContact() {
             var element = document.querySelector('.contact')
+            element.style.display = element.style.display === 'none' ? 'block' : 'none'
+        }
+
+        function displayEditHome(){
+            var element = document.querySelector('.edit-home')
             element.style.display = element.style.display === 'none' ? 'block' : 'none'
         }
 
