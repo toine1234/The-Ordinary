@@ -12,6 +12,8 @@ use App\Models\Order;
 use App\Models\Feedback;
 use App\Core\EmailHandle;
 use App\Models\Home;
+use Cloudinary\Api\Upload\UploadApi;
+use App\Models\Category;
 class AdminController
 {
     public function index()
@@ -36,44 +38,88 @@ class AdminController
         $currentMonthlyData = Revenue::RevenueByMonth();
         $leastproduct = Revenue::LeastProduct();
         $total_quantity = Revenue::TotalQuantity();
-        
+
 
         $store = Store::getAllStore();
         require_once __DIR__ . '/../Views/admin.php';
 
     }
 
-    public function getHome(){
+    public function getHome()
+    {
         $dataHome = Home::getDataHome();
         header('Content-Type: application/json');
         echo json_encode(value: $dataHome);
     }
 
-    public function getStocks(){
+    public function updateHome()
+    {
+
+        if (isset($_FILES['banner']) && $_FILES['banner']['error'] == 0) {
+            $tmp_name = $_FILES['banner']['tmp_name'];
+            $result = (new UploadApi())->upload($tmp_name, ['folder' => 'product_gallery']);
+
+
+            $finalImage = $result['secure_url'];
+        } else {
+            $finalImage = $_POST['banner_old'];
+        }
+
+        $slider= $_POST['slider'];
+        $finalSlider  = implode(";",$slider);
+
+        $data = [
+            "slider" => $finalSlider,
+            "banner" => $finalImage,
+            "heading" => $_POST['heading'],
+            "caption" => $_POST['caption']
+        ];
+
+        Home::update($data);
+        session_start();
+        $_SESSION['flash'] = [
+            'type' => 'success', // success, danger, warning, info
+            'message' => 'Update is success'
+        ];
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
+    public function getCategory(){
+        $dataCategory = Category::getCategory();
+        header('Content-Type: application/json');
+        echo json_encode(value: $dataCategory);
+    }
+
+
+    public function getStocks()
+    {
         $stocks = Store::getAllStore();
         header('Content-Type: application/json');
         echo json_encode($stocks);
     }
 
-    public function getProducts(){
+    public function getProducts()
+    {
         $page = $_POST['navigation'];
         $products = Product::getAllProductLimit($page)['result'];
         $total_page = Product::getAllProductLimit($page)['total_page'];
-        
+
         header('Content-Type: application/json');
-        echo json_encode([$products,$total_page]);
+        echo json_encode([$products, $total_page]);
     }
 
-    public function getOrders(){
+    public function getOrders()
+    {
         $page = $_POST['navigation'];
         $orders = Order::getAllOrder($page)['result'];
         $total_page = Order::getAllOrder($page)['total_page'];
-        
+
         header('Content-Type: application/json');
-        echo json_encode([$orders,$total_page]);
+        echo json_encode([$orders, $total_page]);
     }
 
-    public function getDetailOrder(){
+    public function getDetailOrder()
+    {
         $id = $_POST['id'];
         $order = Order::getDetailOrderById($id);
 
@@ -81,7 +127,8 @@ class AdminController
         echo json_encode($order);
     }
 
-    public function searchOrder(){
+    public function searchOrder()
+    {
         $id = $_POST['id'];
         $result = Order::SearchOrder($id);
 
@@ -90,7 +137,8 @@ class AdminController
 
     }
 
-    public function getOrderFilter(){
+    public function getOrderFilter()
+    {
         $status = $_POST['status'];
         $result = Order::FilterStatus($status);
 
@@ -98,46 +146,51 @@ class AdminController
         echo json_encode($result);
     }
 
-    public function getUsers(){
+    public function getUsers()
+    {
         $page = $_POST['navigation'];
         $data = Users::getAllUsers($page)['result'];
         $total_page = Users::getAllUsers($page)['total_page'];
 
         header('Content-Type: application/json');
-        echo json_encode([$data,$total_page]);
+        echo json_encode([$data, $total_page]);
     }
 
-    public function searchCustomer(){
+    public function searchCustomer()
+    {
         $keyword = $_POST['keyword'];
-        $data = Users::SearchUser($keyword,1)['result'];
-        $total_page = Users::SearchUser($keyword,1)['total_page'];
+        $data = Users::SearchUser($keyword, 1)['result'];
+        $total_page = Users::SearchUser($keyword, 1)['total_page'];
 
         header('Content-Type: application/json');
-        echo json_encode([$data,$total_page]);
+        echo json_encode([$data, $total_page]);
 
     }
 
-    public function sortCustomer(){
+    public function sortCustomer()
+    {
         $sort = $_POST['sort'];
-        $data = Users::sortUser($sort,1)['result'];
-        $total_page = Users::sortUser($sort,1)['total_page'];
+        $data = Users::sortUser($sort, 1)['result'];
+        $total_page = Users::sortUser($sort, 1)['total_page'];
 
         header('Content-Type: application/json');
-        echo json_encode([$data,$total_page]);
+        echo json_encode([$data, $total_page]);
     }
 
-    public function filterCustomer(){
+    public function filterCustomer()
+    {
         $gender = $_POST['gender'];
         $status = $_POST['status'];
 
-        $data = Users::filterUser($gender,$status,1)['result'];
-        $total_page = Users::filterUser($gender,$status,1)['total_page'];
+        $data = Users::filterUser($gender, $status, 1)['result'];
+        $total_page = Users::filterUser($gender, $status, 1)['total_page'];
 
-         header('Content-Type: application/json');
-        echo json_encode([$data,$total_page]);
+        header('Content-Type: application/json');
+        echo json_encode([$data, $total_page]);
     }
 
-    public function getCustomerDetail(){
+    public function getCustomerDetail()
+    {
         $id = $_POST['id'];
 
         $data = Users::getDetailUser($id);
@@ -165,7 +218,7 @@ class AdminController
                 $newQuantityStore = Store::getQuantityById($data['id'])['SL'] - $data['quantity'];
                 Store::updateQuantity($data['id'], $newQuantityStore);
                 Product::Update($data);
-                header('Location:'.$_SERVER['HTTP_REFERER']);
+                header('Location:' . $_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -202,7 +255,7 @@ class AdminController
 
             try {
                 Product::Create($data);
-                header('Location: '.$_SERVER['HTTP_REFERER']);
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -220,13 +273,13 @@ class AdminController
         }
 
         if (isset($_POST['delete']) && $_POST['delete'] === 'delete') {
-            
+
             $id = $_POST['id_product'];
 
             try {
                 Cart::deleteByIdProduct($id);
                 Product::delete($id);
-                header('Location: '.$_SERVER['HTTP_REFERER']);
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -250,8 +303,8 @@ class AdminController
         if (isset($_POST['update'])) {
             try {
 
-                Order::UpdateStatus($_POST['id_order'],$_POST['update']);
-                header('Location: ' .$_SERVER['HTTP_REFERER']);
+                Order::UpdateStatus($_POST['id_order'], $_POST['update']);
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info
@@ -271,7 +324,7 @@ class AdminController
         if (isset($_POST['delete']) && $_POST['delete'] === 'delete') {
             try {
                 Order::delete($_POST['id_order']);
-                header('Location: '.$_SERVER['HTTP_REFERER']);
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'success', // success, danger, warning, info

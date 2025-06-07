@@ -186,7 +186,7 @@ $list_sort_customer = [
             </nav>
 
             <div class="px-4 mt-auto pb-5">
-                <div class="flex items-center space-x-3 mt-20">
+                <div class="flex items-center space-x-3 mt-15">
                     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij48Y2lyY2xlIGN4PSIxMjgiIGN5PSIxMjgiIHI9IjEyMCIgZmlsbD0iI2U2ZTZlNiIvPjxjaXJjbGUgY3g9IjEyOCIgY3k9IjExNSIgcj0iMzUiIGZpbGw9IiM5OTkiLz48cGF0aCBkPSJNMTg4LDIwNGEzMCwzMCwwLDAsMC0uODItNyw2MCw2MCwwLDAsMC01OS4xOC00M2gtLjE4YTYwLjA5LDYwLjA5LDAsMCwwLTU5LDQzLDMwLDMwLDAsMCwwLS44Miw3WiIgZmlsbD0iIzk5OSIvPjwvc3ZnPg=="
                         alt="Admin" class="w-10 h-10 rounded-full">
                     <div>
@@ -239,6 +239,9 @@ $list_sort_customer = [
             <main class="flex-1 overflow-y-auto p-4 bg-gray-50">
 
                 <!-- Dashboard Section -->
+                <!-- Dashboard Section -->
+                <!-- Dashboard Section -->
+
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'dashboards'): ?>
                     <div id="dashboard-section" class="space-y-6">
                         <!-- Stats Cards -->
@@ -539,6 +542,9 @@ $list_sort_customer = [
                 <?php endif; ?>
 
                 <!-- Home Section -->
+                <!-- Home Section -->
+                <!-- Home Section -->
+
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'home'): ?>
                     <div id="home-section" class="space-y-6">
                         <div class="edit-btn flex justify-between items-center">
@@ -566,7 +572,7 @@ $list_sort_customer = [
                         <div class="p-2 ring-1 ring-gray-200 rounded-sm ">
                             <span class="text-blue-500 font-bold">Slider</span>
                             ${data.slider.split(";").map(item => {
-                                return `<input name="slider" value="${item}" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">`
+                                return `<input name="slider[]" value="${item}" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">`
                             }).join("")}
 
                         </div>
@@ -1210,8 +1216,11 @@ $list_sort_customer = [
                         </div>
                     </div>
                 <?php endif; ?>
-
+                
                 <!-- Customers Section -->
+                <!-- Customers Section -->
+                <!-- Customers Section -->
+
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'users'): ?>
                     <div id="customers-section" class="space-y-6">
                         <div class="flex justify-between items-center">
@@ -1544,7 +1553,86 @@ $list_sort_customer = [
                     </div>
                 <?php endif; ?>
 
+                <!-- Category Section -->
+                <!-- Category Section -->
+                <!-- Category Section -->
+
+                <?php if(isset($_GET['page']) && $_GET['page'] === 'category'):?>
+                    <div id="category-section" class="space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-semibold text-gray-800">Category Management</h2>
+                            <div class="flex space-x-2">
+                                <button class="bg-purple-500 text-white px-4 py-2 rounded-md">
+                                    <i class="fas fa-plus mr-2"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="overflow-x-auto">
+                                <table class="table-category min-w-full divide-y divide-gray-200">
+                                
+                                </table>
+                            </div>
+                        </div>
+
+                        <script>
+                            function renderDataTableCategory(data){
+                                const parent = document.querySelector('.table-category')
+                                parent.innerHTML = ""
+                                parent.innerHTML =`<thead>
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            ID
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Category
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Date
+                                        </th>
+                                    </tr>
+                                </thead>`
+                                var tr = ""
+                                console.log(data)
+                                data.forEach((item)=>{
+                                    tr += `<tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            #${item.ID_Danh_Muc}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            ${item.Danh_Muc}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            ${item.Ngay_Tao}
+                                        </td>
+                                    </tr>`
+                                })
+
+                                var tbody = document.createElement('tbody')
+                                tbody.classList.add('bg-white', 'divide-y', 'divide-gray-200')
+                                tbody.innerHTML = tr
+                                parent.appendChild(tbody)
+                            }
+
+                            function getDataCategory(){
+                                fetch("/The-Ordinary/admin/category",{
+                                    method: "GET",
+                                    headers:{
+                                        "Content-Type": "application/x-www-form-urlencoded"
+                                    }
+                                })
+                                .then((res => res.json()))
+                                .then(data => renderDataTableCategory(data))
+                            }
+
+                            getDataCategory()
+                        </script>
+                    </div>
+                <?php endif; ?>
                 <!-- Revenue Section -->
+                <!-- Revenue Section -->
+                <!-- Revenue Section -->
+
                 <?php if (isset($_GET['page']) && $_GET['page'] === 'revenue'): ?>
                     <div id="revenue-section" class="space-y-6">
                         <div class="flex justify-between items-center">
@@ -1933,8 +2021,8 @@ $list_sort_customer = [
         }
 
         function displayEditHome(){
-            var element = document.querySelector('.edit-home')
-            element.style.display = element.style.display === 'none' ? 'block' : 'none'
+            var element = document.querySelector('.edit-home').remove()
+           
         }
 
         function loading() {
