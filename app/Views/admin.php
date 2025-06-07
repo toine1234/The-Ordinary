@@ -96,7 +96,7 @@ $list_sort_customer = [
 
 <body>
     <?php if (isset($_SESSION['flash'])): ?>
-        <div id="toast-success"
+        <div id="toast"
             class="fixed z-999 left-[50%] translate-x-[-30%] top-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm <?= $_SESSION['flash']['type'] ?> "
             role="alert">
             <div
@@ -109,7 +109,7 @@ $list_sort_customer = [
                 <span class="sr-only">Check icon</span>
             </div>
             <div class="ms-3 text-sm font-normal"><?= $_SESSION['flash']['message'] ?></div>
-            <button type="button"
+            <button onclick="closeAlert()" type="button"
                 class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
                 data-dismiss-target="#toast-success" aria-label="Close">
                 <span class="sr-only">Close</span>
@@ -118,6 +118,12 @@ $list_sort_customer = [
                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                 </svg>
             </button>
+            <script>
+                function closeAlert(){
+                const toast = document.querySelector('#toast')
+                toast.style.display = 'none'
+            }
+            </script>
         </div>
         <?php unset($_SESSION['flash']); ?>
     <?php endif; ?>
@@ -569,13 +575,16 @@ $list_sort_customer = [
                             child.innerHTML = `<div class="container relative overflow-y-scroll p-6 w-100 bg-white rounded-xl">
                     <form action="/The-Ordinary/admin/home" method="post" enctype="multipart/form-data"
                         class="w-full relative" onsubmit="return confirmUpdateSubmit()">
-                        <div class="p-2 ring-1 ring-gray-200 rounded-sm ">
-                            <span class="text-blue-500 font-bold">Slider</span>
-                            ${data.slider.split(";").map(item => {
-                                return `<input name="slider[]" value="${item}" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">`
-                            }).join("")}
-
+                        <div class="p-2 ring-1 ring-gray-200 rounded-sm">
+                            <div class="sliders">
+                                <span class="text-blue-500 font-bold">Slider</span>
+                                ${data.slider.split(";").map(item => {
+                                    return `<input name="slider[]" value="${item}" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">`
+                                }).join("")}
+                            </div>
+                            <button type="button" onclick="AddInputSlider()" class="w-full p-2 bg-gray-300 text-gray-500 font-bold mt-2 rounded-sm"><i class="fas fa-plus"></i> Add</button>
                         </div>
+                        
                         <div class="mt-4 p-2 ring-1 ring-gray-200 rounded-sm ">
                             <span class="text-blue-500 font-bold">Hero</span>
                             <input type="hidden" name="banner_old" value="${data.banner}">
@@ -590,6 +599,14 @@ $list_sort_customer = [
                     </form>
                 </div>`
                 main.appendChild(child)
+                        }
+
+                        function AddInputSlider(){
+                            var sliders = document.querySelector('.sliders')
+                            var input = document.createElement('input')
+                            input.name = 'slider[]'
+                            input.classList.add("mt-1", "w-full", "p-2", "ring-1", "ring-gray-200", "rounded-sm")
+                            sliders.appendChild(input)
                         }
 
                         function getDataHome() {
@@ -863,7 +880,6 @@ $list_sort_customer = [
                                        
 
                                         <div class="Album">
-                                            <span>Album</span>
                                             <div class="dropzone" id="dropzone">
                                                 <p>Drag drop image in here</p>
                                             </div>
@@ -1562,7 +1578,7 @@ $list_sort_customer = [
                         <div class="flex justify-between items-center">
                             <h2 class="text-xl font-semibold text-gray-800">Category Management</h2>
                             <div class="flex space-x-2">
-                                <button class="bg-purple-500 text-white px-4 py-2 rounded-md">
+                                <button onclick="displayCreateCategory()" class="bg-purple-500 text-white px-4 py-2 rounded-md">
                                     <i class="fas fa-plus mr-2"></i> Add
                                 </button>
                             </div>
@@ -1590,6 +1606,9 @@ $list_sort_customer = [
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Date
                                         </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            OPERATION
+                                        </th>
                                     </tr>
                                 </thead>`
                                 var tr = ""
@@ -1605,6 +1624,12 @@ $list_sort_customer = [
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             ${item.Ngay_Tao}
                                         </td>
+                                        <td class="px-6 flex justify-left py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <button onclick="getDataProductById(${item.ID_Danh_Muc})" class="text-blue-600 hover:text-blue-900 mr-3"><i
+                                                        class="fas fa-edit"></i></button>
+                                                <button onclick="deleteProduct(${item.ID_Danh_Muc})" class="cursor-pointer text-red-600 hover:text-red-900"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </td>
                                     </tr>`
                                 })
 
@@ -1629,6 +1654,90 @@ $list_sort_customer = [
                         </script>
                     </div>
                 <?php endif; ?>
+
+
+                <?php if(isset($_GET['page']) && $_GET['page'] === 'voucher'):?>
+                    <div id="category-section" class="space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-semibold text-gray-800">Vouchers Management</h2>
+                            <div class="flex space-x-2">
+                                <button onclick="displayCreateCategory()" class="bg-purple-500 text-white px-4 py-2 rounded-md">
+                                    <i class="fas fa-plus mr-2"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="overflow-x-auto">
+                                <table class="table-category min-w-full divide-y divide-gray-200">
+                                
+                                </table>
+                            </div>
+                        </div>
+
+                        <script>
+                            function renderDataTableCategory(data){
+                                const parent = document.querySelector('.table-category')
+                                parent.innerHTML = ""
+                                parent.innerHTML =`<thead>
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            ID
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Category
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Date
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            OPERATION
+                                        </th>
+                                    </tr>
+                                </thead>`
+                                var tr = ""
+                                console.log(data)
+                                data.forEach((item)=>{
+                                    tr += `<tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            #${item.ID_Danh_Muc}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            ${item.Danh_Muc}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            ${item.Ngay_Tao}
+                                        </td>
+                                        <td class="px-6 flex justify-left py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <button onclick="getDataProductById(${item.ID_Danh_Muc})" class="text-blue-600 hover:text-blue-900 mr-3"><i
+                                                        class="fas fa-edit"></i></button>
+                                                <button onclick="deleteProduct(${item.ID_Danh_Muc})" class="cursor-pointer text-red-600 hover:text-red-900"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </td>
+                                    </tr>`
+                                })
+
+                                var tbody = document.createElement('tbody')
+                                tbody.classList.add('bg-white', 'divide-y', 'divide-gray-200')
+                                tbody.innerHTML = tr
+                                parent.appendChild(tbody)
+                            }
+
+                            function getDataCategory(){
+                                fetch("/The-Ordinary/admin/category",{
+                                    method: "GET",
+                                    headers:{
+                                        "Content-Type": "application/x-www-form-urlencoded"
+                                    }
+                                })
+                                .then((res => res.json()))
+                                .then(data => renderDataTableCategory(data))
+                            }
+
+                            
+                        </script>
+                    </div>
+                <?php endif; ?>
+
                 <!-- Revenue Section -->
                 <!-- Revenue Section -->
                 <!-- Revenue Section -->
@@ -1945,6 +2054,18 @@ $list_sort_customer = [
                     </form>
                 </div>
             </div>
+            <div style="display:none"
+                class="create-category fixed flex items-center justify-center top-0 z-999 w-[84%] h-full bg-black/20">
+                <div class="container relative overflow-y-scroll p-6 w-100 bg-white rounded-xl">
+                    <form action="/The-Ordinary/admin/product" method="post" enctype="multipart/form-data"
+                        class="w-full relative" onsubmit="return confirmCreatSubmit()">
+
+                        <input placeholder="category name" name="Danh_Muc" class="p-2 w-full ring-1 ring-gray-200 rounded-sm">
+                        <button class="bg-purple-500 w-full rounded-sm p-2 text-white font-bold mt-2">Create</button>
+                        <button type="button" onclick="displayCreateCategory()" class="bg-blue-500 w-full rounded-sm p-2 text-white font-bold mt-2">Back</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -2025,9 +2146,16 @@ $list_sort_customer = [
            
         }
 
+        function displayCreateCategory(){
+            var element = document.querySelector('.create-category')
+            element.style.display = element.style.display === 'none' ? 'flex' : 'none'
+        }
+
         function loading() {
             document.querySelector('.send').innerHTML = `<span class="loader"></span>`
         }
+
+        
 
         function exportDataCustomer() {
 

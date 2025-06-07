@@ -29,7 +29,7 @@
 
 <?php 
 header('Content-Type: text/html; charset=UTF-8');
-$slider = explode(";",isset($dataHome['slider']) ? $dataHome['slider'] :"");
+$slider = explode(";",isset($dataHome['slider']) ? $dataHome['slider'] :$_SESSION['slider']);
 ?>
 <body>
     <?php if (!isset($_COOKIE['accessToken'])): ?>
