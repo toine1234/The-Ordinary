@@ -30,9 +30,13 @@
             *By checking the above box you are agreeing to receive email communications from DECIEM Inc., its affiliates, brands (The Ordinary, NIOD and LOoPHA) and/or marketing partners. This can be changed at any time. Please refer to our <a href="">Privacy Policy</a> and <a href="">Terms of Use</a> for more details or <a href="">Contact Us.</a></p>
             <button type="submit" class="btn-signin">JOIN NOW</button>
             <p class="signup-content-asset">By clicking “Join Now” you agree to the <a href="">Privacy Policy</a> and <a href="">Terms of Use</a>.</p>
-            <?php unset($_SESSION["Validations"]); ?>
         </form>
-
-        
     </div>
+    <script>
+        document.querySelector('.btn-signin').addEventListener('click',function(){
+            this.innerHTML = `<div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>`
+        })
+    </script>
 </div>

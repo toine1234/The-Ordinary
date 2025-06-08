@@ -49,7 +49,7 @@ class ChatboxController{
 
         $systemPrompt = "Bạn là tư vấn viên mỹ phẩm cho cửa hàng. Dựa trên danh sách sản phẩm bên dưới, nếu người dùng hỏi về một sản phẩm, hãy trả lời như sau:
         <br><a href='{url}'>
-            <img height='100' width='100' src='{src}' alt='' />
+            <img style='background-color:rgb(225, 223, 223)' height='100' width='100' src='{src}' alt='' />
         </a>
         <p>{description} Giá: {price}đ.</p>:
         {url} là: http://localhost/The-Ordinary/product?id=ID_San_Pham

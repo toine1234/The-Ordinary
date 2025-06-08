@@ -34,7 +34,7 @@ html{
 :root{
     --white: #fff;
     --greylightnhe: #f8f8f8;
-    --grey: #e5e5e5
+    --grey:rgb(212, 208, 208)
     --greylightnang: #888;
     --black: #000;
     --black-light:#212529;
@@ -4039,6 +4039,7 @@ h3{
     display: inline-block; 
     border-radius: 15px;
     color: var(--black);
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   }
   #input-area {
     display: flex; padding: 10px;
