@@ -3,6 +3,7 @@
     <?php $fullname = explode(" ", $_SESSION['username']); ?>
     <?php $name = end($fullname); ?>
 <?php endif; ?>
+
 <div class="chatbox">
     <div class="chatbox-icon">
         <i class="fa-solid fa-headset"></i>
@@ -14,7 +15,7 @@
         </div>
         <div id="chat-log">
             <div class="message ai">
-                <span><?= isset($name) && $name ? "Hello " . htmlspecialchars($name,ENT_QUOTES,'UTF-8'). ", What do you want to help ?" : "hello, please login" ?></span>
+                <div><?= isset($name) && $name ? "Hello " . htmlspecialchars($name,ENT_QUOTES,'UTF-8'). ", What do you want to help ?" : "hello, please login" ?></div>
             </div>
         </div>
         <form onsubmit="sendMessage(event)" id="input-area">
@@ -44,7 +45,7 @@
     function appendMessage(sender, text) {
       const div = document.createElement("div");
       div.classList.add("message", sender);
-      div.innerHTML = `<span>${text}</span>`;
+      div.innerHTML = `<div>${text}</div>`;
       chatLog.appendChild(div);
       chatLog.scrollTop = chatLog.scrollHeight; // Tự cuộn xuống
     }
@@ -70,7 +71,7 @@
       console.log(data)
 
       // Xóa "Đang trả lời..."
-      const aiMessages = document.querySelectorAll(".ai span");
+      const aiMessages = document.querySelectorAll(".ai div");
       aiMessages[aiMessages.length - 1].remove();
 
       appendMessage("ai", data.reply);

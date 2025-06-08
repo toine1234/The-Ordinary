@@ -150,9 +150,9 @@
                             <form method="post" action="/The-Ordinary/account" class="order-actions">
                                 <input hidden name="id" value="<?= $_GET['id']?>">
                                 <input hidden name="status" value="<?=$orderdetail[0]['Trang_Thai']?>">
-                                <button name="action" value="cancle">Cancle</button>
-                                <button style=<?= $orderdetail[0]['Trang_Thai'] != 'Delivered' ? 'opacity:50%' :"" ?> 
-                                <?= $orderdetail[0]['Trang_Thai'] != 'Delivered' ? 'disabled' :"" ?> name="action" value="refund">Refund</button>
+                                <button onsubmit="return confirmCancle()" style=<?=$orderdetail[0]['Trang_Thai'] != 'pending' ? 'opacity:50%' :"" ?> <?= $orderdetail[0]['Trang_Thai'] != 'pending' ? 'disabled' :"" ?> name="action" value="cancle">Cancle</button>
+                                <button style=<?= $orderdetail[0]['Trang_Thai'] != 'delivered' ? 'opacity:50%' :"" ?> 
+                                <?= $orderdetail[0]['Trang_Thai'] != 'delivered' ? 'disabled' :"" ?> name="action" value="refund">Refund</button>
                             </form>
                         </div>
                          <button onclick="showDetailProduct()" type="button" class="close"><i class="fa-solid fa-xmark"></i></button>
@@ -168,4 +168,9 @@
             </div>
         <?php endif; ?>
     </div>
+    <script>
+        function confirmCancle(){
+            return confirm("Are you sure cancle?")
+        }
+    </script>
 </div>

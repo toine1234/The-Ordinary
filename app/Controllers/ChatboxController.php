@@ -38,7 +38,7 @@ class ChatboxController{
 
         foreach ($matchedProducts as $p) {
             
-                $productText .= "-".$p['Ten_SP'].":".$p['Mo_Ta']."Price:".$p['Gia']."\n";
+                $productText .= "-"."ID_San_Pham:".$p['ID_San_Pham'].$p['Ten_SP'].":".$p['Mo_Ta']."Price:".$p['Gia']."Hinh_Anh:".$p['Hinh_Anh']."\n";
             
         }
 
@@ -47,7 +47,14 @@ class ChatboxController{
         // echo "</pre>";
         
 
-        $systemPrompt = "Bạn là tư vấn viên mỹ phẩm cho cửa hàng. Dưới đây là danh sách sản phẩm phù hợp:\n" . $productText;
+        $systemPrompt = "Bạn là tư vấn viên mỹ phẩm cho cửa hàng. Dựa trên danh sách sản phẩm bên dưới, nếu người dùng hỏi về một sản phẩm, hãy trả lời như sau:
+        <br><a href='{url}'>
+            <img height='100' width='100' src='{src}' alt='' />
+        </a>
+        <p>{description} Giá: {price}đ.</p>:
+        {url} là: http://localhost/The-Ordinary/product?id=ID_San_Pham
+        {src} là: Hinh_Anh\n" . $productText;
+
         // if ($productText === "") {
         // $systemPrompt .= "\n(Hiện không có sản phẩm nào khớp từ khóa, nhưng bạn vẫn có thể tư vấn chung)";
         // }

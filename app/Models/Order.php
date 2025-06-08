@@ -71,7 +71,7 @@ class Order{
     public static function getAllOrderByUser($id){
         $database = new Database();
         $db = $database->getConnection();
-        $query = "SELECT * FROM don_hang WHERE ID_Khach_Hang = ?";
+        $query = "SELECT * FROM don_hang WHERE ID_Khach_Hang = ? ORDER BY ID_Don_Hang DESC";
         $stmt = $db->prepare($query);
         $stmt->execute([$id]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

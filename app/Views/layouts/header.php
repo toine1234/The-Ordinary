@@ -29,6 +29,7 @@
 
 <?php 
 header('Content-Type: text/html; charset=UTF-8');
+unset($_SESSION['chat_history']);
 $slider = explode(";",isset($dataHome['slider']) ? $dataHome['slider'] :$_SESSION['slider']);
 ?>
 <body>

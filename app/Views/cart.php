@@ -55,7 +55,7 @@
                         <p class="cart-product-price">
                             <?= number_format($item['Gia'], 2) . " USD" ?>
                         </p>
-                        <button name="remove" value="remove" class="remove-item-cart">Remove</button>
+                        <button onsubmit="confirmRemove()" name="remove" value="remove" class="remove-item-cart">Remove</button>
                         <p class="cart-product-size">Size: 30ml</p>
                         <div class="cart-product-quantity">
                             <button name="update" value="update" class="btn-cart-quantity" type="submit">-</button>
@@ -107,5 +107,12 @@
             containerCart.style.display = 'none';
 
         });
+
+        function confirmRemove(){
+            if(!confirm('Are you sure delete?')){
+                document.querySelector('.cart-product-item').preventDefault()
+            }
+        
+        }
     </script>
 </div>

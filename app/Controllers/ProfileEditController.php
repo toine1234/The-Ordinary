@@ -51,7 +51,7 @@ class ProfileEditController {
             $_SESSION['flash'] = [
             'type' => 'success', // success, danger, warning, info
             'message' => 'Edit profile is success!'];
-            header('Location: /The-Ordinary/account');
+            header('Location: /The-Ordinary/account?page=account');
             
         }catch( \Exception $e ){
             $_SESSION['flash'] = [

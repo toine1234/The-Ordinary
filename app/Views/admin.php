@@ -841,7 +841,7 @@ $list_sort_customer = [
                                             </div>
                                             <div class="mt-3">
                                                 <span>Quantity</span>
-                                                <input ${data[0].SL == 0 ? '' : 'disabled readonly'} value="${data[0].SL}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
+                                                <input ${data[0].SL == 0 ? '' : 'readonly'} value="${data[0].SL}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Size</span>
@@ -1354,11 +1354,11 @@ $list_sort_customer = [
                                                 <span
                                                     class="px-3 py-1 text-xs rounded-full status-${item.trang_thai}">${item.trang_thai}</span>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <td class="relative px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <button onclick="getDataCustomerByid('${item.ID_Khach_Hang}')" class="text-blue-600 hover:text-blue-900 mr-3">Detail</button>
                                                 <button class="dropdown p-2 text-gray-600 hover:text-gray-900"><i
                                                         class="fas fa-ellipsis-v"></i></button>
-                                                <div class="dropdown-content shadow w-30 bg-gray-50 p-2 right-10 z-99 absolute">
+                                                <div class="dropdown-content shadow w-30 bg-gray-50 p-2 right-7 z-99 absolute">
                                                         <button style=${item.trang_thai != 'Blocked' ? "opacity:50%" : "opacity:100%"} ${item.Trang_Thai != 'Blocked' ? "disabled" : ""} onclick="updateStatus('${item.ID_Khach_Hang}','shipped')" class="w-full text-center font-bold bg-green-200 text-green-400 px-2 rounded-xl">Unlock</button><br>
                                                         <button style=${item.trang_thai != 'Active' ? "opacity:50%" : "opacity:100%"} ${item.trang_thai != 'Active' ? "disabled" : ""} onclick="updateStatus('${item.ID_Khach_Hang}','delivered')" class="w-full mt-2 text-center font-bold bg-rose-200 text-rose-400 px-2 rounded-xl">Block</button>
                                                     </div>
