@@ -17,7 +17,7 @@ class Store{
     public static function updateQuantity($id, $qty){
 
         if ($qty < 0){
-            header('Location: /The-Ordinary/admin?page=Products&view='.$id);
+            header('Location: '. $_SERVER['HTTP_REFERER']);
                 session_start();
                 $_SESSION['flash'] = [
                     'type' => 'warning', // success, danger, warning, info

@@ -52,7 +52,8 @@ class Product
         IFNULL(COUNT(d.rating),0) as reviews
                     FROM san_pham s
                     LEFT JOIN danh_gia d ON d.ID_San_Pham = s.ID_San_Pham
-                    GROUP BY s.ID_San_Pham 
+                    GROUP BY s.ID_San_Pham
+                    ORDER BY s.ID_San_Pham DESC 
                  LIMIT $offset,$limit";
         $stmt = $db->prepare($query);
         $stmt->execute();
@@ -136,7 +137,7 @@ class Product
         $offset = ($page - 1) * $limit;
         $database = new Database();
         $db = $database->getConnection();
-        $sql = "SELECT *,
+        $sql = "SELECT *,s.ID_San_Pham,
         IFNULL(AVG(d.rating),0) as overall, 
         IFNULL(COUNT(d.rating),0) as reviews
                     FROM san_pham s

@@ -57,7 +57,7 @@ class Order{
         unset($stmt);
 
         $total_page = ceil($total[0]["total"]/$limit);
-        $query = "SELECT * FROM don_hang LIMIT $offset,$limit";
+        $query = "SELECT * FROM don_hang ORDER BY ID_Don_Hang DESC LIMIT $offset,$limit ";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);

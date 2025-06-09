@@ -207,7 +207,7 @@ class AdminController
                 "name" => $_POST['name_product'],
                 "description" => $_POST['description_product'],
                 "price" => $_POST['price_product'],
-                "quantity" => isset($_POST['quantity_product']) ? isset($_POST['quantity_product']) : 0,
+                "quantity" => isset($_POST['quantity_product']) ? $_POST['quantity_product'] : 0,
                 "size" => $_POST['size_product'],
                 "targets" => $_POST['targets_product'],
                 "format" => $_POST['format_product'],
@@ -215,8 +215,12 @@ class AdminController
                 "key_ingredients" => $_POST['ingredients_product']
             ];
             try {
-                $newQuantityStore = Store::getQuantityById($data['id'])['SL'] - $data['quantity'];
-                Store::updateQuantity($data['id'], $newQuantityStore);
+                if ($_POST['quantity_product']!= $_POST['quantity_old']){
+                    $newQuantityStore = Store::getQuantityById($data['id'])['SL'] - $data['quantity'];
+                    Store::updateQuantity($data['id'], $newQuantityStore);
+                }
+                // $newQuantityStore = Store::getQuantityById($data['id'])['SL'] - $data['quantity'];
+                // Store::updateQuantity($data['id'], $newQuantityStore);
                 Product::Update($data);
                 header('Location:' . $_SERVER['HTTP_REFERER']);
                 session_start();

@@ -39,7 +39,7 @@ button{
   transition: 0.5s;
 }
 
-.status-delivered, .status-Active {
+.status-delivered, .status-Active, .success {
   background-color: #e6f8f0;
   color: #0abb87;
 }
@@ -54,7 +54,7 @@ button{
   color: #ffa800;
 }
 
-.status-canceled, .status-Blocked {
+.status-canceled, .status-Blocked, .warning {
   background-color: #ffe2e5;
   color: #f64e60;
 }

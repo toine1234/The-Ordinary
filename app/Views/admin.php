@@ -100,7 +100,7 @@ $list_sort_customer = [
             class="fixed z-999 left-[50%] translate-x-[-30%] top-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm <?= $_SESSION['flash']['type'] ?> "
             role="alert">
             <div
-                class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg <?= $_SESSION['flash']['type'] ?>">
+                class="inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-lg <?= $_SESSION['flash']['type'] ?>">
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     viewBox="0 0 20 20">
                     <path
@@ -119,10 +119,10 @@ $list_sort_customer = [
                 </svg>
             </button>
             <script>
-                function closeAlert(){
-                const toast = document.querySelector('#toast')
-                toast.style.display = 'none'
-            }
+                function closeAlert() {
+                    const toast = document.querySelector('#toast')
+                    toast.style.display = 'none'
+                }
             </script>
         </div>
         <?php unset($_SESSION['flash']); ?>
@@ -568,7 +568,7 @@ $list_sort_customer = [
                         </div>
                     </div>
                     <script>
-                        function renderEditHome(data){
+                        function renderEditHome(data) {
                             var main = document.querySelector('.main-content')
                             var child = document.createElement('div')
                             child.classList.add("edit-home", "fixed", "flex", "items-center", "justify-center", "top-0", "z-999", "w-[84%]", "h-full", "bg-black/20")
@@ -579,8 +579,8 @@ $list_sort_customer = [
                             <div class="sliders">
                                 <span class="text-blue-500 font-bold">Slider</span>
                                 ${data.slider.split(";").map(item => {
-                                    return `<input name="slider[]" value="${item}" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">`
-                                }).join("")}
+                            return `<input name="slider[]" value="${item}" class="mt-1 w-full p-2 ring-1 ring-gray-200 rounded-sm">`
+                        }).join("")}
                             </div>
                             <button type="button" onclick="AddInputSlider()" class="w-full p-2 bg-gray-300 text-gray-500 font-bold mt-2 rounded-sm"><i class="fas fa-plus"></i> Add</button>
                         </div>
@@ -598,10 +598,10 @@ $list_sort_customer = [
                         </div>
                     </form>
                 </div>`
-                main.appendChild(child)
+                            main.appendChild(child)
                         }
 
-                        function AddInputSlider(){
+                        function AddInputSlider() {
                             var sliders = document.querySelector('.sliders')
                             var input = document.createElement('input')
                             input.name = 'slider[]'
@@ -616,8 +616,8 @@ $list_sort_customer = [
                                     "Content-Type": "application/x-www-form-urlencoded"
                                 }
                             })
-                            .then(res => res.json())
-                            .then(data => renderEditHome(data))
+                                .then(res => res.json())
+                                .then(data => renderEditHome(data))
                         }
                     </script>
                 <?php endif; ?>
@@ -841,7 +841,8 @@ $list_sort_customer = [
                                             </div>
                                             <div class="mt-3">
                                                 <span>Quantity</span>
-                                                <input ${data[0].SL == 0 ? '' : 'readonly'} value="${data[0].SL}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
+                                                <input hidden value="${data[0].SL}" name="quantity_old">
+                                                <input value="${data[0].SL}" class="rounded-sm w-full mt-2 ring-1 ring-gray-200 p-2" name="quantity_product" type="text">
                                             </div>
                                             <div class="mt-3">
                                                 <span>Size</span>
@@ -897,6 +898,7 @@ $list_sort_customer = [
                                             class="create-btn text-center text-white w-full text-bold" type="submit">Cancle</button>
                                     </div>
                                     </form>
+                                    
                                 </div>`
 
                                     main.appendChild(child)
@@ -915,6 +917,7 @@ $list_sort_customer = [
                                         },
                                         body: new URLSearchParams({ id_product, 'delete': 'delete' })
                                     })
+                                        .then(getDataProducts(1))
                                         .then(getDataProducts(1))
                                 }
 
@@ -946,6 +949,7 @@ $list_sort_customer = [
                                         .then(data => renderUpdateProduct(data))
                                 }
 
+                                
                                 getDataProducts(1)
                             </script>
 
@@ -1232,7 +1236,7 @@ $list_sort_customer = [
                         </div>
                     </div>
                 <?php endif; ?>
-                
+
                 <!-- Customers Section -->
                 <!-- Customers Section -->
                 <!-- Customers Section -->
@@ -1573,12 +1577,13 @@ $list_sort_customer = [
                 <!-- Category Section -->
                 <!-- Category Section -->
 
-                <?php if(isset($_GET['page']) && $_GET['page'] === 'category'):?>
+                <?php if (isset($_GET['page']) && $_GET['page'] === 'category'): ?>
                     <div id="category-section" class="space-y-6">
                         <div class="flex justify-between items-center">
                             <h2 class="text-xl font-semibold text-gray-800">Category Management</h2>
                             <div class="flex space-x-2">
-                                <button onclick="displayCreateCategory()" class="bg-purple-500 text-white px-4 py-2 rounded-md">
+                                <button onclick="displayCreateCategory()"
+                                    class="bg-purple-500 text-white px-4 py-2 rounded-md">
                                     <i class="fas fa-plus mr-2"></i> Add
                                 </button>
                             </div>
@@ -1586,16 +1591,16 @@ $list_sort_customer = [
                         <div class="bg-white p-6 rounded-xl shadow-sm">
                             <div class="overflow-x-auto">
                                 <table class="table-category min-w-full divide-y divide-gray-200">
-                                
+
                                 </table>
                             </div>
                         </div>
 
                         <script>
-                            function renderDataTableCategory(data){
+                            function renderDataTableCategory(data) {
                                 const parent = document.querySelector('.table-category')
                                 parent.innerHTML = ""
-                                parent.innerHTML =`<thead>
+                                parent.innerHTML = `<thead>
                                     <tr>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             ID
@@ -1613,7 +1618,7 @@ $list_sort_customer = [
                                 </thead>`
                                 var tr = ""
                                 console.log(data)
-                                data.forEach((item)=>{
+                                data.forEach((item) => {
                                     tr += `<tr class="table-row">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             #${item.ID_Danh_Muc}
@@ -1639,15 +1644,15 @@ $list_sort_customer = [
                                 parent.appendChild(tbody)
                             }
 
-                            function getDataCategory(){
-                                fetch("/The-Ordinary/admin/category",{
+                            function getDataCategory() {
+                                fetch("/The-Ordinary/admin/category", {
                                     method: "GET",
-                                    headers:{
+                                    headers: {
                                         "Content-Type": "application/x-www-form-urlencoded"
                                     }
                                 })
-                                .then((res => res.json()))
-                                .then(data => renderDataTableCategory(data))
+                                    .then((res => res.json()))
+                                    .then(data => renderDataTableCategory(data))
                             }
 
                             getDataCategory()
@@ -1656,12 +1661,13 @@ $list_sort_customer = [
                 <?php endif; ?>
 
 
-                <?php if(isset($_GET['page']) && $_GET['page'] === 'voucher'):?>
+                <?php if (isset($_GET['page']) && $_GET['page'] === 'voucher'): ?>
                     <div id="category-section" class="space-y-6">
                         <div class="flex justify-between items-center">
                             <h2 class="text-xl font-semibold text-gray-800">Vouchers Management</h2>
                             <div class="flex space-x-2">
-                                <button onclick="displayCreateCategory()" class="bg-purple-500 text-white px-4 py-2 rounded-md">
+                                <button onclick="displayCreateCategory()"
+                                    class="bg-purple-500 text-white px-4 py-2 rounded-md">
                                     <i class="fas fa-plus mr-2"></i> Add
                                 </button>
                             </div>
@@ -1669,16 +1675,16 @@ $list_sort_customer = [
                         <div class="bg-white p-6 rounded-xl shadow-sm">
                             <div class="overflow-x-auto">
                                 <table class="table-category min-w-full divide-y divide-gray-200">
-                                
+
                                 </table>
                             </div>
                         </div>
 
                         <script>
-                            function renderDataTableCategory(data){
+                            function renderDataTableCategory(data) {
                                 const parent = document.querySelector('.table-category')
                                 parent.innerHTML = ""
-                                parent.innerHTML =`<thead>
+                                parent.innerHTML = `<thead>
                                     <tr>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             ID
@@ -1696,7 +1702,7 @@ $list_sort_customer = [
                                 </thead>`
                                 var tr = ""
                                 console.log(data)
-                                data.forEach((item)=>{
+                                data.forEach((item) => {
                                     tr += `<tr class="table-row">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             #${item.ID_Danh_Muc}
@@ -1722,18 +1728,18 @@ $list_sort_customer = [
                                 parent.appendChild(tbody)
                             }
 
-                            function getDataCategory(){
-                                fetch("/The-Ordinary/admin/category",{
+                            function getDataCategory() {
+                                fetch("/The-Ordinary/admin/category", {
                                     method: "GET",
-                                    headers:{
+                                    headers: {
                                         "Content-Type": "application/x-www-form-urlencoded"
                                     }
                                 })
-                                .then((res => res.json()))
-                                .then(data => renderDataTableCategory(data))
+                                    .then((res => res.json()))
+                                    .then(data => renderDataTableCategory(data))
                             }
 
-                            
+
                         </script>
                     </div>
                 <?php endif; ?>
@@ -2060,9 +2066,11 @@ $list_sort_customer = [
                     <form action="/The-Ordinary/admin/product" method="post" enctype="multipart/form-data"
                         class="w-full relative" onsubmit="return confirmCreatSubmit()">
 
-                        <input placeholder="category name" name="Danh_Muc" class="p-2 w-full ring-1 ring-gray-200 rounded-sm">
+                        <input placeholder="category name" name="Danh_Muc"
+                            class="p-2 w-full ring-1 ring-gray-200 rounded-sm">
                         <button class="bg-purple-500 w-full rounded-sm p-2 text-white font-bold mt-2">Create</button>
-                        <button type="button" onclick="displayCreateCategory()" class="bg-blue-500 w-full rounded-sm p-2 text-white font-bold mt-2">Back</button>
+                        <button type="button" onclick="displayCreateCategory()"
+                            class="bg-blue-500 w-full rounded-sm p-2 text-white font-bold mt-2">Back</button>
                     </form>
                 </div>
             </div>
@@ -2141,12 +2149,12 @@ $list_sort_customer = [
             element.style.display = element.style.display === 'none' ? 'block' : 'none'
         }
 
-        function displayEditHome(){
+        function displayEditHome() {
             var element = document.querySelector('.edit-home').remove()
-           
+
         }
 
-        function displayCreateCategory(){
+        function displayCreateCategory() {
             var element = document.querySelector('.create-category')
             element.style.display = element.style.display === 'none' ? 'flex' : 'none'
         }
@@ -2155,7 +2163,7 @@ $list_sort_customer = [
             document.querySelector('.send').innerHTML = `<span class="loader"></span>`
         }
 
-        
+
 
         function exportDataCustomer() {
 

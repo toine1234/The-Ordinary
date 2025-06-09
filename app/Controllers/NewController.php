@@ -6,7 +6,7 @@ use App\Models\Product;
 
 class NewController {
     public function index() {
-        
+        session_start();
 
         require 'app/Views/layouts/header.php';
         require 'app/Views/new.php';
